@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Switch,
+  ScrollViewBase,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
@@ -15,7 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { removeAuth } from "../../redux/reducers/authReducer";
 
-const Account = ({navigation}) => {
+const Account = ({ navigation }) => {
   //Switch nightMode and Clock
   const [isEnabledNightMode, setIsEnabledNightMode] = useState(false);
   const [isEnabledClock, setIsEnabledClock] = useState(false);
@@ -46,7 +47,7 @@ const Account = ({navigation}) => {
 
 
   useEffect(() => {
-    
+
 
     getEmailFromStorage();
   }, []);
@@ -54,11 +55,11 @@ const Account = ({navigation}) => {
 
   const getEmailFromStorage = async () => {
     try {
-      const user = await AsyncStorage.getItem('auth');      
+      const user = await AsyncStorage.getItem('auth');
       const parsedUser = JSON.parse(user); //parse string to object
 
       if (parsedUser) {
-        setUser(parsedUser);        
+        setUser(parsedUser);
       }
     } catch (error) {
       console.error('Failed to retrieve email from AsyncStorage:', error);
@@ -66,7 +67,7 @@ const Account = ({navigation}) => {
   };
 
   //logout
-  const handleLogout = async () =>{
+  const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('auth');
       dispatch(removeAuth());
@@ -77,6 +78,7 @@ const Account = ({navigation}) => {
 
   return (
     <PaperProvider style={{ flex: 1 }}>
+
       <Appbar.Header elevated="true" style={{ backgroundColor: "white" }}>
         <View
           style={{
@@ -94,471 +96,472 @@ const Account = ({navigation}) => {
           <Appbar.Action icon="bell" size={30} />
         </TouchableOpacity>
       </Appbar.Header>
-
-      <View style={{ flex: 1, backgroundColor: "white" }}>
-        {/* Info User */}
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity
+      <ScrollView>
+        <View style={{ flex: 1, backgroundColor: "white" }}>
+          {/* Info User */}
+          <View
             style={{
-              width: "100%",
-              height: 120,
+              flex: 1,
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            <View style={styles.boxInfoUser}>
-              <View
-                style={{
-                  flex: 2,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Ionicons
-                  name="person-circle-outline"
-                  size={45}
-                  color="black"
-                />
+            <TouchableOpacity
+              style={{
+                width: "100%",
+                height: 120,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View style={styles.boxInfoUser}>
+                <View
+                  style={{
+                    flex: 2,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons
+                    name="person-circle-outline"
+                    size={45}
+                    color="black"
+                  />
+                </View>
+                <View
+                  style={{
+                    flex: 6.7,
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={styles.name}>{user.fullname}</Text>
+                  <Text style={styles.email}>{user.email}</Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1.3,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons
+                    name="chevron-forward-outline"
+                    size={25}
+                    color="black"
+                  />
+                </View>
               </View>
-              <View
-                style={{
-                  flex: 6.7,
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={styles.name}>{user.fullname}</Text>
-                <Text style={styles.email}>{user.email}</Text>
-              </View>
-              <View
-                style={{
-                  flex: 1.3,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={25}
-                  color="black"
-                />
-              </View>
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        {/* Setting */}
-        <View
-          style={{
-            width: "100%",
-            height: 310,
-          }}
-        >
-          <View
-            style={{
-              flex: 1.5,
-              justifyContent: "center",
-            }}
-          >
-            <Text style={{ fontSize: 16, fontWeight: "bold", marginLeft: 12 }}>
-              Cài đặt
-            </Text>
+            </TouchableOpacity>
           </View>
 
+          {/* Setting */}
           <View
             style={{
-              flex: 8.5,
-              backgroundColor: "white",
-              borderBottomWidth: 1,
-              borderColor: "#D0D0D0",
+              width: "100%",
+              height: 310,
             }}
           >
-            {/* ngon ngu me de */}
-            <TouchableOpacity
-              style={{
-                width: "100%",
-                height: 55,
-                flexDirection: "row",
-              }}
-            >
-              <View
-                style={{
-                  flex: 1.5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  source={require("../../img/imgTab/songNgu.png")}
-                  style={{ width: 45, height: 45, resizeMode: "contain" }}
-                />
-              </View>
-              <View
-                style={{
-                  flex: 7,
-
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={{ fontSize: 17, marginLeft: 5 }}>
-                  Ngôn ngữ mẹ đẻ
-                </Text>
-              </View>
-              <View
-                style={{
-                  flex: 1.5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={25}
-                  color="black"
-                />
-              </View>
-            </TouchableOpacity>
-
-            {/* ngon ngu hien thi */}
-            <TouchableOpacity
-              style={{
-                width: "100%",
-                height: 55,
-
-                flexDirection: "row",
-              }}
-            >
-              <View
-                style={{
-                  flex: 1.5,
-
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  source={require("../../img/imgTab/languageShow.png")}
-                  style={{ width: 45, height: 45, resizeMode: "contain" }}
-                />
-              </View>
-              <View
-                style={{
-                  flex: 7,
-
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={{ fontSize: 17, marginLeft: 5 }}>
-                  Ngôn ngữ hiển thị
-                </Text>
-              </View>
-              <View
-                style={{
-                  flex: 1.5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={25}
-                  color="black"
-                />
-              </View>
-            </TouchableOpacity>
-
-            {/* che do ban dem */}
             <View
               style={{
-                width: "100%",
-                height: 55,
-
-                flexDirection: "row",
+                flex: 1.5,
+                justifyContent: "center",
               }}
             >
-              <View
-                style={{
-                  flex: 1.5,
-
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  source={require("../../img/imgTab/nightMode.png")}
-                  style={{ width: 45, height: 45, resizeMode: "contain" }}
-                />
-              </View>
-              <View
-                style={{
-                  flex: 7,
-
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={{ fontSize: 17, marginLeft: 5 }}>
-                  Chế độ ban đêm
-                </Text>
-              </View>
-              <View
-                style={{
-                  flex: 1.5,
-                  justifyContent: "center",
-                }}
-              >
-                <Switch
-                  trackColor={{ false: "#767577", true: "#81b0ff" }}
-                  onValueChange={toggleSwitchNightMode}
-                  value={isEnabledNightMode}
-                  style={{ width: 35, height: 25, marginLeft: 6 }}
-                />
-              </View>
+              <Text style={{ fontSize: 16, fontWeight: "bold", marginLeft: 12 }}>
+                Cài đặt
+              </Text>
             </View>
 
-            {/* nhac nho hoc */}
             <View
               style={{
-                width: "100%",
-                height: 55,
-
-                flexDirection: "row",
+                flex: 8.5,
+                backgroundColor: "white",
+                borderBottomWidth: 1,
+                borderColor: "#D0D0D0",
               }}
             >
-              <View
+              {/* ngon ngu me de */}
+              <TouchableOpacity
                 style={{
-                  flex: 1.5,
-
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  source={require("../../img/imgTab/clock.png")}
-                  style={{ width: 40, height: 40, resizeMode: "contain" }}
-                />
-              </View>
-              <View
-                style={{
-                  flex: 7,
-
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={{ fontSize: 17, marginLeft: 5 }}>
-                  Nhắc nhở học
-                </Text>
-              </View>
-              <View
-                style={{
-                  flex: 1.5,
-                  justifyContent: "center",
-                }}
-              >
-                <Switch
-                  trackColor={{ false: "#767577", true: "#81b0ff" }}
-                  onValueChange={toggleSwitchClock}
-                  value={isEnabledClock}
-                  style={{ width: 35, height: 25, marginLeft: 6 }}
-                />
-              </View>
-            </View>
-
-            {/* thoi gian */}
-            <View
-              style={{
-                width: "100%",
-                height: 35,
-                flexDirection: "row",
-              }}
-            >
-              <View
-                style={{
-                  flex: 1.5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              ></View>
-              <View
-                style={{
-                  flex: 7,
+                  width: "100%",
+                  height: 55,
                   flexDirection: "row",
                 }}
               >
                 <View
                   style={{
+                    flex: 1.5,
                     justifyContent: "center",
-                    flex: 7,
+                    alignItems: "center",
                   }}
                 >
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      marginLeft: 5,
-                    }}
-                  >
-                    Thời gian
+                  <Image
+                    source={require("../../img/imgTab/songNgu.png")}
+                    style={{ width: 45, height: 45, resizeMode: "contain" }}
+                  />
+                </View>
+                <View
+                  style={{
+                    flex: 7,
+
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 17, marginLeft: 5 }}>
+                    Ngôn ngữ mẹ đẻ
                   </Text>
                 </View>
                 <View
                   style={{
+                    flex: 1.5,
                     justifyContent: "center",
-                    alignItems: "flex-end",
-                    flex: 3,
+                    alignItems: "center",
                   }}
                 >
-                  <TouchableOpacity onPress={showTimePicker}>
-                    <Text style={{ paddingLeft: 12, marginTop: 7 }}>
-                      <DateTimePicker
-                        value={time}
-                        mode="time"
-                        is24Hour={true}
-                        display="default"
-                        onChange={onTimeChange}
-                      />
+                  <Ionicons
+                    name="chevron-forward-outline"
+                    size={25}
+                    color="black"
+                  />
+                </View>
+              </TouchableOpacity>
+
+              {/* ngon ngu hien thi */}
+              <TouchableOpacity
+                style={{
+                  width: "100%",
+                  height: 55,
+
+                  flexDirection: "row",
+                }}
+              >
+                <View
+                  style={{
+                    flex: 1.5,
+
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Image
+                    source={require("../../img/imgTab/languageShow.png")}
+                    style={{ width: 45, height: 45, resizeMode: "contain" }}
+                  />
+                </View>
+                <View
+                  style={{
+                    flex: 7,
+
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 17, marginLeft: 5 }}>
+                    Ngôn ngữ hiển thị
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1.5,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons
+                    name="chevron-forward-outline"
+                    size={25}
+                    color="black"
+                  />
+                </View>
+              </TouchableOpacity>
+
+              {/* che do ban dem */}
+              <View
+                style={{
+                  width: "100%",
+                  height: 55,
+
+                  flexDirection: "row",
+                }}
+              >
+                <View
+                  style={{
+                    flex: 1.5,
+
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Image
+                    source={require("../../img/imgTab/nightMode.png")}
+                    style={{ width: 45, height: 45, resizeMode: "contain" }}
+                  />
+                </View>
+                <View
+                  style={{
+                    flex: 7,
+
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 17, marginLeft: 5 }}>
+                    Chế độ ban đêm
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1.5,
+                    justifyContent: "center",
+                  }}
+                >
+                  <Switch
+                    trackColor={{ false: "#767577", true: "#81b0ff" }}
+                    onValueChange={toggleSwitchNightMode}
+                    value={isEnabledNightMode}
+                    style={{ width: 35, height: 25, marginLeft: 6 }}
+                  />
+                </View>
+              </View>
+
+              {/* nhac nho hoc */}
+              <View
+                style={{
+                  width: "100%",
+                  height: 55,
+
+                  flexDirection: "row",
+                }}
+              >
+                <View
+                  style={{
+                    flex: 1.5,
+
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Image
+                    source={require("../../img/imgTab/clock.png")}
+                    style={{ width: 40, height: 40, resizeMode: "contain" }}
+                  />
+                </View>
+                <View
+                  style={{
+                    flex: 7,
+
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 17, marginLeft: 5 }}>
+                    Nhắc nhở học
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1.5,
+                    justifyContent: "center",
+                  }}
+                >
+                  <Switch
+                    trackColor={{ false: "#767577", true: "#81b0ff" }}
+                    onValueChange={toggleSwitchClock}
+                    value={isEnabledClock}
+                    style={{ width: 35, height: 25, marginLeft: 6 }}
+                  />
+                </View>
+              </View>
+
+              {/* thoi gian */}
+              <View
+                style={{
+                  width: "100%",
+                  height: 35,
+                  flexDirection: "row",
+                }}
+              >
+                <View
+                  style={{
+                    flex: 1.5,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                ></View>
+                <View
+                  style={{
+                    flex: 7,
+                    flexDirection: "row",
+                  }}
+                >
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      flex: 7,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        marginLeft: 5,
+                      }}
+                    >
+                      Thời gian
                     </Text>
-                  </TouchableOpacity>
+                  </View>
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "flex-end",
+                      flex: 3,
+                    }}
+                  >
+                    <TouchableOpacity onPress={showTimePicker}>
+                      <Text style={{ paddingLeft: 12, marginTop: 7 }}>
+                        <DateTimePicker
+                          value={time}
+                          mode="time"
+                          is24Hour={true}
+                          display="default"
+                          onChange={onTimeChange}
+                        />
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </View>
           </View>
-        </View>
 
-        {/* collection */}
-        <View
-          style={{
-            width: "100%",
-            height: 205,
-            marginTop: 10,
-          }}
-        >
+          {/* collection */}
           <View
             style={{
-              flex: 1.5,
-              justifyContent: "center",
+              width: "100%",
+              height: 205,
+              marginTop: 10,
             }}
           >
-            <Text style={{ fontSize: 16, fontWeight: "bold", marginLeft: 12 }}>
-              Bộ sưu tập
-            </Text>
+            <View
+              style={{
+                flex: 1.5,
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ fontSize: 16, fontWeight: "bold", marginLeft: 12 }}>
+                Bộ sưu tập
+              </Text>
+            </View>
+
+            <View style={{ flex: 8.5, backgroundColor: "white", marginTop: 7 }}>
+              {/* yeu thich */}
+              <TouchableOpacity
+                style={{
+                  width: "100%",
+                  height: 55,
+                  flexDirection: "row",
+                }}
+              >
+                <View
+                  style={{
+                    flex: 7.7,
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 17, marginLeft: 15 }}>Yêu thích</Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1.3,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons
+                    name="chevron-forward-outline"
+                    size={25}
+                    color="black"
+                  />
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{
+                  width: "100%",
+                  height: 55,
+                  flexDirection: "row",
+                }}
+              >
+                <View
+                  style={{
+                    flex: 7.7,
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 17, marginLeft: 15 }}>Lịch sử</Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1.3,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons
+                    name="chevron-forward-outline"
+                    size={25}
+                    color="black"
+                  />
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{
+                  width: "100%",
+                  height: 55,
+
+                  flexDirection: "row",
+                }}
+              >
+                <View
+                  style={{
+                    flex: 7.7,
+
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ fontSize: 17, marginLeft: 15 }}>Đã tải</Text>
+                </View>
+                <View
+                  style={{
+                    flex: 1.3,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons
+                    name="chevron-forward-outline"
+                    size={25}
+                    color="black"
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
 
-          <View style={{ flex: 8.5, backgroundColor: "white", marginTop: 7 }}>
-            {/* yeu thich */}
-            <TouchableOpacity
-              style={{
-                width: "100%",
-                height: 55,
-                flexDirection: "row",
-              }}
-            >
-              <View
-                style={{
-                  flex: 7.7,
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={{ fontSize: 17, marginLeft: 15 }}>Yêu thích</Text>
-              </View>
-              <View
-                style={{
-                  flex: 1.3,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={25}
-                  color="black"
-                />
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={{
-                width: "100%",
-                height: 55,
-                flexDirection: "row",
-              }}
-            >
-              <View
-                style={{
-                  flex: 7.7,
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={{ fontSize: 17, marginLeft: 15 }}>Lịch sử</Text>
-              </View>
-              <View
-                style={{
-                  flex: 1.3,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={25}
-                  color="black"
-                />
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={{
-                width: "100%",
-                height: 55,
-
-                flexDirection: "row",
-              }}
-            >
-              <View
-                style={{
-                  flex: 7.7,
-
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={{ fontSize: 17, marginLeft: 15 }}>Đã tải</Text>
-              </View>
-              <View
-                style={{
-                  flex: 1.3,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={25}
-                  color="black"
-                />
-              </View>
+          {/* log out */}
+          <View
+            style={{
+              width: "100%",
+              height: 75,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 10,
+            }}
+          >
+            <TouchableOpacity style={styles.boxLogout}
+              onPress={handleLogout}>
+              <Text style={{ fontSize: 20, fontWeight: "bold" }}>Đăng xuất</Text>
             </TouchableOpacity>
           </View>
         </View>
-
-        {/* log out */}
-        <View
-          style={{
-            width: "100%",
-            height: 75,
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 10,
-          }}
-        >
-          <TouchableOpacity style={styles.boxLogout}
-          onPress={handleLogout}>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>Đăng xuất</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
     </PaperProvider>
   );
 };

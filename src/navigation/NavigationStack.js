@@ -17,6 +17,8 @@ import { Account, Home, ListVocabulary } from "../view/TabScreen";
 import { TinTuc_S1, TinTuc_S2 } from "../view/tinTuc";
 import { TruyenChem_S1, TruyenChem_S2 } from "../view/truyenChem";
 import SplashScreen from "../../splashScreen/SplashScreen";
+import NguPhap_S1 from "../view/nguPhap/NguPhap_S1";
+import NguPhap_S2 from "../view/nguPhap/NguPhap_S2";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -156,6 +158,23 @@ const SongNguNavigation = () => {
   );
 };
 
+const NguPhapNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="NguPhap_S1"
+        component={NguPhap_S1}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="NguPhap_S2"
+        component={NguPhap_S2}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const MainNavigator = () => {
   return (
     <Stack.Navigator>
@@ -180,6 +199,12 @@ const MainNavigator = () => {
       <Stack.Screen
         name="TinTucNavigation"
         component={TinTucNavigation}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="NguPhapNavigation"
+        component={NguPhapNavigation}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
@@ -225,7 +250,7 @@ const NavigationStack = () => {
       ) : (
         <AuthenNavigation />
       )} */}
-      {isShowSplash ? <SplashScreen /> : <MainNavigator />}
+      <MainNavigator />
     </>
   );
 };

@@ -15,15 +15,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { removeAuth } from "../../redux/reducers/authReducer";
 
-const Account = ({navigation}) => {
+const Account = ({ navigation }) => {
   //Switch nightMode and Clock
   const [isEnabledNightMode, setIsEnabledNightMode] = useState(false);
   const [isEnabledClock, setIsEnabledClock] = useState(false);
   const [time, setTime] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState("");
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const toggleSwitchNightMode = () =>
     setIsEnabledNightMode((previousState) => !previousState);
@@ -31,7 +31,6 @@ const Account = ({navigation}) => {
     setIsEnabledClock((previousState) => !previousState);
 
   // date time picker
-
 
   const onTimeChange = (event, selectedTime) => {
     setShowPicker(false);
@@ -44,36 +43,32 @@ const Account = ({navigation}) => {
     setShowPicker(true);
   };
 
-
   useEffect(() => {
-    
-
     getEmailFromStorage();
   }, []);
 
-
   const getEmailFromStorage = async () => {
     try {
-      const user = await AsyncStorage.getItem('auth');      
+      const user = await AsyncStorage.getItem("auth");
       const parsedUser = JSON.parse(user); //parse string to object
 
       if (parsedUser) {
-        setUser(parsedUser);        
+        setUser(parsedUser);
       }
     } catch (error) {
-      console.error('Failed to retrieve email from AsyncStorage:', error);
+      console.error("Failed to retrieve email from AsyncStorage:", error);
     }
   };
 
   //logout
-  const handleLogout = async () =>{
+  const handleLogout = async () => {
     try {
-      await AsyncStorage.removeItem('auth');
+      await AsyncStorage.removeItem("auth");
       dispatch(removeAuth());
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <PaperProvider style={{ flex: 1 }}>
@@ -95,7 +90,7 @@ const Account = ({navigation}) => {
         </TouchableOpacity>
       </Appbar.Header>
 
-      <View style={{ flex: 1, backgroundColor: "white" }}>
+      <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
         {/* Info User */}
         <View
           style={{
@@ -553,12 +548,11 @@ const Account = ({navigation}) => {
             marginTop: 10,
           }}
         >
-          <TouchableOpacity style={styles.boxLogout}
-          onPress={handleLogout}>
+          <TouchableOpacity style={styles.boxLogout} onPress={handleLogout}>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>Đăng xuất</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </PaperProvider>
   );
 };

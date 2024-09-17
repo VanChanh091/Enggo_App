@@ -7,8 +7,8 @@ import {
 } from "react-native";
 import React from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
-import { TagName } from "../../api/apiSongNgu";
 import { Ionicons } from "@expo/vector-icons";
+import { TagName } from "../../api/apiSongNgu";
 
 const SongNgu_S1 = ({ navigation }) => {
   const renderTagName = ({ item }) => (
@@ -40,7 +40,10 @@ const SongNgu_S1 = ({ navigation }) => {
   return (
     <PaperProvider>
       <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
+        <Appbar.BackAction
+          color="white"
+          onPress={() => navigation.navigate("TabNavigationContainer")}
+        />
         <Appbar.Content title="Truyện song ngữ" color="white" />
       </Appbar.Header>
 

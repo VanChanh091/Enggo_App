@@ -21,10 +21,10 @@ const Home = ({ navigation }) => {
       style={{
         width: 90,
         height: 70,
-        marginLeft: 7,
-        marginTop: 10,
         justifyContent: "center",
         alignItems: "center",
+        marginHorizontal: 4,
+        marginVertical: 5,
       }}
     >
       <TouchableOpacity onPress={() => handleNavigation(item.id)}>
@@ -49,7 +49,7 @@ const Home = ({ navigation }) => {
         navigation.navigate("TruyenChemNavigation");
         break;
       case 4:
-        // navigation.navigate("TruyenChem_S1");
+        navigation.navigate("SongNguNavigation");
         break;
       case 5:
         // navigation.navigate("TruyenChem_S1");
@@ -77,7 +77,7 @@ const Home = ({ navigation }) => {
       style={{
         width: "100%",
         height: 120,
-        marginTop: 7,
+        marginVertical: 7,
         flexDirection: "row",
         borderBottomWidth: 1,
         borderColor: "#D0D0D0",
@@ -156,6 +156,7 @@ const Home = ({ navigation }) => {
           style={{
             width: "100%",
             height: 320,
+            // height: 230,
             justifyContent: "center",
             alignItems: "center",
             borderBottomWidth: 1,

@@ -243,14 +243,15 @@ const NavigationStack = () => {
 
   return (
     <>
-      {/* {isShowSplash ? (
+      {isShowSplash ? (
         <SplashScreen />
       ) : auth.accesstoken ? (
         <MainNavigator />
       ) : (
         <AuthenNavigation />
-      )} */}
-      <MainNavigator />
+      )}
+      
+      {/* <MainNavigator /> */}
     </>
   );
 };

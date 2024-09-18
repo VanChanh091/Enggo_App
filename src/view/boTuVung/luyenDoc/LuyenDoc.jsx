@@ -6,25 +6,56 @@ import { Audio } from "expo-av";
 
 const LuyenDoc = ({ navigation, route }) => {
   const { dataVocab } = route.params;
-  // console.log(dataVocab);
 
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const currentVocab = dataVocab[currentIndex];
   const [recording, setRecording] = useState(null);
   const [sound, setSound] = useState(null);
   const [recordingURI, setRecordingURI] = useState(null);
 
+  const currentVocab = dataVocab[currentIndex];
+  console.log(currentVocab.audio);
+
+  // Hàm phát âm thanh cho từ vựng hiện tại
+  const playWordSound = async () => {
+    try {
+      if (sound) {
+        await sound.unloadAsync(); // Hủy âm thanh trước khi phát từ mới
+        setSound(null);
+      }
+      // const { sound: newSound } = await Audio.Sound.createAsync(
+      //   currentVocab.audio
+      // );
+      // setSound(newSound);
+      // await newSound.playAsync();
+
+      const { sound } = await Audio.Sound.createAsync({
+        uri: currentVocab.audio,
+      });
+      setSound(sound);
+      await sound.playAsync();
+    } catch (error) {
+      console.error("Lỗi khi phát âm thanh: ", error);
+    }
+  };
+
   // Chuyển đến từ tiếp theo
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentIndex < dataVocab.length - 1) {
+      if (sound) {
+        await sound.unloadAsync(); // Hủy âm thanh trước khi chuyển sang từ mới
+        setSound(null);
+      }
       setCurrentIndex(currentIndex + 1);
     }
   };
 
   // Quay về từ trước đó
-  const handlePrevious = () => {
+  const handlePrevious = async () => {
     if (currentIndex > 0) {
+      if (sound) {
+        await sound.unloadAsync(); // Hủy âm thanh trước khi chuyển sang từ mới
+        setSound(null);
+      }
       setCurrentIndex(currentIndex - 1);
     }
   };
@@ -51,31 +82,43 @@ const LuyenDoc = ({ navigation, route }) => {
 
   // Dừng ghi âm
   const stopRecording = async () => {
-    console.log("Dừng ghi âm...");
-    setRecording(null);
-    await recording.stopAndUnloadAsync();
-    const uri = recording.getURI(); // Lấy URI của file ghi âm
-    console.log("Ghi âm được lưu tại:", uri);
-    setRecordingURI(uri);
+    try {
+      console.log("Dừng ghi âm...");
+      setRecording(null);
+      await recording.stopAndUnloadAsync();
+      const uri = recording.getURI(); // Lấy URI của file ghi âm
+      console.log("Ghi âm được lưu tại:", uri);
+      setRecordingURI(uri);
+    } catch (error) {
+      console.error("Không thể dừng ghi âm:", error);
+    }
   };
 
   // Phát lại âm thanh đã ghi
   const playSound = async () => {
     if (recordingURI) {
-      console.log("Đang phát âm thanh...");
-      const { sound } = await Audio.Sound.createAsync({ uri: recordingURI });
-      setSound(sound);
-      await sound.playAsync();
+      try {
+        if (sound) {
+          await sound.unloadAsync(); // Hủy âm thanh trước khi phát lại
+          setSound(null);
+        }
+        console.log("Đang phát âm thanh...");
+        const { sound } = await Audio.Sound.createAsync({ uri: recordingURI });
+        setSound(sound);
+        await sound.playAsync();
+      } catch (error) {
+        console.error("Lỗi khi phát lại âm thanh: ", error);
+      }
     }
   };
 
   useEffect(() => {
-    return sound
-      ? () => {
-          console.log("Hủy âm thanh...");
-          sound.unloadAsync(); // Hủy âm thanh sau khi dùng xong
-        }
-      : undefined;
+    return () => {
+      if (sound) {
+        console.log("Hủy âm thanh...");
+        sound.unloadAsync(); // Hủy âm thanh sau khi dùng xong
+      }
+    };
   }, [sound]);
 
   return (
@@ -99,7 +142,7 @@ const LuyenDoc = ({ navigation, route }) => {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity>
+            <TouchableOpacity onPress={playWordSound}>
               <Image
                 source={require("../../../img/imgBoTuVung/voice.png")}
                 style={{ width: 70, height: 70, resizeMode: "contain" }}

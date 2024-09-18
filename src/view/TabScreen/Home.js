@@ -58,7 +58,7 @@ const Home = ({ navigation }) => {
         // navigation.navigate("TruyenChem_S1");
         break;
       case 7:
-        // navigation.navigate("TruyenChem_S1");
+        navigation.navigate("BoTuVungNavigation");
         break;
       case 8:
         navigation.navigate("NguPhapNavigation");

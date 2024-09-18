@@ -42,6 +42,7 @@ const NguPhap_S1 = ({ navigation }) => {
       ))}
     </List.Accordion>
   );
+
   return (
     <PaperProvider>
       <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>

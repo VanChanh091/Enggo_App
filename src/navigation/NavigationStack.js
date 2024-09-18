@@ -19,6 +19,9 @@ import { TruyenChem_S1, TruyenChem_S2 } from "../view/truyenChem";
 import SplashScreen from "../../splashScreen/SplashScreen";
 import NguPhap_S1 from "../view/nguPhap/NguPhap_S1";
 import NguPhap_S2 from "../view/nguPhap/NguPhap_S2";
+import BoTuVung_S1 from "../view/boTuVung/BoTuVung_S1";
+import BoTuVung_S2 from "../view/boTuVung/BoTuVung_S2";
+import GhepCap from "../view/boTuVung/GhepCap";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -175,6 +178,28 @@ const NguPhapNavigation = () => {
   );
 };
 
+const BoTuVungNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="BoTuVung_S1"
+        component={BoTuVung_S1}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="BoTuVung_S2"
+        component={BoTuVung_S2}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="GhepCap"
+        component={GhepCap}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const MainNavigator = () => {
   return (
     <Stack.Navigator>
@@ -205,6 +230,12 @@ const MainNavigator = () => {
       <Stack.Screen
         name="NguPhapNavigation"
         component={NguPhapNavigation}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="BoTuVungNavigation"
+        component={BoTuVungNavigation}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
@@ -243,15 +274,15 @@ const NavigationStack = () => {
 
   return (
     <>
-      {isShowSplash ? (
+      {/* {isShowSplash ? (
         <SplashScreen />
       ) : auth.accesstoken ? (
         <MainNavigator />
       ) : (
         <AuthenNavigation />
-      )}
-      
-      {/* <MainNavigator /> */}
+      )} */}
+
+      <MainNavigator />
     </>
   );
 };

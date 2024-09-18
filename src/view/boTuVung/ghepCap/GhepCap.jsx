@@ -1,4 +1,11 @@
-import { Alert, FlatList, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 
@@ -157,17 +164,27 @@ const GhepCap = ({ navigation, route }) => {
   return (
     <PaperProvider>
       <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <View>
+        <View style={{ flex: 8 }}>
           <Appbar.BackAction
             color="white"
             onPress={() => navigation.goBack()}
           />
         </View>
-        <View>
-          <Appbar.BackAction
-            color="white"
-            onPress={() => navigation.goBack()}
+        <View
+          style={{
+            flex: 2,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            source={require("../../../img/imgBoTuVung/heartPink.png")}
+            style={{ width: 28, height: 28, resizeMode: "contain" }}
           />
+          <Text style={{ fontSize: 22, marginLeft: 10, color: "white" }}>
+            3
+          </Text>
         </View>
       </Appbar.Header>
 

@@ -14,21 +14,18 @@ import { Ionicons } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
 import authentication from "../../apis/authApi";
 import { Validate } from "../../ultis/Validate";
-import LoadingModal from "../../modal/LoadingModal";
-
-
+import LoadingModal from "../../loadingModal/LoadingModal";
 
 const initValues = {
-  username: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
+  username: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
 };
-
 
 const SignUp = ({ navigation }) => {
   const [values, setValues] = useState(initValues);
-  const [isLoading,setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [isPasswordVisible, setPasswordVisible] = useState(false); //password co the nhin thay duoc mac dinh la false
   const [isConfirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -44,16 +41,15 @@ const SignUp = ({ navigation }) => {
     setConfirmPasswordVisible(!isConfirmPasswordVisible);
   };
 
-
   const handleChangeValue = (key, value) => {
-    setValues(prevValues => ({ ...prevValues, [key]: value }));
+    setValues((prevValues) => ({ ...prevValues, [key]: value }));
   };
 
   const handleRegister = async () => {
     const { username, email, password, confirmPassword } = values;
 
-    console.log(username , email, password, confirmPassword);
-    
+    console.log(username, email, password, confirmPassword);
+
     if (!username) {
       Alert.alert("Lỗi", "Bạn chưa nhập họ tên");
       return;
@@ -65,7 +61,7 @@ const SignUp = ({ navigation }) => {
     const emailValidate = Validate.email(email);
     const passwordValidate = Validate.Password(password);
     const confirmPasswordValidate = Validate.Password(confirmPassword);
-    
+
     if (!emailValidate) {
       Alert.alert("Lỗi", "Email không hợp lệ");
       return;
@@ -92,22 +88,25 @@ const SignUp = ({ navigation }) => {
     }
 
     // phan xu ly
-    const api = '/verification';
+    const api = "/verification";
     setIsLoading(true);
     try {
-      const res = await authentication.HandleAuthentication(api, { email }, 'post');
+      const res = await authentication.HandleAuthentication(
+        api,
+        { email },
+        "post"
+      );
 
       console.log(res);
       setIsLoading(false);
       if (res.status === 200) {
-        navigation.navigate('Verification', { code: res.data.code, ...values });
+        navigation.navigate("Verification", { code: res.data.code, ...values });
       }
-
     } catch (error) {
       console.log(error);
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -156,15 +155,10 @@ const SignUp = ({ navigation }) => {
               <Ionicons name="person-outline" size={25} color="black" />
             </View>
             <View style={{ flex: 8.5, justifyContent: "center" }}>
-
               <TextInput
-
-            
-                onChangeText={val => handleChangeValue('username', val)}
+                onChangeText={(val) => handleChangeValue("username", val)}
                 value={values.username}
-
                 placeholder="Nhập họ tên của bạn"
-
                 style={{
                   color: "gray",
                   fontSize: 18,
@@ -199,13 +193,9 @@ const SignUp = ({ navigation }) => {
             {/* Email */}
             <View style={{ flex: 8.5, justifyContent: "center" }}>
               <TextInput
-
                 placeholder="abc@gmail.com"
-                onChangeText={val => handleChangeValue('email', val)}
+                onChangeText={(val) => handleChangeValue("email", val)}
                 value={values.email}
-
-                
-
                 style={{
                   color: "gray",
                   fontSize: 18,
@@ -238,17 +228,13 @@ const SignUp = ({ navigation }) => {
             </View>
             <View style={{ flex: 7, justifyContent: "center" }}>
               <TextInput
-
                 value={values.password}
-                onChangeText={val => handleChangeValue("password",val)}
+                onChangeText={(val) => handleChangeValue("password", val)}
                 secureTextEntry={!isPasswordVisible}
-   
-
                 // value={password}
                 // onChangeText={setPassword}
                 // secureTextEntry={!isPasswordVisible}
                 placeholder="Nhập mật khẩu của bạn"
-
                 style={{
                   color: "gray",
                   fontSize: 18,
@@ -274,7 +260,6 @@ const SignUp = ({ navigation }) => {
             </TouchableOpacity>
           </View>
 
-
           {/* Confirm password */}
           <View
             style={{
@@ -297,19 +282,16 @@ const SignUp = ({ navigation }) => {
               <Ionicons name="lock-closed-outline" size={25} color="black" />
             </View>
             <View style={{ flex: 7, justifyContent: "center" }}>
-
               <TextInput
-
                 value={values.confirmPassword}
-                onChangeText={val => handleChangeValue("confirmPassword",val)}
+                onChangeText={(val) =>
+                  handleChangeValue("confirmPassword", val)
+                }
                 secureTextEntry={!isConfirmPasswordVisible}
-   
-
                 // value={password}
                 // onChangeText={setPassword}
                 // secureTextEntry={!isPasswordVisible}
                 placeholder="Xác nhận lại mật khẩu"
-
                 style={{
                   color: "gray",
                   fontSize: 18,
@@ -399,10 +381,7 @@ const SignUp = ({ navigation }) => {
               }}
             >
               <Image
-
-
                 source={require("../../img/imgAuth/google.png")}
-
                 style={{ width: 32, height: 32, resizeMode: "contain" }}
               />
             </View>
@@ -430,10 +409,7 @@ const SignUp = ({ navigation }) => {
               }}
             >
               <Image
-
-
                 source={require("../../img/imgAuth/fb.png")}
-
                 style={{ width: 32, height: 32, resizeMode: "contain" }}
               />
             </View>
@@ -451,7 +427,7 @@ const SignUp = ({ navigation }) => {
           </Text>
         </View>
       </View>
-      <LoadingModal visible={isLoading}/>
+      <LoadingModal visible={isLoading} />
     </View>
   );
 };

@@ -5,6 +5,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addAuth, authSelector } from "../redux/reducers/authReducer";
+
+import SplashScreen from "../../splashScreen/SplashScreen";
 import {
   RequestResetPassword,
   ResetPassword,
@@ -16,12 +18,18 @@ import { SongNgu_S1, SongNgu_S2, SongNgu_S3 } from "../view/songNgu";
 import { Account, Home, ListVocabulary } from "../view/TabScreen";
 import { TinTuc_S1, TinTuc_S2 } from "../view/tinTuc";
 import { TruyenChem_S1, TruyenChem_S2 } from "../view/truyenChem";
-import SplashScreen from "../../splashScreen/SplashScreen";
-import NguPhap_S1 from "../view/nguPhap/NguPhap_S1";
-import NguPhap_S2 from "../view/nguPhap/NguPhap_S2";
-import BoTuVung_S1 from "../view/boTuVung/BoTuVung_S1";
-import BoTuVung_S2 from "../view/boTuVung/BoTuVung_S2";
-import GhepCap from "../view/boTuVung/GhepCap";
+import { NguPhap_S1, NguPhap_S2 } from "../view/nguPhap";
+import {
+  BoTuVung_S1,
+  BoTuVung_S2,
+  GhepCap,
+  LuyenDoc,
+  SettingTest,
+  TracNghiem_S1,
+  TracNghiem_S2,
+  VietCau_S1,
+  VietCau_S2,
+} from "../view/boTuVung";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -194,6 +202,36 @@ const BoTuVungNavigation = () => {
       <Stack.Screen
         name="GhepCap"
         component={GhepCap}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SettingTest"
+        component={SettingTest}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="LuyenDoc"
+        component={LuyenDoc}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TracNghiem_S1"
+        component={TracNghiem_S1}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TracNghiem_S2"
+        component={TracNghiem_S2}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="VietCau_S1"
+        component={VietCau_S1}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="VietCau_S2"
+        component={VietCau_S2}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -49,6 +49,9 @@ const BoTuVung_S2 = ({ navigation, route }) => {
                 alignItems: "center",
                 marginRight: -12,
               }}
+              onPress={() =>
+                navigation.navigate("SettingTest", { dataVocab: data.vocab })
+              }
             >
               <Image
                 source={require("../../img/imgBoTuVung/writting.png")}
@@ -70,6 +73,9 @@ const BoTuVung_S2 = ({ navigation, route }) => {
                 marginTop: 10,
                 marginRight: -12,
               }}
+              onPress={() =>
+                navigation.navigate("LuyenDoc", { dataVocab: data.vocab })
+              }
             >
               <Ionicons name="mic-outline" size={35} color="black" />
               <Text style={{ fontSize: 18 }}>Luyện đọc</Text>
@@ -90,6 +96,9 @@ const BoTuVung_S2 = ({ navigation, route }) => {
                 alignItems: "center",
                 marginLeft: -10,
               }}
+              onPress={() =>
+                navigation.navigate("SettingTest", { dataVocab: data.vocab })
+              }
             >
               <Ionicons name="checkbox-outline" size={35} color="black" />
               <Text style={{ fontSize: 18 }}>Trắc nghiệm</Text>

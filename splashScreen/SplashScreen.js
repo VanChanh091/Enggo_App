@@ -1,7 +1,7 @@
 import { ActivityIndicator, Image, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import Logo from "../assets/logoSplashScreen.png";
-import LoadingModal from "../src/modal/LoadingModal";
+import LoadingModal from "../src/loadingModal/LoadingModal";
 
 const SplashScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -19,9 +19,8 @@ const SplashScreen = () => {
           source={Logo}
           style={{ width: 80, height: 100, resizeMode: "contain" }}
         />
-        <ActivityIndicator color={'black'} style={{marginTop:20}}/>
+        <ActivityIndicator color={"black"} style={{ marginTop: 20 }} />
       </View>
-      
     </>
   );
 };

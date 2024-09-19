@@ -1,6 +1,5 @@
 import {
   Alert,
-  Button,
   Image,
   StyleSheet,
   Text,
@@ -32,8 +31,6 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
         await sound.unloadAsync();
         setSound(null);
       }
-
-      console.log("Đang phát âm thanh...");
 
       // Tạo âm thanh mới từ file require
       const { sound: newSound } = await Audio.Sound.createAsync(

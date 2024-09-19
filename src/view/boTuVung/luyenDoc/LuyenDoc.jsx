@@ -18,25 +18,31 @@ const LuyenDoc = ({ navigation, route }) => {
   // Hàm phát âm thanh cho từ vựng hiện tại
   const playWordSound = async () => {
     try {
+      // Nếu đã có âm thanh đang phát, hủy âm thanh trước khi phát từ mới
       if (sound) {
-        await sound.unloadAsync(); // Hủy âm thanh trước khi phát từ mới
+        await sound.unloadAsync();
         setSound(null);
       }
-      // const { sound: newSound } = await Audio.Sound.createAsync(
-      //   currentVocab.audio
-      // );
-      // setSound(newSound);
-      // await newSound.playAsync();
 
-      const { sound } = await Audio.Sound.createAsync({
-        uri: currentVocab.audio,
-      });
-      setSound(sound);
-      await sound.playAsync();
+      // Tạo âm thanh mới từ file require
+      const { sound: newSound } = await Audio.Sound.createAsync(
+        currentVocab.audio
+      );
+
+      setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
+
+      // Phát âm thanh
+      await newSound.playAsync();
     } catch (error) {
       console.error("Lỗi khi phát âm thanh: ", error);
     }
   };
+
+  useEffect(() => {
+    if (currentVocab) {
+      playWordSound(); // Tự động phát âm thanh khi từ vựng thay đổi
+    }
+  }, [currentVocab]);
 
   // Chuyển đến từ tiếp theo
   const handleNext = async () => {

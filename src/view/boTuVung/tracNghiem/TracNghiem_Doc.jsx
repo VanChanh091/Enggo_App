@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Image,
   StyleSheet,
@@ -6,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { CheckBox } from "@rneui/themed";
 
@@ -17,39 +18,50 @@ const TracNghiem_Doc = ({ navigation, route }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null); // Đáp án đã chọn
   const [correctAnswer, setCorrectAnswer] = useState(null); // Đáp án đúng/sai
+  const [isQuizCompleted, setIsQuizCompleted] = useState(false); // Kiểm tra đã hoàn thành chưa
+  const [lives, setLives] = useState(3); // Số lượng trái tim
 
-  const currentVocab = data[currentQuestion]; //lấy ra vị trí của vocabulary đang chọn
+  const currentVocab = data[currentQuestion]; // Lấy ra từ vựng hiện tại
 
+  // Xử lý khi chọn đáp án
   const handleAnswer = (answer) => {
     const isCorrect =
-      (settings.mode === "tu-nghia" && answer === currentVocab.en) ||
-      (settings.mode === "nghia-tu" && answer === currentVocab.vn);
+      (settings.mode === "tu-nghia" && answer === currentVocab.vn) ||
+      (settings.mode === "nghia-tu" && answer === currentVocab.en);
 
     setSelectedAnswer(answer); // Lưu lại câu trả lời đã chọn
     setCorrectAnswer(isCorrect ? "correct" : "wrong"); // Đặt trạng thái đúng/sai
 
+    if (!isCorrect) {
+      setLives((prev) => prev - 1); // Trừ 1 trái tim nếu sai
+    }
+
+    // Kiểm tra nếu hết trái tim
+    if (lives === 1 && !isCorrect) {
+      Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
+      setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
+      return;
+    }
+
     // Tự động chuyển câu hỏi sau 1 giây
     setTimeout(() => {
-      if (isCorrect) {
-        // Nếu đúng và là câu hỏi cuối cùng, điều hướng về màn hình BoTuVung_S2
-        if (currentQuestion === data.length - 1) {
-          navigation.navigate("BoTuVung_S2");
-        } else {
-          // Nếu chưa hết câu hỏi, chuyển sang từ vựng tiếp theo
-          setCurrentQuestion((prev) => prev + 1);
-          setSelectedAnswer(null); // Reset trạng thái đã chọn
-          setCorrectAnswer(null); // Reset trạng thái đúng/sai
-        }
+      if (currentQuestion === data.length - 1) {
+        setIsQuizCompleted(true);
+      } else {
+        setCurrentQuestion((prev) => prev + 1);
+        setSelectedAnswer(null); // Reset trạng thái đã chọn
+        setCorrectAnswer(null); // Reset trạng thái đúng/sai
       }
     }, 1000);
   };
 
+  // Tạo danh sách đáp án, bao gồm đáp án đúng và các đáp án sai ngẫu nhiên
   const answers = [
     settings.mode === "tu-nghia" ? currentVocab.vn : currentVocab.en,
     ...data
-      .filter((item) => item !== currentVocab)
+      .filter((item) => item !== currentVocab) // Loại bỏ từ vựng hiện tại
       .map((item) => (settings.mode === "tu-nghia" ? item.vn : item.en))
-      .slice(0, 3), // Lấy 3 đáp án khác để tạo 4 câu trả lời
+      .slice(0, 3), // Lấy 3 đáp án sai
   ];
 
   return (
@@ -74,76 +86,86 @@ const TracNghiem_Doc = ({ navigation, route }) => {
             style={{ width: 28, height: 28, resizeMode: "contain" }}
           />
           <Text style={{ fontSize: 22, marginLeft: 10, color: "white" }}>
-            3
+            {lives}
           </Text>
         </View>
       </Appbar.Header>
 
-      <View style={{ flex: 1, backgroundColor: "white" }}>
-        {/* question */}
-        <View style={{ flex: 2 }}>
-          <View
-            style={{
-              flex: 0.5,
-              justifyContent: "center",
-            }}
-          >
-            <Text
+      {!isQuizCompleted ? (
+        <View style={{ flex: 1, backgroundColor: "white" }}>
+          {/* Câu hỏi */}
+          <View style={{ flex: 2.5 }}>
+            <View
               style={{
-                fontWeight: 500,
-                fontSize: 17,
-                color: "gray",
-                marginLeft: 20,
-                marginTop: 20,
+                flex: 0.5,
+                justifyContent: "center",
               }}
             >
-              Chọn đáp án đúng
-            </Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ fontWeight: "bold", fontSize: 25 }}>
-              {settings.mode === "tu-nghia" ? currentVocab.en : currentVocab.vn}
-            </Text>
-          </View>
-        </View>
-
-        {/* answers */}
-        <View style={{ flex: 8, alignItems: "center" }}>
-          {/* show list answer */}
-          {answers.map((answer, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.answerButton,
-                selectedAnswer === answer
-                  ? correctAnswer === "correct"
-                    ? styles.correctAnswer
-                    : styles.wrongAnswer
-                  : null,
-              ]}
-              onPress={() => handleAnswer(answer)}
-            >
-              <CheckBox
-                // checked={isDocNgheSelected === 0}
-                // onPress={() => setIsDocNgheSelected(0)}
-                checkedIcon="dot-circle-o"
-                uncheckedIcon="circle-o"
-              />
-              <Text style={{ fontSize: 16 }}>
-                {settings.mode === "tu-nghia"
-                  ? currentVocab.vn
-                  : currentVocab.en}
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: 17,
+                  color: "gray",
+                  marginLeft: 20,
+                  marginTop: 20,
+                }}
+              >
+                Chọn đáp án đúng
               </Text>
-            </TouchableOpacity>
-          ))}
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontWeight: "bold", fontSize: 28 }}>
+                {settings.mode === "tu-nghia"
+                  ? currentVocab.en
+                  : currentVocab.vn}
+              </Text>
+            </View>
+          </View>
+
+          {/* Hiển thị đáp án */}
+          <View style={{ flex: 8, alignItems: "center" }}>
+            {answers.map((answer, index) => (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  styles.answerButton,
+                  selectedAnswer === answer
+                    ? correctAnswer === "correct"
+                      ? styles.correctAnswer
+                      : styles.wrongAnswer
+                    : null,
+                ]}
+                onPress={() => handleAnswer(answer)}
+                disabled={!!selectedAnswer} // Disable sau khi chọn đáp án
+              >
+                <Text style={{ fontSize: 20, paddingLeft: 25 }}>{answer}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
-      </View>
+      ) : (
+        // Hiển thị khi hoàn thành bài trắc nghiệm
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+            Congratulation!!
+          </Text>
+          <Text style={{ fontSize: 18, marginTop: 10, color: "gray" }}>
+            Bạn đã hoàn thành tất cả câu hỏi!
+          </Text>
+        </View>
+      )}
     </PaperProvider>
   );
 };

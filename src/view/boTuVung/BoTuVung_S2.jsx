@@ -50,7 +50,9 @@ const BoTuVung_S2 = ({ navigation, route }) => {
                 marginRight: -12,
               }}
               onPress={() =>
-                navigation.navigate("SettingTest", { dataVocab: data.vocab })
+                navigation.navigate("SettingTest_VietCau", {
+                  dataVocab: data.vocab,
+                })
               }
             >
               <Image
@@ -97,7 +99,9 @@ const BoTuVung_S2 = ({ navigation, route }) => {
                 marginLeft: -10,
               }}
               onPress={() =>
-                navigation.navigate("SettingTest", { dataVocab: data.vocab })
+                navigation.navigate("SettingTest_TracNghiem", {
+                  dataVocab: data.vocab,
+                })
               }
             >
               <Ionicons name="checkbox-outline" size={35} color="black" />

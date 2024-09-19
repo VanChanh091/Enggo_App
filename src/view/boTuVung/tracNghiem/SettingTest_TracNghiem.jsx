@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { CheckBox } from "@rneui/themed";
 
-const SettingTest = ({ navigation, route }) => {
+const SettingTest_TracNghiem = ({ navigation, route }) => {
   const { dataVocab } = route.params;
   // console.log(dataVocab);
 
@@ -21,10 +21,17 @@ const SettingTest = ({ navigation, route }) => {
       type: isDocNgheSelected ? "nghe" : "doc",
       mode: isNghiaTuSelected ? "tu-nghia" : "nghia-tu",
     };
-    navigation.navigate("TracNghiem_Doc", {
-      settings: settings,
-      data: dataVocab,
-    });
+    if (settings.type === "doc") {
+      navigation.navigate("TracNghiem_Doc", {
+        settings: settings,
+        data: dataVocab,
+      });
+    } else {
+      navigation.navigate("TracNghiem_Nghe", {
+        settings: settings,
+        data: dataVocab,
+      });
+    }
   };
 
   return (
@@ -163,6 +170,6 @@ const SettingTest = ({ navigation, route }) => {
   );
 };
 
-export default SettingTest;
+export default SettingTest_TracNghiem;
 
 const styles = StyleSheet.create({});

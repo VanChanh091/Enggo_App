@@ -1,17 +1,10 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Checkbox,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { CheckBox } from "@rneui/themed";
 
 const SettingTest_TracNghiem = ({ navigation, route }) => {
   const { dataVocab } = route.params;
-  // console.log(dataVocab);
 
   const [isDocNgheSelected, setIsDocNgheSelected] = useState(0);
   const [isNghiaTuSelected, setIsNghiaTuSelected] = useState(0);

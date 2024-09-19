@@ -213,12 +213,35 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
             alignItems: "center",
           }}
         >
-          <Text style={{ fontSize: 25, fontWeight: "bold" }}>
-            Congratulation!!
-          </Text>
-          <Text style={{ fontSize: 18, marginTop: 10, color: "gray" }}>
-            Bạn đã hoàn thành tất cả câu hỏi!
-          </Text>
+          {lives === 0 ? (
+            <Text style={{ fontSize: 18, marginTop: 10, color: "gray" }}>
+              Cố gắng lên bạn nhé!
+            </Text>
+          ) : (
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Text style={{ fontWeight: "bold", fontSize: 22 }}>
+                Congratulation!
+              </Text>
+              <Text style={{ fontSize: 18, marginTop: 7, color: "gray" }}>
+                Bạn đã hoàn thành tất cả câu hỏi!
+              </Text>
+            </View>
+          )}
+
+          <TouchableOpacity
+            style={{
+              width: 120,
+              height: 45,
+              borderRadius: 12,
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 20,
+              backgroundColor: "#F4C33A",
+            }}
+            onPress={() => navigation.navigate("BoTuVung_S1")}
+          >
+            <Text style={{ fontWeight: "bold", fontSize: 20 }}>OK</Text>
+          </TouchableOpacity>
         </View>
       )}
     </PaperProvider>

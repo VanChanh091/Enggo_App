@@ -13,7 +13,7 @@ const LuyenDoc = ({ navigation, route }) => {
   const [recordingURI, setRecordingURI] = useState(null);
 
   const currentVocab = dataVocab[currentIndex];
-  console.log(currentVocab.audio);
+  // console.log(currentVocab.audio);
 
   // Hàm phát âm thanh cho từ vựng hiện tại
   const playWordSound = async () => {

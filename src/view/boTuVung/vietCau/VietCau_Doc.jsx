@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const TracNghiem_S1 = ({ navigation, route }) => {
+const VietCau_Doc = () => {
   return (
     <View>
-      <Text>TracNghiem_S1</Text>
+      <Text>VietCau_Doc</Text>
     </View>
   );
 };
 
-export default TracNghiem_S1;
+export default VietCau_Doc;
 
 const styles = StyleSheet.create({});

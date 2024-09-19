@@ -25,10 +25,10 @@ import {
   GhepCap,
   LuyenDoc,
   SettingTest,
-  TracNghiem_S1,
-  TracNghiem_S2,
-  VietCau_S1,
-  VietCau_S2,
+  VietCau_Doc,
+  VietCau_Nghe,
+  TracNghiem_Doc,
+  TracNghiem_Nghe,
 } from "../view/boTuVung";
 
 const Tab = createBottomTabNavigator();
@@ -215,23 +215,23 @@ const BoTuVungNavigation = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="TracNghiem_S1"
-        component={TracNghiem_S1}
+        name="TracNghiem_Doc"
+        component={TracNghiem_Doc}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="TracNghiem_S2"
-        component={TracNghiem_S2}
+        name="TracNghiem_Nghe"
+        component={TracNghiem_Nghe}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="VietCau_S1"
-        component={VietCau_S1}
+        name="VietCau_Doc"
+        component={VietCau_Doc}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="VietCau_S2"
-        component={VietCau_S2}
+        name="VietCau_Nghe"
+        component={VietCau_Nghe}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

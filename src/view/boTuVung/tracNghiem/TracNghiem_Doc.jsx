@@ -19,6 +19,7 @@ const TracNghiem_Doc = ({ navigation, route }) => {
   const [selectedAnswer, setSelectedAnswer] = useState(null); // Đáp án đã chọn
   const [correctAnswer, setCorrectAnswer] = useState(null); // Đáp án đúng/sai
   const [isQuizCompleted, setIsQuizCompleted] = useState(false); // Kiểm tra đã hoàn thành chưa
+  const [answers, setAnswers] = useState([]); // Danh sách câu trả lời được trộn
   const [lives, setLives] = useState(3); // Số lượng trái tim
 
   const currentVocab = data[currentQuestion]; // Lấy ra từ vựng hiện tại
@@ -55,14 +56,39 @@ const TracNghiem_Doc = ({ navigation, route }) => {
     }, 1000);
   };
 
-  // Tạo danh sách đáp án, bao gồm đáp án đúng và các đáp án sai ngẫu nhiên
-  const answers = [
-    settings.mode === "tu-nghia" ? currentVocab.vn : currentVocab.en,
-    ...data
+  // // Tạo danh sách đáp án, bao gồm đáp án đúng và các đáp án sai ngẫu nhiên
+  // const answers = [
+  //   settings.mode === "tu-nghia" ? currentVocab.vn : currentVocab.en,
+  //   ...data
+  //     .filter((item) => item !== currentVocab) // Loại bỏ từ vựng hiện tại
+  //     .map((item) => (settings.mode === "tu-nghia" ? item.vn : item.en))
+  //     .slice(0, 3), // Lấy 3 đáp án sai
+  // ].sort(() => Math.random() - 0.5);
+
+  useEffect(() => {
+    // Hàm trộn mảng ngẫu nhiên (Fisher-Yates Shuffle)
+    const shuffleArray = (array) => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    };
+
+    // Tạo mảng gồm đáp án đúng và các đáp án sai
+    const incorrectAnswers = data
       .filter((item) => item !== currentVocab) // Loại bỏ từ vựng hiện tại
-      .map((item) => (settings.mode === "tu-nghia" ? item.vn : item.en))
-      .slice(0, 3), // Lấy 3 đáp án sai
-  ];
+      .map((item) => (settings.mode === "tu-nghia" ? item.vn : item.en)); // Lấy nghĩa tiếng Việt hoặc Anh
+
+    // Trộn mảng đáp án sai
+    const shuffledIncorrectAnswers = shuffleArray(incorrectAnswers);
+
+    const answers = [
+      settings.mode === "tu-nghia" ? currentVocab.vn : currentVocab.en,
+      ...shuffledIncorrectAnswers.slice(0, 3), // Lấy 3 đáp án sai
+    ].sort(() => Math.random() - 0.5); // Trộn ngẫu nhiên các câu trả lời
+    setAnswers(answers); // Đặt câu trả lời đã trộn vào state
+  }, [currentQuestion]);
 
   return (
     <PaperProvider>

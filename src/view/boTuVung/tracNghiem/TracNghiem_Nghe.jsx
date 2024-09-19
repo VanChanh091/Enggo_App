@@ -61,15 +61,15 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
     setSelectedAnswer(answer); // Lưu lại câu trả lời đã chọn
     setCorrectAnswer(isCorrect ? "correct" : "wrong"); // Đặt trạng thái đúng/sai
 
-    if (!isCorrect) {
-      setLives((prev) => prev - 1); // Trừ 1 trái tim nếu sai
-    }
-
     // Kiểm tra nếu hết trái tim
     if (lives === 1 && !isCorrect) {
       Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
       setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
       return;
+    }
+
+    if (!isCorrect) {
+      setLives((prev) => prev - 1); // Trừ 1 trái tim nếu sai
     }
 
     // Tự động chuyển câu hỏi sau 1 giây
@@ -256,6 +256,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
+    borderColor: "#d0d0d0",
   },
   correctAnswer: {
     backgroundColor: "green",

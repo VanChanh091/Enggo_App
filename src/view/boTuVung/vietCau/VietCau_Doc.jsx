@@ -20,6 +20,7 @@ const VietCau_Doc = ({ navigation, route }) => {
   const [lives, setLives] = useState(3); // Số lượng trái tim
   const [wordOptions, setWordOptions] = useState([]); // Danh sách từ để chọn
   const [correctAnswer, setCorrectAnswer] = useState([]); // Câu trả lời chính xác
+  const [isQuizCompleted, setIsQuizCompleted] = useState(false); // Kiểm tra đã hoàn thành chưa
 
   const currentVocab = data[currentQuestion]; // Lấy ra từ vựng hiện tại
 
@@ -86,15 +87,22 @@ const VietCau_Doc = ({ navigation, route }) => {
       Alert.alert("Chính xác", "Bạn đã ghép đúng câu!");
       await playWordSound();
 
+      // Tự động chuyển câu hỏi sau 1 giây
       setTimeout(() => {
         if (currentQuestion === data.length - 1) {
-          Alert.alert("Hoàn thành", "Bạn đã trả lời toàn bộ câu hỏi!");
+          setIsQuizCompleted(true);
         } else {
           setCurrentQuestion((prev) => prev + 1);
         }
-      }, 1000); // Chuyển sang từ tiếp theo sau 1 giây
+      }, 2000);
     } else {
       Alert.alert("Sai", "Câu ghép chưa đúng, hãy thử lại.");
+      if (lives === 1) {
+        Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
+        setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
+        return;
+      }
+      setLives((prev) => prev - 1); // Trừ 1 trái tim nếu sai
     }
   };
 
@@ -125,107 +133,155 @@ const VietCau_Doc = ({ navigation, route }) => {
         </View>
       </Appbar.Header>
 
-      {/* box match word */}
-      <View
-        style={{
-          flex: 3.5,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            width: "90%",
-            height: "85%",
-            borderRadius: 12,
-            backgroundColor: "white",
-          }}
-        >
+      {!isQuizCompleted ? (
+        <View style={{ flex: 1 }}>
+          {/* box match word */}
           <View
             style={{
-              flex: 1,
-              borderBottomWidth: 1,
-              borderColor: "#d0d0d0",
+              flex: 3.5,
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            <Text style={{ fontWeight: 600, fontSize: 28 }}>
-              {settings.mode === "tu-nghia" ? currentVocab.en : currentVocab.vn}
-            </Text>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "white",
-            }}
-          >
-            {selectedWords.map((word, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() => handleRemoveWord(word)}
-                style={styles.selectedWord}
+            <View
+              style={{
+                width: "90%",
+                height: "85%",
+                borderRadius: 12,
+                backgroundColor: "white",
+              }}
+            >
+              <View
+                style={{
+                  flex: 1,
+                  borderBottomWidth: 1,
+                  borderColor: "#d0d0d0",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                <Text style={styles.wordText}>{word}</Text>
+                <Text style={{ fontWeight: 600, fontSize: 28 }}>
+                  {settings.mode === "tu-nghia"
+                    ? currentVocab.en
+                    : currentVocab.vn}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "white",
+                }}
+              >
+                {selectedWords.map((word, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => handleRemoveWord(word)}
+                    style={styles.selectedWord}
+                  >
+                    <Text style={styles.wordText}>{word}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </View>
+          </View>
+          {/* item */}
+          <View style={{ flex: 6.5 }}>
+            {/* ignore */}
+            <View
+              style={{
+                flex: 1,
+                alignItems: "flex-end",
+              }}
+            >
+              <TouchableOpacity>
+                <Text style={{ fontSize: 18, color: "gray", marginRight: 20 }}>
+                  Bỏ qua
+                </Text>
               </TouchableOpacity>
-            ))}
+            </View>
+
+            {/* choose word */}
+            <View style={{ flex: 6.5 }}>
+              {/* Hiển thị các từ bên dưới */}
+              <View style={styles.wordOptionsContainer}>
+                {wordOptions.map((word, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => handleSelectWord(word)}
+                    style={styles.wordOption}
+                  >
+                    <Text style={styles.wordText}>{word}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </View>
+
+            {/* button */}
+            <View style={{ flex: 2.5, alignItems: "center" }}>
+              <TouchableOpacity
+                style={{
+                  width: "65%",
+                  height: 50,
+                  borderRadius: 12,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 20,
+                  backgroundColor: "#F4C33A",
+                }}
+                onPress={checkAnswer}
+              >
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  Kiểm tra
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-
-      {/* item */}
-      <View style={{ flex: 6.5 }}>
-        {/* ignore */}
+      ) : (
+        // Hiển thị khi hoàn thành bài trắc nghiệm
         <View
           style={{
             flex: 1,
-            alignItems: "flex-end",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <TouchableOpacity>
-            <Text style={{ fontSize: 18, color: "gray", marginRight: 20 }}>
-              Bỏ qua
+          {/* check lives === 0  */}
+          {lives === 0 ? (
+            <Text style={{ fontSize: 18, marginTop: 10, color: "gray" }}>
+              Cố gắng lên bạn nhé!
             </Text>
-          </TouchableOpacity>
-        </View>
+          ) : (
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Text style={{ fontWeight: "bold", fontSize: 22 }}>
+                Congratulation!
+              </Text>
+              <Text style={{ fontSize: 18, marginTop: 7, color: "gray" }}>
+                Bạn đã hoàn thành tất cả câu hỏi!
+              </Text>
+            </View>
+          )}
 
-        {/* choose word */}
-        <View style={{ flex: 6.5 }}>
-          {/* Hiển thị các từ bên dưới */}
-          <View style={styles.wordOptionsContainer}>
-            {wordOptions.map((word, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() => handleSelectWord(word)}
-                style={styles.wordOption}
-              >
-                <Text style={styles.wordText}>{word}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-
-        {/* button */}
-        <View style={{ flex: 2.5, alignItems: "center" }}>
+          {/* navigation to BoTuVung_S1 */}
           <TouchableOpacity
             style={{
-              width: "65%",
-              height: 50,
+              width: 120,
+              height: 45,
               borderRadius: 12,
               justifyContent: "center",
               alignItems: "center",
               marginTop: 20,
               backgroundColor: "#F4C33A",
             }}
-            onPress={checkAnswer}
+            onPress={() => navigation.navigate("BoTuVung_S1")}
           >
-            <Text style={{ fontWeight: "bold", fontSize: 20 }}>Kiểm tra</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 20 }}>OK</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      )}
     </PaperProvider>
   );
 };

@@ -31,10 +31,23 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
         await sound.unloadAsync();
         setSound(null);
       }
-
+      await Audio.setAudioModeAsync({
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: false,
+        staysActiveInBackground: false,
+      });
+      
+      console.log("currentVocab.audio :", currentVocab.audio);
+      
       // Tạo âm thanh mới từ file require
       const { sound: newSound } = await Audio.Sound.createAsync(
-        currentVocab.audio
+        {
+          uri: currentVocab.audio
+        },
+        {
+          shouldPlay: true,
+          isLooping: false,
+        }
       );
 
       setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý

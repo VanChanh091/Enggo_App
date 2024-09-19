@@ -6,6 +6,7 @@ import { Audio } from "expo-av";
 
 const LuyenDoc = ({ navigation, route }) => {
   const { dataVocab } = route.params;
+console.log("datavocab :",dataVocab);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [recording, setRecording] = useState(null);
@@ -23,10 +24,16 @@ const LuyenDoc = ({ navigation, route }) => {
         await sound.unloadAsync();
         setSound(null);
       }
+      await Audio.setAudioModeAsync({
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: false,
+        staysActiveInBackground: false,
+      });
 
       // Tạo âm thanh mới từ file require
       const { sound: newSound } = await Audio.Sound.createAsync(
-        currentVocab.audio
+        // currentVocab.audio
+        {uri: currentVocab.audio}
       );
 
       setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
@@ -42,6 +49,7 @@ const LuyenDoc = ({ navigation, route }) => {
     if (currentVocab) {
       playWordSound(); // Tự động phát âm thanh khi từ vựng thay đổi
     }
+    
   }, [currentVocab]);
 
   // Chuyển đến từ tiếp theo

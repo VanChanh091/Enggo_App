@@ -26,9 +26,8 @@ const TinTuc_S2 = ({ navigation, route }) => {
   const [soundCurrent, setSoundCurrent] = useState();
 
   // Play sound function
-  const playSound = async () => {
-    const uri = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
-    // const uri ='https://open.spotify.com/episode/2QTrSqY3V6OqsSQF4xXTbC?si=sG1bVY-xTEaGHYZ8sRzVcA';
+  const playSound = async () => {    
+    const uri ='https://audio-enggo.s3.ap-southeast-1.amazonaws.com/surprise.mp3';
 
     try {
       await Audio.setAudioModeAsync({

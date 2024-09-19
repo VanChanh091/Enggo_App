@@ -46,6 +46,7 @@ const TracNghiem_Doc = ({ navigation, route }) => {
     }
 
     if (isCorrect) {
+      console.log(isCorrect);      
       await playWordSound();
     }
 
@@ -69,9 +70,18 @@ const TracNghiem_Doc = ({ navigation, route }) => {
         setSound(null);
       }
 
+      await Audio.setAudioModeAsync({
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: false,
+        staysActiveInBackground: false,
+      });
+      
+      console.log("currentVocab.audio: ", currentVocab.audio);
+      
       // Tạo âm thanh mới từ file require
       const { sound: newSound } = await Audio.Sound.createAsync(
-        currentVocab.audio
+        // currentVocab.audio
+        {uri: currentVocab.audio}
       );
 
       setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý

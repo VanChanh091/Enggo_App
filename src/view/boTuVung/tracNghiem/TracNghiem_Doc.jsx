@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
+import { Audio } from "expo-av";
 
 const TracNghiem_Doc = ({ navigation, route }) => {
   const { settings } = route.params;
@@ -20,11 +21,12 @@ const TracNghiem_Doc = ({ navigation, route }) => {
   const [isQuizCompleted, setIsQuizCompleted] = useState(false); // Kiểm tra đã hoàn thành chưa
   const [answers, setAnswers] = useState([]); // Danh sách câu trả lời được trộn
   const [lives, setLives] = useState(3); // Số lượng trái tim
+  const [sound, setSound] = useState(null);
 
   const currentVocab = data[currentQuestion]; // Lấy ra từ vựng hiện tại
 
   // Xử lý khi chọn đáp án
-  const handleAnswer = (answer) => {
+  const handleAnswer = async (answer) => {
     const isCorrect =
       (settings.mode === "tu-nghia" && answer === currentVocab.vn) ||
       (settings.mode === "nghia-tu" && answer === currentVocab.en);
@@ -43,6 +45,10 @@ const TracNghiem_Doc = ({ navigation, route }) => {
       return;
     }
 
+    if (isCorrect) {
+      await playWordSound();
+    }
+
     // Tự động chuyển câu hỏi sau 1 giây
     setTimeout(() => {
       if (currentQuestion === data.length - 1) {
@@ -53,6 +59,28 @@ const TracNghiem_Doc = ({ navigation, route }) => {
         setCorrectAnswer(null); // Reset trạng thái đúng/sai
       }
     }, 1000);
+  };
+
+  const playWordSound = async () => {
+    try {
+      // Nếu đã có âm thanh đang phát, hủy âm thanh trước khi phát từ mới
+      if (sound) {
+        await sound.unloadAsync();
+        setSound(null);
+      }
+
+      // Tạo âm thanh mới từ file require
+      const { sound: newSound } = await Audio.Sound.createAsync(
+        currentVocab.audio
+      );
+
+      setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
+
+      // Phát âm thanh
+      await newSound.playAsync();
+    } catch (error) {
+      console.error("Lỗi khi phát âm thanh: ", error);
+    }
   };
 
   // // Tạo danh sách đáp án, bao gồm đáp án đúng và các đáp án sai ngẫu nhiên

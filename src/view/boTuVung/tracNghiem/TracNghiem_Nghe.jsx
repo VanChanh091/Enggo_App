@@ -27,20 +27,33 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
 
   const playWordSound = async () => {
     try {
+      // Nếu đã có âm thanh đang phát, hủy âm thanh trước khi phát từ mới
       if (sound) {
-        await sound.unloadAsync(); // Hủy âm thanh trước khi phát từ mới
+        await sound.unloadAsync();
         setSound(null);
       }
+
       console.log("Đang phát âm thanh...");
-      const { sound } = await Audio.Sound.createAsync({
-        uri: currentVocab.audio,
-      });
-      setSound(sound);
-      await sound.playAsync();
+
+      // Tạo âm thanh mới từ file require
+      const { sound: newSound } = await Audio.Sound.createAsync(
+        currentVocab.audio
+      );
+
+      setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
+
+      // Phát âm thanh
+      await newSound.playAsync();
     } catch (error) {
       console.error("Lỗi khi phát âm thanh: ", error);
     }
   };
+
+  useEffect(() => {
+    if (currentVocab) {
+      playWordSound(); // Tự động phát âm thanh khi từ vựng thay đổi
+    }
+  }, [currentVocab]);
 
   // Xử lý khi chọn đáp án
   const handleAnswer = (answer) => {
@@ -164,9 +177,12 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
               <TouchableOpacity onPress={playWordSound}>
                 <Image
                   source={require("../../../img/imgBoTuVung/voice.png")}
-                  style={{ width: 70, height: 70, resizeMode: "contain" }}
+                  style={{ width: 75, height: 75, resizeMode: "contain" }}
                 />
               </TouchableOpacity>
+              <Text style={{ fontSize: 16, color: "gray", marginTop: 5 }}>
+                Click vào loa để nghe lại
+              </Text>
             </View>
           </View>
 

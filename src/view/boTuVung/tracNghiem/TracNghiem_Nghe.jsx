@@ -166,11 +166,6 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
                 alignItems: "center",
               }}
             >
-              {/* <Text style={{ fontWeight: "bold", fontSize: 28 }}>
-                {settings.mode === "tu-nghia"
-                  ? currentVocab.en
-                  : currentVocab.vn}
-              </Text> */}
               <TouchableOpacity onPress={playWordSound}>
                 <Image
                   source={require("../../../img/imgBoTuVung/voice.png")}
@@ -213,6 +208,7 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
             alignItems: "center",
           }}
         >
+          {/* check lives === 0  */}
           {lives === 0 ? (
             <Text style={{ fontSize: 18, marginTop: 10, color: "gray" }}>
               Cố gắng lên bạn nhé!
@@ -228,6 +224,7 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
             </View>
           )}
 
+          {/* navigation to BoTuVung_S1 */}
           <TouchableOpacity
             style={{
               width: 120,

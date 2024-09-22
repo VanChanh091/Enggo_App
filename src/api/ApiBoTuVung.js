@@ -10,7 +10,8 @@ export const TopicAndVocabulary = [
         en: "Congratulation!",
         vn: "Xin chúc mừng",
         // audio: require("../audio/greetings/congratulation.mp3"),
-        audio: 'https://audio-enggo.s3.ap-southeast-1.amazonaws.com/congratulation.mp3',
+        audioEn: 'https://audio-enggo.s3.ap-southeast-1.amazonaws.com/congratulation.mp3',
+        audioVn: 'https://audio-enggo.s3.ap-southeast-1.amazonaws.com/congratulation.mp3',
       },
       {
         id: 2,

@@ -36,24 +36,44 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
         shouldDuckAndroid: false,
         staysActiveInBackground: false,
       });
-      
-      console.log("currentVocab.audio :", currentVocab.audio);
-      
+
+      // console.log("currentVocab.audioVn :", currentVocab.audioVn);
+
+      if (!currentVocab.audioVn) {
+        throw new Error(
+          "Đường dẫn âm thanh tiếng Việt không hợp lệ hoặc bị null."
+        );
+      }
+
       // Tạo âm thanh mới từ file require
-      const { sound: newSound } = await Audio.Sound.createAsync(
-        {
-          uri: currentVocab.audio
-        },
-        {
-          shouldPlay: true,
-          isLooping: false,
-        }
-      );
-
-      setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
-
-      // Phát âm thanh
-      await newSound.playAsync();
+      if (settings.mode === "tu-nghia") {
+        const { sound: newSound } = await Audio.Sound.createAsync(
+          {
+            uri: currentVocab.audioEn,
+          },
+          {
+            shouldPlay: true,
+            isLooping: false,
+          }
+        );
+        setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
+        // Phát âm thanh
+        await newSound.playAsync();
+      } else {
+        const { sound: newSound } = await Audio.Sound.createAsync(
+          currentVocab.audioVn,
+          // {
+          //   uri: currentVocab.audioVn,
+          // },
+          {
+            shouldPlay: true,
+            isLooping: false,
+          }
+        );
+        setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
+        // Phát âm thanh
+        await newSound.playAsync();
+      }
     } catch (error) {
       console.error("Lỗi khi phát âm thanh: ", error);
     }

@@ -8,41 +8,43 @@ export const TopicAndVocabulary = [
       {
         id: 1,
         en: "Congratulation!",
-        vn: "Xin chúc mừng",        
+        vn: "Xin chúc mừng",
+        // audio: require("../audio/greetings/congratulation.mp3"),
         audio: 'https://audio-enggo.s3.ap-southeast-1.amazonaws.com/congratulation.mp3',
       },
       {
         id: 2,
         en: "Goodbye",
         vn: "Tạm biệt",
-        
+        // audio: require("../audio/greetings/goodbye.mp3"),
         audio: 'https://audio-enggo.s3.ap-southeast-1.amazonaws.com/goodbye.mp3',
       },
       {
         id: 3,
         en: "Hello",
         vn: "Xin chào",
-        
+        // audio: require("../audio/greetings/hello.mp3"),
         audio: 'https://audio-enggo.s3.ap-southeast-1.amazonaws.com/hello.mp3',
       },
       {
         id: 4,
         en: "Name",
         vn: "Tên",
-        
+        // audio: require("../audio/greetings/name.mp3"),
         audio: 'https://audio-enggo.s3.ap-southeast-1.amazonaws.com/name.mp3',
       },
       {
         id: 5,
         en: "Please",
-        vn: "Làm ơn",        
+        vn: "Làm ơn",
+        // audio: require("../audio/greetings/please.mp3"),
         audio: 'https://audio-enggo.s3.ap-southeast-1.amazonaws.com/please.mp3',
       },
       {
         id: 6,
         en: "Surprise",
         vn: "Gây nhạc nhiên",
-
+        // audio: require("../audio/greetings/surprise.mp3"),
         audio: 'https://audio-enggo.s3.ap-southeast-1.amazonaws.com/surprise.mp3',
       },
     ],
@@ -259,73 +261,69 @@ export const TopicAndVocabulary = [
         en: "Less",
         vn: "Ít hơn",
       },
+
       {
         id: 31,
-        en: "Lots",
-        vn: "Nhiều",
-      },
-      {
-        id: 32,
         en: "Many",
         vn: "Nhiều ",
       },
       {
-        id: 33,
+        id: 32,
         en: "Meter",
         vn: "Mét",
       },
       {
-        id: 34,
+        id: 33,
         en: "Miles",
         vn: "Dặm",
       },
       {
-        id: 35,
+        id: 34,
         en: "Money",
         vn: "Tiền",
       },
       {
-        id: 36,
+        id: 35,
         en: "Once",
         vn: "Một lần",
       },
       {
-        id: 37,
+        id: 36,
         en: "Per",
         vn: "Mỗi",
       },
       {
-        id: 38,
+        id: 37,
         en: "Pound",
         vn: "Đồng bảng Anh",
       },
       {
-        id: 39,
+        id: 38,
         en: "Second",
         vn: "Thứ nhì",
       },
       {
-        id: 40,
+        id: 39,
         en: "Plus",
         vn: "Cộng",
       },
       {
-        id: 41,
+        id: 40,
         en: "Minus",
         vn: "Trừ",
       },
       {
-        id: 42,
+        id: 41,
         en: "Total",
         vn: "Tổng cộng",
       },
       {
-        id: 43,
+        id: 42,
         en: "Twice",
         vn: "Hai lần",
       },
       {
-        id: 44,
+        id: 43,
         en: "Zero",
         vn: "Số không",
       },

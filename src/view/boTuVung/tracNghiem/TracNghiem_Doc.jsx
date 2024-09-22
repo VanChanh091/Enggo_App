@@ -46,7 +46,6 @@ const TracNghiem_Doc = ({ navigation, route }) => {
     }
 
     if (isCorrect) {
-      console.log(isCorrect);      
       await playWordSound();
     }
 
@@ -75,13 +74,13 @@ const TracNghiem_Doc = ({ navigation, route }) => {
         shouldDuckAndroid: false,
         staysActiveInBackground: false,
       });
-      
-      console.log("currentVocab.audio: ", currentVocab.audio);
-      
+
+      // console.log("currentVocab.audio: ", currentVocab.audio);
+
       // Tạo âm thanh mới từ file require
       const { sound: newSound } = await Audio.Sound.createAsync(
-        // currentVocab.audio
-        {uri: currentVocab.audio}
+        // currentVocab.audioEn
+        { uri: currentVocab.audioEn }
       );
 
       setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
@@ -92,15 +91,6 @@ const TracNghiem_Doc = ({ navigation, route }) => {
       console.error("Lỗi khi phát âm thanh: ", error);
     }
   };
-
-  // // Tạo danh sách đáp án, bao gồm đáp án đúng và các đáp án sai ngẫu nhiên
-  // const answers = [
-  //   settings.mode === "tu-nghia" ? currentVocab.vn : currentVocab.en,
-  //   ...data
-  //     .filter((item) => item !== currentVocab) // Loại bỏ từ vựng hiện tại
-  //     .map((item) => (settings.mode === "tu-nghia" ? item.vn : item.en))
-  //     .slice(0, 3), // Lấy 3 đáp án sai
-  // ].sort(() => Math.random() - 0.5);
 
   useEffect(() => {
     // Hàm trộn mảng ngẫu nhiên (Fisher-Yates Shuffle)

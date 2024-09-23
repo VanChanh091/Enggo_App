@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
-import { TagName } from "../../api/apiSongNgu";
+import { TagName, apiSongNgu } from "../../api/apiSongNgu";
 
 const SongNgu_S1 = ({ navigation }) => {
   const renderTagName = ({ item }) => (
@@ -27,7 +27,7 @@ const SongNgu_S1 = ({ navigation }) => {
       >
         <View style={{ flex: 9, alignItems: "center", flexDirection: "row" }}>
           <Text style={{ marginLeft: 15, fontSize: 18 }}>{item.id}.</Text>
-          <Text style={{ marginLeft: 5, fontSize: 18 }}>{item.tag}</Text>
+          <Text style={{ marginLeft: 5, fontSize: 18 }}>{item.topic}</Text>
         </View>
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -51,7 +51,7 @@ const SongNgu_S1 = ({ navigation }) => {
         <FlatList
           keyExtractor={(item) => item.id}
           renderItem={renderTagName}
-          data={TagName}
+          data={apiSongNgu}
         />
       </View>
     </PaperProvider>

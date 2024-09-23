@@ -19,6 +19,7 @@ import {
 
 const SongNgu_S2 = ({ navigation, route }) => {
   const { data } = route.params;
+  console.log();
 
   const handleTruyen = (tag) => {
     switch (tag) {

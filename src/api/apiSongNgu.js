@@ -374,3 +374,195 @@ Bạn sẽ không bao giờ can đảm nếu bạn không bị tổn thương. B
     ],
   },
 ];
+
+export const apiSongNgu = [
+  {
+    id: 1,
+    topic: "Truyện ngắn",
+    subTopic: [
+      {
+        id: 1,
+        titleEn: "Never Tell A Lie",
+        titleVn: "Không Bao Giờ Được Nói Dối",
+        textEn: `On his deathbed, a father advised his son to always speak truth. The son promised that he would never tell a lie.
+
+One day, while going to the city through a forest, he got surrounded by some robbers. One of them asked, "What do you have?"
+The boy answered, "I have fifty rupees."
+
+They searched him but couldn't find anything. When they were about to go, the boy called out, "I am not telling a lie. See this fifty rupee note which I had hidden in my shirt."
+
+The leader of the robbers felt pleased at the truthfulness of the boy, gave him hundred rupees as reward and went away.`,
+        textVn: `Trên giường bệnh, một người cha đã khuyên con trai mình rằng hãy luôn nói sự thật. Người con trai hứa rằng sẽ không bao giờ nói dối.
+
+Một ngày nọ, khi đang đi vào thành phố qua một khu rừng, cậu bé bị một số tên cướp bao vây. Một tên trong số chúng hỏi, "Con có gì?"
+Cậu bé trả lời, "Con có năm mươi rupee."
+
+Chúng lục soát cậu bé nhưng không tìm thấy gì. Khi chúng sắp đi, cậu bé hét lên, "Con không nói dối. Hãy xem tờ năm mươi rupee này mà con đã giấu trong áo."
+
+Tên cầm đầu bọn cướp cảm thấy hài lòng trước sự trung thực của cậu bé, đã thưởng cho cậu một trăm rupee rồi bỏ đi.`,
+      },
+      {
+        id: 2,
+        titleEn: "Better Bent Than Broken",
+        titleVn: "Dẻo Cong Hơn Rắn Giòn",
+        textEn: `Once a huge oak tree stood on the bank of a river. It was well nourished by the water of the river. Naturally, it was very strong and had a thick stem. Just nearby, grew some reeds with thin but flexible stems. They stood almost half in water and had flourished well too.
+
+One day, strong winds blew. The tree, though huge and strong, broke from the middle and was thrown across the stream just among the reeds. On the other hand, the tree was very surprised to see that the reeds suffered no harm at all.
+
+The oak could not make out the reason of the safety of the reeds and asked them, "How is it that, you being frail and slender, managed to face the gale without any harm. But I, strong enough, have been broken."
+
+The reeds replied, "You were proud of your strength and refused to bend. So, you broke while we bowed and yielded to the gale and were spared."`,
+        textVn: `Ngày xưa, có một cây sồi lớn đứng trên bờ sông. Cây được nuôi dưỡng tốt bởi nước sông. Đương nhiên, cây rất khỏe và có thân dày. Ngay gần đó, một số cây sậy mọc lên với thân mỏng nhưng mềm dẻo. Chúng đứng gần một nửa trong nước và cũng phát triển tốt.
+
+Một ngày nọ, gió mạnh thổi. Cây, mặc dù to lớn và khỏe mạnh, đã gãy từ giữa và bị ném qua dòng suối ngay giữa đám sậy. Mặt khác, cây rất ngạc nhiên khi thấy rằng những cây sậy không hề bị tổn hại gì.
+
+Cây sồi không thể hiểu được lý do tại sao những cây sậy lại an toàn và hỏi chúng, "Làm thế nào mà các bạn, những người yếu đuối và mảnh khảnh, lại có thể đối mặt với cơn bão mà không bị tổn hại gì. Nhưng tôi, người đủ khỏe, đã bị gãy."
+
+Những cây sậy trả lời, "Các bạn tự hào về sức mạnh của mình và từ chối cúi mình. Vì vậy, các bạn đã gãy trong khi chúng tôi cúi mình và khuất phục trước cơn bão và được tha thứ."`,
+      },
+      {
+        id: 3,
+        titleEn: "Never Fight Over Trifles",
+        titleVn: "Đừng Bao Giờ Đấu Tranh Vì Những Chuyện Vặt",
+        textEn: `It was high summer. A traveller hired a donkey and set out on a journey. The owner of the donkey was following behind to drive the beast. At mid-day, they decided to take rest for some time but couldn't find any shady place around. So, the traveler decided to rest in the shade of the donkey. But the owner didn't let him do so as he himself wanted to sit in its shadow.
+The trveller said, "How can you refuse me the shadow? I have paid you money after all."
+
+"But you have paid for the ride, not for resting in his shadow", retorted the owner.
+
+So, an argument followed between the two. When the donkey saw that the owner and the hirer were busy fighting, he took to his heels and was soon out of sight.`,
+        textVn: `Vào giữa mùa hè. Một lữ khách thuê một con lừa và lên đường. Chủ của con lừa đi theo sau để lùa con vật. Vào giữa trưa, họ quyết định nghỉ ngơi một lúc nhưng không tìm thấy nơi nào râm mát xung quanh. Vì vậy, lữ khách quyết định nghỉ ngơi dưới bóng râm của con lừa. Nhưng chủ của nó không cho anh ta làm như vậy vì chính anh ta cũng muốn ngồi dưới bóng của nó.
+Lữ khách nói, "Làm sao anh có thể từ chối cái bóng của tôi? Dù sao thì tôi cũng đã trả tiền cho anh rồi mà."
+
+"Nhưng anh đã trả tiền cho chuyến đi, chứ không phải để nghỉ ngơi dưới bóng của nó", chủ của nó đáp trả.
+
+Vì vậy, một cuộc cãi vã đã xảy ra giữa hai người. Khi con lừa thấy chủ và người thuê đang bận đánh nhau, nó bỏ chạy và nhanh chóng biến mất khỏi tầm mắt.`,
+      },
+      {
+        id: 4,
+        titleEn: "A Coward Can't Teach Courage",
+        titleVn: "Kẻ Nhút Nhát Không Thể Dạy Sự Dũng Cảm",
+        textEn: `Once there lived a hind in a forest. She had a son who had grown very young and strong. She was very happy to see his stout body and branched strong horns and thought, "stags have powerful horns, why should they be afraid of hounds, wolves then? It's sheer cowardice. I would never like my son to do it at all."
+
+After some time, the hind's son came there. The hind wanted to teach him to be courageous. She said, "Son! You have a stout body and strong horns. So, you must not run away from hounds and wolves. Don't be a coward."
+
+"Ok, mom; I won't", said the stag.
+
+Just then the mother and the son heard the bark of the hounds. The hind got ready to run away when her son asked her to stay on. She said, "You may, but I have no horns."
+
+Saying so, she ran as fast as she could.
+
+The mother herself was a coward and was teaching courage to her son. What a satire!`,
+        textVn: `Ngày xưa có một con hươu cái sống trong một khu rừng. Nó có một đứa con trai đã lớn rất trẻ và khỏe mạnh. Nó rất vui khi nhìn thấy thân hình lực lưỡng và cặp sừng khỏe mạnh của con và nghĩ rằng, "nai đực có cặp sừng khỏe mạnh, tại sao chúng lại phải sợ chó săn, sói? Thật là hèn nhát. Tôi không bao giờ muốn con trai mình làm điều đó."
+
+Sau một thời gian, con trai của con hươu cái đến đó. Con hươu cái muốn dạy nó cách can đảm. Nó nói, "Con trai! Con có thân hình lực lưỡng và cặp sừng khỏe mạnh. Vì vậy, con không được chạy trốn khỏi chó săn và sói. Đừng hèn nhát."
+
+"Được thôi, mẹ; con sẽ không làm thế đâu", con hươu cái nói.
+
+Đúng lúc đó, mẹ và con trai nghe thấy tiếng chó săn sủa. Con hươu cái chuẩn bị chạy trốn thì con trai nó bảo nó ở lại. Nó nói, "Con có thể, nhưng mẹ không có sừng."
+
+Nói xong, nó chạy nhanh nhất có thể.
+
+Bản thân người mẹ cũng là một kẻ hèn nhát và đang dạy con trai mình lòng can đảm. Thật là một sự châm biếm!`,
+      },
+      // {
+      //   id: 5,
+      //   titleEn: "Belling The Cat",
+      //   titleVn: "Đeo Lục Lạc Cho Mèo",
+      //   textEn: "",
+      //   textVn: "",
+      // },
+      // {
+      //   id: 6,
+      //   titleEn: "The Cat And The Elephant",
+      //   titleVn: "Con Mèo Và Con Voi",
+      //   textEn: "",
+      //   textVn: "",
+      // },
+      // {
+      //   id: 7,
+      //   titleEn: "The Jay And The Peacock",
+      //   titleVn: "Chim Giẻ Cùi Và Con Công",
+      //   textEn: "",
+      //   textVn: "",
+      // },
+    ],
+  },
+  {
+    id: 2,
+    topic: "Truyện cổ tích",
+    subTopic: [
+      {
+        id: 1,
+        titleEn: "Never Tell A Lie",
+        titleVn: "Không bao giờ được nói dối",
+        textEn: ``,
+        textVn: ``,
+      },
+    ],
+  },
+  {
+    id: 3,
+    topic: "Truyện cười",
+    subTopic: [
+      {
+        id: 1,
+        titleEn: "Never Tell A Lie",
+        titleVn: "Không bao giờ được nói dối",
+        textEn: ``,
+        textVn: ``,
+      },
+    ],
+  },
+  {
+    id: 4,
+    topic: "Truyện ngụ ngônn",
+    subTopic: [
+      {
+        id: 1,
+        titleEn: "Never Tell A Lie",
+        titleVn: "Không bao giờ được nói dối",
+        textEn: ``,
+        textVn: ``,
+      },
+    ],
+  },
+  {
+    id: 5,
+    topic: "Mẫu câu giao tiếp",
+    subTopic: [
+      {
+        id: 1,
+        titleEn: "Never Tell A Lie",
+        titleVn: "Không bao giờ được nói dối",
+        textEn: ``,
+        textVn: ``,
+      },
+    ],
+  },
+  {
+    id: 6,
+    topic: "Báo song ngữ",
+    subTopic: [
+      {
+        id: 1,
+        titleEn: "Never Tell A Lie",
+        titleVn: "Không bao giờ được nói dối",
+        textEn: ``,
+        textVn: ``,
+      },
+    ],
+  },
+  {
+    id: 7,
+    topic: "Châm ngôn hay",
+    subTopic: [
+      {
+        id: 1,
+        titleEn: "Never Tell A Lie",
+        titleVn: "Không bao giờ được nói dối",
+        textEn: ``,
+        textVn: ``,
+      },
+    ],
+  },
+];

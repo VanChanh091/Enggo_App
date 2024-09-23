@@ -4,7 +4,6 @@ import { Appbar, PaperProvider } from "react-native-paper";
 
 const NguPhap_S2 = ({ navigation, route }) => {
   const { data } = route.params;
-  console.log(data);
 
   return (
     <PaperProvider>

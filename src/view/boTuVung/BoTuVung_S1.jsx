@@ -56,13 +56,14 @@ const BoTuVung_S1 = ({ navigation }) => {
         <Appbar.Content title="Bộ Từ Vựng" color="white" />
       </Appbar.Header>
 
-      <View style={{ flex: 1, backgroundColor: "#F1F1F1" }}>
+      <View style={{ flex: 9, backgroundColor: "#F1F1F1" }}>
         <FlatList
           keyExtractor={(item) => item.id}
           renderItem={renderTopicAndVocabulary}
           data={TopicAndVocabulary}
         />
       </View>
+      <View style={{ flex: 1 }}></View>
     </PaperProvider>
   );
 };

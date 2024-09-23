@@ -430,4 +430,121 @@ export const TopicAndVocabulary = [
       },
     ],
   },
+
+  {
+    id: 11,
+    image: require("../img/imgBoTuVung/work.png"),
+    titleEn: "Work",
+    titleVn: "Việc làm",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 12,
+    image: require("../img/imgBoTuVung/ambulance.png"),
+    titleEn: "Emergency and health",
+    titleVn: "Trường hợp khẩn cấp và sức khỏe",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 13,
+    image: require("../img/imgBoTuVung/listen.png"),
+    titleEn: "Communication difficulties",
+    titleVn: "Khó khăn giao tiếp",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 14,
+    image: require("../img/imgBoTuVung/location.png"),
+    titleEn: "Location",
+    titleVn: "Địa điểm",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 15,
+    image: require("../img/imgBoTuVung/phone.png"),
+    titleEn: "Phone/internet/mail",
+    titleVn: "Điện thoại/mạng/thư",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 16,
+    image: require("../img/imgBoTuVung/house.png"),
+    titleEn: "Accommodation",
+    titleVn: "Chỗ ở",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 17,
+    image: require("../img/imgBoTuVung/book.png"),
+    titleEn: "Common expressions",
+    titleVn: "Những thành ngữ thông dụng",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 18,
+    image: require("../img/imgBoTuVung/verb.png"),
+    titleEn: "Verbs",
+    titleVn: "Động từ",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 19,
+    image: require("../img/imgBoTuVung/culture.png"),
+    titleEn: "Cultural expressions/terms",
+    titleVn: "Từ vựng và thành ngữ văn hóa",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
 ];

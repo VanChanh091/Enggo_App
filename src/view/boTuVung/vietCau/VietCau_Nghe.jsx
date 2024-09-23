@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
+import { Audio } from "expo-av";
 
 const VietCau_Nghe = ({ navigation, route }) => {
   const { settings } = route.params;
@@ -74,6 +75,12 @@ const VietCau_Nghe = ({ navigation, route }) => {
     setSelectedWords([]); // Reset từ đã chọn
   }, [currentQuestion, settings.mode]);
 
+  useEffect(() => {
+    if (currentVocab) {
+      playWordSound(); // Tự động phát âm thanh khi từ vựng thay đổi
+    }
+  }, [currentVocab]);
+
   const splitWordIntoLetters = (word) => {
     return word.split(""); // Tách từng chữ cái của từ tiếng Anh
   };
@@ -106,16 +113,48 @@ const VietCau_Nghe = ({ navigation, route }) => {
         await sound.unloadAsync();
         setSound(null);
       }
-
-      // Tạo âm thanh mới từ file require
-      const { sound: newSound } = await Audio.Sound.createAsync({
-        uri: currentVocab.audioEn,
+      await Audio.setAudioModeAsync({
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: false,
+        staysActiveInBackground: false,
       });
 
-      setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
+      // console.log("currentVocab.audioVn :", currentVocab.audioVn);
 
-      // Phát âm thanh
-      await newSound.playAsync();
+      if (!currentVocab.audioVn) {
+        throw new Error(
+          "Đường dẫn âm thanh tiếng Việt không hợp lệ hoặc bị null."
+        );
+      }
+
+      // Tạo âm thanh mới từ file require
+      if (settings.mode === "tu-nghia") {
+        const { sound: newSound } = await Audio.Sound.createAsync(
+          {
+            uri: currentVocab.audioEn,
+          },
+          {
+            shouldPlay: true,
+            isLooping: false,
+          }
+        );
+        setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
+        // Phát âm thanh
+        await newSound.playAsync();
+      } else {
+        const { sound: newSound } = await Audio.Sound.createAsync(
+          {
+            uri: currentVocab.audioVn,
+          },
+          {
+            shouldPlay: true,
+            isLooping: false,
+          }
+        );
+        setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
+        // Phát âm thanh
+        await newSound.playAsync();
+      }
     } catch (error) {
       console.error("Lỗi khi phát âm thanh: ", error);
     }
@@ -212,11 +251,12 @@ const VietCau_Nghe = ({ navigation, route }) => {
                   alignItems: "center",
                 }}
               >
-                <Text style={{ fontWeight: 600, fontSize: 28 }}>
-                  {settings.mode === "tu-nghia"
-                    ? currentVocab.en
-                    : currentVocab.vn}
-                </Text>
+                <TouchableOpacity onPress={playWordSound}>
+                  <Image
+                    source={require("../../../img/imgBoTuVung/voice.png")}
+                    style={{ width: 75, height: 75, resizeMode: "contain" }}
+                  />
+                </TouchableOpacity>
               </View>
               <View
                 style={{
@@ -345,4 +385,27 @@ const VietCau_Nghe = ({ navigation, route }) => {
 
 export default VietCau_Nghe;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  selectedWord: {
+    margin: 4,
+  },
+  wordOptionsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    flex: 3,
+  },
+  wordOption: {
+    backgroundColor: "white",
+    padding: 10,
+    margin: 5,
+    borderRadius: 5,
+    minWidth: 55,
+    maxHeight: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  wordText: {
+    fontSize: 18,
+  },
+});

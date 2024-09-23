@@ -61,10 +61,9 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
         await newSound.playAsync();
       } else {
         const { sound: newSound } = await Audio.Sound.createAsync(
-          currentVocab.audioVn,
-          // {
-          //   uri: currentVocab.audioVn,
-          // },
+          {
+            uri: currentVocab.audioVn,
+          },
           {
             shouldPlay: true,
             isLooping: false,

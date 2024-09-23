@@ -26,35 +26,85 @@ const VietCau_Doc = ({ navigation, route }) => {
 
   // Khởi tạo danh sách từ khi từ vựng thay đổi
   useEffect(() => {
-    const correctWords = currentVocab.vn.split(" "); // Từ đúng
-    const randomWords = data
-      .filter((item) => item.id !== currentVocab.id) // Loại bỏ từ hiện tại
-      .map((item) => item.vn.split(" ")) // Lấy từ tiếng Việt
-      .flat(); // Làm phẳng mảng từ
-    const selectedRandomWords = shuffleArray(randomWords).slice(
-      0,
-      8 - correctWords.length
-    ); // Lấy ngẫu nhiên từ không trùng với câu đúng
+    let allOptions = [];
 
-    const allWords = shuffleArray([...correctWords, ...selectedRandomWords]); // Trộn các từ đúng và từ ngẫu nhiên
-    setWordOptions(allWords); // Cập nhật các tùy chọn từ
-    setCorrectAnswer(correctWords); // Cập nhật câu trả lời đúng
+    if (settings.mode === "tu-nghia") {
+      // Tách từ tiếng Việt (theo từ)
+      const correctWords = currentVocab.vn.split(" ").map((word, index) => ({
+        id: index, // Gán id duy nhất cho từng từ
+        word: word, // Giá trị từ
+      }));
+
+      const randomWords = data
+        .filter((item) => item.id !== currentVocab.id)
+        .map((item) => item.vn.split(" "))
+        .flat()
+        .map((word, index) => ({
+          id: correctWords.length + index, // Đảm bảo id duy nhất cho từ ngẫu nhiên
+          word: word,
+        }));
+
+      const selectedRandomWords = shuffleArray(randomWords).slice(
+        0,
+        8 - correctWords.length
+      );
+
+      allOptions = shuffleArray([...correctWords, ...selectedRandomWords]); // Trộn các tùy chọn từ tiếng Việt
+      setCorrectAnswer(correctWords); // Đặt câu trả lời đúng là các từ tiếng Việt
+    } else {
+      // Tách từng chữ cái của từ tiếng Anh
+      const correctLetters = splitWordIntoLetters(currentVocab.en).map(
+        (letter, index) => ({
+          id: index, // Gán id duy nhất cho từng chữ cái
+          letter: letter,
+        })
+      );
+
+      const randomLetters = data
+        .filter((item) => item.id !== currentVocab.id)
+        .map((item) => item.en.split(" "))
+        .flat()
+        .map((word, index) => ({
+          id: correctLetters.length + index, // Đảm bảo id duy nhất cho từ ngẫu nhiên
+          letter: word,
+        }));
+
+      const selectedRandomLetter = shuffleArray(randomLetters).slice(
+        0,
+        8 - correctLetters.length
+      );
+
+      allOptions = shuffleArray([...selectedRandomLetter, ...correctLetters]); // Trộn các tùy chọn chữ cái
+      setCorrectAnswer(correctLetters); // Đặt câu trả lời đúng là các chữ cái
+    }
+
+    setWordOptions(allOptions); // Cập nhật danh sách các tùy chọn (từ hoặc chữ cái)
     setSelectedWords([]); // Reset từ đã chọn
-  }, [currentQuestion]);
+  }, [currentQuestion, settings.mode]);
+
+  const splitWordIntoLetters = (word) => {
+    return word.split(""); // Tách từng chữ cái của từ tiếng Anh
+  };
 
   // Hàm trộn ngẫu nhiên các phần tử trong mảng
   const shuffleArray = (array) => {
     return array.sort(() => Math.random() - 0.5);
   };
 
-  const handleSelectWord = (word) => {
-    setSelectedWords([...selectedWords, word]); // Thêm từ vào danh sách đã chọn
-    setWordOptions(wordOptions.filter((item) => item !== word)); // Loại từ khỏi danh sách tùy chọn
+  const handleSelectWord = (wordObj) => {
+    setSelectedWords((prevSelectedWords) => [...prevSelectedWords, wordObj]); // Thêm từ/chữ vào danh sách đã chọn
+    setWordOptions(
+      (prevWordOptions) =>
+        prevWordOptions.filter((item) => item.id !== wordObj.id) // Chỉ xóa phần tử có id tương ứng
+    );
   };
 
-  const handleRemoveWord = (word) => {
-    setSelectedWords(selectedWords.filter((item) => item !== word)); // Bỏ từ khỏi danh sách đã chọn
-    setWordOptions([...wordOptions, word]); // Thêm từ trở lại danh sách tùy chọn
+  const handleRemoveWord = (wordObj) => {
+    setSelectedWords(
+      (prevSelectedWords) =>
+        prevSelectedWords.filter((item) => item.id !== wordObj.id) // Xóa phần tử khỏi danh sách đã chọn dựa trên id
+    );
+    setWordOptions((prevWordOptions) => [...prevWordOptions, wordObj]); // Thêm từ/chữ trở lại danh sách tùy chọn
   };
 
   const playWordSound = async () => {
@@ -66,9 +116,9 @@ const VietCau_Doc = ({ navigation, route }) => {
       }
 
       // Tạo âm thanh mới từ file require
-      const { sound: newSound } = await Audio.Sound.createAsync(
-        currentVocab.audio
-      );
+      const { sound: newSound } = await Audio.Sound.createAsync({
+        uri: currentVocab.audioEn,
+      });
 
       setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
 
@@ -79,30 +129,40 @@ const VietCau_Doc = ({ navigation, route }) => {
     }
   };
 
+  // Tự động chuyển câu hỏi sau 1 giây
+  const moveToNextWord = () => {
+    setTimeout(() => {
+      if (currentQuestion === data.length - 1) {
+        setIsQuizCompleted(true);
+      } else {
+        setCurrentQuestion((prev) => prev + 1);
+      }
+    }, 1000);
+  };
+
   const checkAnswer = async () => {
-    if (
+    if (selectedWords.length === 0) {
+      Alert.alert(
+        "Thông báo",
+        "Bạn chưa chọn từ nào, vui lòng chọn ít nhất một từ!"
+      );
+    } else if (
       selectedWords.join(" ").toLowerCase() ===
       correctAnswer.join(" ").toLowerCase()
     ) {
       Alert.alert("Chính xác", "Bạn đã ghép đúng câu!");
       await playWordSound();
-
-      // Tự động chuyển câu hỏi sau 1 giây
-      setTimeout(() => {
-        if (currentQuestion === data.length - 1) {
-          setIsQuizCompleted(true);
-        } else {
-          setCurrentQuestion((prev) => prev + 1);
-        }
-      }, 2000);
+      moveToNextWord();
     } else {
       Alert.alert("Sai", "Câu ghép chưa đúng, hãy thử lại.");
       if (lives === 1) {
-        Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
+        // Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
         setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
-        return;
+        // return;
+      } else {
+        setLives((prev) => prev - 1); // Trừ 1 trái tim nếu sai
       }
-      setLives((prev) => prev - 1); // Trừ 1 trái tim nếu sai
+      setSelectedWords([]);
     }
   };
 
@@ -175,28 +235,31 @@ const VietCau_Doc = ({ navigation, route }) => {
                   backgroundColor: "white",
                 }}
               >
-                {selectedWords.map((word, index) => (
+                {selectedWords.map((wordObj, index) => (
                   <TouchableOpacity
-                    key={index}
-                    onPress={() => handleRemoveWord(word)}
+                    key={wordObj.id} // Sử dụng id duy nhất
+                    onPress={() => handleRemoveWord(wordObj)}
                     style={styles.selectedWord}
                   >
-                    <Text style={styles.wordText}>{word}</Text>
+                    <Text style={styles.wordText}>
+                      {wordObj.word || wordObj.letter}
+                    </Text>
                   </TouchableOpacity>
                 ))}
               </View>
             </View>
           </View>
+
           {/* item */}
           <View style={{ flex: 6.5 }}>
-            {/* ignore */}
+            {/* skip */}
             <View
               style={{
                 flex: 1,
                 alignItems: "flex-end",
               }}
             >
-              <TouchableOpacity>
+              <TouchableOpacity onPress={moveToNextWord}>
                 <Text style={{ fontSize: 18, color: "gray", marginRight: 20 }}>
                   Bỏ qua
                 </Text>
@@ -207,13 +270,15 @@ const VietCau_Doc = ({ navigation, route }) => {
             <View style={{ flex: 6.5 }}>
               {/* Hiển thị các từ bên dưới */}
               <View style={styles.wordOptionsContainer}>
-                {wordOptions.map((word, index) => (
+                {wordOptions.map((wordObj) => (
                   <TouchableOpacity
-                    key={index}
-                    onPress={() => handleSelectWord(word)}
+                    key={wordObj.id} // Sử dụng id duy nhất
+                    onPress={() => handleSelectWord(wordObj)}
                     style={styles.wordOption}
                   >
-                    <Text style={styles.wordText}>{word}</Text>
+                    <Text style={styles.wordText}>
+                      {wordObj.word || wordObj.letter}
+                    </Text>
                   </TouchableOpacity>
                 ))}
               </View>

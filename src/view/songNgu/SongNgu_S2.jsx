@@ -19,83 +19,64 @@ import {
 
 const SongNgu_S2 = ({ navigation, route }) => {
   const { data } = route.params;
-  console.log();
-
-  const handleTruyen = (tag) => {
-    switch (tag) {
-      case "Truyện ngắn":
-        return TruyenNgan.flatMap((truyen) => truyen.listTruyen);
-      case "Truyện cổ tích":
-        return TruyenCoTich.flatMap((truyen) => truyen.listTruyen);
-      case "Truyện cười":
-        return TruyenCuoi.flatMap((truyen) => truyen.listTruyen);
-      case "Truyện ngụ ngôn":
-        return TruyenNguNgon.flatMap((truyen) => truyen.listTruyen);
-      case "Mẫu câu giao tiếp":
-        return MauCauGiaoTiep.flatMap((truyen) => truyen.listTruyen);
-      case "Báo song ngữ":
-        return BaoSongNgu.flatMap((truyen) => truyen.listTruyen);
-      case "Châm ngôn hay":
-        return ChamNgonHay.flatMap((truyen) => truyen.listTruyen);
-      default:
-      // navigation.navigate("SongNgu_S1");
-    }
-  };
-
-  const renderListTruyens = ({ item }) => (
-    <TouchableOpacity
-      style={{
-        width: "95%",
-        height: 70,
-        borderWidth: 1,
-        borderRadius: 12,
-        borderColor: "gray",
-        flexDirection: "row",
-        marginHorizontal: 10,
-        marginTop: 10,
-      }}
-      onPress={() => navigation.navigate("SongNgu_S3", { dataTruyen: item })}
-    >
-      <View
-        style={{
-          flex: 1.2,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text key={item.id} style={{ fontWeight: "bold", fontSize: 18 }}>
-          {item.id}
-        </Text>
-      </View>
-      <View style={{ flex: 8.8, justifyContent: "center" }}>
-        <Text style={{ fontWeight: 500, fontSize: 17 }}>{item.titleEn}</Text>
-        <Text
-          style={{
-            fontWeight: 600,
-            fontSize: 16,
-            color: "gray",
-            marginTop: 3,
-          }}
-        >
-          {item.titleVn}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
+  console.log(data);
 
   return (
     <PaperProvider>
       <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
         <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-        <Appbar.Content title={data.tag} color="white" />
+        <Appbar.Content title={data.topic} color="white" />
       </Appbar.Header>
 
       <View style={{ flex: 1 }}>
-        <FlatList
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={renderListTruyens}
-          data={handleTruyen(data.tag)}
-        />
+        {data.subTopic.map((subTopic) => (
+          <TouchableOpacity
+            style={{
+              width: "95%",
+              height: 75,
+              borderWidth: 1,
+              borderRadius: 12,
+              borderColor: "gray",
+              flexDirection: "row",
+              marginHorizontal: 10,
+              marginTop: 10,
+            }}
+            key={subTopic.id}
+            onPress={() =>
+              navigation.navigate("SongNgu_S3", { dataTruyen: subTopic })
+            }
+          >
+            <View
+              style={{
+                flex: 1.2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                key={subTopic.id}
+                style={{ fontWeight: "bold", fontSize: 18 }}
+              >
+                {subTopic.id}
+              </Text>
+            </View>
+            <View style={{ flex: 8.8, justifyContent: "center" }}>
+              <Text style={{ fontWeight: 500, fontSize: 17 }}>
+                {subTopic.titleEn}
+              </Text>
+              <Text
+                style={{
+                  fontWeight: 600,
+                  fontSize: 16,
+                  color: "gray",
+                  marginTop: 3,
+                }}
+              >
+                {subTopic.titleVn}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ))}
       </View>
     </PaperProvider>
   );

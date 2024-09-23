@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
-import { TagName, apiSongNgu } from "../../api/apiSongNgu";
+import { apiSongNgu } from "../../api/apiSongNgu";
 
 const SongNgu_S1 = ({ navigation }) => {
   const renderTagName = ({ item }) => (

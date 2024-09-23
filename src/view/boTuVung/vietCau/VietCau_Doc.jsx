@@ -62,7 +62,7 @@ const VietCau_Doc = ({ navigation, route }) => {
 
       const randomLetters = data
         .filter((item) => item.id !== currentVocab.id)
-        .map((item) => item.en.split(" "))
+        .map((item) => splitWordIntoLetters(item.en))
         .flat()
         .map((word, index) => ({
           id: correctLetters.length + index, // Đảm bảo id duy nhất cho từ ngẫu nhiên
@@ -70,7 +70,7 @@ const VietCau_Doc = ({ navigation, route }) => {
         }));
 
       const selectedRandomLetter = shuffleArray(randomLetters).slice(
-        0,
+        20,
         8 - correctLetters.length
       );
 

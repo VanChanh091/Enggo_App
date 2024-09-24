@@ -52,7 +52,7 @@ const Home = ({ navigation }) => {
         navigation.navigate("SongNguNavigation");
         break;
       case 5:
-        // navigation.navigate("NguPhapNavigation");
+        navigation.navigate("TopTabVideo");
         break;
       case 6:
         // navigation.navigate("TruyenChem_S1");

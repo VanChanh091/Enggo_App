@@ -31,6 +31,7 @@ import {
   SettingTest_TracNghiem,
   SettingTest_VietCau,
 } from "../view/boTuVung";
+import TopTabVideo from "../view/video/TopTabVideo";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -280,6 +281,12 @@ const MainNavigator = () => {
       <Stack.Screen
         name="BoTuVungNavigation"
         component={BoTuVungNavigation}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="TopTabVideo"
+        component={TopTabVideo}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -15,10 +15,10 @@ import {
   EnglishWithLucyChannel,
   VanessaChannel,
   TedEdChannel,
-} from "../../api/ApiVideo";
+} from "../../../api/ApiVideo";
 
 const ChannelScreen = ({ navigation }) => {
-  const limitedShowOxfordChannel = OxfordChannel.slice(0, 4);
+  const limitedShowOxfordChannel = OxfordChannel.slice(0, 4); //Limit number of video show in screen
   const limitedShowEngVidChannel = EngVidChannel.slice(0, 4);
   const limitedShowEnglishWithLucyChannel = EnglishWithLucyChannel.slice(0, 4);
   const limitedShowVanessaChannel = VanessaChannel.slice(0, 4);
@@ -30,6 +30,7 @@ const ChannelScreen = ({ navigation }) => {
         height: "100%",
         width: 250,
       }}
+      onPress={() => navigation.navigate("VideoSetting", { data: item })}
     >
       <View
         style={{
@@ -51,10 +52,9 @@ const ChannelScreen = ({ navigation }) => {
         <Text
           style={{
             fontWeight: 500,
-            fontSize: 16,
+            fontSize: 15,
             marginHorizontal: 10,
-            textAlign: "justify",
-            lineHeight: 20,
+            // textAlign: "justify",
           }}
         >
           {item.text}
@@ -70,24 +70,38 @@ const ChannelScreen = ({ navigation }) => {
         style={{
           width: "100%",
           height: 275,
-          borderBottomWidth: 1,
-          borderColor: "#d0d0d0",
         }}
       >
         <View style={{ flex: 2, flexDirection: "row" }}>
-          <View style={{ flex: 7, justifyContent: "center" }}>
+          <View
+            style={{
+              flex: 7.5,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../../../img/imgVideo/logoChannel/oxford.png")}
+              style={{
+                width: 40,
+                height: 40,
+                resizeMode: "contain",
+                marginLeft: 10,
+                marginTop: 5,
+              }}
+            />
             <Text
               style={{
                 fontWeight: 600,
-                fontSize: 20,
+                fontSize: 18,
                 marginLeft: 10,
-                marginTop: 10,
+                marginTop: 5,
               }}
             >
               Oxford
             </Text>
           </View>
-          <View style={{ flex: 3, justifyContent: "center" }}>
+          <View style={{ flex: 2.5, justifyContent: "center" }}>
             {/* see more  */}
             <TouchableOpacity
               style={{
@@ -95,15 +109,20 @@ const ChannelScreen = ({ navigation }) => {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: 10,
+                marginTop: 5,
               }}
-              //   onPress={() => navigation.navigate("")}
+              onPress={() =>
+                navigation.navigate("ListVideoOfChannel", {
+                  data: OxfordChannel,
+                })
+              }
             >
               <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
               <Ionicons name="chevron-forward-outline" size={20} color="gray" />
             </TouchableOpacity>
           </View>
         </View>
+
         <View style={{ flex: 8 }}>
           <FlatList
             keyExtractor={(item) => item.id.toString()}
@@ -120,24 +139,38 @@ const ChannelScreen = ({ navigation }) => {
         style={{
           width: "100%",
           height: 275,
-          borderBottomWidth: 1,
-          borderColor: "#d0d0d0",
         }}
       >
         <View style={{ flex: 2, flexDirection: "row" }}>
-          <View style={{ flex: 7, justifyContent: "center" }}>
+          <View
+            style={{
+              flex: 7.5,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../../../img/imgVideo/logoChannel/engVid.png")}
+              style={{
+                width: 40,
+                height: 40,
+                resizeMode: "contain",
+                marginLeft: 10,
+                marginTop: 5,
+              }}
+            />
             <Text
               style={{
                 fontWeight: 600,
-                fontSize: 20,
+                fontSize: 18,
                 marginLeft: 10,
-                marginTop: 10,
+                marginTop: 5,
               }}
             >
               engVid: Learn English
             </Text>
           </View>
-          <View style={{ flex: 3, justifyContent: "center" }}>
+          <View style={{ flex: 2.5, justifyContent: "center" }}>
             {/* see more  */}
             <TouchableOpacity
               style={{
@@ -145,15 +178,20 @@ const ChannelScreen = ({ navigation }) => {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: 10,
+                marginTop: 5,
               }}
-              //   onPress={() => navigation.navigate("")}
+              onPress={() =>
+                navigation.navigate("ListVideoOfChannel", {
+                  data: EngVidChannel,
+                })
+              }
             >
               <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
               <Ionicons name="chevron-forward-outline" size={20} color="gray" />
             </TouchableOpacity>
           </View>
         </View>
+
         <View style={{ flex: 8 }}>
           <FlatList
             keyExtractor={(item) => item.id.toString()}
@@ -170,24 +208,38 @@ const ChannelScreen = ({ navigation }) => {
         style={{
           width: "100%",
           height: 275,
-          borderBottomWidth: 1,
-          borderColor: "#d0d0d0",
         }}
       >
         <View style={{ flex: 2, flexDirection: "row" }}>
-          <View style={{ flex: 7, justifyContent: "center" }}>
+          <View
+            style={{
+              flex: 7.5,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../../../img/imgVideo/logoChannel/lucy.png")}
+              style={{
+                width: 40,
+                height: 40,
+                resizeMode: "contain",
+                marginLeft: 10,
+                marginTop: 5,
+              }}
+            />
             <Text
               style={{
                 fontWeight: 600,
-                fontSize: 20,
+                fontSize: 18,
                 marginLeft: 10,
-                marginTop: 10,
+                marginTop: 5,
               }}
             >
               English With Lucy
             </Text>
           </View>
-          <View style={{ flex: 3, justifyContent: "center" }}>
+          <View style={{ flex: 2.5, justifyContent: "center" }}>
             {/* see more  */}
             <TouchableOpacity
               style={{
@@ -195,15 +247,20 @@ const ChannelScreen = ({ navigation }) => {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: 10,
+                marginTop: 5,
               }}
-              //   onPress={() => navigation.navigate("")}
+              onPress={() =>
+                navigation.navigate("ListVideoOfChannel", {
+                  data: EnglishWithLucyChannel,
+                })
+              }
             >
               <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
               <Ionicons name="chevron-forward-outline" size={20} color="gray" />
             </TouchableOpacity>
           </View>
         </View>
+
         <View style={{ flex: 8 }}>
           <FlatList
             keyExtractor={(item) => item.id.toString()}
@@ -220,24 +277,38 @@ const ChannelScreen = ({ navigation }) => {
         style={{
           width: "100%",
           height: 275,
-          borderBottomWidth: 1,
-          borderColor: "#d0d0d0",
         }}
       >
         <View style={{ flex: 2, flexDirection: "row" }}>
-          <View style={{ flex: 7, justifyContent: "center" }}>
+          <View
+            style={{
+              flex: 7.5,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../../../img/imgVideo/logoChannel/vanessa.png")}
+              style={{
+                width: 40,
+                height: 40,
+                resizeMode: "contain",
+                marginLeft: 10,
+                marginTop: 5,
+              }}
+            />
             <Text
               style={{
                 fontWeight: 600,
-                fontSize: 20,
+                fontSize: 16,
                 marginLeft: 10,
-                marginTop: 10,
+                marginTop: 5,
               }}
             >
               Speaking English With Vanessa
             </Text>
           </View>
-          <View style={{ flex: 3, justifyContent: "center" }}>
+          <View style={{ flex: 2.5, justifyContent: "center" }}>
             {/* see more  */}
             <TouchableOpacity
               style={{
@@ -245,9 +316,13 @@ const ChannelScreen = ({ navigation }) => {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: 10,
+                marginTop: 5,
               }}
-              //   onPress={() => navigation.navigate("")}
+              onPress={() =>
+                navigation.navigate("ListVideoOfChannel", {
+                  data: VanessaChannel,
+                })
+              }
             >
               <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
               <Ionicons name="chevron-forward-outline" size={20} color="gray" />
@@ -270,24 +345,38 @@ const ChannelScreen = ({ navigation }) => {
         style={{
           width: "100%",
           height: 275,
-          borderBottomWidth: 1,
-          borderColor: "#d0d0d0",
         }}
       >
         <View style={{ flex: 2, flexDirection: "row" }}>
-          <View style={{ flex: 7, justifyContent: "center" }}>
+          <View
+            style={{
+              flex: 7.5,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={require("../../../img/imgVideo/logoChannel/tedEd.png")}
+              style={{
+                width: 40,
+                height: 40,
+                resizeMode: "contain",
+                marginLeft: 10,
+                marginTop: 5,
+              }}
+            />
             <Text
               style={{
                 fontWeight: 600,
-                fontSize: 20,
+                fontSize: 18,
                 marginLeft: 10,
-                marginTop: 10,
+                marginTop: 5,
               }}
             >
-              Ted-Ed
+              Ted-ed
             </Text>
           </View>
-          <View style={{ flex: 3, justifyContent: "center" }}>
+          <View style={{ flex: 2.5, justifyContent: "center" }}>
             {/* see more  */}
             <TouchableOpacity
               style={{
@@ -295,8 +384,13 @@ const ChannelScreen = ({ navigation }) => {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: 10,
+                marginTop: 5,
               }}
+              onPress={() =>
+                navigation.navigate("ListVideoOfChannel", {
+                  data: TedEdChannel,
+                })
+              }
             >
               <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
               <Ionicons name="chevron-forward-outline" size={20} color="gray" />

@@ -2,9 +2,9 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { Appbar, PaperProvider } from "react-native-paper";
-import ChannelScreen from "./ChannelScreen";
-import TopicScreen from "./TopicScreen";
-import HistoryScreen from "./HistoryScreen";
+import ChannelScreen from "./topTab/ChannelScreen";
+import TopicScreen from "./topTab/TopicScreen";
+import HistoryScreen from "./topTab/HistoryScreen";
 
 const TopTab = createMaterialTopTabNavigator();
 

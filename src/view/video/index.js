@@ -1,8 +1,9 @@
-import ChannelScreen from "./ChannelScreen";
-import TopicScreen from "./TopicScreen";
-import HistoryScreen from "./HistoryScreen";
+import ChannelScreen from "./topTab/ChannelScreen";
+import TopicScreen from "./topTab/TopicScreen";
+import HistoryScreen from "./topTab/HistoryScreen";
 import TopTabVideo from "./TopTabVideo";
 import ListVideoOfChannel from "./ListVideoOfChannel";
+import VideoSetting from "./VideoSetting";
 
 export {
   ChannelScreen,
@@ -10,4 +11,5 @@ export {
   HistoryScreen,
   TopTabVideo,
   ListVideoOfChannel,
+  VideoSetting,
 };

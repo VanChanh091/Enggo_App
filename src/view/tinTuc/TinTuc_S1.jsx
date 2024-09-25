@@ -13,7 +13,7 @@ import { Entertainment, Travel, Education } from "../../api/ApiTinTuc";
 import { Ionicons } from "@expo/vector-icons";
 
 const TinTuc_S1 = ({ navigation }) => {
-  const listEntertainment = ({ item }) => (
+  const listTinTuc = ({ item }) => (
     <TouchableOpacity
       style={{
         width: 230,
@@ -53,90 +53,6 @@ const TinTuc_S1 = ({ navigation }) => {
           {/* {item.information.map((info) => (
             <Text key={info.id}>{info.titleEn}</Text>
           ))} */}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
-
-  const listTravel = ({ item }) => (
-    <TouchableOpacity
-      style={{
-        width: 230,
-        height: 200,
-      }}
-      //   onPress={() => navigation.navigate("TinTuc_S2", { data: item })}
-    >
-      <View
-        style={{
-          flex: 6.5,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Image
-          source={item.image}
-          style={{
-            width: "90%",
-            height: "90%",
-            resizeMode: "contain",
-          }}
-        />
-      </View>
-      <View
-        style={{
-          flex: 3.5,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 15,
-            marginLeft: 13,
-            fontWeight: "500",
-          }}
-        >
-          {item.content}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
-
-  const listEducation = ({ item }) => (
-    <TouchableOpacity
-      style={{
-        width: 230,
-        height: 200,
-      }}
-      //   onPress={() => navigation.navigate("TinTuc_S2", { data: item })}
-    >
-      <View
-        style={{
-          flex: 6.5,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Image
-          source={item.image}
-          style={{
-            width: "90%",
-            height: "90%",
-            resizeMode: "contain",
-          }}
-        />
-      </View>
-      <View
-        style={{
-          flex: 3.5,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 15,
-            marginLeft: 13,
-            fontWeight: "500",
-          }}
-        >
-          {item.content}
         </Text>
       </View>
     </TouchableOpacity>
@@ -195,7 +111,7 @@ const TinTuc_S1 = ({ navigation }) => {
             <FlatList
               keyExtractor={(item) => item.id}
               horizontal={true}
-              renderItem={listEntertainment}
+              renderItem={listTinTuc}
               data={Entertainment}
               showsHorizontalScrollIndicator={false}
             />
@@ -246,7 +162,7 @@ const TinTuc_S1 = ({ navigation }) => {
             <FlatList
               keyExtractor={(item) => item.id}
               horizontal={true}
-              renderItem={listTravel}
+              renderItem={listTinTuc}
               data={Travel}
               showsHorizontalScrollIndicator={false}
             />
@@ -297,7 +213,7 @@ const TinTuc_S1 = ({ navigation }) => {
             <FlatList
               keyExtractor={(item) => item.id}
               horizontal={true}
-              renderItem={listEducation}
+              renderItem={listTinTuc}
               data={Education}
               showsHorizontalScrollIndicator={false}
             />

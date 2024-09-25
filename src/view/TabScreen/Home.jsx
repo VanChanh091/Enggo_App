@@ -12,6 +12,7 @@ import { Appbar, PaperProvider, Searchbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import ApiSubjects from "../../api/ApiSubjects";
 import ApiSuggest from "../../api/ApiSuggest";
+// import { ApiSubjects, ApiSuggest } from "../../api/apiHome";
 
 const Home = ({ navigation }) => {
   const [search, setSearch] = useState("");

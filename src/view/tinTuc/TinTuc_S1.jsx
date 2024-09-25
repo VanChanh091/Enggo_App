@@ -197,6 +197,7 @@ const TinTuc_S1 = ({ navigation }) => {
               horizontal={true}
               renderItem={listEntertainment}
               data={Entertainment}
+              showsHorizontalScrollIndicator={false}
             />
           </View>
         </View>
@@ -247,6 +248,7 @@ const TinTuc_S1 = ({ navigation }) => {
               horizontal={true}
               renderItem={listTravel}
               data={Travel}
+              showsHorizontalScrollIndicator={false}
             />
           </View>
         </View>
@@ -297,6 +299,7 @@ const TinTuc_S1 = ({ navigation }) => {
               horizontal={true}
               renderItem={listEducation}
               data={Education}
+              showsHorizontalScrollIndicator={false}
             />
           </View>
         </View>

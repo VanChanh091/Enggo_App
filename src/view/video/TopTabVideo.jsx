@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import Video_S1 from "./Video_S1";
-import Video_S2 from "./Video_S2";
-import Video_S3 from "./Video_S3";
 import { Appbar, PaperProvider } from "react-native-paper";
+import ChannelScreen from "./ChannelScreen";
+import TopicScreen from "./TopicScreen";
+import HistoryScreen from "./HistoryScreen";
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -12,23 +12,23 @@ const TopTabNavigator = () => (
   <TopTab.Navigator>
     <TopTab.Screen
       name="Kênh"
-      component={Video_S1}
+      component={ChannelScreen}
       options={{ headerShown: false }}
     />
     <TopTab.Screen
       name="Chủ đề"
-      component={Video_S2}
+      component={TopicScreen}
       options={{ headerShown: false }}
     />
     <TopTab.Screen
       name="Lịch sử"
-      component={Video_S3}
+      component={HistoryScreen}
       options={{ headerShown: false }}
     />
   </TopTab.Navigator>
 );
 
-const TopTabVideo = () => {
+const TopTabVideo = ({ navigation }) => {
   return (
     <PaperProvider>
       <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>

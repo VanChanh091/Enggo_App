@@ -32,6 +32,7 @@ import {
   SettingTest_VietCau,
 } from "../view/boTuVung";
 import TopTabVideo from "../view/video/TopTabVideo";
+import { ListVideoOfChannel } from "../view/video";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -245,6 +246,23 @@ const BoTuVungNavigation = () => {
   );
 };
 
+const VideoNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="TopTabVideo"
+        component={TopTabVideo}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ListVideoOfChannel"
+        component={ListVideoOfChannel}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const MainNavigator = () => {
   return (
     <Stack.Navigator>
@@ -285,8 +303,8 @@ const MainNavigator = () => {
       />
 
       <Stack.Screen
-        name="TopTabVideo"
-        component={TopTabVideo}
+        name="VideoNavigation"
+        component={VideoNavigation}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

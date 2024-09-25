@@ -1,6 +1,7 @@
 import {
   FlatList,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -16,10 +17,14 @@ import {
   TedEdChannel,
 } from "../../api/ApiVideo";
 
-const ChannelScreen = () => {
-  const limitedShowOxford = OxfordChannel.slice(0, 4);
+const ChannelScreen = ({ navigation }) => {
+  const limitedShowOxfordChannel = OxfordChannel.slice(0, 4);
+  const limitedShowEngVidChannel = EngVidChannel.slice(0, 4);
+  const limitedShowEnglishWithLucyChannel = EnglishWithLucyChannel.slice(0, 4);
+  const limitedShowVanessaChannel = VanessaChannel.slice(0, 4);
+  const limitedShowTedEdChannel = TedEdChannel.slice(0, 4);
 
-  const renderOxfordChannel = ({ item }) => (
+  const renderChannel = ({ item }) => (
     <TouchableOpacity
       style={{
         height: "100%",
@@ -59,7 +64,8 @@ const ChannelScreen = () => {
   );
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
+      {/* Oxford Channel*/}
       <View
         style={{
           width: "100%",
@@ -101,14 +107,213 @@ const ChannelScreen = () => {
         <View style={{ flex: 8 }}>
           <FlatList
             keyExtractor={(item) => item.id.toString()}
-            data={limitedShowOxford}
-            renderItem={renderOxfordChannel}
+            data={limitedShowOxfordChannel}
+            renderItem={renderChannel}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           />
         </View>
       </View>
-    </View>
+
+      {/* engVid Channel */}
+      <View
+        style={{
+          width: "100%",
+          height: 275,
+          borderBottomWidth: 1,
+          borderColor: "#d0d0d0",
+        }}
+      >
+        <View style={{ flex: 2, flexDirection: "row" }}>
+          <View style={{ flex: 7, justifyContent: "center" }}>
+            <Text
+              style={{
+                fontWeight: 600,
+                fontSize: 20,
+                marginLeft: 10,
+                marginTop: 10,
+              }}
+            >
+              engVid: Learn English
+            </Text>
+          </View>
+          <View style={{ flex: 3, justifyContent: "center" }}>
+            {/* see more  */}
+            <TouchableOpacity
+              style={{
+                flex: 2.7,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 10,
+              }}
+              //   onPress={() => navigation.navigate("")}
+            >
+              <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
+              <Ionicons name="chevron-forward-outline" size={20} color="gray" />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{ flex: 8 }}>
+          <FlatList
+            keyExtractor={(item) => item.id.toString()}
+            data={limitedShowEngVidChannel}
+            renderItem={renderChannel}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+      </View>
+
+      {/* English With Lucy Channel */}
+      <View
+        style={{
+          width: "100%",
+          height: 275,
+          borderBottomWidth: 1,
+          borderColor: "#d0d0d0",
+        }}
+      >
+        <View style={{ flex: 2, flexDirection: "row" }}>
+          <View style={{ flex: 7, justifyContent: "center" }}>
+            <Text
+              style={{
+                fontWeight: 600,
+                fontSize: 20,
+                marginLeft: 10,
+                marginTop: 10,
+              }}
+            >
+              English With Lucy
+            </Text>
+          </View>
+          <View style={{ flex: 3, justifyContent: "center" }}>
+            {/* see more  */}
+            <TouchableOpacity
+              style={{
+                flex: 2.7,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 10,
+              }}
+              //   onPress={() => navigation.navigate("")}
+            >
+              <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
+              <Ionicons name="chevron-forward-outline" size={20} color="gray" />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{ flex: 8 }}>
+          <FlatList
+            keyExtractor={(item) => item.id.toString()}
+            data={limitedShowEnglishWithLucyChannel}
+            renderItem={renderChannel}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+      </View>
+
+      {/* Vanessa */}
+      <View
+        style={{
+          width: "100%",
+          height: 275,
+          borderBottomWidth: 1,
+          borderColor: "#d0d0d0",
+        }}
+      >
+        <View style={{ flex: 2, flexDirection: "row" }}>
+          <View style={{ flex: 7, justifyContent: "center" }}>
+            <Text
+              style={{
+                fontWeight: 600,
+                fontSize: 20,
+                marginLeft: 10,
+                marginTop: 10,
+              }}
+            >
+              Speaking English With Vanessa
+            </Text>
+          </View>
+          <View style={{ flex: 3, justifyContent: "center" }}>
+            {/* see more  */}
+            <TouchableOpacity
+              style={{
+                flex: 2.7,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 10,
+              }}
+              //   onPress={() => navigation.navigate("")}
+            >
+              <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
+              <Ionicons name="chevron-forward-outline" size={20} color="gray" />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{ flex: 8 }}>
+          <FlatList
+            keyExtractor={(item) => item.id.toString()}
+            data={limitedShowVanessaChannel}
+            renderItem={renderChannel}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+      </View>
+
+      {/* Ted Ed Channel */}
+      <View
+        style={{
+          width: "100%",
+          height: 275,
+          borderBottomWidth: 1,
+          borderColor: "#d0d0d0",
+        }}
+      >
+        <View style={{ flex: 2, flexDirection: "row" }}>
+          <View style={{ flex: 7, justifyContent: "center" }}>
+            <Text
+              style={{
+                fontWeight: 600,
+                fontSize: 20,
+                marginLeft: 10,
+                marginTop: 10,
+              }}
+            >
+              Ted-Ed
+            </Text>
+          </View>
+          <View style={{ flex: 3, justifyContent: "center" }}>
+            {/* see more  */}
+            <TouchableOpacity
+              style={{
+                flex: 2.7,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 10,
+              }}
+            >
+              <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
+              <Ionicons name="chevron-forward-outline" size={20} color="gray" />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{ flex: 8 }}>
+          <FlatList
+            keyExtractor={(item) => item.id.toString()}
+            data={limitedShowTedEdChannel}
+            renderItem={renderChannel}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

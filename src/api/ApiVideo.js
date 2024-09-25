@@ -126,7 +126,7 @@ export const EngVidChannel = [
 
 export const EnglishWithLucyChannel = [
   {
-    id: 3,
+    id: 1,
     image: require("../img/imgVideo/imgChannel/lucy/lucy_1.png"),
     text: `How to use "BE SUPPOSED TO" *properly* in English! - Formation, Pronunciation and Usage!`,
     link: "https://www.youtube.com/watch?v=pEa29SOZNkk&t=2s",
@@ -189,7 +189,7 @@ export const EnglishWithLucyChannel = [
 
 export const VanessaChannel = [
   {
-    id: 4,
+    id: 1,
     image: require("../img/imgVideo/imgChannel/vanessa/vanessa_1.png"),
     text: "Speak With Me About Sleep: English Speaking Practice",
     link: "https://www.youtube.com/watch?v=85sEtpaAKOw",
@@ -252,7 +252,7 @@ export const VanessaChannel = [
 
 export const TedEdChannel = [
   {
-    id: 5,
+    id: 1,
     image: require("../img/imgVideo/imgChannel/ted-ed/ted_1.png"),
     text: "Why is the Milky Way flat? - Scott Hershberger",
     link: "https://www.youtube.com/watch?v=phn0bXbcZYY",

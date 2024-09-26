@@ -67,6 +67,7 @@ const VideoSetting = ({ navigation, route }) => {
                 backgroundColor: "#3671f3",
                 flexDirection: "row",
               }}
+              onPress={() => navigation.navigate("WatchVideo", { data: data })}
             >
               <View
                 style={{

@@ -10,9 +10,7 @@ import {
 import React, { useState } from "react";
 import { Appbar, PaperProvider, Searchbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
-import ApiSubjects from "../../api/ApiSubjects";
-import ApiSuggest from "../../api/ApiSuggest";
-// import { ApiSubjects, ApiSuggest } from "../../api/apiHome";
+import { Subjects, Suggest } from "../../api/apiHome";
 
 const Home = ({ navigation }) => {
   const [search, setSearch] = useState("");
@@ -28,7 +26,7 @@ const Home = ({ navigation }) => {
         marginVertical: 5,
       }}
     >
-      <TouchableOpacity onPress={() => handleNavigation(item.id)}>
+      <TouchableOpacity onPress={() => handleNavigationSubjects(item.id)}>
         <Image
           source={item.image}
           style={{ width: 45, height: 45, resizeMode: "contain" }}
@@ -38,7 +36,7 @@ const Home = ({ navigation }) => {
     </View>
   );
 
-  const handleNavigation = (id) => {
+  const handleNavigationSubjects = (id) => {
     switch (id) {
       case 1:
         navigation.navigate("Home");
@@ -203,7 +201,7 @@ const Home = ({ navigation }) => {
                 numColumns={4}
                 horizontal={false}
                 renderItem={listSubjects}
-                data={ApiSubjects}
+                data={Subjects}
                 scrollEnabled={false}
               />
             </View>
@@ -255,7 +253,7 @@ const Home = ({ navigation }) => {
                 keyExtractor={(item) => item.id}
                 horizontal={false}
                 renderItem={listSuggest}
-                data={ApiSuggest}
+                data={Suggest}
                 scrollEnabled={false}
               />
             </View>

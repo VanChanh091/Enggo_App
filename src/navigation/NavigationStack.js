@@ -31,7 +31,12 @@ import {
   SettingTest_TracNghiem,
   SettingTest_VietCau,
 } from "../view/boTuVung";
-import { ListVideoOfChannel, TopTabVideo, VideoSetting } from "../view/video";
+import {
+  ListVideoOfChannel,
+  TopTabVideo,
+  VideoSetting,
+  WatchVideo,
+} from "../view/video";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -261,6 +266,11 @@ const VideoNavigation = () => {
       <Stack.Screen
         name="VideoSetting"
         component={VideoSetting}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="WatchVideo"
+        component={WatchVideo}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

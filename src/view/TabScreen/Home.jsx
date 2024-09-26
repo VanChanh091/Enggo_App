@@ -32,7 +32,9 @@ const Home = ({ navigation }) => {
           style={{ width: 45, height: 45, resizeMode: "contain" }}
         />
       </TouchableOpacity>
-      <Text style={{ fontSize: 15, marginTop: 5 }}>{item.name}</Text>
+      <Text style={{ fontSize: 15, marginTop: 5, textAlign: "center" }}>
+        {item.name}
+      </Text>
     </View>
   );
 

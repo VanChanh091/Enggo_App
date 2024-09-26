@@ -47,7 +47,7 @@ const VideoSetting = ({ navigation, route }) => {
         </View>
 
         <View style={{ flex: 6 }}>
-          <Text style={{ marginTop: 15, marginLeft: 15, fontSize: 18 }}>
+          <Text style={{ marginTop: 20, marginLeft: 15, fontSize: 18 }}>
             Chọn chế độ
           </Text>
           <View

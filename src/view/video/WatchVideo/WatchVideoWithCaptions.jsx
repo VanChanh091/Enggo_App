@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const WatchVideo = () => {
+const WatchVideoWithCaptions = () => {
   return (
     <View>
-      <Text>WatchVideo</Text>
+      <Text>WatchVideoWithCaptions</Text>
     </View>
   );
 };
 
-export default WatchVideo;
+export default WatchVideoWithCaptions;
 
 const styles = StyleSheet.create({});

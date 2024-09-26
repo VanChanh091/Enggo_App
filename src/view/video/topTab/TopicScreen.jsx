@@ -20,7 +20,7 @@ const TopicScreen = ({ navigation }) => {
           height: 100,
           marginVertical: 6,
         }}
-        onPress={() => navigation.navigate("")}
+        // onPress={() => navigation.navigate("")}
       >
         <ImageBackground
           source={item.background}

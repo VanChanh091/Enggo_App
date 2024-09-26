@@ -36,6 +36,9 @@ import {
   TopTabVideo,
   VideoSetting,
   WatchVideo,
+  WatchVideoChooseWord,
+  WatchVideoWithCaptions,
+  WatchVideoWriteWord,
 } from "../view/video";
 
 const Tab = createBottomTabNavigator();
@@ -268,9 +271,22 @@ const VideoNavigation = () => {
         component={VideoSetting}
         options={{ headerShown: false }}
       />
+
       <Stack.Screen
-        name="WatchVideo"
-        component={WatchVideo}
+        name="WatchVideoWithCaptions"
+        component={WatchVideoWithCaptions}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="WatchVideoChooseWord"
+        component={WatchVideoChooseWord}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="WatchVideoWriteWord"
+        component={WatchVideoWriteWord}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

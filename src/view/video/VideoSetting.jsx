@@ -1,10 +1,15 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 
 const VideoSetting = ({ navigation, route }) => {
   const { data } = route.params;
+
+  const [isChooseMode, setIsChooseMode] = useState(false);
+  // const
+
+  const handleOnOff = () => {};
 
   return (
     <PaperProvider>
@@ -46,118 +51,234 @@ const VideoSetting = ({ navigation, route }) => {
           </View>
         </View>
 
-        <View style={{ flex: 6 }}>
-          <Text style={{ marginTop: 20, marginLeft: 15, fontSize: 18 }}>
-            Chọn chế độ
-          </Text>
-          <View
-            style={{
-              width: "100%",
-              height: 300,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {/* Watch videos with captions */}
-            <TouchableOpacity
+        {!isChooseMode ? (
+          <View style={{ flex: 6 }}>
+            <View
               style={{
-                width: "80%",
-                height: 70,
-                borderRadius: 15,
-                backgroundColor: "#3671f3",
-                flexDirection: "row",
+                width: "100%",
+                height: 40,
+                justifyContent: "center",
+                marginTop: 20,
+                marginLeft: 15,
               }}
-              onPress={() => navigation.navigate("WatchVideo", { data: data })}
             >
-              <View
+              <Text style={{ marginLeft: 5, fontSize: 18 }}>Chọn chế độ</Text>
+            </View>
+            <View
+              style={{
+                width: "100%",
+                height: 300,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {/* Watch videos with captions */}
+              <TouchableOpacity
                 style={{
-                  flex: 2,
-                  justifyContent: "center",
-                  alignItems: "center",
+                  width: "80%",
+                  height: 70,
+                  borderRadius: 15,
+                  backgroundColor: "#3671f3",
+                  flexDirection: "row",
                 }}
+                onPress={() =>
+                  navigation.navigate("WatchVideoWithCaptions", { data: data })
+                }
               >
-                <Ionicons name="film-outline" size={35} color="white" />
-              </View>
-              <View style={{ flex: 8, justifyContent: "center" }}>
-                <Text
-                  style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
+                <View
+                  style={{
+                    flex: 2,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
-                  PHỤ ĐỀ
-                </Text>
-                <Text style={{ color: "white", fontSize: 15, marginTop: 2 }}>
-                  Xem video với phụ đề
-                </Text>
-              </View>
-            </TouchableOpacity>
+                  <Ionicons name="film-outline" size={35} color="white" />
+                </View>
+                <View style={{ flex: 8, justifyContent: "center" }}>
+                  <Text
+                    style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
+                  >
+                    PHỤ ĐỀ
+                  </Text>
+                  <Text style={{ color: "white", fontSize: 15, marginTop: 2 }}>
+                    Xem video với phụ đề
+                  </Text>
+                </View>
+              </TouchableOpacity>
 
-            {/* Choose word */}
-            <TouchableOpacity
-              style={{
-                width: "80%",
-                height: 70,
-                borderRadius: 15,
-                backgroundColor: "#3671f3",
-                flexDirection: "row",
-                marginVertical: 10,
-              }}
-            >
-              <View
+              {/* Choose word */}
+              <TouchableOpacity
                 style={{
-                  flex: 2,
-                  justifyContent: "center",
-                  alignItems: "center",
+                  width: "80%",
+                  height: 70,
+                  borderRadius: 15,
+                  backgroundColor: "#3671f3",
+                  flexDirection: "row",
+                  marginVertical: 10,
                 }}
+                onPress={() => setIsChooseMode(!isChooseMode)}
               >
-                <Ionicons
-                  name="checkmark-done-circle-outline"
-                  size={35}
-                  color="white"
-                />
-              </View>
-              <View style={{ flex: 8, justifyContent: "center" }}>
-                <Text
-                  style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
+                <View
+                  style={{
+                    flex: 2,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
-                  CHỌN TỪ
-                </Text>
-                <Text style={{ color: "white", fontSize: 15, marginTop: 2 }}>
-                  Chọn từ đúng vào chỗ trống
-                </Text>
-              </View>
-            </TouchableOpacity>
+                  <Ionicons
+                    name="checkmark-done-circle-outline"
+                    size={35}
+                    color="white"
+                  />
+                </View>
+                <View style={{ flex: 8, justifyContent: "center" }}>
+                  <Text
+                    style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
+                  >
+                    CHỌN TỪ
+                  </Text>
+                  <Text style={{ color: "white", fontSize: 15, marginTop: 2 }}>
+                    Chọn từ đúng vào chỗ trống
+                  </Text>
+                </View>
+              </TouchableOpacity>
 
-            {/* Write word */}
-            <TouchableOpacity
-              style={{
-                width: "80%",
-                height: 70,
-                borderRadius: 15,
-                backgroundColor: "#3671f3",
-                flexDirection: "row",
-              }}
-            >
-              <View
+              {/* Write word */}
+              <TouchableOpacity
                 style={{
-                  flex: 2,
-                  justifyContent: "center",
-                  alignItems: "center",
+                  width: "80%",
+                  height: 70,
+                  borderRadius: 15,
+                  backgroundColor: "#3671f3",
+                  flexDirection: "row",
                 }}
+                onPress={() => setIsChooseMode(!isChooseMode)}
               >
-                <Ionicons name="pencil-outline" size={32} color="white" />
-              </View>
-              <View style={{ flex: 8, justifyContent: "center" }}>
-                <Text
-                  style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
+                <View
+                  style={{
+                    flex: 2,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
-                  VIẾT TỪ
-                </Text>
-                <Text style={{ color: "white", fontSize: 15, marginTop: 2 }}>
-                  Viết từ đúng vào chỗ trống
-                </Text>
-              </View>
-            </TouchableOpacity>
+                  <Ionicons name="pencil-outline" size={32} color="white" />
+                </View>
+                <View style={{ flex: 8, justifyContent: "center" }}>
+                  <Text
+                    style={{ color: "white", fontWeight: "bold", fontSize: 18 }}
+                  >
+                    VIẾT TỪ
+                  </Text>
+                  <Text style={{ color: "white", fontSize: 15, marginTop: 2 }}>
+                    Viết từ đúng vào chỗ trống
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        ) : (
+          <View style={{ flex: 6 }}>
+            <View
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                height: 40,
+                alignItems: "center",
+                marginTop: 20,
+                marginLeft: 15,
+              }}
+            >
+              <TouchableOpacity onPress={() => setIsChooseMode(!isChooseMode)}>
+                <Ionicons
+                  name="arrow-back-outline"
+                  size={28}
+                  color="black"
+                  // style={{ marginLeft: 10 }}
+                />
+              </TouchableOpacity>
+              <Text style={{ marginLeft: 5, fontSize: 18 }}>Chọn chế độ</Text>
+            </View>
+            <View
+              style={{
+                width: "100%",
+                height: 300,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {/* beginner */}
+              <TouchableOpacity
+                style={{
+                  width: "80%",
+                  height: 60,
+                  borderRadius: 12,
+                  backgroundColor: "#D1E4F3",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  Beginner
+                </Text>
+              </TouchableOpacity>
+
+              {/* Intermediate */}
+              <TouchableOpacity
+                style={{
+                  width: "80%",
+                  height: 60,
+                  borderRadius: 12,
+                  backgroundColor: "#9CBAFA",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 12,
+                }}
+              >
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  Intermediate
+                </Text>
+              </TouchableOpacity>
+
+              {/* Advance */}
+              <TouchableOpacity
+                style={{
+                  width: "80%",
+                  height: 60,
+                  borderRadius: 12,
+                  backgroundColor: "#5D89E2",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 12,
+                }}
+              >
+                <Text
+                  style={{ fontWeight: "bold", fontSize: 20, color: "white" }}
+                >
+                  Advance
+                </Text>
+              </TouchableOpacity>
+
+              {/* Expert */}
+              <TouchableOpacity
+                style={{
+                  width: "80%",
+                  height: 60,
+                  borderRadius: 12,
+                  backgroundColor: "#1548B3",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 12,
+                }}
+              >
+                <Text
+                  style={{ fontWeight: "bold", fontSize: 20, color: "white" }}
+                >
+                  Expert
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
       </View>
     </PaperProvider>
   );

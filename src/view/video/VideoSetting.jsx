@@ -7,9 +7,23 @@ const VideoSetting = ({ navigation, route }) => {
   const { data } = route.params;
 
   const [isChooseMode, setIsChooseMode] = useState(false);
-  // const
+  const [isChooseWordOrWriteWord, setIsChooseWordOrWriteWord] = useState(false);
 
-  const handleOnOff = () => {};
+  const handleChooseOrWriteWord = () => {
+    const chooseMode = {
+      mode: isChooseWordOrWriteWord ? "choose" : "write",
+    };
+    if (chooseMode.mode === "choose") {
+      navigation.navigate("WatchVideoChooseWord", { data: data });
+    } else {
+      navigation.navigate("WatchVideoWriteWord", { data: data });
+    }
+  };
+
+  const handleWord = () => {
+    setIsChooseMode(!isChooseMode); //open option level
+    setIsChooseWordOrWriteWord(!isChooseWordOrWriteWord); //get type choose or write word
+  };
 
   return (
     <PaperProvider>
@@ -116,7 +130,7 @@ const VideoSetting = ({ navigation, route }) => {
                   flexDirection: "row",
                   marginVertical: 10,
                 }}
-                onPress={() => setIsChooseMode(!isChooseMode)}
+                onPress={handleWord}
               >
                 <View
                   style={{
@@ -152,7 +166,7 @@ const VideoSetting = ({ navigation, route }) => {
                   backgroundColor: "#3671f3",
                   flexDirection: "row",
                 }}
-                onPress={() => setIsChooseMode(!isChooseMode)}
+                onPress={handleWord}
               >
                 <View
                   style={{
@@ -216,6 +230,7 @@ const VideoSetting = ({ navigation, route }) => {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
+                onPress={handleChooseOrWriteWord}
               >
                 <Text style={{ fontWeight: "bold", fontSize: 20 }}>
                   Beginner
@@ -233,6 +248,7 @@ const VideoSetting = ({ navigation, route }) => {
                   alignItems: "center",
                   marginTop: 12,
                 }}
+                onPress={handleChooseOrWriteWord}
               >
                 <Text style={{ fontWeight: "bold", fontSize: 20 }}>
                   Intermediate

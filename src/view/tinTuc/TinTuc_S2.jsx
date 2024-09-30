@@ -146,20 +146,7 @@ const TinTuc_S2 = ({ navigation, route }) => {
                   />
                 </TouchableOpacity>
 
-                {/* Audio Section */}
-                <View style={{ width: "93%", height: "100%", marginLeft: 14 }}>
-                  <TouchableOpacity onPress={playSound}>
-                    <Image
-                      source={require("../../img/imgTinTuc/volume.png")} // Replace with an appropriate speaker icon
-                      style={{
-                        width: 30,
-                        height: 30,
-                        resizeMode: "contain",
-                        marginTop: 12,
-                      }}
-                    />
-                  </TouchableOpacity>
-                </View>
+                
               </View>
             </View>
           </View>

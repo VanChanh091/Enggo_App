@@ -7,12 +7,34 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { Entertainment, Travel, Education } from "../../api/ApiTinTuc";
 import { Ionicons } from "@expo/vector-icons";
+import newsRepository from '../../apis/newsApi';
+
 
 const TinTuc_S1 = ({ navigation }) => {
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // setLoading(true);
+        const res = await newsRepository.HandleNewsRepository("/news", {}, "get");
+        setNews(res.data);
+        console.log(res);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+        // setError("Failed to load news.");
+      } finally {
+        // setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+
   const listTinTuc = ({ item }) => (
     <TouchableOpacity
       style={{

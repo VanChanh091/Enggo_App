@@ -7,13 +7,20 @@ import {
   View,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Appbar, PaperProvider, Searchbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { Subjects, Suggest } from "../../api/apiHome";
+import newsRepository from "../../apis/newsApi";
 
 const Home = ({ navigation }) => {
   const [search, setSearch] = useState("");
+
+
+  
+
+
+
 
   const listSubjects = ({ item }) => (
     <View
@@ -123,6 +130,9 @@ const Home = ({ navigation }) => {
             Enggo
           </Text>
         </View>
+
+        
+
         <TouchableOpacity>
           <Appbar.Action icon="bell" size={30} />
         </TouchableOpacity>

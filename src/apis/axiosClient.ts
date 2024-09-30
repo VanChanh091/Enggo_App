@@ -17,7 +17,7 @@ axiosClient.interceptors.request.use(async (config: any) => {
         ...config.headers
     }
 
-    config.dataw
+    
 
     return config
 })

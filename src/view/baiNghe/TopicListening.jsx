@@ -1,17 +1,16 @@
 import {
   FlatList,
-  Image,
   ImageBackground,
-  ScrollView,
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
+  View,
 } from "react-native";
 import React from "react";
-import { topicVideo } from "../../../api/ApiVideo";
+import { TopicListen } from "../../api/apiListen";
+import { Appbar, PaperProvider } from "react-native-paper";
 
-const TopicScreen = ({ navigation }) => {
+const TopicListening = ({ navigation }) => {
   const renderTopicVideo = ({ item }) => (
     <View style={{ flex: 1, alignItems: "center" }}>
       <TouchableOpacity
@@ -75,17 +74,24 @@ const TopicScreen = ({ navigation }) => {
   );
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      <FlatList
-        keyExtractor={(item) => item.id}
-        data={topicVideo}
-        renderItem={renderTopicVideo}
-        numColumns={2}
-      />
-    </View>
+    <PaperProvider>
+      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
+        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
+        <Appbar.Content title="Bài Nghe" color="white" />
+      </Appbar.Header>
+
+      <View style={{ flex: 1, backgroundColor: "white", marginTop: 7 }}>
+        <FlatList
+          keyExtractor={(item) => item.id}
+          data={TopicListen}
+          renderItem={renderTopicVideo}
+          numColumns={2}
+        />
+      </View>
+    </PaperProvider>
   );
 };
 
-export default TopicScreen;
+export default TopicListening;
 
 const styles = StyleSheet.create({});

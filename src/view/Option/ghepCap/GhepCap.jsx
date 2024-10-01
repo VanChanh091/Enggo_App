@@ -137,7 +137,7 @@ const GhepCap = ({ navigation, route }) => {
         <TouchableOpacity
           style={{
             width: 125,
-            height: 200,
+            height: 140,
             borderRadius: 12,
             marginHorizontal: 5,
             marginTop: 12,
@@ -150,11 +150,20 @@ const GhepCap = ({ navigation, route }) => {
           //   onPress={() => handleSelectItem(item)}
         >
           {item.type == "en" ? (
-            <Text style={{ fontSize: 16, color: "#2A7BD3", fontWeight: 500 }}>
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#2A7BD3",
+                fontWeight: 500,
+                marginHorizontal: 3,
+              }}
+            >
               {item.value}
             </Text>
           ) : (
-            <Text style={{ fontSize: 16 }}>{item.value}</Text>
+            <Text style={{ fontSize: 16, marginHorizontal: 3 }}>
+              {item.value}
+            </Text>
           )}
         </TouchableOpacity>
       </View>

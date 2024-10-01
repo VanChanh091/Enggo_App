@@ -40,6 +40,11 @@ import {
   VietCau_Doc,
   VietCau_Nghe,
 } from "../view/Option";
+import {
+  DetailOfListening,
+  ListListeningOfTopic,
+  TopicListening,
+} from "../view/baiNghe";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -293,6 +298,28 @@ const VideoNavigation = () => {
   );
 };
 
+const ListenNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="TopicListening"
+        component={TopicListening}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ListListeningOfTopic"
+        component={ListListeningOfTopic}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DetailOfListening"
+        component={DetailOfListening}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const MauCauGiaoTiepNavigation = () => {
   return (
     <Stack.Navigator>
@@ -404,6 +431,12 @@ const MainNavigator = () => {
       <Stack.Screen
         name="MauCauGiaoTiepNavigation"
         component={MauCauGiaoTiepNavigation}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ListenNavigation"
+        component={ListenNavigation}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

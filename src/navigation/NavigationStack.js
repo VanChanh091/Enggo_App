@@ -19,18 +19,8 @@ import { Account, Home, ListVocabulary } from "../view/TabScreen";
 import { TinTuc_S1, TinTuc_S2 } from "../view/tinTuc";
 import { TruyenChem_S1, TruyenChem_S2 } from "../view/truyenChem";
 import { NguPhap_S1, NguPhap_S2 } from "../view/nguPhap";
-import {
-  BoTuVung_S1,
-  BoTuVung_S2,
-  GhepCap,
-  LuyenDoc,
-  VietCau_Doc,
-  VietCau_Nghe,
-  TracNghiem_Doc,
-  TracNghiem_Nghe,
-  SettingTest_TracNghiem,
-  SettingTest_VietCau,
-} from "../view/boTuVung";
+import { BoTuVung_S1, BoTuVung_S2 } from "../view/boTuVung";
+import { MauCauGiaoTiep_S1, MauCauGiaoTiep_S2 } from "../view/MauCauGiaoTiep";
 import {
   ListVideoOfChannel,
   TopTabVideo,
@@ -40,7 +30,16 @@ import {
   WatchVideoWriteWord,
 } from "../view/video";
 import DanhNgon from "../view/danhNgon/DanhNgon";
-import { MauCauGiaoTiep_S1, MauCauGiaoTiep_S2 } from "../view/MauCauGiaoTiep";
+import {
+  GhepCap,
+  LuyenDoc,
+  SettingTest_TracNghiem,
+  SettingTest_VietCau,
+  TracNghiem_Doc,
+  TracNghiem_Nghe,
+  VietCau_Doc,
+  VietCau_Nghe,
+} from "../view/Option";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

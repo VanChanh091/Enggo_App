@@ -16,12 +16,6 @@ import newsRepository from "../../apis/newsApi";
 const Home = ({ navigation }) => {
   const [search, setSearch] = useState("");
 
-
-  
-
-
-
-
   const listSubjects = ({ item }) => (
     <View
       style={{
@@ -73,6 +67,9 @@ const Home = ({ navigation }) => {
         break;
       case 9:
         // navigation.navigate("TruyenChem_S1");
+        break;
+      case 10:
+        navigation.navigate("MauCauGiaoTiepNavigation");
         break;
       default:
         navigation.navigate("Home");
@@ -130,8 +127,6 @@ const Home = ({ navigation }) => {
             Enggo
           </Text>
         </View>
-
-        
 
         <TouchableOpacity>
           <Appbar.Action icon="bell" size={30} />

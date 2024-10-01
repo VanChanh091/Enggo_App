@@ -16,8 +16,8 @@ const TopicScreen = ({ navigation }) => {
     <View style={{ flex: 1, alignItems: "center" }}>
       <TouchableOpacity
         style={{
-          width: "90%",
-          height: 100,
+          width: "92%",
+          height: 125,
           marginVertical: 6,
         }}
         // onPress={() => navigation.navigate("")}

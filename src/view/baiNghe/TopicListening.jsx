@@ -15,11 +15,13 @@ const TopicListening = ({ navigation }) => {
     <View style={{ flex: 1, alignItems: "center" }}>
       <TouchableOpacity
         style={{
-          width: "90%",
-          height: 100,
+          width: "92%",
+          height: 125,
           marginVertical: 6,
         }}
-        // onPress={() => navigation.navigate("")}
+        onPress={() =>
+          navigation.navigate("ListListeningOfTopic", { data: item.list })
+        }
       >
         <ImageBackground
           source={item.background}

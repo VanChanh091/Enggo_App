@@ -40,6 +40,7 @@ import {
   WatchVideoWithCaptions,
   WatchVideoWriteWord,
 } from "../view/video";
+import DanhNgon from "../view/danhNgon/DanhNgon";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -335,6 +336,12 @@ const MainNavigator = () => {
       <Stack.Screen
         name="VideoNavigation"
         component={VideoNavigation}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="DanhNgon"
+        component={DanhNgon}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -14,50 +14,62 @@ export const TopicListen = [
           {
             id: 1,
             text: "Part of the border between Italy and Switzerland is set to be redrawn as the glaciers that mark the boundary melt, in yet another sign of how much humans are changing the world by burning planet-heating fossil fuels..",
+            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly_1.mp3"),
           },
           {
             id: 2,
             text: "The two countries have agreed to change the border under the iconic Matterhorn Peak, one of the highest summits in the Alps, which overlooks Zermatt, a popular skiing destination.",
+            audio: "",
           },
           {
             id: 3,
             text: "While national boundaries are often thought of as fixed, large sections of the Swiss-Italian border are defined by glaciers and snow fields. “With the melting of the glaciers, these natural elements evolve and redefine the national border,” the Swiss government said in a statement Friday.",
+            audio: "",
           },
           {
             id: 4,
             text: "The border changes were agreed back in 2023 and the Swiss government officially approved the adjustment on Friday. The process for approval is underway in Italy. As soon as both parties have signed, the agreement will be published and details of the new border made public, according to the Swiss government.",
+            audio: "",
           },
           {
             id: 5,
             text: "Europe is the world’s fastest-warming continent and the impact on its glaciers has been stark. In Switzerland, they are melting at an alarming rate. The country’s glaciers lost 4% of their volume last year, second only to the record-setting 6% lost in 2022.",
+            audio: "",
           },
           {
             id: 6,
             text: "This downward trend shows no sign of ending, said Matthias Huss, a glaciologist at the Swiss university ETH Zürich and director of GLAMOS, the Swiss glacier monitoring network.",
+            audio: "",
           },
           {
             id: 7,
             text: "“In 2024, glaciers continued to lose ice at a high speed despite much snow in winter that was expected to bring some relief,” he told CNN. “Some glaciers are literally falling apart, small glaciers are disappearing.”",
+            audio: "",
           },
           {
             id: 8,
             text: "Even with the most ambitious climate action, up to half the world’s glaciers may be gone by 2100. It’s causing a cascade of impacts.",
+            audio: "",
           },
           {
             id: 9,
             text: "It makes the landscape more unstable, prone to dangerous landslides and collapses. In 2022, 11 people lost their lives when a glacier collapsed in the Italian Alps.",
+            audio: "",
           },
           {
             id: 10,
             text: "Shrinking glaciers are leading to grim discoveries. Last year, the remains of a mountain climber who had gone missing 37 years earlier while hiking near the Matterhorn were recovered.",
+            audio: "",
           },
           {
             id: 11,
             text: "As they recede, glaciers are also losing their vital role in contributing freshwater, which could aggravate shortages during heat waves.",
+            audio: "",
           },
           {
             id: 12,
             text: "The shifting of national borders “is one small side-effect” of glaciers melting, Huss said. But when people can see it “directly affects our world map,” he added, it makes the immense changes of a warming world much more visible.",
+            audio: "",
           },
         ],
       },

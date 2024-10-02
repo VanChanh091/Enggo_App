@@ -141,14 +141,187 @@ export const TopicListen = [
       {
         id: 3,
         image: require("../img/imgListen/imgClimateChange/climate_3.png"),
-        name: "Stark before-and-after pictures reveal dramatic shrinking of major Amazon rivers",
+        title:
+          "Stark before-and-after pictures reveal dramatic shrinking of major Amazon rivers",
         link: "https://www.cnn.com/2024/09/30/climate/amazon-rivers-drought-satellite-pictures/index.html",
+        content: [
+          {
+            id: 1,
+            text: "Huge tributaries that feed the mighty Amazon River — the largest on the planet — have plunged to record-low levels, upending lives, stranding boats, and threatening endangered dolphins as drought grips Brazil.",
+          },
+          {
+            id: 2,
+            text: "The country is currently enduring its worst drought since records began in 1950, according to Cemaden, the country’s natural disaster monitoring center. It’s Brazil’s second straight year of extreme drought. Nearly 60% of the country is affected, with some cities, including the capital Brasília, enduring more than 140 consecutive days without rain.",
+          },
+          {
+            id: 3,
+            text: "In the heart of the Amazon rainforest, the impact on rivers is shocking and experts are sounding the alarm on what this means for the region, a biodiversity hot spot and crucial climate change buffer.",
+          },
+          {
+            id: 4,
+            text: "The Rio Negro, one of the Amazon River’s biggest tributaries, is at record lows for this time of year near the city of Manaus in Amazonas state. Its water levels are falling at around 7 inches a day, according to Brazil’s geological service.",
+          },
+          {
+            id: 5,
+            text: "The river’s characteristic jet-black waters usually course through its thick maze of channels, but satellite images now show it drastically shrunken with huge swaths of riverbed exposed.",
+          },
+          {
+            id: 6,
+            text: "The Rio Negro is seeing “extreme reductions” as temperatures soar and the region struggles with a dearth of rainfall, said Lincoln Alves, a research scientist Brazil’s National Institute for Space Research.",
+          },
+          {
+            id: 7,
+            text: "So too is the Solimões River, whose muddy-colored waters converge with the Rio Negro at Manaus to form the Amazon River.",
+          },
+          {
+            id: 8,
+            text: "This month, the Solimões fell to its lowest level on record for this time of year in Tabatinga, a Brazilian city on the border with Colombia and Peru.",
+          },
+          {
+            id: 9,
+            text: "Ships have been left stranded and vast expanses of sand are visible where water once flowed. Lake Tefé, on the northern bank of the Solimões River, is also heavily depleted.",
+          },
+          {
+            id: 10,
+            text: "Photos of the lake last month show it dramatically shrunken compared to the same time last year and it has continued to decline. It’s “contributing to critical water shortages and impacting local ecosystems,” said Alves.",
+          },
+          {
+            id: 11,
+            text: "Last year, more than 200 dolphins were found dead in the lake during a historic drought and record-high water temperatures, and experts fear a repeat this year.",
+          },
+          {
+            id: 12,
+            text: "Dolphin deaths are already happening. “Last week, we found one a day on average,” Miriam Marmontel, head of the dolphin project at the Mamirauá Institute for Sustainable Development, told Reuters earlier this month.",
+          },
+          {
+            id: 13,
+            text: "Researchers believe as the lake shrinks, there is less room for dolphins, putting them at greater risk of collision with boats and ferries.",
+          },
+          {
+            id: 14,
+            text: "In many regions of the Amazon “the drought is already more intense today than it was at the worst point last year,” said Romulo Batista, a biologist and spokesperson for Greenpeace Brazil.",
+          },
+          {
+            id: 15,
+            text: "“The minimums in these rivers … are usually at the end of October,” said Adriana Cuartas, a researcher at Cemaden. This year they have happened earlier and water levels will continue to decline, she told CNN.",
+          },
+          {
+            id: 16,
+            text: "The consequences are stark for local people who rely on the rivers for food, medicine, livelihoods and transport, said André Guimarães, executive director of the Amazon Environmental Research Institute, a nonprofit organization.",
+          },
+          {
+            id: 17,
+            text: "“We are suffering a situation that has never happened before,” he told CNN, adding, “the reduction of the river flows is absolutely enormous.” Brazil’s severe and prolonged drought has been fueled by a knot of factors.",
+          },
+          {
+            id: 18,
+            text: "An intense El Niño, a natural climate pattern, brought warmer and drier weather to the region last year and into 2024. El Niño has now ended but heat and drought are being influenced by an unusually hot Atlantic Ocean, said Cemaden’s Cuartas.",
+          },
+          {
+            id: 19,
+            text: "Deforestation is also a factor, said Alves, helping raise temperatures and change rainfall patterns. “Ongoing ecosystem degradation (is) pushing the region toward a potential tipping point,” he said.",
+          },
+          {
+            id: 20,
+            text: "Then there is climate change, driven by burning planet-heating fossil fuels, which is bringing warmer temperatures and longer periods without rain.",
+          },
+          {
+            id: 21,
+            text: "Last year’s devastating drought in the Amazon Basin was made 30 times more likely by climate change, according to a report from World Weather Attribution, a network of scientists that analyze extreme weather events.",
+          },
+          {
+            id: 22,
+            text: "What’s happening in Brazil “is a tragic example of a local impact of global climate change,” Guimarães said, referring to the fact that it’s often poorer, less-developed countries that feel the brunt of climate change impacts disproportionately caused by richer countries.",
+          },
+          {
+            id: 23,
+            text: "Earlier this month, the environmental group Greenpeace unveiled a huge banner reading, “Who Pays?” on the newly exposed sandy banks of the Solimões.",
+          },
+          {
+            id: 24,
+            text: "The drought has also set the stage for devastating wildfires in Brazil that have destroyed huge swaths of the Amazon as well as the Pantanal, the world’s largest tropical wetlands, and choked cities in thick smoke.",
+          },
+          {
+            id: 25,
+            text: "There is little relief in sight. Rainfall at levels that could start to replenish rivers is not expected for weeks yet and river levels are projected to keep on falling.",
+          },
+          {
+            id: 26,
+            text: "“Until November the situation will continue to worsen,” Cuartas said.",
+          },
+        ],
       },
       {
         id: 4,
         image: require("../img/imgListen/imgClimateChange/climate_4.png"),
-        name: "Helene left at least 128 people dead and communities ‘wiped off the map.’ Now, survivors are struggling to get food and water",
+        title: `Helene left at least 128 people dead and communities "wiped off the map." Now, survivors are struggling to get food and water`,
         link: "https://www.cnn.com/2024/09/30/weather/hurricane-helene-recovery-cleanup-monday/index.html",
+        content: [
+          {
+            id: 1,
+            text: "Editor’s Note: Follow the latest updates on the recovery from Hurricane Helene here.",
+          },
+          {
+            id: 2,
+            text: "The magnitude of devastation wrought by Helene intensifies by the hour as search crews discover more bodies and floodwaters slowly recede – revealing more neighborhoods obliterated by the storm.",
+          },
+          {
+            id: 3,
+            text: "The death toll across six states soared to 128 Monday, days after Helene made landfall in Florida as a monstrous Category 4 hurricane. Almost 2 million customers still don’t have power. And countless families have no idea whether their loved ones survived, as Helene’s rampage shredded communication infrastructure.",
+          },
+          {
+            id: 4,
+            text: "Most of North Carolina’s 56 deaths happened far inland. In Buncombe County, at least 40 people were killed, County Manager Avril Pinder said. The county includes Asheville, the scenic mountain city now engulfed by murky brown floodwater.",
+          },
+          {
+            id: 5,
+            text: "As the water slowly retreats, “We are seeing just piles of people’s houses that were destroyed. Buildings that were destroyed. Cars overturned,” Asheville Mayor Esther Manheimer said Monday.",
+          },
+          {
+            id: 6,
+            text: "“The power lines look like spaghetti. It’s hard to describe the chaos that it looks like. It really feels like a post-apocalyptic scene.”",
+          },
+          {
+            id: 7,
+            text: "Many shellshocked survivors can’t even begin the arduous task of rebuilding because they don’t have basic necessities such as clean drinking water, food, cell phone service and electricity.",
+          },
+          {
+            id: 8,
+            text: "Three tractor-trailers full of water arrived in Buncombe County Monday morning, Pinder said. But it is only enough to supply each resident with one day’s worth of water.",
+          },
+          {
+            id: 9,
+            text: "Compounding the tragedy, some roads and bridges that are desperately needed to carry aid or reach trapped victims are now impassable or no longer exist.",
+          },
+          {
+            id: 10,
+            text: "“We are cut off from highway access from 3 of the 4 major highways into Asheville,” the mayor said. “Some resources are having to be flown in. … I can’t even think about a time frame for how long it’s going to take to recover from this storm.”",
+          },
+          {
+            id: 11,
+            text: "Hundreds of people are reported missing, though it’s not clear how many succumbed to the storm and how many survived but lack communications access.",
+          },
+          {
+            id: 12,
+            text: "“We know that death toll will rise,” Asheville’s mayor said. “We’ve heard accounts of people seeing houses floating down the river with people in them.”",
+          },
+          {
+            id: 13,
+            text: "In addition to the 56 people killed in North Carolina, Helene also killed at least 30 victims in South Carolina, 25 in Georgia, 11 in Florida, four in Tennessee and two in Virginia.",
+          },
+          {
+            id: 14,
+            text: "“Devastation does not even begin to describe how we feel,” Buncombe County Sheriff Quentin Miller said Monday. One of his deputies was among three North Carolina sheriff’s deputies killed by Helene.",
+          },
+          {
+            id: 15,
+            text: "Officials implored residents to avoid traveling to hard-hit areas so emergency responders can reach those in need.",
+          },
+          {
+            id: 16,
+            text: "“Consider the roads closed in western North Carolina,” Gov. Roy Cooper told CNN Monday. “We do not need sightseers coming in to observe the damage. We ask you not to come in unless you are on a specific mission to help with rescue.”",
+          },
+        ],
       },
     ],
   },
@@ -157,387 +330,63 @@ export const TopicListen = [
     id: 2,
     title: "Trí tuệ nhân tạo",
     background: require("../img/imgListen/topicListen/AI.png"),
-    list: [
-      {
-        id: 1,
-        image: require("../img/imgVideo/imgTopic/ancient/ancient_1.png"),
-        name: "The Timeless, Ancient Language of Art | Wangechi Mutu | TED",
-        time: "11:26",
-        link: "https://www.youtube.com/watch?v=rAhyvSk9cF0",
-      },
-      {
-        id: 2,
-        image: require("../img/imgVideo/imgTopic/ancient/ancient_2.png"),
-        name: "Are There Deadly Pathogens in Ancient Egyptian Tombs?! | Tut’s Toxic Tomb | Science Channel",
-        time: "9:08",
-        link: "https://www.youtube.com/watch?v=cllXViWK5-M",
-      },
-      {
-        id: 3,
-        image: require("../img/imgVideo/imgTopic/ancient/ancient_3.png"),
-        name: "An Inside Look at the Ancient Sumerian City of Nippur | Unearthed | Science Channel",
-        time: "3:02",
-        link: "https://www.youtube.com/watch?v=V4ptdxaWnks",
-      },
-      {
-        id: 4,
-        image: require("../img/imgVideo/imgTopic/ancient/ancient_4.png"),
-        name: "Is AI the most important technology of the century?",
-        time: "5:19",
-        link: "https://www.youtube.com/watch?v=-T__YWoq45I",
-      },
-      {
-        id: 5,
-        image: require("../img/imgVideo/imgTopic/ancient/ancient_5.png"),
-        name: "How Richest City in History Collapsed",
-        time: "21:12",
-        link: "https://www.youtube.com/watch?v=c9I9LCvGK2w",
-      },
-    ],
+    list: [],
   },
 
   {
     id: 3,
     title: "Ngành du lịch",
     background: require("../img/imgListen/topicListen/travel.png"),
-    list: [
-      {
-        id: 1,
-        image: require("../img/imgVideo/imgTopic/vocab/vocab_1.png"),
-        name: "Learn English Job Vocabulary and Job Phrases",
-        time: "13:17",
-        link: "https://www.youtube.com/watch?v=GBiRbb9w3SE",
-      },
-      {
-        id: 2,
-        image: require("../img/imgVideo/imgTopic/vocab/vocab_2.png"),
-        name: "Learn English Vocabulary for Tourism: resort, cruise, charter, all-inclusive…",
-        time: "13:05",
-        link: "https://www.youtube.com/watch?v=tWTwb4cTKk0",
-      },
-      {
-        id: 3,
-        image: require("../img/imgVideo/imgTopic/vocab/vocab_3.png"),
-        name: "Learn English Vocabulary: FAKE NEWS",
-        time: "11:50",
-        link: "https://www.youtube.com/watch?v=B1XpZbrSEmM",
-      },
-      {
-        id: 4,
-        image: require("../img/imgVideo/imgTopic/vocab/vocab_4.png"),
-        name: "Learn English vocabulary from French: foie gras, du jour, faux pas...",
-        time: "12:30",
-        link: "https://www.youtube.com/watch?v=PMoIGPQr7Tw ",
-      },
-      {
-        id: 5,
-        image: require("../img/imgVideo/imgTopic/vocab/vocab_5.png"),
-        name: "Learn the Top 10 Must-Know Vocabulary for the Restaurant in English",
-        time: "4:11",
-        link: "https://www.youtube.com/watch?v=9Wrxjge6u6o",
-      },
-    ],
+    list: [],
   },
 
   {
     id: 4,
     title: "Bất bình đẳng",
     background: require("../img/imgListen/topicListen/inequality.png"),
-    list: [
-      {
-        id: 1,
-        image: require("../img/imgVideo/imgTopic/cafe/cafe_1.png"),
-        name: "The global coffee crisis is coming",
-        time: "11:33",
-        link: "https://www.youtube.com/watch?v=6IN4ZcZAUbA",
-      },
-      {
-        id: 2,
-        image: require("../img/imgVideo/imgTopic/cafe/cafe_2.png"),
-        name: "What Happens To Your Body When You Drink Too Much Coffee",
-        time: "3:41",
-        link: "https://www.youtube.com/watch?v=1_6_6TAuoGc",
-      },
-      {
-        id: 3,
-        image: require("../img/imgVideo/imgTopic/cafe/cafe_3.png"),
-        name: "When a barrel of oil was cheaper than your coffee | CNBC Explains",
-        time: "6:30",
-        link: "https://www.youtube.com/watch?v=y1IDh2-0pyI",
-      },
-      {
-        id: 4,
-        image: require("../img/imgVideo/imgTopic/cafe/cafe_4.png"),
-        name: "Why Does World's Most Expensive Coffee Come From Poop",
-        time: "10:52",
-        link: "https://www.youtube.com/watch?v=4vLktLoj-0M",
-      },
-    ],
+    list: [],
   },
 
   {
     id: 5,
     title: "Thảm họa thiên nhiên",
     background: require("../img/imgListen/topicListen/naturalDisaster.png"),
-    list: [
-      {
-        id: 1,
-        image: require("../img/imgVideo/imgTopic/ocean/ocean_1.png"),
-        name: "Singapore Has This Genius Way of Fixing Ocean Problems",
-        time: "9:01",
-        link: "https://www.youtube.com/watch?v=bLe13KLGPpg",
-      },
-      {
-        id: 2,
-        image: require("../img/imgVideo/imgTopic/ocean/ocean_2.png"),
-        name: "When Thousands of Rubber Ducks Were Accidentally Dumped into the Ocean",
-        time: "0:49",
-        link: "https://www.youtube.com/watch?v=_uuMpVf2R8E",
-      },
-      {
-        id: 3,
-        image: require("../img/imgVideo/imgTopic/ocean/ocean_3.png"),
-        name: "Đâu Là Nơi Một Đại Dương Kết Thúc Và Bắt Đầu Một Đại Dương Khác?",
-        time: "3:56",
-        link: "https://www.youtube.com/watch?v=8jPSdDSNSno",
-      },
-      {
-        id: 4,
-        image: require("../img/imgVideo/imgTopic/ocean/ocean_4.png"),
-        name: "Why The Ocean Needs Salt",
-        time: "2:46",
-        link: "https://www.youtube.com/watch?v=Gj0LqmNsrCc",
-      },
-      {
-        id: 5,
-        image: require("../img/imgVideo/imgTopic/ocean/ocean_5.png"),
-        name: "Why the Oceans Are Getting Darker",
-        time: "5:49",
-        link: "https://www.youtube.com/watch?v=hgL-LiGG2XI",
-      },
-    ],
+    list: [],
   },
 
   {
     id: 6,
     title: "Việt nam",
     background: require("../img/imgListen/topicListen/vietnam.png"),
-    list: [
-      {
-        id: 1,
-        image: require("../img/imgVideo/imgTopic/vietnam/vietnam_1.png"),
-        name: "Single Woman Picks A Date Based On Their Vietnamese Cooking • Plate To Date",
-        time: "10:02",
-        link: "https://www.youtube.com/watch?v=icUA4eLL76c",
-      },
-      {
-        id: 2,
-        image: require("../img/imgVideo/imgTopic/vietnam/vietnam_2.png"),
-        name: "Vietnam had zero coronavirus deaths in 2020. Here’s why. | CNBC Reports",
-        time: "7:40",
-        link: "https://www.youtube.com/watch?v=LDk9CW82puo",
-      },
-      {
-        id: 3,
-        image: require("../img/imgVideo/imgTopic/vietnam/vietnam_3.png"),
-        name: "Why Life For USA Tank Crews in Vietnam SUCKED",
-        time: "17:30",
-        link: "https://www.youtube.com/watch?v=2jK5EV2_cMk",
-      },
-      {
-        id: 4,
-        image: require("../img/imgVideo/imgTopic/vietnam/vietnam_4.png"),
-        name: "Most Insane Booby Traps Used During the Vietnam War",
-        time: "19:25",
-        link: "https://www.youtube.com/watch?v=vrBYCNfeUog",
-      },
-    ],
+    list: [],
   },
 
   {
     id: 7,
     title: "Bệnh tật",
     background: require("../img/imgListen/topicListen/disease.png"),
-    list: [
-      {
-        id: 1,
-        image: require("../img/imgVideo/imgTopic/travel/travel_1.png"),
-        name: "People Who Have Traveled to a Past Life",
-        time: "10:43",
-        link: "https://www.youtube.com/watch?v=2gsvqTDpVz4",
-      },
-      {
-        id: 2,
-        image: require("../img/imgVideo/imgTopic/travel/travel_2.png"),
-        name: "Scientists Reveal How Time Travel Is Actually Possible",
-        time: "8:53",
-        link: "https://www.youtube.com/watch?v=xjQDKGxPjak",
-      },
-      {
-        id: 3,
-        image: require("../img/imgVideo/imgTopic/travel/travel_3.png"),
-        name: "The future of space travel is starting right now",
-        time: "4:25",
-        link: "https://bigthink.com/hard-science/future-of-space-travel/",
-      },
-      {
-        id: 4,
-        image: require("../img/imgVideo/imgTopic/travel/travel_4.png"),
-        name: "What It's Like To Travel During The Coronavirus Outbreak",
-        time: "4:19",
-        link: "https://www.youtube.com/watch?v=7AmhOWLnCEI",
-      },
-      {
-        id: 5,
-        image: require("../img/imgVideo/imgTopic/travel/travel_5.png"),
-        name: "This travel enthusiast skipped a corporate job, but still makes six figures | CNBC Make It",
-        time: "6:33",
-        link: "https://www.youtube.com/watch?v=-WhJmvSxM_U",
-      },
-    ],
+    list: [],
   },
 
   {
     id: 8,
     title: "Năng lượng",
     background: require("../img/imgListen/topicListen/energy.png"),
-    list: [
-      {
-        id: 1,
-        image: require("../img/imgVideo/imgTopic/energy/energy_1.png"),
-        name: "The Best Worst Energy Source",
-        time: "2:51",
-        link: "https://www.youtube.com/watch?v=edBJ1LkvdQQ",
-      },
-      {
-        id: 2,
-        image: require("../img/imgVideo/imgTopic/energy/energy_2.png"),
-        name: "The Engineering Challenges of Renewable Energy: Crash Course Engineering #30",
-        time: "11:31",
-        link: "https://www.youtube.com/watch?v=4k5gyYAAEEU",
-      },
-      {
-        id: 3,
-        image: require("../img/imgVideo/imgTopic/energy/energy_3.png"),
-        name: "The Essentials of Energy",
-        time: "5:21",
-        link: "https://www.youtube.com/watch?v=ytwIzy3XuGg",
-      },
-      {
-        id: 4,
-        image: require("../img/imgVideo/imgTopic/energy/energy_4.png"),
-        name: "Who is leading in renewable energy? | CNBC Explains",
-        time: "7:19",
-        link: "https://www.youtube.com/watch?v=fyqDC_AKVgE",
-      },
-      {
-        id: 5,
-        image: require("../img/imgVideo/imgTopic/energy/energy_5.png"),
-        name: "Why bitcoin uses so much energy | CNBC Explains",
-        time: "8:57",
-        link: "https://www.youtube.com/watch?v=JT22_dUsl5M",
-      },
-      {
-        id: 6,
-        image: require("../img/imgVideo/imgTopic/energy/energy_6.png"),
-        name: "Why the US isn't ready for clean energy",
-        time: "6:50",
-        link: "https://www.youtube.com/watch?v=s3ScJ_FwaZk",
-      },
-    ],
+    list: [],
   },
 
   {
     id: 9,
     title: "Bạo lực",
     background: require("../img/imgListen/topicListen/violence.png"),
-    list: [
-      {
-        id: 1,
-        image: require("../img/imgVideo/imgTopic/food/food_1.png"),
-        name: "The Surprising Reason We Eat Spicy Food",
-        time: "6:43",
-        link: "https://www.youtube.com/watch?app=desktop&v=2sziIUZgdgk",
-      },
-      {
-        id: 2,
-        image: require("../img/imgVideo/imgTopic/food/food_2.png"),
-        name: "Why beef is the worst food for the climate",
-        time: "4:37",
-        link: "https://www.youtube.com/watch?v=3lrJYTsKdUM",
-      },
-      {
-        id: 3,
-        image: require("../img/imgVideo/imgTopic/food/food_3.png"),
-        name: "Trying Japanese and Jewish Fusion Food",
-        time: "3:10",
-        link: "https://www.youtube.com/watch?v=unWl7dhbXVM",
-      },
-      {
-        id: 4,
-        image: require("../img/imgVideo/imgTopic/food/food_4.png"),
-        name: "What Really Goes Into Storing Food for the Winter?",
-        time: "5:19",
-        link: "https://www.youtube.com/watch?v=J0Vi1XDl9aU",
-      },
-      {
-        id: 5,
-        image: require("../img/imgVideo/imgTopic/food/food_5.png"),
-        name: "What If Bees Went EXTINCT? | Earth Unplugged",
-        time: "5:44",
-        link: "https://www.youtube.com/watch?v=izGQketQzTc",
-      },
-      {
-        id: 6,
-        image: require("../img/imgVideo/imgTopic/food/food_6.png"),
-        name: "Which Seafood Is Better for the Environment: Farmed or Wild Caught?",
-        time: "10:02",
-        link: "https://www.youtube.com/watch?v=zn6AD3khu1U",
-      },
-    ],
+    list: [],
   },
 
   {
     id: 10,
     title: "Ngôn ngữ và văn hóa",
     background: require("../img/imgListen/topicListen/culture.png"),
-    list: [
-      {
-        id: 1,
-        image: require("../img/imgVideo/imgTopic/language/language_1.png"),
-        name: "Language Change and Historical Linguistics: Crash Course Linguistics #13",
-        time: "12:12",
-        link: "https://www.youtube.com/watch?v=dNkMC92kFLA",
-      },
-      {
-        id: 2,
-        image: require("../img/imgVideo/imgTopic/language/language_2.png"),
-        name: "Language Shouldn't Be a Barrier to Climate Action | Sophia Kianni | TED Countdown",
-        time: "6:50",
-        link: "https://www.youtube.com/watch?v=LvNWW_thRC4",
-      },
-      {
-        id: 3,
-        image: require("../img/imgVideo/imgTopic/language/language_3.png"),
-        name: "Natural Language Processing: Crash Course AI #7",
-        time: "13:28",
-        link: "https://www.youtube.com/watch?v=oi0JXuL19TA",
-      },
-      {
-        id: 4,
-        image: require("../img/imgVideo/imgTopic/language/language_4.png"),
-        name: "Kalika Bali: The giant leaps in language technology -- and who's left behind | TED",
-        time: "16:25",
-        link: "https://www.youtube.com/watch?v=Mkelhs_OVMc",
-      },
-      {
-        id: 5,
-        image: require("../img/imgVideo/imgTopic/language/language_5.png"),
-        name: "The race to decode a mysterious language - Susan Lupack",
-        time: "4:44",
-        link: "https://www.youtube.com/watch?v=iePEw_cHp8s",
-      },
-    ],
+    list: [],
   },
 
   {

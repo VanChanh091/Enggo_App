@@ -20,7 +20,7 @@ const TopicListening = ({ navigation }) => {
           marginVertical: 6,
         }}
         onPress={() =>
-          navigation.navigate("ListListeningOfTopic", { data: item.list })
+          navigation.navigate("ListListeningOfTopic", { data: item })
         }
       >
         <ImageBackground
@@ -66,7 +66,7 @@ const TopicListening = ({ navigation }) => {
               }}
             >
               <Text style={{ fontWeight: 500, fontSize: 15 }}>
-                {item.content.length}
+                {item.list.length}
               </Text>
             </View>
           </View>
@@ -83,12 +83,15 @@ const TopicListening = ({ navigation }) => {
       </Appbar.Header>
 
       <View style={{ flex: 1, backgroundColor: "white", marginTop: 7 }}>
-        <FlatList
-          keyExtractor={(item) => item.id}
-          data={TopicListen}
-          renderItem={renderTopicVideo}
-          numColumns={2}
-        />
+        <View style={{ flex: 9.5 }}>
+          <FlatList
+            keyExtractor={(item) => item.id}
+            data={TopicListen}
+            renderItem={renderTopicVideo}
+            numColumns={2}
+          />
+        </View>
+        <View style={{ flex: 0.5 }}></View>
       </View>
     </PaperProvider>
   );

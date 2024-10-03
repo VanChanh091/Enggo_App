@@ -11,28 +11,59 @@ import React, { useEffect, useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { Entertainment, Travel, Education } from "../../api/ApiTinTuc";
 import { Ionicons } from "@expo/vector-icons";
+import axios from 'axios';
 import newsRepository from '../../apis/newsApi';
 
 
 const TinTuc_S1 = ({ navigation }) => {
   const [news, setNews] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // setLoading(true);
-        const res = await newsRepository.HandleNewsRepository("/news", {}, "get");
-        setNews(res.data);
-        console.log(res);
-      } catch (error) {
-        console.error("Error fetching news:", error);
-        // setError("Failed to load news.");
-      } finally {
-        // setLoading(false);
-      }
+  // const fetchNews = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:3000/api/news', {
+  //       method: 'GET',
+  //       headers: {
+  //         // 'Authorization': `Bearer ${yourToken}`,
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json, text/plain, */*',
+  //       },
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`Error: ${response.status} - ${response.statusText}`);
+  //     }
+
+  //     const data = await response.json();
+  //     console.log('Fetched data:', data);
+  //     // Handle the data as needed
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // };
+
+
+  const fetchNews = async () => {
+    try {
+      const response = await axios.get('http://192.168.1.3:3000/api/news', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json, text/plain, */*',
+        },
+        withCredentials: false, // Thêm dòng này để đảm bảo không gửi thông tin chứng thực
+      });
+      console.log('Fetched data:', response.data);
+      setNews(response.data); // Lưu dữ liệu vào state `news`
+    } catch (error) {
+      console.error('Error fetching news:', error.message); // Hiển thị chi tiết lỗi
     }
-    fetchData();
+  };
+  
+
+  useEffect(() => {
+    fetchNews();
   }, []);
+
+
 
 
   const listTinTuc = ({ item }) => (
@@ -111,6 +142,9 @@ const TinTuc_S1 = ({ navigation }) => {
                 Giải trí
               </Text>
             </View>
+            <TouchableOpacity onPress={fetchNews}>
+              <Text style={{ fontSize: 15, color: "gray" }}>get</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               style={{
                 flex: 2.7,
@@ -118,14 +152,14 @@ const TinTuc_S1 = ({ navigation }) => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              //   onPress={() => navigation.navigate("")}
+            //   onPress={() => navigation.navigate("")}
             >
               <Text style={{ fontSize: 15, color: "gray" }}>Xem thêm</Text>
               <Ionicons
                 name="chevron-forward-outline"
                 size={20}
                 color="gray"
-                // style={{ marginRight: -30, marginLeft: 10 }}
+              // style={{ marginRight: -30, marginLeft: 10 }}
               />
             </TouchableOpacity>
           </View>
@@ -176,7 +210,7 @@ const TinTuc_S1 = ({ navigation }) => {
                 name="chevron-forward-outline"
                 size={20}
                 color="gray"
-                // style={{ marginRight: -30, marginLeft: 10 }}
+              // style={{ marginRight: -30, marginLeft: 10 }}
               />
             </TouchableOpacity>
           </View>
@@ -227,7 +261,7 @@ const TinTuc_S1 = ({ navigation }) => {
                 name="chevron-forward-outline"
                 size={20}
                 color="gray"
-                // style={{ marginRight: -30, marginLeft: 10 }}
+              // style={{ marginRight: -30, marginLeft: 10 }}
               />
             </TouchableOpacity>
           </View>

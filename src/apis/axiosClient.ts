@@ -1,15 +1,13 @@
-// import axios from "axios";
-// import queryString from "query-string";
+import axios from "axios";
+import queryString from "query-string";
 
 import { appInfo } from "../constants/appInfos";
 
-    return res ? JSON.parse(res).accesstoken : '';
-};
 
-// const axiosClient = axios.create({
-//     baseURL: appInfo.BASE_URL,
-//     paramsSerializer: params => queryString.stringify(params)
-// })
+const axiosClient = axios.create({
+    baseURL: appInfo.BASE_URL,
+    paramsSerializer: params => queryString.stringify(params)
+})
 
 
 axiosClient.interceptors.request.use(async (config: any) => {
@@ -52,4 +50,4 @@ axiosClient.interceptors.response.use(
 );
 
 
-// export default axiosClient;
+export default axiosClient;

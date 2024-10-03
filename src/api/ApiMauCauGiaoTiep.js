@@ -1,0 +1,568 @@
+export const MauCau = [
+  {
+    id: 1,
+    image: require("../img/imgBoTuVung/greeting.png"),
+    titleEn: "Greetings",
+    titleVn: "Chào hỏi",
+    vocab: [
+      {
+        id: 1,
+        en: "Certaily!",
+        vn: "Dĩ nhiên",
+        audioEn: "",
+        audioVn: "",
+      },
+      {
+        id: 2,
+        en: "Good afternoon",
+        vn: "Chào (buổi chiều)",
+        audioEn: "",
+        audioVn: "",
+      },
+      {
+        id: 3,
+        en: "Good Evening Sir",
+        vn: "Chào ông (buổi tối)",
+        audioEn: "",
+        audioVn: "",
+      },
+      {
+        id: 4,
+        en: "Good morning",
+        vn: "Chào (buổi sáng)",
+        audioEn: "",
+        audioVn: "",
+      },
+      {
+        id: 5,
+        en: "Good luck",
+        vn: "Chúc may mắn",
+        audioEn: "",
+        audioVn: "",
+      },
+      {
+        id: 6,
+        en: "Great",
+        vn: "Tuyệt",
+        audioEn: "",
+        audioVn: "",
+      },
+      {
+        id: 7,
+        en: "Happy birthday",
+        vn: "Chúc mừng sinh nhật",
+        audioEn: "",
+        audioVn: "",
+      },
+      {
+        id: 8,
+        en: "Have a good trip",
+        vn: "Chúc một chuyến đi tốt đẹp",
+        audioEn: "",
+        audioVn: "",
+      },
+      {
+        id: 9,
+        en: "Nice to meet you",
+        vn: "Rất vui được gặp bạn",
+        audioEn: "",
+        audioVn: "",
+      },
+      {
+        id: 10,
+        en: "Please call me",
+        vn: "Vui lòng gọi tôi",
+        audioEn: "",
+        audioVn: "",
+      },
+    ],
+  },
+
+  {
+    id: 2,
+    image: require("../img/imgBoTuVung/question.png"),
+    titleEn: "General Questions",
+    titleVn: "Những câu hỏi thông thường",
+    vocab: [
+      {
+        id: 1,
+        en: "Anyone",
+        vn: "Bất cứ ai",
+      },
+      {
+        id: 2,
+        en: "How",
+        vn: "Như thế nào",
+      },
+      {
+        id: 3,
+        en: "Question",
+        vn: "Câu hỏi",
+      },
+      {
+        id: 4,
+        en: "What",
+        vn: "Cái gì",
+      },
+      {
+        id: 5,
+        en: "When",
+        vn: "Khi nào",
+      },
+      {
+        id: 6,
+        en: "Where",
+        vn: "Ở đâu",
+      },
+      {
+        id: 7,
+        en: "Which",
+        vn: "Cái nào",
+      },
+      {
+        id: 8,
+        en: "Who",
+        vn: "Ai",
+      },
+      {
+        id: 9,
+        en: "Why",
+        vn: "Tại sao",
+      },
+    ],
+  },
+
+  {
+    id: 3,
+    image: require("../img/imgBoTuVung/number.png"),
+    titleEn: "Number and Money",
+    titleVn: "Con số và tiền bạc",
+    vocab: [
+      {
+        id: 1,
+        en: "One",
+        vn: "1",
+      },
+      {
+        id: 2,
+        en: "Ten",
+        vn: "10",
+      },
+      {
+        id: 3,
+        en: "One hundred",
+        vn: "100",
+      },
+      {
+        id: 4,
+        en: "One thousand",
+        vn: "1.000",
+      },
+      {
+        id: 5,
+        en: "One million",
+        vn: "1.000.000",
+      },
+      {
+        id: 6,
+        en: "One hundred one",
+        vn: "101",
+      },
+      {
+        id: 7,
+        en: "One hundred ten",
+        vn: "110",
+      },
+      {
+        id: 8,
+        en: "1st",
+        vn: "Thứ nhất",
+      },
+      {
+        id: 9,
+        en: "Two",
+        vn: "2",
+      },
+      {
+        id: 10,
+        en: "Twenty",
+        vn: "20",
+      },
+      {
+        id: 11,
+        en: "Two hundred",
+        vn: "200",
+      },
+      {
+        id: 12,
+        en: "2nd",
+        vn: "Thứ nhì",
+      },
+      {
+        id: 13,
+        en: "Three",
+        vn: "3",
+      },
+      {
+        id: 14,
+        en: "Thirty",
+        vn: "30",
+      },
+      {
+        id: 15,
+        en: "3rd",
+        vn: "Thứ ba",
+      },
+      {
+        id: 16,
+        en: "Four",
+        vn: "4",
+      },
+      {
+        id: 17,
+        en: "Forty",
+        vn: "40",
+      },
+      {
+        id: 18,
+        en: "Five",
+        vn: "5",
+      },
+      {
+        id: 19,
+        en: "Fifty",
+        vn: "50",
+      },
+      {
+        id: 20,
+        en: "Bank",
+        vn: "Ngân hàng",
+      },
+      {
+        id: 21,
+        en: "Calculator",
+        vn: "Máy tính bỏ túi",
+      },
+      {
+        id: 22,
+        en: "Cash",
+        vn: "Tiền mặt",
+      },
+      {
+        id: 23,
+        en: "Centimeters",
+        vn: "Xăng ti mét",
+      },
+      {
+        id: 24,
+        en: "Cents",
+        vn: "Xu",
+      },
+      {
+        id: 25,
+        en: "Cheap",
+        vn: "Rẻ",
+      },
+      {
+        id: 26,
+        en: "Check",
+        vn: "Phiếu tính tiền",
+      },
+      {
+        id: 27,
+        en: "Dollar",
+        vn: "Đô la",
+      },
+      {
+        id: 28,
+        en: "Kilo",
+        vn: "Kí",
+      },
+      {
+        id: 29,
+        en: "Kilometers",
+        vn: "Cây số",
+      },
+
+      {
+        id: 30,
+        en: "Less",
+        vn: "Ít hơn",
+      },
+
+      {
+        id: 31,
+        en: "Many",
+        vn: "Nhiều ",
+      },
+      {
+        id: 32,
+        en: "Meter",
+        vn: "Mét",
+      },
+      {
+        id: 33,
+        en: "Miles",
+        vn: "Dặm",
+      },
+      {
+        id: 34,
+        en: "Money",
+        vn: "Tiền",
+      },
+      {
+        id: 35,
+        en: "Once",
+        vn: "Một lần",
+      },
+      {
+        id: 36,
+        en: "Per",
+        vn: "Mỗi",
+      },
+      {
+        id: 37,
+        en: "Pound",
+        vn: "Đồng bảng Anh",
+      },
+      {
+        id: 38,
+        en: "Second",
+        vn: "Thứ nhì",
+      },
+      {
+        id: 39,
+        en: "Plus",
+        vn: "Cộng",
+      },
+      {
+        id: 40,
+        en: "Minus",
+        vn: "Trừ",
+      },
+      {
+        id: 41,
+        en: "Total",
+        vn: "Tổng cộng",
+      },
+      {
+        id: 42,
+        en: "Twice",
+        vn: "Hai lần",
+      },
+      {
+        id: 43,
+        en: "Zero",
+        vn: "Số không",
+      },
+    ],
+  },
+
+  {
+    id: 4,
+    image: require("../img/imgBoTuVung/calendar.png"),
+    titleEn: "Time and Dates",
+    titleVn: "Thời gian và ngày tháng",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 5,
+    image: require("../img/imgBoTuVung/location.png"),
+    titleEn: "Travel, Direction",
+    titleVn: "Du lịch, địa điểm",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 6,
+    image: require("../img/imgBoTuVung/friend.png"),
+    titleEn: "Make Friends",
+    titleVn: "Kết bạn",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 7,
+    image: require("../img/imgBoTuVung/entertainment.png"),
+    titleEn: "Entertainment",
+    titleVn: "Giải trí",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 8,
+    image: require("../img/imgBoTuVung/dinning.png"),
+    titleEn: "Dining",
+    titleVn: "Ăn uống",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 9,
+    image: require("../img/imgBoTuVung/shopping.png"),
+    titleEn: "Shopping",
+    titleVn: "Mua sắm",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 10,
+    image: require("../img/imgBoTuVung/weather.png"),
+    titleEn: "Weather",
+    titleVn: "Thời tiết",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 11,
+    image: require("../img/imgBoTuVung/work.png"),
+    titleEn: "Work",
+    titleVn: "Việc làm",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 12,
+    image: require("../img/imgBoTuVung/ambulance.png"),
+    titleEn: "Emergency and health",
+    titleVn: "Trường hợp khẩn cấp và sức khỏe",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 13,
+    image: require("../img/imgBoTuVung/listen.png"),
+    titleEn: "Communication difficulties",
+    titleVn: "Khó khăn giao tiếp",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 14,
+    image: require("../img/imgBoTuVung/location.png"),
+    titleEn: "Location",
+    titleVn: "Địa điểm",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 15,
+    image: require("../img/imgBoTuVung/phone.png"),
+    titleEn: "Phone/internet/mail",
+    titleVn: "Điện thoại/mạng/thư",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 16,
+    image: require("../img/imgBoTuVung/house.png"),
+    titleEn: "Accommodation",
+    titleVn: "Chỗ ở",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 17,
+    image: require("../img/imgBoTuVung/book.png"),
+    titleEn: "Common expressions",
+    titleVn: "Những thành ngữ thông dụng",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 18,
+    image: require("../img/imgBoTuVung/verb.png"),
+    titleEn: "Verbs",
+    titleVn: "Động từ",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+
+  {
+    id: 19,
+    image: require("../img/imgBoTuVung/culture.png"),
+    titleEn: "Cultural expressions/terms",
+    titleVn: "Từ vựng và thành ngữ văn hóa",
+    vocab: [
+      {
+        id: 1,
+        // en: "", vn: ""
+      },
+    ],
+  },
+];

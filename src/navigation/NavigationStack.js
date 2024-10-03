@@ -19,27 +19,32 @@ import { Account, Home, ListVocabulary } from "../view/TabScreen";
 import { TinTuc_S1, TinTuc_S2 } from "../view/tinTuc";
 import { TruyenChem_S1, TruyenChem_S2 } from "../view/truyenChem";
 import { NguPhap_S1, NguPhap_S2 } from "../view/nguPhap";
-import {
-  BoTuVung_S1,
-  BoTuVung_S2,
-  GhepCap,
-  LuyenDoc,
-  VietCau_Doc,
-  VietCau_Nghe,
-  TracNghiem_Doc,
-  TracNghiem_Nghe,
-  SettingTest_TracNghiem,
-  SettingTest_VietCau,
-} from "../view/boTuVung";
+import { BoTuVung_S1, BoTuVung_S2 } from "../view/boTuVung";
+import { MauCauGiaoTiep_S1, MauCauGiaoTiep_S2 } from "../view/MauCauGiaoTiep";
 import {
   ListVideoOfChannel,
   TopTabVideo,
   VideoSetting,
-  WatchVideo,
   WatchVideoChooseWord,
   WatchVideoWithCaptions,
   WatchVideoWriteWord,
 } from "../view/video";
+import DanhNgon from "../view/danhNgon/DanhNgon";
+import {
+  GhepCap,
+  LuyenDoc,
+  SettingTest_TracNghiem,
+  SettingTest_VietCau,
+  TracNghiem_Doc,
+  TracNghiem_Nghe,
+  VietCau_Doc,
+  VietCau_Nghe,
+} from "../components/Option";
+import {
+  DetailOfListening,
+  ListListeningOfTopic,
+  TopicListening,
+} from "../view/baiNghe";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -293,6 +298,85 @@ const VideoNavigation = () => {
   );
 };
 
+const ListenNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="TopicListening"
+        component={TopicListening}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ListListeningOfTopic"
+        component={ListListeningOfTopic}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DetailOfListening"
+        component={DetailOfListening}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const MauCauGiaoTiepNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="MauCauGiaoTiep_S1"
+        component={MauCauGiaoTiep_S1}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="MauCauGiaoTiep_S2"
+        component={MauCauGiaoTiep_S2}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="GhepCap"
+        component={GhepCap}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="LuyenDoc"
+        component={LuyenDoc}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TracNghiem_Doc"
+        component={TracNghiem_Doc}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TracNghiem_Nghe"
+        component={TracNghiem_Nghe}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="VietCau_Doc"
+        component={VietCau_Doc}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="VietCau_Nghe"
+        component={VietCau_Nghe}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SettingTest_TracNghiem"
+        component={SettingTest_TracNghiem}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SettingTest_VietCau"
+        component={SettingTest_VietCau}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const MainNavigator = () => {
   return (
     <Stack.Navigator>
@@ -335,6 +419,24 @@ const MainNavigator = () => {
       <Stack.Screen
         name="VideoNavigation"
         component={VideoNavigation}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="DanhNgon"
+        component={DanhNgon}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="MauCauGiaoTiepNavigation"
+        component={MauCauGiaoTiepNavigation}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ListenNavigation"
+        component={ListenNavigation}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

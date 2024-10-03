@@ -16,12 +16,6 @@ import newsRepository from "../../apis/newsApi";
 const Home = ({ navigation }) => {
   const [search, setSearch] = useState("");
 
-
-  
-
-
-
-
   const listSubjects = ({ item }) => (
     <View
       style={{
@@ -63,7 +57,7 @@ const Home = ({ navigation }) => {
         navigation.navigate("VideoNavigation");
         break;
       case 6:
-        // navigation.navigate("TruyenChem_S1");
+        navigation.navigate("DanhNgon");
         break;
       case 7:
         navigation.navigate("BoTuVungNavigation");
@@ -72,7 +66,10 @@ const Home = ({ navigation }) => {
         navigation.navigate("NguPhapNavigation");
         break;
       case 9:
-        // navigation.navigate("TruyenChem_S1");
+        navigation.navigate("ListenNavigation");
+        break;
+      case 10:
+        navigation.navigate("MauCauGiaoTiepNavigation");
         break;
       default:
         navigation.navigate("Home");
@@ -130,8 +127,6 @@ const Home = ({ navigation }) => {
             Enggo
           </Text>
         </View>
-
-        
 
         <TouchableOpacity>
           <Appbar.Action icon="bell" size={30} />

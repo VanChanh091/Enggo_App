@@ -8,10 +8,9 @@ import {
 } from "react-native";
 import React from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
-import { TopicAndVocabulary } from "../../api/ApiBoTuVung";
-import HeaderScreen from "../../components/header/HeaderScreen";
+import { MauCau } from "../../api/ApiMauCauGiaoTiep";
 
-const BoTuVung_S1 = ({ navigation }) => {
+const MauCauGiaoTiep_S1 = ({ navigation }) => {
   const renderTopicAndVocabulary = ({ item }) => (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity
@@ -24,7 +23,7 @@ const BoTuVung_S1 = ({ navigation }) => {
           marginTop: 10,
           flexDirection: "row",
         }}
-        onPress={() => navigation.navigate("BoTuVung_S2", { data: item })}
+        onPress={() => navigation.navigate("MauCauGiaoTiep_S2", { data: item })}
       >
         <View
           style={{
@@ -49,13 +48,19 @@ const BoTuVung_S1 = ({ navigation }) => {
   );
   return (
     <PaperProvider>
-      <HeaderScreen title={"Bộ Từ Vựng"} />
+      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
+        <Appbar.BackAction
+          color="white"
+          onPress={() => navigation.navigate("TabNavigationContainer")}
+        />
+        <Appbar.Content title="Mẫu Câu Giao Tiếp" color="white" />
+      </Appbar.Header>
 
       <View style={{ flex: 9, backgroundColor: "#F1F1F1" }}>
         <FlatList
           keyExtractor={(item) => item.id}
           renderItem={renderTopicAndVocabulary}
-          data={TopicAndVocabulary}
+          data={MauCau}
         />
       </View>
       <View style={{ flex: 1 }}></View>
@@ -63,6 +68,6 @@ const BoTuVung_S1 = ({ navigation }) => {
   );
 };
 
-export default BoTuVung_S1;
+export default MauCauGiaoTiep_S1;
 
 const styles = StyleSheet.create({});

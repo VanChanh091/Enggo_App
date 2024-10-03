@@ -14,7 +14,6 @@ import { Audio } from "expo-av";
 
 const DetailOfListening = ({ navigation, route }) => {
   const { data } = route.params;
-  console.log(data.audio);
 
   const [paused, setPaused] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
@@ -76,7 +75,9 @@ const DetailOfListening = ({ navigation, route }) => {
       });
 
       // Tạo âm thanh mới từ file require
-      const { sound: newSound } = await Audio.Sound.createAsync(data.audio);
+      const { sound: newSound } = await Audio.Sound.createAsync(
+        require("../../audio/Listening/climateChange/SwitzerlandAndItaly_1.mp3")
+      );
       setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
 
       // Phát âm thanh
@@ -103,7 +104,7 @@ const DetailOfListening = ({ navigation, route }) => {
           >
             <Text
               style={{
-                fontWeight: 600,
+                fontWeight: 500,
                 fontSize: 20,
                 marginTop: 15,
                 marginHorizontal: 10,
@@ -111,10 +112,7 @@ const DetailOfListening = ({ navigation, route }) => {
             >
               {data.title}
             </Text>
-            <TouchableOpacity
-              style={{ marginTop: 15 }}
-              onPress={() => navigation.navigate("TestListen")}
-            >
+            <TouchableOpacity style={{ marginTop: 15 }} onPress={playSound}>
               <MaterialIcons name="g-translate" size={28} color="black" />
             </TouchableOpacity>
           </View>

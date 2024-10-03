@@ -39,13 +39,12 @@ import {
   TracNghiem_Nghe,
   VietCau_Doc,
   VietCau_Nghe,
-} from "../view/Option";
+} from "../components/Option";
 import {
   DetailOfListening,
   ListListeningOfTopic,
   TopicListening,
 } from "../view/baiNghe";
-import TestListen from "../view/baiNghe/TestListen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -315,11 +314,6 @@ const ListenNavigation = () => {
       <Stack.Screen
         name="DetailOfListening"
         component={DetailOfListening}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="TestListen"
-        component={TestListen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

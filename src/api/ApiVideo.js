@@ -318,7 +318,7 @@ export const topicVideo = [
     id: 1,
     title: "Âm nhạc",
     background: require("../img/imgVideo/imgTopic/topic/music.png"),
-    content: [
+    list: [
       {
         id: 1,
         image: require("../img/imgVideo/imgTopic/music/music_1.png"),
@@ -375,7 +375,7 @@ export const topicVideo = [
     id: 2,
     title: "Cổ xưa",
     background: require("../img/imgVideo/imgTopic/topic/ancient.png"),
-    content: [
+    list: [
       {
         id: 1,
         image: require("../img/imgVideo/imgTopic/ancient/ancient_1.png"),
@@ -418,7 +418,7 @@ export const topicVideo = [
     id: 3,
     title: "Từ vựng tiếng Anh",
     background: require("../img/imgVideo/imgTopic/topic/vocabulary.png"),
-    content: [
+    list: [
       {
         id: 1,
         image: require("../img/imgVideo/imgTopic/vocab/vocab_1.png"),
@@ -461,7 +461,7 @@ export const topicVideo = [
     id: 4,
     title: "Cafe",
     background: require("../img/imgVideo/imgTopic/topic/cafe.png"),
-    content: [
+    list: [
       {
         id: 1,
         image: require("../img/imgVideo/imgTopic/cafe/cafe_1.png"),
@@ -497,7 +497,7 @@ export const topicVideo = [
     id: 5,
     title: "Đại dương",
     background: require("../img/imgVideo/imgTopic/topic/ocean.png"),
-    content: [
+    list: [
       {
         id: 1,
         image: require("../img/imgVideo/imgTopic/ocean/ocean_1.png"),
@@ -540,7 +540,7 @@ export const topicVideo = [
     id: 6,
     title: "Việt nam",
     background: require("../img/imgVideo/imgTopic/topic/vietnam.png"),
-    content: [
+    list: [
       {
         id: 1,
         image: require("../img/imgVideo/imgTopic/vietnam/vietnam_1.png"),
@@ -576,7 +576,7 @@ export const topicVideo = [
     id: 7,
     title: "Du lịch",
     background: require("../img/imgVideo/imgTopic/topic/travel.png"),
-    content: [
+    list: [
       {
         id: 1,
         image: require("../img/imgVideo/imgTopic/travel/travel_1.png"),
@@ -619,7 +619,7 @@ export const topicVideo = [
     id: 8,
     title: "Năng lượng",
     background: require("../img/imgVideo/imgTopic/topic/energy.png"),
-    content: [
+    list: [
       {
         id: 1,
         image: require("../img/imgVideo/imgTopic/energy/energy_1.png"),
@@ -669,7 +669,7 @@ export const topicVideo = [
     id: 9,
     title: "Thực phẩm",
     background: require("../img/imgVideo/imgTopic/topic/food.png"),
-    content: [
+    list: [
       {
         id: 1,
         image: require("../img/imgVideo/imgTopic/food/food_1.png"),
@@ -719,7 +719,7 @@ export const topicVideo = [
     id: 10,
     title: "Ngôn ngữ",
     background: require("../img/imgVideo/imgTopic/topic/language.png"),
-    content: [
+    list: [
       {
         id: 1,
         image: require("../img/imgVideo/imgTopic/language/language_1.png"),

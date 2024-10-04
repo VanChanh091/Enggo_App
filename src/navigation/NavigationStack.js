@@ -390,13 +390,13 @@ const BaiTapNavigation = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="ListExercise"
-        component={ListExercise}
+        name="TopicExercise"
+        component={TopicExercise}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="TopicExercise"
-        component={TopicExercise}
+        name="ListExercise"
+        component={ListExercise}
         options={{ headerShown: false }}
       />
       <Stack.Screen

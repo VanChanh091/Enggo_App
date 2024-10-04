@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { FlatList, View } from "react-native";
-import { Appbar, List, PaperProvider } from "react-native-paper";
+import { List, PaperProvider } from "react-native-paper";
 import { Categories } from "../../api/apiNguPhap";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const NguPhap_S1 = ({ navigation }) => {
   const renderCategories = ({ item }) => (
@@ -45,13 +46,7 @@ const NguPhap_S1 = ({ navigation }) => {
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction
-          color="white"
-          onPress={() => navigation.navigate("TabNavigationContainer")}
-        />
-        <Appbar.Content title="Ngữ pháp" color="white" />
-      </Appbar.Header>
+      <HeaderScreen title="Ngữ Pháp" />
 
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <FlatList

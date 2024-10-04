@@ -1,12 +1,5 @@
-import React, { useState, useRef, useCallback } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-  Button,
-} from "react-native";
+import React, { useState, useCallback } from "react";
+import { View, StyleSheet, Button, ScrollView, Alert } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 
 const captions = [
@@ -33,14 +26,26 @@ const WatchVideoWithCaptions = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
-      <YoutubePlayer
-        height={500}
-        play={playing}
-        videoId={"iee2TATGMyI"}
-        onChangeState={onStateChange}
-      />
-      <Button title={playing ? "pause" : "play"} onPress={togglePlaying} />
+    <View style={{ flex: 1, backgroundColor: "#152a55" }}>
+      <View
+        style={{
+          flex: 3,
+          paddingTop: 50,
+        }}
+      >
+        <YoutubePlayer
+          height={500}
+          play={playing}
+          videoId={"iee2TATGMyI"}
+          onChangeState={onStateChange}
+        />
+      </View>
+      <View style={{ flex: 6, borderBottomWidth: 1 }}>
+        <ScrollView></ScrollView>
+      </View>
+      <View style={{ flex: 1, borderBottomWidth: 1 }}>
+        <Button title={playing ? "pause" : "play"} onPress={togglePlaying} />
+      </View>
     </View>
   );
 };

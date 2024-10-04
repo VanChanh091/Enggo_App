@@ -6,11 +6,12 @@ import {
   View,
 } from "react-native";
 import React, { useRef, useState } from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
-import { MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
+import { PaperProvider } from "react-native-paper";
+import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Audio } from "expo-av";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const DetailOfListening = ({ navigation, route }) => {
   const { data } = route.params;
@@ -89,9 +90,7 @@ const DetailOfListening = ({ navigation, route }) => {
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-      </Appbar.Header>
+      <HeaderScreen title="" />
 
       <View style={{ flex: 1 }}>
         <ScrollView>

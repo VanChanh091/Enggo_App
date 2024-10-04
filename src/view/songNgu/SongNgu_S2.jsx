@@ -1,32 +1,14 @@
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
-import {
-  BaoSongNgu,
-  ChamNgonHay,
-  MauCauGiaoTiep,
-  TruyenCoTich,
-  TruyenCuoi,
-  TruyenNgan,
-  TruyenNguNgon,
-} from "../../api/apiSongNgu";
+import { PaperProvider } from "react-native-paper";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const SongNgu_S2 = ({ navigation, route }) => {
   const { data } = route.params;
-  console.log(data);
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-        <Appbar.Content title={data.topic} color="white" />
-      </Appbar.Header>
+      <HeaderScreen title={data.topic} />
 
       <View style={{ flex: 1 }}>
         {data.subTopic.map((subTopic) => (

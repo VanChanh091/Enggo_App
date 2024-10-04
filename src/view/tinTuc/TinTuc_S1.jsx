@@ -8,12 +8,11 @@ import {
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { Entertainment, Travel, Education } from "../../api/ApiTinTuc";
 import { Ionicons } from "@expo/vector-icons";
-import axios from 'axios';
-import newsRepository from '../../apis/newsApi';
-
+import axios from "axios";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const TinTuc_S1 = ({ navigation }) => {
   const [news, setNews] = useState([]);
@@ -41,30 +40,25 @@ const TinTuc_S1 = ({ navigation }) => {
   //   }
   // };
 
-
   const fetchNews = async () => {
     try {
-      const response = await axios.get('http://192.168.1.3:3000/api/news', {
+      const response = await axios.get("http://192.168.1.3:3000/api/news", {
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json, text/plain, */*',
+          "Content-Type": "application/json",
+          Accept: "application/json, text/plain, */*",
         },
         withCredentials: false, // Thêm dòng này để đảm bảo không gửi thông tin chứng thực
       });
-      console.log('Fetched data:', response.data);
+      console.log("Fetched data:", response.data);
       setNews(response.data); // Lưu dữ liệu vào state `news`
     } catch (error) {
-      console.error('Error fetching news:', error.message); // Hiển thị chi tiết lỗi
+      console.error("Error fetching news:", error.message); // Hiển thị chi tiết lỗi
     }
   };
-  
 
   useEffect(() => {
     fetchNews();
   }, []);
-
-
-
 
   const listTinTuc = ({ item }) => (
     <TouchableOpacity
@@ -113,10 +107,7 @@ const TinTuc_S1 = ({ navigation }) => {
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-        <Appbar.Content title="Tin Tức" color="white" />
-      </Appbar.Header>
+      <HeaderScreen title={"Tin Tức"} />
 
       <ScrollView style={{ flex: 1, backgroundColor: "#F1F1F1" }}>
         {/* FlatList Entertainment */}
@@ -152,14 +143,14 @@ const TinTuc_S1 = ({ navigation }) => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-            //   onPress={() => navigation.navigate("")}
+              //   onPress={() => navigation.navigate("")}
             >
               <Text style={{ fontSize: 15, color: "gray" }}>Xem thêm</Text>
               <Ionicons
                 name="chevron-forward-outline"
                 size={20}
                 color="gray"
-              // style={{ marginRight: -30, marginLeft: 10 }}
+                // style={{ marginRight: -30, marginLeft: 10 }}
               />
             </TouchableOpacity>
           </View>
@@ -210,7 +201,7 @@ const TinTuc_S1 = ({ navigation }) => {
                 name="chevron-forward-outline"
                 size={20}
                 color="gray"
-              // style={{ marginRight: -30, marginLeft: 10 }}
+                // style={{ marginRight: -30, marginLeft: 10 }}
               />
             </TouchableOpacity>
           </View>
@@ -261,7 +252,7 @@ const TinTuc_S1 = ({ navigation }) => {
                 name="chevron-forward-outline"
                 size={20}
                 color="gray"
-              // style={{ marginRight: -30, marginLeft: 10 }}
+                // style={{ marginRight: -30, marginLeft: 10 }}
               />
             </TouchableOpacity>
           </View>

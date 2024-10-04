@@ -6,9 +6,10 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { apiSongNgu } from "../../api/apiSongNgu";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const SongNgu_S1 = ({ navigation }) => {
   const renderTagName = ({ item }) => (
@@ -39,13 +40,7 @@ const SongNgu_S1 = ({ navigation }) => {
   );
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction
-          color="white"
-          onPress={() => navigation.navigate("TabNavigationContainer")}
-        />
-        <Appbar.Content title="Truyện song ngữ" color="white" />
-      </Appbar.Header>
+      <HeaderScreen title="Truyện Song Ngữ" />
 
       <View style={{ flex: 1 }}>
         <FlatList

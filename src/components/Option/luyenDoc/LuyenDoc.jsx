@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
+import HeaderScreen from "../../header/HeaderScreen";
 
 const LuyenDoc = ({ navigation, route }) => {
   const { dataVocab } = route.params;
@@ -134,9 +135,7 @@ const LuyenDoc = ({ navigation, route }) => {
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-      </Appbar.Header>
+      <HeaderScreen title="" />
 
       <View style={{ flex: 1 }}>
         {/* vocab */}

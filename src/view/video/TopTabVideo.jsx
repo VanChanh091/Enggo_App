@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import ChannelScreen from "./topTab/ChannelScreen";
 import TopicScreen from "./topTab/TopicScreen";
 import HistoryScreen from "./topTab/HistoryScreen";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -31,10 +32,7 @@ const TopTabNavigator = () => (
 const TopTabVideo = ({ navigation }) => {
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-        <Appbar.Content title="Truyện Chêm" color="white" />
-      </Appbar.Header>
+      <HeaderScreen title="Video" />
       <View style={{ flex: 1 }}>
         <TopTabNavigator />
       </View>

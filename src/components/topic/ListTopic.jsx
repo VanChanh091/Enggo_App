@@ -8,8 +8,9 @@ import {
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-const ListTopic = ({ data}) => {
+const ListTopic = ({ data, navigationScreen }) => {
   const navigation = useNavigation();
+
   const renderTopic = ({ item }) => (
     <View style={{ flex: 1, alignItems: "center" }}>
       <TouchableOpacity
@@ -18,9 +19,7 @@ const ListTopic = ({ data}) => {
           height: 125,
           marginVertical: 6,
         }}
-        onPress={() =>
-          navigation.navigate("ListListeningOfTopic", { data: item })
-        }
+        onPress={() => navigation.navigate(navigationScreen, { data: item })}
       >
         <ImageBackground
           source={item.background}

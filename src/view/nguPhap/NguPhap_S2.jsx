@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const NguPhap_S2 = ({ navigation, route }) => {
   const { data } = route.params;
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction
-          color="white"
-          onPress={() => navigation.navigate("TabNavigationContainer")}
-        />
-        <Appbar.Content title={data.title} color="white" />
-      </Appbar.Header>
+      <HeaderScreen title={data.title} />
 
       <ScrollView style={{ flex: 1 }}>
         {data.content.map((noiDung) => (

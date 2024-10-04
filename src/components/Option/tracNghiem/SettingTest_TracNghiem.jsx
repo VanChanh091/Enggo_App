@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { CheckBox } from "@rneui/themed";
+import HeaderScreen from "../../header/HeaderScreen";
 
 const SettingTest_TracNghiem = ({ navigation, route }) => {
   const { dataVocab } = route.params;
@@ -29,9 +30,7 @@ const SettingTest_TracNghiem = ({ navigation, route }) => {
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-      </Appbar.Header>
+      <HeaderScreen title="" />
 
       <View
         style={{

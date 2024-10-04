@@ -6,10 +6,11 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { quote } from "../../api/ApiDanhNgon";
 import { useNavigation } from "@react-navigation/native";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const DanhNgon = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -36,10 +37,7 @@ const DanhNgon = () => {
   };
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-        <Appbar.Content title="Danh Ngôn" color="white" />
-      </Appbar.Header>
+      <HeaderScreen title="Danh Ngôn" />
 
       <View style={{ flex: 1 }}>
         <View style={{ flex: 8.5 }}>

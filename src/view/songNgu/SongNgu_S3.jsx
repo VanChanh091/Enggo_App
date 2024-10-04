@@ -1,13 +1,7 @@
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const SongNgu_S3 = ({ navigation, route }) => {
   const { dataTruyen } = route.params;
@@ -25,13 +19,9 @@ const SongNgu_S3 = ({ navigation, route }) => {
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-        <Appbar.Content
-          title={isTextEnglish ? dataTruyen.titleEn : dataTruyen.titleVn}
-          color="white"
-        />
-      </Appbar.Header>
+      <HeaderScreen
+        title={isTextEnglish ? dataTruyen.titleEn : dataTruyen.titleVn}
+      />
 
       <View style={{ flex: 9, borderBottomWidth: 1 }}>
         <Text

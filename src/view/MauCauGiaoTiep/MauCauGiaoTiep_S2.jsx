@@ -7,18 +7,16 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
   const { data } = route.params;
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-        <Appbar.Content title={data.titleEn} color="white" />
-      </Appbar.Header>
+      <HeaderScreen title={data.titleEn} />
 
       <View style={{ flex: 1 }}>
         <View

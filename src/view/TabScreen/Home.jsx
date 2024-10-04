@@ -11,7 +11,6 @@ import React, { useEffect, useState } from "react";
 import { Appbar, PaperProvider, Searchbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { Subjects, Suggest } from "../../api/apiHome";
-import newsRepository from "../../apis/newsApi";
 
 const Home = ({ navigation }) => {
   const [search, setSearch] = useState("");
@@ -42,7 +41,7 @@ const Home = ({ navigation }) => {
   const handleNavigationSubjects = (id) => {
     switch (id) {
       case 1:
-        navigation.navigate("Home");
+        navigation.navigate("BaiTapNavigation");
         break;
       case 2:
         navigation.navigate("TinTucNavigation");

@@ -45,6 +45,15 @@ import {
   ListListeningOfTopic,
   TopicListening,
 } from "../view/baiNghe";
+import {
+  ListenAndChoosePhrase,
+  ListenAndFillWord,
+  ListenAndRead,
+  ListenAndRewrite,
+  ListExercise,
+  Parody,
+  TopicExercise,
+} from "../view/baiTap";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -377,6 +386,48 @@ const MauCauGiaoTiepNavigation = () => {
   );
 };
 
+const BaiTapNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="ListExercise"
+        component={ListExercise}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TopicExercise"
+        component={TopicExercise}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ListenAndChoosePhrase"
+        component={ListenAndChoosePhrase}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ListenAndFillWord"
+        component={ListenAndFillWord}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ListenAndRead"
+        component={ListenAndRead}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ListenAndRewrite"
+        component={ListenAndRewrite}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Parody"
+        component={Parody}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const MainNavigator = () => {
   return (
     <Stack.Navigator>
@@ -439,6 +490,12 @@ const MainNavigator = () => {
         component={ListenNavigation}
         options={{ headerShown: false }}
       />
+
+      <Stack.Screen
+        name="BaiTapNavigation"
+        component={BaiTapNavigation}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
@@ -475,15 +532,15 @@ const NavigationStack = () => {
 
   return (
     <>
-      {isShowSplash ? (
+      {/* {isShowSplash ? (
         <SplashScreen />
       ) : auth.accesstoken ? (
         <MainNavigator />
       ) : (
         <AuthenNavigation />
-      )}
+      )} */}
 
-      {/* <MainNavigator /> */}
+      <MainNavigator />
     </>
   );
 };

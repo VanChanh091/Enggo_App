@@ -25,8 +25,8 @@ const Account = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  const toggleSwitchNightMode = () => setIsEnabledNightMode(prev => !prev);
-  const toggleSwitchClock = () => setIsEnabledClock(prev => !prev);
+  const toggleSwitchNightMode = () => setIsEnabledNightMode((prev) => !prev);
+  const toggleSwitchClock = () => setIsEnabledClock((prev) => !prev);
 
   // DateTimePicker
   const onTimeChange = (event, selectedTime) => {
@@ -70,8 +70,17 @@ const Account = ({ navigation }) => {
   return (
     <PaperProvider style={{ flex: 1 }}>
       <Appbar.Header elevated="true" style={{ backgroundColor: "white" }}>
-        <View style={{ width: "85%", height: "100%", justifyContent: "center", paddingLeft: 15 }}>
-          <Text style={{ fontWeight: "bold", fontSize: 30, color: "#3B7DED" }}>Enggo</Text>
+        <View
+          style={{
+            width: "85%",
+            height: "100%",
+            justifyContent: "center",
+            paddingLeft: 15,
+          }}
+        >
+          <Text style={{ fontWeight: "bold", fontSize: 30, color: "#3B7DED" }}>
+            Enggo
+          </Text>
         </View>
         <TouchableOpacity>
           <Appbar.Action icon="bell" size={30} />
@@ -80,7 +89,9 @@ const Account = ({ navigation }) => {
 
       <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
         {/* Info User */}
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
           <TouchableOpacity
             style={{
               width: "100%",
@@ -90,15 +101,35 @@ const Account = ({ navigation }) => {
             }}
           >
             <View style={styles.boxInfoUser}>
-              <View style={{ flex: 2, justifyContent: "center", alignItems: "center" }}>
-                <Ionicons name="person-circle-outline" size={45} color="black" />
+              <View
+                style={{
+                  flex: 2,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="person-circle-outline"
+                  size={45}
+                  color="black"
+                />
               </View>
               <View style={{ flex: 6.7, justifyContent: "center" }}>
                 <Text style={styles.name}>{user.fullname}</Text>
                 <Text style={styles.email}>{user.email}</Text>
               </View>
-              <View style={{ flex: 1.3, justifyContent: "center", alignItems: "center" }}>
-                <Ionicons name="chevron-forward-outline" size={25} color="black" />
+              <View
+                style={{
+                  flex: 1.3,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="chevron-forward-outline"
+                  size={25}
+                  color="black"
+                />
               </View>
             </View>
           </TouchableOpacity>
@@ -505,14 +536,10 @@ const Account = ({ navigation }) => {
             marginTop: 10,
           }}
         >
-          <TouchableOpacity style={styles.boxLogout}
-            onPress={handleLogout}>
+          <TouchableOpacity style={styles.boxLogout} onPress={handleLogout}>
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>Đăng xuất</Text>
           </TouchableOpacity>
         </View>
-
-
-        
       </ScrollView>
     </PaperProvider>
   );

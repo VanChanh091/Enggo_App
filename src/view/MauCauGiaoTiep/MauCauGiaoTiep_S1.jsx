@@ -7,8 +7,9 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { MauCau } from "../../api/ApiMauCauGiaoTiep";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const MauCauGiaoTiep_S1 = ({ navigation }) => {
   const renderTopicAndVocabulary = ({ item }) => (
@@ -48,13 +49,7 @@ const MauCauGiaoTiep_S1 = ({ navigation }) => {
   );
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction
-          color="white"
-          onPress={() => navigation.navigate("TabNavigationContainer")}
-        />
-        <Appbar.Content title="Mẫu Câu Giao Tiếp" color="white" />
-      </Appbar.Header>
+      <HeaderScreen title="Mẫu Câu Giao Tiếp" />
 
       <View style={{ flex: 9, backgroundColor: "#F1F1F1" }}>
         <FlatList

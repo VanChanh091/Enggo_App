@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import React, { useState } from "react";
+import { PaperProvider } from "react-native-paper";
 import { Audio } from "expo-av";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const TinTuc_S2 = ({ navigation, route }) => {
   const { data } = route.params;
@@ -26,8 +27,9 @@ const TinTuc_S2 = ({ navigation, route }) => {
   const [soundCurrent, setSoundCurrent] = useState();
 
   // Play sound function
-  const playSound = async () => {    
-    const uri ='https://audio-enggo.s3.ap-southeast-1.amazonaws.com/surprise.mp3';
+  const playSound = async () => {
+    const uri =
+      "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/surprise.mp3";
 
     try {
       await Audio.setAudioModeAsync({
@@ -56,9 +58,7 @@ const TinTuc_S2 = ({ navigation, route }) => {
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-      </Appbar.Header>
+      <HeaderScreen title="" />
 
       <ScrollView>
         <View style={{ flex: 1 }}>
@@ -145,8 +145,6 @@ const TinTuc_S2 = ({ navigation, route }) => {
                     }}
                   />
                 </TouchableOpacity>
-
-                
               </View>
             </View>
           </View>

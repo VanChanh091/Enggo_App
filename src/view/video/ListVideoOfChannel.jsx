@@ -7,7 +7,8 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const ListVideoOfChannel = ({ navigation, route }) => {
   const { data } = route.params;
@@ -56,9 +57,7 @@ const ListVideoOfChannel = ({ navigation, route }) => {
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-      </Appbar.Header>
+      <HeaderScreen title="" />
 
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <FlatList

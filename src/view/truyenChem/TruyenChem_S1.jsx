@@ -7,8 +7,9 @@ import {
   Image,
 } from "react-native";
 import React from "react";
-import { PaperProvider, Appbar } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import ApiTruyenChem from "../../api/ApiTruyenChem";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const TruyenChem_S1 = ({ navigation }) => {
   const listTruyenChem = ({ item }) => (
@@ -43,10 +44,7 @@ const TruyenChem_S1 = ({ navigation }) => {
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-        <Appbar.Content title="Truyện Chêm" color="white" />
-      </Appbar.Header>
+      <HeaderScreen title={"Truyện Chêm"} />
       <View
         style={{
           flex: 1,

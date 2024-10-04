@@ -7,9 +7,10 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const BoTuVung_S2 = ({ navigation, route }) => {
   const { data } = route.params;
@@ -51,10 +52,7 @@ const BoTuVung_S2 = ({ navigation, route }) => {
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-        <Appbar.Content title={data.titleEn} color="white" />
-      </Appbar.Header>
+      <HeaderScreen title={data.titleEn} />
 
       <View style={{ flex: 1 }}>
         <View

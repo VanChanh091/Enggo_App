@@ -1,7 +1,8 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
+import HeaderScreen from "../../components/header/HeaderScreen";
 
 const VideoSetting = ({ navigation, route }) => {
   const { data } = route.params;
@@ -27,9 +28,7 @@ const VideoSetting = ({ navigation, route }) => {
 
   return (
     <PaperProvider>
-      <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
-        <Appbar.BackAction color="white" onPress={() => navigation.goBack()} />
-      </Appbar.Header>
+      <HeaderScreen title="" />
 
       <View style={{ flex: 1 }}>
         <View style={{ flex: 4, borderBottomWidth: 1, borderColor: "#d0d0d0" }}>

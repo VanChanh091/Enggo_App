@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { TopicAndVocabulary } from "../../api/ApiBoTuVung";
 import HeaderScreen from "../../components/header/HeaderScreen";
 

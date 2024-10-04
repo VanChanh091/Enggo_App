@@ -18,6 +18,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "expo": {
+      "plugins": ["@react-native-voice/voice"]
     }
   }
 }

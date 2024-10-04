@@ -1,7 +1,8 @@
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-export const ModalChooseType = () => {
+const ModalChooseType = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const optionsType = [
@@ -14,16 +15,30 @@ export const ModalChooseType = () => {
   ];
 
   return (
-    <View style={styles.container}>
-      {/* Nút mở modal */}
+    <View style={{ flex: 1 }}>
       <TouchableOpacity
-        style={styles.openButton}
+        style={{
+          width: "90%",
+          height: 60,
+          borderRadius: 13,
+          borderWidth: 1,
+          borderColor: "#757575",
+          flexDirection: "row",
+          marginTop: 15,
+        }}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.buttonText}>Chọn kiểu bài tập</Text>
+        <View style={{ flex: 8.5, justifyContent: "center" }}>
+          <Text style={{ paddingLeft: 15, fontSize: 18, color: "gray" }}>
+            Nghe và đọc
+          </Text>
+        </View>
+        <View
+          style={{ flex: 1.5, justifyContent: "center", alignItems: "center" }}
+        >
+          <Ionicons name="chevron-down-outline" color="gray" size={30} />
+        </View>
       </TouchableOpacity>
-
-      {/* Modal hiển thị bảng chọn */}
       <Modal
         transparent={true}
         visible={modalVisible}
@@ -40,7 +55,12 @@ export const ModalChooseType = () => {
                 style={styles.optionButton}
                 onPress={() => {
                   if (option !== "Hủy") {
-                    console.log(`Selected: ${option}`);
+                    // if (option === "Dễ") {
+                    //   navigation.navigate("ListenAndRead", { data: data });
+                    // } else {
+                    //   navigation.navigate("ListenAndRead", { data: data });
+                    // }
+                    console.log("Cancel");
                   }
                   setModalVisible(false); // Đóng modal sau khi chọn
                 }}
@@ -55,27 +75,9 @@ export const ModalChooseType = () => {
   );
 };
 
-export const ModalChooseLevel = () => {
-  const optionLevel = ["Dễ", "Khó", "Hủy"];
-  return <View></View>;
-};
+export default ModalChooseType;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f5f5f5",
-  },
-  openButton: {
-    backgroundColor: "#007AFF",
-    padding: 15,
-    borderRadius: 10,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-  },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)", // Làm tối nền phía sau modal
   },
   modalContent: {
-    width: "80%",
+    width: "75%",
     backgroundColor: "#fff",
     padding: 20,
     borderRadius: 10,
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
   },
   optionText: {
-    fontSize: 16,
+    fontSize: 17,
     textAlign: "center",
     color: "#007AFF",
   },

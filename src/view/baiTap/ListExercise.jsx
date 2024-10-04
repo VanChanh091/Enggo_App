@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
-import { ModalChooseType } from "./ModalScreen";
 
 const ListExercise = ({ navigation, route }) => {
   const { data } = route.params;
@@ -155,11 +154,11 @@ const styles = StyleSheet.create({
   optionButton: {
     padding: 15,
     width: "100%",
-    borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+    borderTopWidth: 1,
+    borderColor: "#ddd",
   },
   optionText: {
-    fontSize: 16,
+    fontSize: 17,
     textAlign: "center",
     color: "#007AFF",
   },

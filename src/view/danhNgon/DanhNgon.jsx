@@ -9,10 +9,13 @@ import React, { useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { quote } from "../../api/ApiDanhNgon";
+import { useNavigation } from "@react-navigation/native";
 
 const DanhNgon = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [istTranslate, setIstTranslate] = useState(true);
+
+  const navigation = useNavigation();
 
   const showTextEn = () => {
     setIstTranslate(!istTranslate);

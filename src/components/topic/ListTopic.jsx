@@ -6,8 +6,10 @@ import {
   View,
 } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
-const ListTopic = ({ data }) => {
+const ListTopic = ({ data}) => {
+  const navigation = useNavigation();
   const renderTopic = ({ item }) => (
     <View style={{ flex: 1, alignItems: "center" }}>
       <TouchableOpacity

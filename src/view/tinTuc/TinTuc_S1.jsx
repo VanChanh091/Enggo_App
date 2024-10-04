@@ -142,9 +142,9 @@ const TinTuc_S1 = ({ navigation }) => {
                 Giải trí
               </Text>
             </View>
-            <TouchableOpacity onPress={fetchNews}>
+            {/* <TouchableOpacity onPress={fetchNews}>
               <Text style={{ fontSize: 15, color: "gray" }}>get</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               style={{
                 flex: 2.7,

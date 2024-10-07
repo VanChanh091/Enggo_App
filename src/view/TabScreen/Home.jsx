@@ -132,7 +132,7 @@ const Home = ({ navigation }) => {
         </TouchableOpacity>
       </Appbar.Header>
 
-      <ScrollView style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
         {/* search bar */}
         <View
           style={{

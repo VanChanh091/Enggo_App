@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
@@ -9,7 +9,6 @@ const TopicExercise = () => {
   return (
     <PaperProvider>
       <HeaderScreen title={"Bài Tập"} />
-
       <ListTopic data={TopicListen} navigationScreen={"ListExercise"} />
     </PaperProvider>
   );

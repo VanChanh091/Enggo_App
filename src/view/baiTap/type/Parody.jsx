@@ -2,12 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../../components/header/HeaderScreen";
-import ModalChooseType from "./ModalChooseType";
 
 const Parody = () => {
   return (
     <PaperProvider>
-      <HeaderScreen title={"Bài tập"} />
+      <HeaderScreen title={"Nói nhại"} />
 
       <View style={{ flex: 1 }}>
         <View

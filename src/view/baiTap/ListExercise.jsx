@@ -1,21 +1,54 @@
 import React, { useRef, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  Modal,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import ActionSheet from "react-native-actions-sheet";
 
 const ListExercise = ({ navigation, route }) => {
   const { data } = route.params;
+  console.log(data);
 
-  const [modalVisible, setModalVisible] = useState(false);
+  const actionSheetRef = useRef(null); // Tham chiếu đến ActionSheet
 
-  const optionsType = ["Dễ", "Khó", "Hủy"];
+  const optionsType = [
+    "Nói nhại",
+    "Nghe và đọc",
+    "Nghe và điền từ",
+    "Nghe chép chính tả",
+    "Nghe và hoàn thành cụm từ",
+  ];
+
+  const handleNavigation = (option) => {
+    switch (option) {
+      case "Nói nhại":
+        navigation.navigate("Parody", {
+          data: data.list,
+        });
+        break;
+      case "Nghe và đọc":
+        navigation.navigate("ListenAndRead", {
+          data: data.list,
+        });
+        break;
+      case "Nghe và điền từ":
+        navigation.navigate("ListenAndFillWord", {
+          data: data.list,
+        });
+        break;
+      case "Nghe chép chính tả":
+        navigation.navigate("ListenAndRewrite", {
+          data: data.list,
+        });
+        break;
+      case "Nghe và hoàn thành cụm từ":
+        navigation.navigate("ListenAndChoosePhrase", {
+          data: data.list,
+        });
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <PaperProvider>
@@ -50,17 +83,8 @@ const ListExercise = ({ navigation, route }) => {
             {data.list.map((item, index) => (
               <TouchableOpacity
                 key={index}
-                style={{
-                  width: "100%",
-                  height: 95,
-                  borderRadius: 10,
-                  marginVertical: 6,
-                  flexDirection: "row",
-                  backgroundColor: "#E6E6E6",
-                  borderWidth: 1,
-                  borderColor: "#B3B7B7",
-                }}
-                onPress={() => setModalVisible(true)}
+                style={styles.touchableMap}
+                onPress={() => actionSheetRef.current?.show()}
               >
                 <View
                   style={{
@@ -91,40 +115,29 @@ const ListExercise = ({ navigation, route }) => {
               </TouchableOpacity>
             ))}
           </View>
-        </View>
 
-        {/* modal */}
-        <Modal
-          transparent={true}
-          visible={modalVisible}
-          animationType="fade"
-          onRequestClose={() => setModalVisible(false)} // Đóng modal khi nhấn nút "Hủy" hoặc nhấn ra ngoài
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Text style={styles.title}>Chọn kiểu bài tập</Text>
-
+          {/* ActionSheet để chọn kiểu bài tập */}
+          <ActionSheet ref={actionSheetRef}>
+            <View style={styles.actionSheetContainer}>
+              <Text style={styles.sheetTitle}>Chọn kiểu bài tập</Text>
               {optionsType.map((option, index) => (
                 <TouchableOpacity
                   key={index}
-                  style={styles.optionButton}
+                  style={styles.sheetOption}
                   onPress={() => {
-                    if (option !== "Hủy") {
-                      if (option === "Dễ") {
-                        navigation.navigate("ListenAndRead", { data: data });
-                      } else {
-                        navigation.navigate("ListenAndRead", { data: data });
-                      }
-                    }
-                    setModalVisible(false); // Đóng modal sau khi chọn
+                    handleNavigation(option);
+                    actionSheetRef.current?.hide(); // Ẩn ActionSheet
                   }}
                 >
                   <Text style={styles.optionText}>{option}</Text>
                 </TouchableOpacity>
               ))}
+              <TouchableOpacity onPress={() => actionSheetRef.current?.hide()}>
+                <Text style={styles.cancelText}>Hủy</Text>
+              </TouchableOpacity>
             </View>
-          </View>
-        </Modal>
+          </ActionSheet>
+        </View>
       </View>
     </PaperProvider>
   );
@@ -133,33 +146,50 @@ const ListExercise = ({ navigation, route }) => {
 export default ListExercise;
 
 const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Làm tối nền phía sau modal
-  },
-  modalContent: {
-    width: "60%",
-    backgroundColor: "#fff",
-    padding: 20,
+  touchableMap: {
+    width: "100%",
+    height: 95,
     borderRadius: 10,
-    alignItems: "center",
+    marginVertical: 6,
+    flexDirection: "row",
+    backgroundColor: "#E6E6E6",
+    borderWidth: 1,
+    borderColor: "#B3B7B7",
   },
-  title: {
-    fontSize: 18,
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5f5",
+    padding: 25,
+  },
+  listItem: {
+    padding: 15,
+    backgroundColor: "#fff",
+    marginVertical: 8,
+    borderRadius: 8,
+  },
+  actionSheetContainer: {
+    padding: 20,
+  },
+  sheetTitle: {
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 20,
+    textAlign: "center",
   },
-  optionButton: {
-    padding: 15,
-    width: "100%",
-    borderTopWidth: 1,
-    borderColor: "#ddd",
+  sheetOption: {
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
   },
   optionText: {
-    fontSize: 17,
+    fontSize: 18,
     textAlign: "center",
     color: "#007AFF",
+  },
+  cancelText: {
+    fontSize: 18,
+    textAlign: "center",
+    color: "#FF3B30",
+    marginTop: 20,
   },
 });

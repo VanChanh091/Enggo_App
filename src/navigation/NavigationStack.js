@@ -58,6 +58,42 @@ import {
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+const AuthenNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SignIn"
+        component={SignIn}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Verification"
+        component={Verification}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="RequestResetPassword"
+        component={RequestResetPassword}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ResetPassword"
+        component={ResetPassword}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const TabNavigationContainer = () => {
   return (
     <Tab.Navigator>
@@ -97,42 +133,6 @@ const TabNavigationContainer = () => {
         }}
       />
     </Tab.Navigator>
-  );
-};
-
-const AuthenNavigation = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="SignIn"
-        component={SignIn}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="SignUp"
-        component={SignUp}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="Verification"
-        component={Verification}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="RequestResetPassword"
-        component={RequestResetPassword}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="ResetPassword"
-        component={ResetPassword}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
   );
 };
 

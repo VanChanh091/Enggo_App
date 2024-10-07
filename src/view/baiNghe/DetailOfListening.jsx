@@ -13,8 +13,9 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { Audio } from "expo-av";
 import HeaderScreen from "../../components/header/HeaderScreen";
 
-const DetailOfListening = ({ navigation, route }) => {
+const DetailOfListening = ({ route }) => {
   const { data } = route.params;
+  console.log(data);
 
   const [paused, setPaused] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);

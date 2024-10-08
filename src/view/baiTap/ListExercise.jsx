@@ -6,7 +6,6 @@ import ActionSheet from "react-native-actions-sheet";
 
 const ListExercise = ({ navigation, route }) => {
   const { data } = route.params;
-  console.log(data);
 
   const actionSheetRef = useRef(null); // Tham chiếu đến ActionSheet
 
@@ -84,7 +83,12 @@ const ListExercise = ({ navigation, route }) => {
               <TouchableOpacity
                 key={index}
                 style={styles.touchableMap}
-                onPress={() => actionSheetRef.current?.show()}
+                onPress={() =>
+                  // actionSheetRef.current?.show()
+                  navigation.navigate("ListenAndRewrite", {
+                    data: item,
+                  })
+                }
               >
                 <View
                   style={{

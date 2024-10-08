@@ -84,29 +84,21 @@ export const TopicBaiTap = [
           },
           {
             id: 2,
-            question: "New travel policies that will permit...",
+            question: "proof of a negative COVID-19 test carried out...",
             answer: [
-              { id: 1, text: "approved for emergency use by the WHO" },
-              { id: 3, text: "within 72 hours of departure" },
-              { id: 2, text: "vaccinated international travelers" },
+              { id: 1, text: "vaccinated international travelers" },
+              { id: 3, text: "approved for emergency use by the WHO" },
+              { id: 2, text: "within 72 hours of departure" },
             ],
           },
           {
             id: 3,
-            question: "New travel policies that will permit...",
+            question:
+              "the government will accept full vaccination of travelers with any COVID-19 vaccine...",
             answer: [
-              { id: 1, text: "approved for emergency use by the WHO" },
-              { id: 3, text: "within 72 hours of departure" },
-              { id: 2, text: "vaccinated international travelers" },
-            ],
-          },
-          {
-            id: 4,
-            question: "New travel policies that will permit...",
-            answer: [
-              { id: 1, text: "approved for emergency use by the WHO" },
-              { id: 3, text: "within 72 hours of departure" },
-              { id: 2, text: "vaccinated international travelers" },
+              { id: 1, text: "within 72 hours of departure" },
+              { id: 3, text: "vaccinated international travelers" },
+              { id: 2, text: "approved for emergency use by the WHO" },
             ],
           },
         ],

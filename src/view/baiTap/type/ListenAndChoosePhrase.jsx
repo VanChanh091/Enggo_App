@@ -24,11 +24,11 @@ const ListenAndChoosePhrase = ({ route }) => {
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <View style={{ flex: 8.2 }}>
           <ScrollView>
-            <View style={{ width: "100%", height: 80 }}>
+            <View style={{ width: "100%", height: 100 }}>
               <Text
                 style={{
                   fontWeight: 500,
-                  fontSize: 20,
+                  fontSize: 19,
                   paddingHorizontal: 12,
                   paddingTop: 10,
                 }}

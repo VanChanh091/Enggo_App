@@ -85,7 +85,7 @@ const ListExercise = ({ navigation, route }) => {
                 style={styles.touchableMap}
                 onPress={() =>
                   // actionSheetRef.current?.show()
-                  navigation.navigate("ListenAndChoosePhrase", {
+                  navigation.navigate("ListenAndFillWord", {
                     data: item,
                   })
                 }

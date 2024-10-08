@@ -1,4 +1,5 @@
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -22,11 +23,11 @@ const ListenAndRead = ({ route }) => {
       <View style={{ flex: 1 }}>
         <View style={{ flex: 8.2, marginTop: 10 }}>
           <ScrollView>
-            <View style={{ width: "100%", height: 115 }}>
+            <View style={{ width: "100%", height: 135 }}>
               <Text
                 style={{
                   fontWeight: 500,
-                  fontSize: 20,
+                  fontSize: 19,
                   paddingHorizontal: 12,
                   paddingTop: 10,
                 }}
@@ -39,6 +40,20 @@ const ListenAndRead = ({ route }) => {
                   <MaterialIcons name="g-translate" size={30} color="black" />
                 </TouchableOpacity>
               </View>
+            </View>
+
+            <View
+              style={{
+                width: "100%",
+                height: 200,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                source={data.image}
+                style={{ width: "93%", height: "93%", borderRadius: 10 }}
+              />
             </View>
 
             {data.content.map((item, index) => (

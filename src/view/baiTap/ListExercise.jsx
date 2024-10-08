@@ -85,7 +85,7 @@ const ListExercise = ({ navigation, route }) => {
                 style={styles.touchableMap}
                 onPress={() =>
                   // actionSheetRef.current?.show()
-                  navigation.navigate("ListenAndRewrite", {
+                  navigation.navigate("ListenAndRead", {
                     data: item,
                   })
                 }

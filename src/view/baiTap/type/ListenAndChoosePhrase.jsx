@@ -114,7 +114,7 @@ const ListenAndChoosePhrase = ({ route }) => {
               <TouchableOpacity
                 style={{
                   width: "80%",
-                  height: 60,
+                  height: 50,
                   borderRadius: 10,
                   backgroundColor: "#D1E4F3",
                   justifyContent: "center",
@@ -129,12 +129,12 @@ const ListenAndChoosePhrase = ({ route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <Feather name="check-square" size={30} color="#2A7BD3" />
+                  <Feather name="check-square" size={28} color="#2A7BD3" />
                 </View>
                 <View style={{ flex: 8 }}>
                   <Text
                     style={{
-                      fontSize: 18,
+                      fontSize: 16,
                       color: "#2A7BD3",
                       fontWeight: "bold",
                     }}
@@ -148,7 +148,7 @@ const ListenAndChoosePhrase = ({ route }) => {
               <TouchableOpacity
                 style={{
                   width: "80%",
-                  height: 60,
+                  height: 50,
                   borderRadius: 10,
                   backgroundColor: "#2A7BD3",
                   justifyContent: "center",
@@ -167,12 +167,12 @@ const ListenAndChoosePhrase = ({ route }) => {
                   <Ionicons
                     name="checkmark-done-outline"
                     color="white"
-                    size={30}
+                    size={28}
                   ></Ionicons>
                 </View>
                 <View style={{ flex: 8 }}>
                   <Text
-                    style={{ fontSize: 18, color: "#fff", fontWeight: "bold" }}
+                    style={{ fontSize: 16, color: "#fff", fontWeight: "bold" }}
                   >
                     HIỂN THỊ ĐÁP ÁN
                   </Text>

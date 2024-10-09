@@ -27,7 +27,9 @@ const generateFillInTheBlank = (texts) => {
     const sortedBlankIndices = [...blankIndices].sort((a, b) => a - b);
 
     // Tạo mảng chứa từ đúng mà người dùng cần nhập
-    const correctWords = sortedBlankIndices.map((index) => words[index]);
+    const correctWords = sortedBlankIndices
+      .map((index) => words[index])
+      .map((word) => word.replace(/[.,]/g, "").replace(/[^a-zA-Z]/g, ""));
 
     return { blankedText, correctWords }; // Giữ nguyên thứ tự từ trong correctWords
   });
@@ -82,8 +84,17 @@ const FillInTheBlankExercise = ({ data }) => {
     }
   };
 
-  const showCorrectAnswers = (blankIndex) => {
-    userInputsRef.current[blankIndex] = [...allBlanks[blankIndex].correctWords]; // Đặt lại đáp án đúng vào ô nhập
+  const showCorrectAnswers = () => {
+    userInputsRef.current.forEach((_, blankIndex) => {
+      userInputsRef.current[blankIndex] = [
+        ...allBlanks[blankIndex].correctWords,
+      ];
+    });
+
+    // Cập nhật trạng thái để hiển thị đáp án đúng
+    setCheckResults(
+      allBlanks.map(() => Array(allBlanks[0].correctWords.length).fill(null))
+    );
   };
 
   return (
@@ -174,9 +185,7 @@ const FillInTheBlankExercise = ({ data }) => {
             flexDirection: "row",
             marginTop: 12,
           }}
-          onPress={() =>
-            allBlanks.forEach((_, index) => showCorrectAnswers(index))
-          } // Gọi hàm hiển thị đáp án cho tất cả
+          onPress={showCorrectAnswers}
         >
           <View
             style={{

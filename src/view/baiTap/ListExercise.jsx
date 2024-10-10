@@ -6,7 +6,6 @@ import ActionSheet from "react-native-actions-sheet";
 
 const ListExercise = ({ navigation, route }) => {
   const { data } = route.params;
-  console.log(data);
 
   const [selectedItem, setSelectedItem] = useState(null); // Lưu trữ item được chọn
   const actionSheetRef = useRef(null); // Tham chiếu đến ActionSheet

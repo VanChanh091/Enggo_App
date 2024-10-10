@@ -1,4 +1,5 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import axios from "axios";
 import React, { useState, useMemo, useRef } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
@@ -51,6 +52,34 @@ const FillInTheBlankExercise = ({ data }) => {
   );
 
   const [checkResults, setCheckResults] = useState(allBlanks.map(() => null)); // null for unanswered, true/false for correctness
+  const [translatedText, setTranslatedText] = useState(""); // Trạng thái lưu kết quả dịch
+  const [isTranslating, setIsTranslating] = useState(false); // Trạng thái loading khi dịch
+  const [translations, setTranslations] = useState({}); // Lưu trữ kết quả dịch cho mỗi item
+  const [loading, setLoading] = useState(true);
+
+  // Sử dụng fetch để gọi Google Translate API
+  const handleTranslate = async (text, index) => {
+    try {
+      const response = await fetch(
+        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=vi&dt=t&q=${encodeURIComponent(
+          text
+        )}`
+      );
+      const result = await response.json();
+      if (result && result[0]) {
+        setTranslations((prevTranslations) => ({
+          ...prevTranslations,
+          [index]: result[0][0][0], // Lưu kết quả dịch vào translations với index tương ứng
+        }));
+      }
+      setLoading((prevLoading) => ({
+        ...prevLoading,
+        [index]: !loading, // Tắt trạng thái loading sau khi dịch xong
+      }));
+    } catch (error) {
+      console.error("Error translating text:", error);
+    }
+  };
 
   const handleInputChange = (text, index, blankIndex) => {
     userInputsRef.current[blankIndex][index] = text; // Cập nhật giá trị mà không gây re-render
@@ -61,27 +90,26 @@ const FillInTheBlankExercise = ({ data }) => {
       console.log("User inputs:", userInputsRef.current[blankIndex]);
       console.log("Correct words:", item.correctWords);
       return userInputsRef.current[blankIndex].map((word, index) => {
+        // Trả về true nếu đáp án đúng, ngược lại false
         return (
           word.trim().toLowerCase() === item.correctWords[index].toLowerCase()
         );
       });
     });
 
-    // Cập nhật kết quả vào state
-    const flattenedResults = results.map((res) =>
-      res.map((isCorrect) => (isCorrect ? true : false))
-    );
-    setCheckResults(flattenedResults);
+    // Cập nhật kết quả vào state (gán trực tiếp vào state để kích hoạt re-render)
+    setCheckResults(results);
 
-    // Kiểm tra xem có ô nào sai và hiển thị thông báo
-    const allCorrect = flattenedResults.every((result) =>
+    // Kiểm tra xem tất cả các đáp án có đúng không
+    const allCorrect = results.every((result) =>
       result.every((isCorrect) => isCorrect)
     );
 
+    // Thông báo cho người dùng
     if (allCorrect) {
-      Alert.alert("Correct!");
+      Alert.alert("Tất cả các đáp án đều đúng!");
     } else {
-      Alert.alert("Some answers are incorrect. Please try again.");
+      Alert.alert("Có đáp án sai. Hãy thử lại.");
     }
   };
 
@@ -102,10 +130,30 @@ const FillInTheBlankExercise = ({ data }) => {
     <View style={{ padding: 20 }}>
       {allBlanks.map((item, blankIndex) => (
         <View key={blankIndex} style={{ marginVertical: 7 }}>
+          {/* Hiển thị văn bản gốc tiếng Anh */}
           <Text style={{ fontSize: 16, lineHeight: 28 }}>
             {item.blankedText}
           </Text>
 
+          {/* Hiển thị văn bản tiếng Việt nếu đã dịch, hoặc ActivityIndicator nếu đang loading */}
+          {loading[blankIndex] ? (
+            <Text></Text>
+          ) : (
+            translations[blankIndex] && (
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "#2A7BD3",
+                  marginTop: 5,
+                  lineHeight: 28,
+                }}
+              >
+                {translations[blankIndex]}
+              </Text>
+            )
+          )}
+
+          {/* input */}
           {item.correctWords.map((_, index) => (
             <View
               key={index}
@@ -114,7 +162,15 @@ const FillInTheBlankExercise = ({ data }) => {
                 height: 40,
                 borderBottomWidth: 1,
                 marginVertical: 10,
-                borderColor: "gray",
+                // borderColor: "gray",
+                borderColor:
+                  checkResults[blankIndex] &&
+                  checkResults[blankIndex][index] === true
+                    ? "green" // Đúng thì viền màu xanh
+                    : checkResults[blankIndex] &&
+                      checkResults[blankIndex][index] === false
+                    ? "red" // Sai thì viền màu đỏ
+                    : "#ccc", // Chưa trả lời thì giữ màu xám
               }}
             >
               <TextInput
@@ -124,18 +180,6 @@ const FillInTheBlankExercise = ({ data }) => {
                   handleInputChange(text, index, blankIndex)
                 } // Gọi hàm cập nhật
                 style={{
-                  // borderBottomWidth: 1,
-                  borderColor:
-                    checkResults[blankIndex] &&
-                    checkResults[blankIndex][index] === true
-                      ? "green"
-                      : checkResults[blankIndex] &&
-                        checkResults[blankIndex][index] === false
-                      ? "red"
-                      : "#ccc", // Đặt màu sắc biên giới
-                  // marginVertical: 10,
-                  // padding: 5,
-                  // width: 200,
                   width: "100%",
                   height: "100%",
                   paddingLeft: 12,
@@ -144,6 +188,8 @@ const FillInTheBlankExercise = ({ data }) => {
               />
             </View>
           ))}
+
+          {/* button translate & speaker */}
           <View
             style={{
               flexDirection: "row",
@@ -152,9 +198,20 @@ const FillInTheBlankExercise = ({ data }) => {
               paddingTop: 15,
             }}
           >
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                handleTranslate(item.blankedText, blankIndex);
+              }} // Thực hiện dịch khi nhấn vào icon
+              disabled={isTranslating}
+            >
               <MaterialIcons name="g-translate" size={30} color="black" />
             </TouchableOpacity>
+
+            {/* Hiển thị kết quả dịch */}
+            {translatedText && blankIndex === 0 && (
+              <Text style={{ paddingLeft: 10 }}>{translatedText}</Text>
+            )}
+
             <TouchableOpacity style={{ paddingLeft: 20 }}>
               <Ionicons name="volume-medium-sharp" color="black" size={35} />
             </TouchableOpacity>
@@ -162,6 +219,7 @@ const FillInTheBlankExercise = ({ data }) => {
         </View>
       ))}
 
+      {/* button show check answer and correct answers */}
       <View
         style={{
           width: "100%",

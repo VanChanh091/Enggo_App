@@ -46,6 +46,7 @@ import {
   TopicListening,
 } from "../view/baiNghe";
 import {
+  Abc,
   ListenAndChoosePhrase,
   ListenAndFillWord,
   ListenAndRead,
@@ -422,6 +423,11 @@ const BaiTapNavigation = () => {
       <Stack.Screen
         name="Parody"
         component={Parody}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Abc"
+        component={Abc}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

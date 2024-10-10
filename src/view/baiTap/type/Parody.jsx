@@ -20,6 +20,7 @@ const Parody = ({ route }) => {
         <ScrollView>
           {data.content.map((item, index) => (
             <View
+              key={index}
               style={{
                 flex: 1,
                 justifyContent: "center",

@@ -48,7 +48,6 @@ const ListenAndRewrite = ({ route }) => {
                     height: "100%",
                     paddingHorizontal: 22,
                     borderRadius: 10,
-                    borderWidth: 1,
                   }}
                 />
               </View>

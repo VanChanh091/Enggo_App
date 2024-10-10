@@ -5,6 +5,7 @@ import HeaderScreen from "../../components/header/HeaderScreen";
 
 const ListListeningOfTopic = ({ navigation, route }) => {
   const { data } = route.params;
+  console.log(data);
 
   return (
     <PaperProvider>

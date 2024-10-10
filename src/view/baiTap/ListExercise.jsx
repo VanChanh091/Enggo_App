@@ -6,7 +6,9 @@ import ActionSheet from "react-native-actions-sheet";
 
 const ListExercise = ({ navigation, route }) => {
   const { data } = route.params;
+  console.log(data);
 
+  const [selectedItem, setSelectedItem] = useState(null); // Lưu trữ item được chọn
   const actionSheetRef = useRef(null); // Tham chiếu đến ActionSheet
 
   const optionsType = [
@@ -15,37 +17,23 @@ const ListExercise = ({ navigation, route }) => {
     "Nghe và điền từ",
     "Nghe chép chính tả",
     "Nghe và hoàn thành cụm từ",
+    "abc",
   ];
 
-  const handleNavigation = (option) => {
+  const handleNavigation = (option, item) => {
     switch (option) {
       case "Nói nhại":
-        navigation.navigate("Parody", {
-          data: data.list,
-        });
-        break;
+        return navigation.navigate("Parody", { data: item });
       case "Nghe và đọc":
-        navigation.navigate("ListenAndRead", {
-          data: data.list,
-        });
-        break;
+        return navigation.navigate("ListenAndRead", { data: item });
       case "Nghe và điền từ":
-        navigation.navigate("ListenAndFillWord", {
-          data: data.list,
-        });
-        break;
+        return navigation.navigate("ListenAndFillWord", { data: item });
       case "Nghe chép chính tả":
-        navigation.navigate("ListenAndRewrite", {
-          data: data.list,
-        });
-        break;
+        return navigation.navigate("ListenAndRewrite", { data: item });
       case "Nghe và hoàn thành cụm từ":
-        navigation.navigate("ListenAndChoosePhrase", {
-          data: data.list,
-        });
-        break;
-      default:
-        break;
+        return navigation.navigate("ListenAndChoosePhrase", { data: item });
+      case "abc":
+        return navigation.navigate("Abc", { data: item });
     }
   };
 
@@ -83,11 +71,14 @@ const ListExercise = ({ navigation, route }) => {
               <TouchableOpacity
                 key={index}
                 style={styles.touchableMap}
-                onPress={() =>
-                  // actionSheetRef.current?.show()
-                  navigation.navigate("ListenAndFillWord", {
-                    data: item,
-                  })
+                onPress={
+                  () => {
+                    setSelectedItem(item);
+                    actionSheetRef.current?.show();
+                  }
+                  // navigation.navigate("ListenAndFillWord", {
+                  //   data: item,
+                  // })
                 }
               >
                 <View
@@ -129,7 +120,7 @@ const ListExercise = ({ navigation, route }) => {
                   key={index}
                   style={styles.sheetOption}
                   onPress={() => {
-                    handleNavigation(option);
+                    handleNavigation(option, selectedItem);
                     actionSheetRef.current?.hide(); // Ẩn ActionSheet
                   }}
                 >

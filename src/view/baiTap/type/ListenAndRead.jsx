@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../../components/header/HeaderScreen";
 import PlayVoice from "../../../components/playVoice/PlayVoice";
-import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 const ListenAndRead = ({ route }) => {
   const { data } = route.params;

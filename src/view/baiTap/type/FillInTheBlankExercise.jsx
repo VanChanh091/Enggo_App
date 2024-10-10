@@ -1,3 +1,4 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import React, { useState, useMemo, useRef } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
@@ -20,7 +21,7 @@ const generateFillInTheBlank = (texts) => {
 
     // Tạo nội dung mới với các ô trống
     const blankedText = words
-      .map((word, index) => (blankIndices.includes(index) ? "_____" : word))
+      .map((word, index) => (blankIndices.includes(index) ? `_____` : word))
       .join(" ");
 
     // Sắp xếp chỉ số của các từ bị ẩn để đảm bảo đúng thứ tự
@@ -100,33 +101,64 @@ const FillInTheBlankExercise = ({ data }) => {
   return (
     <View style={{ padding: 20 }}>
       {allBlanks.map((item, blankIndex) => (
-        <View key={blankIndex} style={{ marginBottom: 20 }}>
-          <Text style={{ marginBottom: 10 }}>{item.blankedText}</Text>
+        <View key={blankIndex} style={{ marginVertical: 7 }}>
+          <Text style={{ fontSize: 16, lineHeight: 28 }}>
+            {item.blankedText}
+          </Text>
 
           {item.correctWords.map((_, index) => (
-            <TextInput
+            <View
               key={index}
-              placeholder={`Fill in word ${index + 1}`}
-              defaultValue={userInputsRef.current[blankIndex][index]} // Không sử dụng value để tránh re-render
-              onChangeText={(text) =>
-                handleInputChange(text, index, blankIndex)
-              } // Gọi hàm cập nhật
               style={{
+                width: "100%",
+                height: 40,
                 borderBottomWidth: 1,
-                borderColor:
-                  checkResults[blankIndex] &&
-                  checkResults[blankIndex][index] === true
-                    ? "green"
-                    : checkResults[blankIndex] &&
-                      checkResults[blankIndex][index] === false
-                    ? "red"
-                    : "#ccc", // Đặt màu sắc biên giới
                 marginVertical: 10,
-                padding: 5,
-                width: 200,
+                borderColor: "gray",
               }}
-            />
+            >
+              <TextInput
+                placeholder={`Fill in word ${index + 1}`}
+                defaultValue={userInputsRef.current[blankIndex][index]} // Không sử dụng value để tránh re-render
+                onChangeText={(text) =>
+                  handleInputChange(text, index, blankIndex)
+                } // Gọi hàm cập nhật
+                style={{
+                  // borderBottomWidth: 1,
+                  borderColor:
+                    checkResults[blankIndex] &&
+                    checkResults[blankIndex][index] === true
+                      ? "green"
+                      : checkResults[blankIndex] &&
+                        checkResults[blankIndex][index] === false
+                      ? "red"
+                      : "#ccc", // Đặt màu sắc biên giới
+                  // marginVertical: 10,
+                  // padding: 5,
+                  // width: 200,
+                  width: "100%",
+                  height: "100%",
+                  paddingLeft: 12,
+                  fontSize: 16,
+                }}
+              />
+            </View>
           ))}
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingTop: 15,
+            }}
+          >
+            <TouchableOpacity>
+              <MaterialIcons name="g-translate" size={30} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity style={{ paddingLeft: 20 }}>
+              <Ionicons name="volume-medium-sharp" color="black" size={35} />
+            </TouchableOpacity>
+          </View>
         </View>
       ))}
 

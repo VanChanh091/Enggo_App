@@ -96,10 +96,7 @@ const TinTuc_S1 = ({ navigation }) => {
             fontWeight: "500",
           }}
         >
-          {item.content}
-          {/* {item.information.map((info) => (
-            <Text key={info.id}>{info.titleEn}</Text>
-          ))} */}
+          {item.title}
         </Text>
       </View>
     </TouchableOpacity>

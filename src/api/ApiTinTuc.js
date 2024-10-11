@@ -1,46 +1,40 @@
 export const Entertainment = [
   {
     id: 1,
-    image: require("../img/imgTinTuc/vegetable.png"),
-    title: "Giải trí",
-    content: "5 vegetables that aid in weight lost",
-    information: [
+    image: require("../img/imgTinTuc/banner/vegetable.png"),
+    title: "5 vegetables that aid in weight lost",
+    content: [
       {
         id: 1,
-        titleEn: "5 vegetables that aid in weight lost",
-        titleVn: "5 loại rau giúp giảm cân",
-        subTitleEn_1: "Asparagus",
-        subTitleVn_1: "Măng tây",
-        image_1: require("../img/imgTinTuc/asparagus.png"),
-        iconTranslate: require("../img/imgTinTuc/translate.png"),
-        textEn:
-          "According to Health.com, asparagus should be a staple in the diet of anyone aiming to maintain their figure. This vegetable is not only low in calories but also high in fiber, which slows digestion and helps you feel full between meals, thereby promoting weight loss. Additionally, fiber can alleviate constipation and help lower cholesterol lower.",
-        textVn:
-          "Theo Health.com, măng tây nên là thực phẩm chính trong chế độ ăn uống của bất kỳ ai muốn duy trì vóc dáng. Loại rau này không chỉ ít calo mà còn giàu chất xơ, giúp làm chậm quá trình tiêu hóa và giúp bạn cảm thấy no giữa các bữa ăn, do đó thúc đẩy giảm cân. Ngoài ra, chất xơ có thể làm giảm táo bón và giúp hạ cholesterol.",
+        subTitle: "Asparagus",
+        image: require("../img/imgTinTuc/entertainment/asparagus.png"),
+        text: "According to Health.com, asparagus should be a staple in the diet of anyone aiming to maintain their figure. This vegetable is not only low in calories but also high in fiber, which slows digestion and helps you feel full between meals, thereby promoting weight loss. Additionally, fiber can alleviate constipation and help lower cholesterol levels.",
       },
-    ],
-  },
-  {
-    id: 2,
-    image: require("../img/imgTinTuc/socialMedia.png"),
-    title: "Giải trí",
-    content:
-      "Blocking parents on social media, a growing trend among young people",
-    information: [
       {
-        id: 1,
-        titleEn:
-          "Blocking parents on social media, a growing trend among young people",
-        titleVn:
-          "Chặn cha mẹ trên mạng xã hội, xu hướng ngày càng gia tăng ở giới trẻ",
-        subTitleEn_1: "Blocking parents on social media",
-        subTitleVn_1: "Chặn cha mẹ trên mạng xã hội",
-        image_1: require("../img/imgTinTuc/socialMedia.png"),
-        iconTranslate: require("../img/imgTinTuc/translate.png"),
-        textEn:
-          "According to Nguyen Thi Nga, also known as Nga Sinh, a sex education teacher on Vietnamese online learning platform Hocmai, it is common for children to block their parents on social media and it occurs across all age groups. In a survey by VnExpress, 55% of respondents reported doing this. Nga believes this is because children want to protect themselves from their parents’ scrutiny and have a place to express themselves without being judged, scolded or criticized by adults. This often stems from parents’ excessive control and failure to listen to their children, regardless of whether what they are saying is good or bad, right or wrong.",
-        textVn:
-          "Theo Nguyễn Thị Nga, còn được gọi là Nga Sinh, một giáo viên giáo dục giới tính trên nền tảng học trực tuyến Hocmai của Việt Nam, trẻ em thường chặn cha mẹ mình trên mạng xã hội và điều này xảy ra ở mọi lứa tuổi. Trong một cuộc khảo sát của VnExpress, 55% số người được hỏi cho biết đã làm như vậy. Nga tin rằng điều này là do trẻ em muốn bảo vệ bản thân khỏi sự giám sát của cha mẹ và có một nơi để thể hiện bản thân mà không bị người lớn phán xét, la mắng hoặc chỉ trích. Điều này thường xuất phát từ việc cha mẹ kiểm soát quá mức và không lắng nghe con cái, bất kể những gì chúng nói là tốt hay xấu, đúng hay sai.",
+        id: 2,
+        subTitle: "Bell Pepper",
+        image: require("../img/imgTinTuc/entertainment/bell_pepper.png"),
+        text: "According to Eat This, Not That, a cup of sliced bell peppers contains just 23.9 calories, which is relatively low. The high nutrient content in bell peppers also contributes to a feeling of fullness after meals.",
+      },
+      {
+        id: 3,
+        subTitle: "Carrot",
+        image: require("../img/imgTinTuc/entertainment/carrot.png"),
+        text: "With only 41 calories per 100 grams, carrots are considered a low-calorie food. Eating carrots can help increase satiety and reduce calorie intake in subsequent meals, aiding in weight loss.",
+      },
+      {
+        id: 4,
+        subTitle: "Cauliflower",
+        image: require("../img/imgTinTuc/entertainment/cauliflower.png"),
+        text: `Healthline reports that cauliflower is very low in calories, with just 27 calories per 107 grams, allowing you to consume a large quantity without significantly increasing your calorie intake. It can also serve as a low-calorie substitute for higher-calorie foods like rice and flour.
+
+Cauliflower’s fiber content helps slow digestion and enhances feelings of fullness. Its high water content, making up 92% of its weight, is another benefit for weight loss, as water-dense, low-calorie foods are associated with effective weight management.`,
+      },
+      {
+        id: 5,
+        subTitle: "Zuscchini",
+        image: require("../img/imgTinTuc/entertainment/zucchini.png"),
+        text: "Regular consumption of zucchini may assist in weight loss due to its high water content and low calorie density, which can help you feel full. Additionally, its fiber content may reduce hunger and control your appetite.",
       },
     ],
   },
@@ -49,14 +43,14 @@ export const Entertainment = [
 export const Travel = [
   {
     id: 1,
-    image: require("../img/imgTinTuc/newZealand.png"),
+    image: require("../img/imgTinTuc/banner/newZealand.png"),
     title: "Du lịch",
     content:
       "New Zealand entry fee to rise nearly three times for international tourist",
   },
   {
     id: 2,
-    image: require("../img/imgTinTuc/china.png"),
+    image: require("../img/imgTinTuc/banner/china.png"),
     title: "Du lịch",
     content:
       "Chinese carrier Colorful Guizhou Airlines opens direct air route to Hanoi",
@@ -66,14 +60,14 @@ export const Travel = [
 export const Education = [
   {
     id: 1,
-    image: require("../img/imgTinTuc/khaiGiang.png"),
+    image: require("../img/imgTinTuc/banner/khaiGiang.png"),
     title: "Giáo dục",
     content:
       "New academic year opens at 2 of Vietnam's historic and elite schools",
   },
   {
     id: 2,
-    image: require("../img/imgTinTuc/HCMC.png"),
+    image: require("../img/imgTinTuc/banner/HCMC.png"),
     title: "Giáo dục",
     content:
       "Ho Chi Minh City schools partner with Taiwan on semiconductor engineering",

@@ -10,19 +10,11 @@ import React, { useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import { Audio } from "expo-av";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import { MaterialIcons } from "@expo/vector-icons";
+import TranslateLanguage from "../../components/translate/TranslateLanguage";
 
-const TinTuc_S2 = ({ navigation, route }) => {
+const TinTuc_S2 = ({ route }) => {
   const { data } = route.params;
-
-  // Language toggle states
-  const [isTitleEnglish, setIsTitleEnglish] = useState(true);
-  const [isSubTitleEnglish, setIsSubtitleEnglish] = useState(true);
-  const [isTextEnglish, setIsTextEnglish] = useState(true);
-
-  // Toggle functions for language
-  const toggleLanguageTitle = () => setIsTitleEnglish(!isTitleEnglish);
-  const toggleLanguageSubTitle = () => setIsSubtitleEnglish(!isSubTitleEnglish);
-  const toggleLanguageText = () => setIsTextEnglish(!isTextEnglish);
 
   const [soundCurrent, setSoundCurrent] = useState();
 
@@ -60,95 +52,90 @@ const TinTuc_S2 = ({ navigation, route }) => {
     <PaperProvider>
       <HeaderScreen title="" />
 
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: "white" }}>
         <View style={{ flex: 1 }}>
           {/* Title */}
-          <View style={{ flex: 1.2, alignItems: "center" }}>
-            <Text style={{ fontSize: 19, fontWeight: "500", marginTop: 13 }}>
-              {isTitleEnglish
-                ? data.information[0].titleEn
-                : data.information[0].titleVn}
-            </Text>
-            <TouchableOpacity onPress={toggleLanguageTitle}>
-              <Image
-                source={data.information[0].iconTranslate}
-                style={{
-                  width: 30,
-                  height: 30,
-                  resizeMode: "contain",
-                  marginTop: 12,
-                }}
-              />
-            </TouchableOpacity>
+          <View
+            style={{
+              width: "100%",
+              height: 100,
+              alignItems: "center",
+            }}
+          >
+            <TranslateLanguage
+              data={data.title}
+              styleText={{
+                fontSize: 22,
+                fontWeight: 600,
+                paddingVertical: 12,
+                paddingHorizontal: 10,
+              }}
+            />
           </View>
 
           <View style={{ flex: 8.8 }}>
-            {/* Subtitle */}
-            <View
-              style={{
-                flexDirection: "row",
-                width: "100%",
-                height: 45,
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ fontSize: 16, marginLeft: 15, fontWeight: "500" }}>
-                1.{" "}
-                {isSubTitleEnglish
-                  ? data.information[0].subTitleEn_1
-                  : data.information[0].subTitleVn_1}
-              </Text>
-              <TouchableOpacity onPress={toggleLanguageSubTitle}>
-                <Image
-                  source={require("../../img/imgTinTuc/translate.png")}
+            {/* content */}
+            {data.content.map((item, index) => (
+              <View key={index} style={{ width: "100%", height: "auto" }}>
+                <View style={{ flex: 2 }}>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: 600,
+                      paddingTop: 15,
+                      paddingHorizontal: 12,
+                    }}
+                  >
+                    {item.id}. {item.subTitle}
+                  </Text>
+                </View>
+                <View
                   style={{
-                    width: 30,
-                    height: 30,
-                    resizeMode: "contain",
-                    marginLeft: 12,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flex: 4,
+                    paddingVertical: 12,
                   }}
-                />
-              </TouchableOpacity>
-            </View>
-
-            <View
-              style={{ width: "100%", height: "100%", alignItems: "center" }}
-            >
-              <Image
-                source={data.information[0].image_1}
-                style={{
-                  width: "95%",
-                  height: 210,
-                  resizeMode: "contain",
-                  marginTop: 12,
-                }}
-              />
-              <View style={{ width: "95%", height: "100%" }}>
-                <Text
-                  style={{ marginTop: 15, textAlign: "justify", fontSize: 16 }}
-                >
-                  {isTextEnglish
-                    ? data.information[0].textEn
-                    : data.information[0].textVn}
-                </Text>
-                <TouchableOpacity
-                  style={{ justifyContent: "center", alignItems: "center" }}
-                  onPress={toggleLanguageText}
                 >
                   <Image
-                    source={data.information[0].iconTranslate}
+                    source={item.image}
                     style={{
-                      width: 30,
-                      height: 30,
+                      // width: "94%",
+                      // height: "90%",
+                      width: 380,
+                      height: 230,
                       resizeMode: "contain",
-                      marginTop: 12,
+                      borderRadius: 15,
                     }}
                   />
-                </TouchableOpacity>
+                </View>
+
+                <View style={{ flex: 4 }}>
+                  <TranslateLanguage
+                    data={item.text}
+                    styleText={{
+                      fontSize: 16,
+                      paddingHorizontal: 12,
+                      paddingVertical: 10,
+                    }}
+                  />
+                </View>
+                {/* <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingTop: 10,
+                  }}
+                >
+                  <TouchableOpacity>
+                    <MaterialIcons name="g-translate" size={30} color="black" />
+                  </TouchableOpacity>
+                </View> */}
               </View>
-            </View>
+            ))}
           </View>
         </View>
+        <View style={{ width: "100%", height: 35 }}></View>
       </ScrollView>
     </PaperProvider>
   );

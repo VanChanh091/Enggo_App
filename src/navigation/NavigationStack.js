@@ -23,6 +23,7 @@ import { BoTuVung_S1, BoTuVung_S2 } from "../view/boTuVung";
 import { MauCauGiaoTiep_S1, MauCauGiaoTiep_S2 } from "../view/MauCauGiaoTiep";
 import {
   ListVideoOfChannel,
+  ListVideoOfTopic,
   TopTabVideo,
   VideoSetting,
   WatchVideoChooseWord,
@@ -276,8 +277,8 @@ const VideoNavigation = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="ListVideoOfChannel"
-        component={ListVideoOfChannel}
+        name="ListVideoOfTopic"
+        component={ListVideoOfTopic}
         options={{ headerShown: false }}
       />
       <Stack.Screen

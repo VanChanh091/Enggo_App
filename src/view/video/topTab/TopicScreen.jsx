@@ -7,10 +7,7 @@ const TopicScreen = () => {
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
       {/* render list topic */}
-      <ListTopic
-        data={topicVideo}
-        // navigationScreen={"ListListeningOfTopic"}
-      />
+      <ListTopic data={topicVideo} navigationScreen={"ListVideoOfTopic"} />
     </View>
   );
 };

@@ -1,20 +1,25 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { PaperProvider } from "react-native-paper";
-import HeaderScreen from "../../components/header/HeaderScreen";
-import ListItems from "../../components/topic/ListItems";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  ScrollView,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-const ListListeningOfTopic = ({ navigation, route }) => {
-  const { data } = route.params;
+const ListItems = ({ data, navigationScreen }) => {
+  const navigation = useNavigation();
 
   return (
-    <PaperProvider>
-      <HeaderScreen title={data.title} />
-
-      {/* <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, marginTop: 10 }}>
+      <ScrollView>
+        {/* background */}
         <View
           style={{
-            flex: 3,
+            width: "100%",
+            height: 230,
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -24,8 +29,15 @@ const ListListeningOfTopic = ({ navigation, route }) => {
             style={{ width: "92%", height: "100%", resizeMode: "contain" }}
           />
         </View>
+
+        {/* list  */}
         <View
-          style={{ flex: 7, justifyContent: "center", alignItems: "center" }}
+          style={{
+            flex: 7,
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 10,
+          }}
         >
           <View
             style={{
@@ -48,7 +60,7 @@ const ListListeningOfTopic = ({ navigation, route }) => {
                   borderColor: "#B3B7B7",
                 }}
                 onPress={() =>
-                  navigation.navigate("DetailOfListening", {
+                  navigation.navigate(navigationScreen, {
                     data: item,
                   })
                 }
@@ -83,12 +95,11 @@ const ListListeningOfTopic = ({ navigation, route }) => {
             ))}
           </View>
         </View>
-      </View> */}
-      <ListItems data={data} navigationScreen={"DetailOfListening"} />
-    </PaperProvider>
+      </ScrollView>
+    </View>
   );
 };
 
-export default ListListeningOfTopic;
+export default ListItems;
 
 const styles = StyleSheet.create({});

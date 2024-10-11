@@ -16,7 +16,6 @@ const ListExercise = ({ navigation, route }) => {
     "Nghe và điền từ",
     "Nghe chép chính tả",
     "Nghe và hoàn thành cụm từ",
-    "abc",
   ];
 
   const handleNavigation = (option, item) => {
@@ -31,8 +30,6 @@ const ListExercise = ({ navigation, route }) => {
         return navigation.navigate("ListenAndRewrite", { data: item });
       case "Nghe và hoàn thành cụm từ":
         return navigation.navigate("ListenAndChoosePhrase", { data: item });
-      case "abc":
-        return navigation.navigate("Abc", { data: item });
     }
   };
 

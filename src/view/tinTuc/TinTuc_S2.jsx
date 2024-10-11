@@ -58,7 +58,7 @@ const TinTuc_S2 = ({ route }) => {
           <View
             style={{
               width: "100%",
-              height: 100,
+              height: 130,
               alignItems: "center",
             }}
           >
@@ -68,7 +68,6 @@ const TinTuc_S2 = ({ route }) => {
                 fontSize: 22,
                 fontWeight: 600,
                 paddingVertical: 12,
-                paddingHorizontal: 10,
               }}
             />
           </View>
@@ -120,17 +119,6 @@ const TinTuc_S2 = ({ route }) => {
                     }}
                   />
                 </View>
-                {/* <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    paddingTop: 10,
-                  }}
-                >
-                  <TouchableOpacity>
-                    <MaterialIcons name="g-translate" size={30} color="black" />
-                  </TouchableOpacity>
-                </View> */}
               </View>
             ))}
           </View>

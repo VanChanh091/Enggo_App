@@ -22,6 +22,7 @@ const TranslateLanguage = ({ data, styleText }) => {
       console.error("Error translating text:", error);
     }
   };
+
   return (
     <View>
       <Text style={styleText}>{translatedText || data}</Text>

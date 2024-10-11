@@ -1,25 +1,65 @@
 import {
+  Animated,
   FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { quote } from "../../api/ApiDanhNgon";
-import { useNavigation } from "@react-navigation/native";
 import HeaderScreen from "../../components/header/HeaderScreen";
 
 const DanhNgon = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [istTranslate, setIstTranslate] = useState(true);
+  const [translatedText, setTranslatedText] = useState(null);
 
-  const navigation = useNavigation();
+  const fadeAnimation = useRef(new Animated.Value(0)).current;
 
-  const showTextEn = () => {
-    setIstTranslate(!istTranslate);
+  const fadeIn = () => {
+    Animated.timing(fadeAnimation, {
+      toValue: 1,
+      duration: 1200,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    Animated.timing(fadeAnimation, {
+      toValue: 0,
+      duration: 1200,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  // Sử dụng fetch để gọi Google Translate API
+  const handleTranslate = async (data) => {
+    try {
+      const response = await fetch(
+        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=vi&dt=t&q=${encodeURIComponent(
+          data
+        )}`
+      );
+      const result = await response.json();
+      if (result && result[0]) {
+        const translatedTextArray = result[0].map((item) => item[0]);
+        setTranslatedText(translatedTextArray.join("")); // Nối các phần dịch
+      }
+
+      setIstTranslate(!istTranslate); // Toggle trạng thái dịch
+
+      // Kiểm soát hiển thị dựa vào trạng thái dịch
+      if (istTranslate) {
+        fadeIn();
+      } else {
+        fadeOut();
+      }
+    } catch (error) {
+      console.error("Error translating text:", error);
+    }
   };
 
   // Chuyển đến từ tiếp theo
@@ -35,6 +75,7 @@ const DanhNgon = () => {
       setCurrentIndex(currentIndex - 1);
     }
   };
+
   return (
     <PaperProvider>
       <HeaderScreen title="Danh Ngôn" />
@@ -106,7 +147,7 @@ const DanhNgon = () => {
                     color: "#2A7BD3",
                   }}
                 >
-                  {quote[currentIndex].textEn}
+                  {quote[currentIndex].text}
                 </Text>
               </View>
               <View style={{ alignItems: "flex-end" }}>
@@ -115,6 +156,7 @@ const DanhNgon = () => {
                 </Text>
               </View>
             </View>
+
             <View
               style={{
                 justifyContent: "center",
@@ -131,7 +173,9 @@ const DanhNgon = () => {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-                onPress={showTextEn}
+                onPress={() => {
+                  handleTranslate(quote[currentIndex].text);
+                }}
               >
                 <Text style={{ fontWeight: 600, fontSize: 18, color: "white" }}>
                   Dịch
@@ -139,9 +183,8 @@ const DanhNgon = () => {
               </TouchableOpacity>
             </View>
 
-            {istTranslate ? (
-              <Text></Text>
-            ) : (
+            {/* Text with fade-in/fade-out effect */}
+            <Animated.View style={{ opacity: fadeAnimation }}>
               <Text
                 style={{
                   fontSize: 18,
@@ -151,9 +194,9 @@ const DanhNgon = () => {
                   color: "#FFA500",
                 }}
               >
-                {quote[currentIndex].textVn}
+                {translatedText}
               </Text>
-            )}
+            </Animated.View>
           </View>
         </View>
 

@@ -2,10 +2,7 @@ export const quote = [
   {
     id: 1,
     author: "Brian Tracy",
-    textEn:
-      "You wil regret many things in life but you will never regret being too kind or too fair",
-    textVn:
-      "Trong cuộc đời bạn sẽ hối hận nhiều điều nhưng bạn sẽ không bao giờ phải hối tiếc khi quá tốt bụng hay công bằng",
+    text: "You wil regret many things in life but you will never regret being too kind or too fair",
     words: [
       {
         id: 1,
@@ -48,10 +45,7 @@ export const quote = [
   {
     id: 2,
     author: "Khuyết danh",
-    textEn:
-      "Hatred paralyzes life, love releases it. Hatred confuses life, love harmonizes it. Hatred darkens life, love illuminates it.",
-    textVn:
-      "Hận thù làm tê liệt cuộc sống, tình yêu giải thoát nó. Hận thù làm rối loạn cuộc sống, tình yêu làm nó hài hòa. Hận thù làm tối tăm cuộc sống, tình yêu làm nó sáng tỏ.",
+    text: "Hatred paralyzes life, love releases it. Hatred confuses life, love harmonizes it. Hatred darkens life, love illuminates it.",
     words: [
       {
         id: 1,
@@ -108,10 +102,7 @@ export const quote = [
   {
     id: 3,
     author: "Lucius Annaeus Seneca",
-    textEn:
-      "One of the most beautiful qualities of true friendship is to understand and to be understood.",
-    textVn:
-      "Một trong những phẩm chất đẹp nhất của tình bạn chân chính là hiểu và được hiểu.",
+    text: "One of the most beautiful qualities of true friendship is to understand and to be understood.",
     words: [
       {
         id: 1,
@@ -147,10 +138,7 @@ export const quote = [
   {
     id: 4,
     author: "Marcus Aurelius",
-    textEn:
-      "The happiness of your life depends on the quality of your thoughts.",
-    textVn:
-      "Hạnh phúc trong cuộc sống của bạn phụ thuộc vào chất lượng suy nghĩ của bạn.",
+    text: "The happiness of your life depends on the quality of your thoughts.",
     words: [
       {
         id: 1,
@@ -186,10 +174,7 @@ export const quote = [
   {
     id: 5,
     author: "Johann Wolfgang von Goethe",
-    textEn:
-      "Too many parents make life hard for their children by trying, too zealously, to make it easy for them.",
-    textVn:
-      "Quá nhiều bậc cha mẹ làm cuộc sống của con cái trở nên khó khăn bằng cách cố gắng quá mức để giúp chúng sống dễ dàng.",
+    text: "Too many parents make life hard for their children by trying, too zealously, to make it easy for them.",
     words: [
       {
         id: 1,
@@ -225,10 +210,7 @@ export const quote = [
   {
     id: 6,
     author: "Khuyết danh",
-    textEn:
-      "You can't start the next chapter of your life if you keep re-reading the last one.",
-    textVn:
-      "Bạn không thể bắt đầu chương tiếp theo của cuộc đời mình nếu bạn cứ đọc lại chương trước.",
+    text: "You can't start the next chapter of your life if you keep re-reading the last one.",
     words: [
       {
         id: 1,

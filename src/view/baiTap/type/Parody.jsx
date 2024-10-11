@@ -30,7 +30,7 @@ const Parody = ({ route }) => {
               <View
                 style={{
                   width: "90%",
-                  height: 120,
+                  height: 150,
                   borderWidth: 1,
                   borderRadius: 10,
                   marginVertical: 10,

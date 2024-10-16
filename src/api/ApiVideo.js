@@ -1,6 +1,6 @@
 export const ApiChannel = [
   { id: 1, channelId: "UCN-U9LXDaqwNNrv5g5ZmyTw" },
-  { id: 2, channelId: "UCJtBaL1PPmTc1ff0nsihR0g" },
+  { id: 2, channelId: "UCpVm7bg6pXKo1Pr6k5kxG9A" },
   { id: 3, channelId: "UCz4tgANd4yy8Oe0iXCdSWfA" },
   { id: 4, channelId: "UCxJGMJbjokfnr2-s4_RXPxQ" },
   { id: 5, channelId: "UCsooa4yRKGN_zEE8iknghZA" },

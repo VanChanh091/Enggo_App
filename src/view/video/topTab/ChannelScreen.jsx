@@ -14,6 +14,7 @@ import { ApiChannel } from "../../../api/ApiVideo";
 const ChannelScreen = ({ navigation }) => {
   // const API_KEY = "AIzaSyBbI6fO7DrTmpRYh3NwXGaXLWSr04ysY2g"; //api key cua anh da` :))
   const API_KEY = "AIzaSyD6InaX9MSCEigdalQJRw5g8qmMRllOhBE"; //api key cua vchanh406
+  // const API_KEY = "AIzaSyAV0MOQtzTpPHwQqXf4E4YbTJrLV8lT0kg"; //api key cua vanchanh0730
 
   const [videosByChannel, setVideosByChannel] = useState({});
   const [channelInfo, setChannelInfo] = useState(null);
@@ -24,8 +25,9 @@ const ChannelScreen = ({ navigation }) => {
     const cachedData = videoCache[channelId];
     const now = Date.now();
 
+    // Kiểm tra cache
     if (cachedData && now - cachedData.timestamp < 6000000) {
-      // Nếu dữ liệu đã cache tồn tại và còn trong khoảng thời gian 10 phút
+      console.log(`Using cached data for channelId: ${channelId}`);
       setVideosByChannel((prevState) => ({
         ...prevState,
         [channelId]: cachedData.data,
@@ -39,164 +41,188 @@ const ChannelScreen = ({ navigation }) => {
       );
       const data = await response.json();
 
-      // Cập nhật video cho channel cụ thể
       setVideosByChannel((prevState) => ({
         ...prevState,
         [channelId]: data.items,
       }));
 
-      // Lưu cache
       videoCache[channelId] = {
         data: data.items,
         timestamp: now,
       };
-      console.log(
-        `Saved data for channelId: ${channelId}`,
-        videoCache[channelId]
-      );
-    } catch (error) {
-      console.error("Error fetching YouTube videos:", error);
-    }
 
-    // Fetch channel info
-    try {
-      const response = await fetch(
+      // Fetch thông tin kênh
+      const channelResponse = await fetch(
         `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=${API_KEY}`
       );
-      const data = await response.json();
-      if (data.items && data.items.length > 0) {
-        setChannelInfo(data.items[0].snippet);
+      const channelData = await channelResponse.json();
+
+      if (channelData.items && channelData.items.length > 0) {
+        setChannelInfo((prevState) => ({
+          ...prevState,
+          [channelId]: {
+            title: channelData.items[0].snippet.title,
+            avatar: channelData.items[0].snippet.thumbnails.default.url,
+          },
+        }));
       }
     } catch (error) {
-      console.error("Error fetching YouTube channel info:", error);
+      console.error("Error fetching YouTube data:", error);
     }
   };
 
   useEffect(() => {
     // Ví dụ: gọi API để lấy video cho một kênh
-    {
-      ApiChannel.map((item) => {
-        fetchVideos(item.channelId);
-      });
-    }
+    ApiChannel.map((item) => {
+      fetchVideos(item.channelId); // Fetch data hoặc sử dụng cache nếu có
+    });
   }, []);
 
   const renderChannel = ({ item }) => {
-    const { title, thumbnails } = item.snippet; // Lấy thumbnails từ snippet
+    const { title, thumbnails, channelId } = item.snippet; // Lấy channelId từ snippet
+    const channel = channelInfo && channelInfo[channelId]; // Kiểm tra nếu channelInfo tồn tại
+
+    // Kiểm tra nếu channelInfo hoặc videosByChannel chưa có dữ liệu
+    if (!channel || !videosByChannel[channelId]) {
+      return null; // Không render gì nếu dữ liệu chưa có
+    }
+
     return (
-      <TouchableOpacity
-        style={{
-          height: "100%",
-          width: 250,
-        }}
-        onPress={() => navigation.navigate("VideoSetting", { data: item })}
-      >
+      <View>
         <View
           style={{
-            flex: 6.5,
-            justifyContent: "center",
-            alignItems: "center",
+            width: 250,
+            height: 200,
+            borderBottomWidth: 1,
+            borderColor: "#d0d0d0",
           }}
         >
-          <Image
-            source={{ uri: thumbnails.medium.url }} // Đúng cách truy cập hình thu nhỏ
+          <TouchableOpacity
             style={{
-              width: "90%",
-              height: "90%",
-              resizeMode: "contain",
+              height: "100%",
+              width: 250,
             }}
-          />
-        </View>
-        <View style={{ flex: 3.5 }}>
-          <Text
-            style={{
-              fontWeight: 500,
-              fontSize: 15,
-              marginHorizontal: 10,
-            }}
+            onPress={() => navigation.navigate("VideoSetting", { data: item })}
           >
-            {title}
-          </Text>
+            <View
+              style={{
+                flex: 6.5,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                source={{ uri: thumbnails.medium.url }} // Thumbnail
+                style={{
+                  width: "95%",
+                  height: "95%",
+
+                  resizeMode: "contain",
+                }}
+              />
+            </View>
+            <View style={{ flex: 3.5 }}>
+              <Text
+                style={{
+                  fontWeight: 500,
+                  fontSize: 15,
+                  marginHorizontal: 12,
+                  paddingTop: 5,
+                }}
+              >
+                {title}
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      </View>
     );
   };
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
-      {ApiChannel.map((channel) => (
-        <View
-          key={channel.channelId}
-          style={{
-            width: "100%",
-            height: 275,
-          }}
-        >
-          <View style={{ flex: 2, flexDirection: "row" }}>
-            <View
-              style={{
-                flex: 7.5,
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <Image
-                source={require("../../../img/imgVideo/logoChannel/oxford.png")} // Thay đổi logo theo channel
+      {ApiChannel.map((channel, index) => {
+        const info = channelInfo[channel.channelId]; // Lấy thông tin kênh
+        if (!info) {
+          return null; // Kiểm tra nếu chưa có thông tin kênh
+        }
+        return (
+          <View
+            key={index}
+            style={{
+              width: "100%",
+              height: 275,
+            }}
+          >
+            {/* Hiển thị avatar và tên kênh */}
+            <View style={{ flex: 2, flexDirection: "row" }}>
+              <View
                 style={{
-                  width: 40,
-                  height: 40,
-                  resizeMode: "contain",
-                  marginLeft: 10,
-                  marginTop: 5,
-                }}
-              />
-              <Text
-                style={{
-                  fontWeight: 600,
-                  fontSize: 18,
-                  marginLeft: 10,
-                  marginTop: 5,
-                }}
-              >
-                {channel.channelId} {/* Hiển thị tên channel */}
-              </Text>
-            </View>
-            <View style={{ flex: 2.5, justifyContent: "center" }}>
-              <TouchableOpacity
-                style={{
-                  flex: 2.7,
+                  flex: 7.5,
                   flexDirection: "row",
-                  justifyContent: "center",
                   alignItems: "center",
-                  marginTop: 5,
                 }}
-                onPress={() =>
-                  navigation.navigate("ListVideoOfChannel", {
-                    data: videosByChannel[channel.channelId],
-                  })
-                }
               >
-                <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={20}
-                  color="gray"
+                <Image
+                  source={{ uri: info.avatar }} // Avatar của kênh
+                  style={{
+                    width: 40,
+                    height: 40,
+                    resizeMode: "contain",
+                    marginLeft: 15,
+                    marginTop: 5,
+                    borderRadius: 20,
+                  }}
                 />
-              </TouchableOpacity>
+                <Text
+                  style={{
+                    fontWeight: 600,
+                    fontSize: 17,
+                    marginLeft: 10,
+                    marginTop: 5,
+                  }}
+                >
+                  {info.title} {/* Tên của kênh */}
+                </Text>
+              </View>
+              <View style={{ flex: 2.5, justifyContent: "center" }}>
+                <TouchableOpacity
+                  style={{
+                    flex: 2.7,
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: 5,
+                  }}
+                  onPress={() =>
+                    navigation.navigate("ListVideoOfChannel", {
+                      data: videosByChannel[channel.channelId],
+                    })
+                  }
+                >
+                  <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
+                  <Ionicons
+                    name="chevron-forward-outline"
+                    size={20}
+                    color="gray"
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Hiển thị danh sách video */}
+            <View style={{ flex: 8 }}>
+              <FlatList
+                data={videosByChannel[channel.channelId]} // Kiểm tra dữ liệu có tồn tại không
+                renderItem={({ item }) => renderChannel({ item })} // Truyền item vào hàm renderChannel
+                keyExtractor={(item) => item.id.videoId}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              />
             </View>
           </View>
-
-          <View style={{ flex: 8 }}>
-            <FlatList
-              data={videosByChannel[channel.channelId]} // Hiển thị video của channel tương ứng
-              renderItem={renderChannel}
-              keyExtractor={(item) => item.id.videoId}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-        </View>
-      ))}
+        );
+      })}
     </ScrollView>
   );
 };

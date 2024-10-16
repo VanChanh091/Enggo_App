@@ -22,10 +22,10 @@ import { NguPhap_S1, NguPhap_S2 } from "../view/nguPhap";
 import { BoTuVung_S1, BoTuVung_S2 } from "../view/boTuVung";
 import { MauCauGiaoTiep_S1, MauCauGiaoTiep_S2 } from "../view/MauCauGiaoTiep";
 import {
-  ListVideoOfChannel,
   ListVideoOfTopic,
   TopTabVideo,
-  VideoSetting,
+  VideoSettingChannel,
+  VideoSettingTopic,
   WatchVideoChooseWord,
   WatchVideoWithCaptions,
   WatchVideoWriteWord,
@@ -282,8 +282,13 @@ const VideoNavigation = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="VideoSetting"
-        component={VideoSetting}
+        name="VideoSettingTopic"
+        component={VideoSettingTopic}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="VideoSettingChannel"
+        component={VideoSettingChannel}
         options={{ headerShown: false }}
       />
 

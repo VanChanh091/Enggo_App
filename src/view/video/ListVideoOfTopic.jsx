@@ -12,7 +12,7 @@ const ListVideoOfTopic = ({ route }) => {
     <PaperProvider>
       <HeaderScreen title={data.title} />
       <View style={{ flex: 1 }}>
-        <ListItems data={data} navigationScreen={"VideoSetting"} />
+        <ListItems data={data} navigationScreen={"VideoSettingTopic"} />
       </View>
     </PaperProvider>
   );

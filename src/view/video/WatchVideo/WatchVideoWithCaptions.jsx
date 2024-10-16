@@ -1,113 +1,39 @@
-import React, { useState, useCallback, useEffect } from "react";
+import {
+  Feather,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
-  Button,
   ScrollView,
-  Alert,
   Text,
+  TouchableOpacity,
 } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
 
 const WatchVideoWithCaptions = ({ route }) => {
   const { data } = route.params;
-  console.log(data);
+  const { videoId } = data.id;
 
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
+  const [repeatOnOff, setRepeatOnOff] = useState(true);
+  const [playCaption, setPlayCaption] = useState(true);
 
-  const onStateChange = useCallback((state) => {
+  const repeatVideo = (state) => {
     if (state === "ended") {
-      setPlaying(false);
-      Alert.alert("video has finished playing!");
-    }
-  }, []);
-
-  const togglePlaying = useCallback(() => {
-    setPlaying((prev) => !prev);
-  }, []);
-
-  const getCaptions = async ({ videoId }) => {
-    const apiKey = "AIzaSyAV0MOQtzTpPHwQqXf4E4YbTJrLV8lT0kg"; // YouTube API key
-    const url = `https://www.googleapis.com/youtube/v3/captions?part=snippet&videoId=${videoId}&key=${apiKey}`;
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-
-      if (data.items && data.items.length > 0) {
-        const captionId = data.items[0].id;
-        return fetchCaptionsById(captionId, apiKey);
-      } else {
-        console.log("No captions available for this video");
-        return null; // Không có phụ đề
-      }
-    } catch (error) {
-      console.error("Error fetching captions:", error);
-      return null; // Xử lý lỗi
+      setPlaying(true); // Stop playing when the video ends
     }
   };
 
-  const fetchCaptionsById = async (captionId, apiKey) => {
-    const url = `https://www.googleapis.com/youtube/v3/captions/${captionId}?key=${apiKey}`;
-    try {
-      const response = await fetch(url);
-      const captions = await response.text(); // Sử dụng .text() để lấy nội dung phụ đề
-      console.log("Captions:", captions);
-      return captions;
-    } catch (error) {
-      console.error("Error fetching caption text:", error);
-      return null; // Xử lý lỗi khi không thể lấy được phụ đề
-    }
+  const handleRepeat = () => {
+    setRepeatOnOff(!repeatOnOff);
   };
 
-  const [currentCaption, setCurrentCaption] = useState("");
-  const [captions, setCaptions] = useState([]); // List of captions fetched from YouTube
-
-  // Fetch captions once the video starts
-  useEffect(() => {
-    getCaptions(data.videoId).then((fetchedCaptions) => {
-      if (fetchedCaptions) {
-        setCaptions(parseCaptions(fetchedCaptions));
-      } else {
-        // Hiển thị thông báo khi không có phụ đề
-        setCurrentCaption("No captions available for this video");
-      }
-    });
-  }, [data.videoId]);
-
-  const onProgress = useCallback(
-    (e) => {
-      // Find the caption corresponding to the current time
-      const currentCaptionData = captions.find(
-        (caption) => e >= caption.startTime && e < caption.endTime
-      );
-      if (currentCaptionData) {
-        setCurrentCaption(currentCaptionData.text);
-      }
-    },
-    [captions]
-  );
-
-  const parseCaptions = (captionFile) => {
-    // Split the file by line breaks to get each caption block
-    const captionLines = captionFile.split("\n\n");
-
-    return captionLines.map((line) => {
-      const parts = line.split("\n");
-      const timeCodes = parts[1].split(" --> ");
-      return {
-        text: parts.slice(2).join(" "), // Combine all text lines for this caption
-        startTime: timeStringToSeconds(timeCodes[0]),
-        endTime: timeStringToSeconds(timeCodes[1]),
-      };
-    });
-  };
-
-  const timeStringToSeconds = (timeString) => {
-    const [hours, minutes, seconds] = timeString.split(":");
-    return (
-      parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseFloat(seconds)
-    );
+  const handlePlayCaption = () => {
+    setPlayCaption(!playCaption);
   };
 
   return (
@@ -119,24 +45,123 @@ const WatchVideoWithCaptions = ({ route }) => {
         }}
       >
         <YoutubePlayer
-          height={500}
+          height="100%"
+          videoId={data.videoId || videoId}
           play={playing}
-          videoId={data.videoId}
-          onChangeState={onStateChange}
+          // onChangeState={onStateChange}
         />
       </View>
       <View style={{ flex: 6, borderBottomWidth: 1 }}>
         <ScrollView>
-          <Text>{currentCaption}</Text>
+          <View
+            style={{
+              width: "100%",
+
+              borderBottomWidth: 1,
+              borderColor: "#fff",
+              flexDirection: "row",
+            }}
+          >
+            <View
+              style={{
+                flex: 7,
+                borderRightWidth: 1,
+                borderColor: "#fff",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: "white",
+                  paddingHorizontal: 10,
+                  paddingBottom: 10,
+                }}
+              >
+                Hi, I’m Katie. Welcome to Oxford Online English! In this visual
+                vocabulary lesson
+              </Text>
+            </View>
+            <View style={{ flex: 3, flexDirection: "row" }}>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <TouchableOpacity style={{ paddingLeft: 10 }}>
+                  <MaterialIcons name="g-translate" size={32} color="white" />
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {playCaption ? (
+                  <TouchableOpacity
+                    onPress={handlePlayCaption}
+                    style={{ paddingRight: 10 }}
+                  >
+                    <Feather name="play-circle" size={35} color="white" />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={handlePlayCaption}
+                    style={{ paddingRight: 10 }}
+                  >
+                    <Feather name="pause-circle" size={35} color="white" />
+                  </TouchableOpacity>
+                )}
+              </View>
+            </View>
+          </View>
         </ScrollView>
       </View>
-      <View style={{ flex: 1, borderBottomWidth: 1 }}>
-        <Button title={playing ? "pause" : "play"} onPress={togglePlaying} />
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#1548B3",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {/* back  */}
+        <View style={{ justifyContent: "center", paddingLeft: 20 }}>
+          <TouchableOpacity>
+            <Ionicons name="chevron-back-outline" color="white" size={35} />
+          </TouchableOpacity>
+        </View>
+
+        {/* restart && repeat */}
+        <View style={{ flexDirection: "row", paddingRight: 20 }}>
+          <Ionicons
+            name="refresh-outline"
+            color="white"
+            size={35}
+            style={{ paddingRight: 15 }}
+          />
+
+          {repeatOnOff ? (
+            <TouchableOpacity onPress={handleRepeat}>
+              <MaterialCommunityIcons
+                name="repeat-off"
+                size={35}
+                color="white"
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={handleRepeat}>
+              <MaterialIcons name="repeat" size={35} color="white" />
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default WatchVideoWithCaptions;

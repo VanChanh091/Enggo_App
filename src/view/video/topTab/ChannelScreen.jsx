@@ -17,9 +17,9 @@ const ChannelScreen = ({ navigation }) => {
   // const API_KEY = "AIzaSyAV0MOQtzTpPHwQqXf4E4YbTJrLV8lT0kg"; //api key cua vanchanh0730
 
   const [videosByChannel, setVideosByChannel] = useState({});
-  const [channelInfo, setChannelInfo] = useState(null);
+  const [channelInfo, setChannelInfo] = useState({});
 
-  const videoCache = {}; // Lưu trữ dữ liệu của từng kênh
+  const videoCache = {}; // Cache dữ liệu của từng kênh
 
   const fetchVideos = async (channelId) => {
     const cachedData = videoCache[channelId];
@@ -36,6 +36,7 @@ const ChannelScreen = ({ navigation }) => {
     }
 
     try {
+      // Fetch videos from YouTube API
       const response = await fetch(
         `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${channelId}&part=snippet,id&order=date&maxResults=5`
       );
@@ -51,7 +52,7 @@ const ChannelScreen = ({ navigation }) => {
         timestamp: now,
       };
 
-      // Fetch thông tin kênh
+      // Fetch channel info
       const channelResponse = await fetch(
         `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=${API_KEY}`
       );
@@ -72,19 +73,18 @@ const ChannelScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    // Ví dụ: gọi API để lấy video cho một kênh
     ApiChannel.map((item) => {
       fetchVideos(item.channelId); // Fetch data hoặc sử dụng cache nếu có
     });
   }, []);
 
   const renderChannel = ({ item }) => {
-    const { title, thumbnails, channelId } = item.snippet; // Lấy channelId từ snippet
-    const channel = channelInfo && channelInfo[channelId]; // Kiểm tra nếu channelInfo tồn tại
+    const { title, thumbnails, channelId } = item.snippet;
+    const channel = channelInfo && channelInfo[channelId];
 
-    // Kiểm tra nếu channelInfo hoặc videosByChannel chưa có dữ liệu
+    // Ensure that both `channel` and `videosByChannel[channelId]` are defined
     if (!channel || !videosByChannel[channelId]) {
-      return null; // Không render gì nếu dữ liệu chưa có
+      return null;
     }
 
     return (
@@ -102,7 +102,11 @@ const ChannelScreen = ({ navigation }) => {
               height: "100%",
               width: 250,
             }}
-            onPress={() => navigation.navigate("VideoSetting", { data: item })}
+            onPress={() =>
+              navigation.navigate("VideoSettingChannel", {
+                data: item,
+              })
+            }
           >
             <View
               style={{
@@ -116,7 +120,6 @@ const ChannelScreen = ({ navigation }) => {
                 style={{
                   width: "95%",
                   height: "95%",
-
                   resizeMode: "contain",
                 }}
               />
@@ -142,10 +145,11 @@ const ChannelScreen = ({ navigation }) => {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
       {ApiChannel.map((channel, index) => {
-        const info = channelInfo[channel.channelId]; // Lấy thông tin kênh
+        const info = channelInfo[channel.channelId]; // Get channel info
         if (!info) {
-          return null; // Kiểm tra nếu chưa có thông tin kênh
+          return null; // Ensure that the channel info is available
         }
+
         return (
           <View
             key={index}
@@ -154,7 +158,7 @@ const ChannelScreen = ({ navigation }) => {
               height: 275,
             }}
           >
-            {/* Hiển thị avatar và tên kênh */}
+            {/* Show avatar and channel name */}
             <View style={{ flex: 2, flexDirection: "row" }}>
               <View
                 style={{
@@ -164,7 +168,7 @@ const ChannelScreen = ({ navigation }) => {
                 }}
               >
                 <Image
-                  source={{ uri: info.avatar }} // Avatar của kênh
+                  source={{ uri: info.avatar }} // Channel avatar
                   style={{
                     width: 40,
                     height: 40,
@@ -182,7 +186,7 @@ const ChannelScreen = ({ navigation }) => {
                     marginTop: 5,
                   }}
                 >
-                  {info.title} {/* Tên của kênh */}
+                  {info.title} {/* Channel name */}
                 </Text>
               </View>
               <View style={{ flex: 2.5, justifyContent: "center" }}>
@@ -210,11 +214,11 @@ const ChannelScreen = ({ navigation }) => {
               </View>
             </View>
 
-            {/* Hiển thị danh sách video */}
+            {/* Show video list */}
             <View style={{ flex: 8 }}>
               <FlatList
-                data={videosByChannel[channel.channelId]} // Kiểm tra dữ liệu có tồn tại không
-                renderItem={({ item }) => renderChannel({ item })} // Truyền item vào hàm renderChannel
+                data={videosByChannel[channel.channelId]} // Ensure data exists
+                renderItem={({ item }) => renderChannel({ item })} // Pass item to renderChannel
                 keyExtractor={(item) => item.id.videoId}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}

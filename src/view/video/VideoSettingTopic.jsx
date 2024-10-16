@@ -4,7 +4,7 @@ import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import HeaderScreen from "../../components/header/HeaderScreen";
 
-const VideoSetting = ({ navigation, route }) => {
+const VideoSettingTopic = ({ navigation, route }) => {
   const { data } = route.params;
 
   const [isChooseMode, setIsChooseMode] = useState(false);
@@ -299,6 +299,6 @@ const VideoSetting = ({ navigation, route }) => {
   );
 };
 
-export default VideoSetting;
+export default VideoSettingTopic;
 
 const styles = StyleSheet.create({});

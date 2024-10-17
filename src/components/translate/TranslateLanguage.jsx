@@ -2,7 +2,10 @@ import { Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
+
 const TranslateLanguage = ({ data, styleText }) => {
+  console.log("data", data);
+  
   const [translatedText, setTranslatedText] = useState(null);
   const [isEnglishToVietnamese, setIsEnglishToVietnamese] = useState(true);
 

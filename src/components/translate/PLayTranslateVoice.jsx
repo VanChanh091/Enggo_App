@@ -32,7 +32,13 @@ export const playVoiceText = async (text) => {
     )}&tl=en`;
 
     try {
+      await Audio.setAudioModeAsync({
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: false,
+        staysActiveInBackground: false,
+      });
       currentSound = await Audio.Sound.createAsync({ uri: audioUrl });
+      
       await currentSound.sound.playAsync();
 
       // Wait for the sound to finish playing before proceeding

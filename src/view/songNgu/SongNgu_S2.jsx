@@ -15,7 +15,7 @@ const SongNgu_S2 = ({ navigation, route }) => {
           <TouchableOpacity
             style={{
               width: "95%",
-              height: 75,
+              height: 80,
               borderWidth: 1,
               borderRadius: 12,
               borderColor: "gray",

@@ -55,7 +55,7 @@ const VideoSettingChannel = ({ navigation, route }) => {
               }}
             >
               <Text
-                style={{ fontWeight: "bold", fontSize: 16, marginLeft: 10 }}
+                style={{ fontWeight: "bold", fontSize: 15, marginLeft: 10 }}
               >
                 {title}
               </Text>

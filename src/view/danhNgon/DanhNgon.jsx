@@ -11,6 +11,8 @@ import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { quote } from "../../api/ApiDanhNgon";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import { Audio } from "expo-av";
+import { playWordPronunciation } from "../../components/translate/PLayTranslateVoice";
 
 const DanhNgon = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -27,10 +29,10 @@ const DanhNgon = () => {
     }).start();
   };
 
-  const fadeOut = () => {
+  const fadeOut = (time) => {
     Animated.timing(fadeAnimation, {
       toValue: 0,
-      duration: 1200,
+      duration: time,
       useNativeDriver: true,
     }).start();
   };
@@ -55,7 +57,7 @@ const DanhNgon = () => {
       if (istTranslate) {
         fadeIn();
       } else {
-        fadeOut();
+        fadeOut(1200);
       }
     } catch (error) {
       console.error("Error translating text:", error);
@@ -65,6 +67,8 @@ const DanhNgon = () => {
   // Chuyển đến từ tiếp theo
   const handleNext = () => {
     if (currentIndex < quote.length - 1) {
+      fadeOut(0);
+      setIstTranslate(!istTranslate);
       setCurrentIndex(currentIndex + 1);
     }
   };
@@ -72,6 +76,8 @@ const DanhNgon = () => {
   // Quay về từ trước đó
   const handlePrevious = () => {
     if (currentIndex > 0) {
+      fadeOut(0);
+      setIstTranslate(!istTranslate);
       setCurrentIndex(currentIndex - 1);
     }
   };
@@ -100,34 +106,38 @@ const DanhNgon = () => {
                   marginHorizontal: 15,
                 }}
               >
-                <Text
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: 17,
-                  }}
+                <TouchableOpacity
+                  onPress={() => playWordPronunciation(item.word)}
                 >
-                  {item.word}
-                  <Text style={{ fontSize: 17, fontWeight: "regular" }}>
-                    {" "}
-                    -{" "}
-                  </Text>
                   <Text
                     style={{
+                      fontWeight: "bold",
                       fontSize: 17,
-                      color: "gray",
-                      fontWeight: "regular",
                     }}
                   >
-                    {item.pronunciation}
+                    {item.word}
+                    <Text style={{ fontSize: 17, fontWeight: "regular" }}>
+                      {" "}
+                      -{" "}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 17,
+                        color: "gray",
+                        fontWeight: "regular",
+                      }}
+                    >
+                      {item.pronunciation}
+                    </Text>
+                    <Text style={{ fontSize: 17, fontWeight: "regular" }}>
+                      {" "}
+                      {item.type}:{" "}
+                    </Text>
+                    <Text style={{ fontSize: 17, fontWeight: "regular" }}>
+                      {item.meaning}
+                    </Text>
                   </Text>
-                  <Text style={{ fontSize: 17, fontWeight: "regular" }}>
-                    {" "}
-                    {item.type}:{" "}
-                  </Text>
-                  <Text style={{ fontSize: 17, fontWeight: "regular" }}>
-                    {item.meaning}
-                  </Text>
-                </Text>
+                </TouchableOpacity>
               </View>
             ))}
           </View>
@@ -138,20 +148,33 @@ const DanhNgon = () => {
           >
             <View style={{ width: "100%", height: 150 }}>
               <View style={{ alignItems: "center" }}>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    paddingVertical: 12,
-                    marginHorizontal: 12,
-                    textAlign: "justify",
-                    color: "#2A7BD3",
-                  }}
+                <TouchableOpacity
+                  onPress={() =>
+                    playWordPronunciation(quote[currentIndex].text)
+                  }
                 >
-                  {quote[currentIndex].text}
-                </Text>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      marginTop: 30,
+                      marginHorizontal: 12,
+                      textAlign: "justify",
+                      color: "#2A7BD3",
+                    }}
+                  >
+                    {quote[currentIndex].text}
+                  </Text>
+                </TouchableOpacity>
               </View>
               <View style={{ alignItems: "flex-end" }}>
-                <Text style={{ color: "gray", marginRight: 10, fontSize: 18 }}>
+                <Text
+                  style={{
+                    color: "gray",
+                    marginRight: 10,
+                    fontSize: 18,
+                    paddingTop: 12,
+                  }}
+                >
                   -- {quote[currentIndex].author} --
                 </Text>
               </View>

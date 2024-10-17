@@ -3,18 +3,49 @@ import React, { useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 
-const SongNgu_S3 = ({ navigation, route }) => {
+const SongNgu_S3 = ({ route }) => {
   const { dataTruyen } = route.params;
 
   //   Chuyen doi ngon ngu giua anh va viet
   const [isTextEnglish, setIsTextEnglish] = useState(true);
 
-  const toggleLanguageVietNam = () => {
-    setIsTextEnglish(false);
+  const [translatedText, setTranslatedText] = useState(null);
+  const [isEnglishToVietnamese, setIsEnglishToVietnamese] = useState(true);
+
+  const toggleLanguageText = () => {
+    setIsEnglishToVietnamese(!isEnglishToVietnamese);
   };
 
-  const toggleLanguageEnglish = () => {
-    setIsTextEnglish(true);
+  const toggleLanguageTitles = () => {
+    setIsTextEnglish(!isTextEnglish);
+  };
+
+  // Use fetch to call Google Translate API
+  const handleTranslate = async (text) => {
+    try {
+      const sourceLang = isEnglishToVietnamese ? "en" : "vi"; // Determine source language
+      const targetLang = isEnglishToVietnamese ? "vi" : "en"; // Determine target language
+
+      const response = await fetch(
+        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(
+          text
+        )}`
+      );
+      const result = await response.json();
+      if (result && result[0]) {
+        const translatedTextArray = result[0].map((item) => item[0]);
+        setTranslatedText(translatedTextArray.join("")); // Join translated parts
+      }
+    } catch (error) {
+      console.error("Error translating text:", error);
+    }
+  };
+
+  const handleTranslateWithDelay = () => {
+    setTimeout(() => {
+      toggleLanguageText();
+    }, 100);
+    handleTranslate(dataTruyen.text);
   };
 
   return (
@@ -26,15 +57,17 @@ const SongNgu_S3 = ({ navigation, route }) => {
       <View style={{ flex: 9, borderBottomWidth: 1 }}>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 17,
             marginHorizontal: 12,
             textAlign: "justify",
             marginTop: 10,
           }}
         >
-          {isTextEnglish ? dataTruyen.textEn : dataTruyen.textVn}
+          {translatedText || dataTruyen.text}
         </Text>
       </View>
+
+      {/* button translate */}
       <View
         style={{ flex: 1, backgroundColor: "#D9D9D9", flexDirection: "row" }}
       >
@@ -46,7 +79,7 @@ const SongNgu_S3 = ({ navigation, route }) => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          onPress={toggleLanguageEnglish}
+          onPress={handleTranslateWithDelay}
         >
           <Image
             source={require("../../img/imgSongNgu/uk.png")}
@@ -66,7 +99,7 @@ const SongNgu_S3 = ({ navigation, route }) => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          onPress={toggleLanguageVietNam}
+          onPress={handleTranslateWithDelay}
         >
           <Image
             source={require("../../img/imgSongNgu/vn.png")}

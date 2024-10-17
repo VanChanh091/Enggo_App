@@ -11,8 +11,7 @@ import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { quote } from "../../api/ApiDanhNgon";
 import HeaderScreen from "../../components/header/HeaderScreen";
-import { Audio } from "expo-av";
-import { playWordPronunciation } from "../../components/translate/PLayTranslateVoice";
+import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
 
 const DanhNgon = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -106,9 +105,7 @@ const DanhNgon = () => {
                   marginHorizontal: 15,
                 }}
               >
-                <TouchableOpacity
-                  onPress={() => playWordPronunciation(item.word)}
-                >
+                <TouchableOpacity onPress={() => playVoiceText(item.word)}>
                   <Text
                     style={{
                       fontWeight: "bold",
@@ -149,9 +146,7 @@ const DanhNgon = () => {
             <View style={{ width: "100%", height: 150 }}>
               <View style={{ alignItems: "center" }}>
                 <TouchableOpacity
-                  onPress={() =>
-                    playWordPronunciation(quote[currentIndex].text)
-                  }
+                  onPress={() => playVoiceText(quote[currentIndex].text)}
                 >
                   <Text
                     style={{

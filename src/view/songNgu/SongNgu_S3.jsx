@@ -2,6 +2,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import { FontAwesome } from "@expo/vector-icons";
+import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
 
 const SongNgu_S3 = ({ route }) => {
   const { dataTruyen } = route.params;
@@ -14,10 +16,6 @@ const SongNgu_S3 = ({ route }) => {
 
   const toggleLanguageText = () => {
     setIsEnglishToVietnamese(!isEnglishToVietnamese);
-  };
-
-  const toggleLanguageTitles = () => {
-    setIsTextEnglish(!isTextEnglish);
   };
 
   // Use fetch to call Google Translate API
@@ -45,6 +43,9 @@ const SongNgu_S3 = ({ route }) => {
     setTimeout(() => {
       toggleLanguageText();
     }, 100);
+    setTimeout(() => {
+      setIsTextEnglish(!isTextEnglish);
+    }, 250);
     handleTranslate(dataTruyen.text);
   };
 
@@ -65,6 +66,20 @@ const SongNgu_S3 = ({ route }) => {
         >
           {translatedText || dataTruyen.text}
         </Text>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 20,
+          }}
+        >
+          <TouchableOpacity
+            style={{ marginLeft: 15 }}
+            onPress={() => playVoiceText(dataTruyen.text)}
+          >
+            <FontAwesome name="volume-up" size={35} color="black" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* button translate */}

@@ -16,6 +16,9 @@ import TranslateLanguage from "../../components/translate/TranslateLanguage";
 const TinTuc_S2 = ({ route }) => {
   const { data } = route.params;
 
+  const [translatedText, setTranslatedText] = useState(null);
+  const [isEnglishToVietnamese, setIsEnglishToVietnamese] = useState(true);
+
   const [soundCurrent, setSoundCurrent] = useState();
 
   // Play sound function

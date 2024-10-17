@@ -7,6 +7,8 @@ export const appInfo ={
     },
     
     BASE_URL : 'http://localhost:3000',
+
+    Host_URL : 'https://enggo-server.onrender.com',
     
 
 }

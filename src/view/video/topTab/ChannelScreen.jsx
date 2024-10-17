@@ -10,16 +10,41 @@ import {
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { ApiChannel } from "../../../api/ApiVideo";
+import { appInfo } from "../../../constants/appInfos";
 
 const ChannelScreen = ({ navigation }) => {
-  const API_KEY = "AIzaSyBbI6fO7DrTmpRYh3NwXGaXLWSr04ysY2g"; //api key cua anh da` :))
-  // const API_KEY = "AIzaSyD6InaX9MSCEigdalQJRw5g8qmMRllOhBE"; //api key cua vchanh406
+  // const API_KEY = "AIzaSyBbI6fO7DrTmpRYh3NwXGaXLWSr04ysY2g"; //api key cua anh da` :))
+  const API_KEY = "AIzaSyD6InaX9MSCEigdalQJRw5g8qmMRllOhBE"; //api key cua vchanh406
   // const API_KEY = "AIzaSyAV0MOQtzTpPHwQqXf4E4YbTJrLV8lT0kg"; //api key cua vanchanh0730
 
   const [videosByChannel, setVideosByChannel] = useState({});
   const [channelInfo, setChannelInfo] = useState({});
+  const [listChannelId, setListChannelId] = useState([]);
 
   const videoCache = {}; // Cache dữ liệu của từng kênh
+
+
+  useEffect(() => {
+    fetchChannelId();
+  }, []);
+
+
+  const fetchChannelId = async () => {
+    try {
+      const response = await fetch(
+        `${appInfo.Host_URL}/api/channels`
+      );
+      const data = await response.json();      
+      data.data.map((item) => {          
+        fetchVideos(item.channelId) // 
+      });
+      
+    } catch (error) {
+      console.error("Error fetching YouTube data:", error);
+    }
+  };
+
+
 
   const fetchVideos = async (channelId) => {
     const cachedData = videoCache[channelId];
@@ -72,11 +97,7 @@ const ChannelScreen = ({ navigation }) => {
     }
   };
 
-  useEffect(() => {
-    ApiChannel.map((item) => {
-      fetchVideos(item.channelId); // Fetch data hoặc sử dụng cache nếu có
-    });
-  }, []);
+
 
   const renderChannel = ({ item }) => {
     const { title, thumbnails, channelId } = item.snippet;

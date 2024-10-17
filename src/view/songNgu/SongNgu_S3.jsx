@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { FontAwesome } from "@expo/vector-icons";
-import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
+import {
+  playVoiceText,
+  stopVoiceText,
+} from "../../components/translate/PLayTranslateVoice";
 
 const SongNgu_S3 = ({ route }) => {
   const { dataTruyen } = route.params;

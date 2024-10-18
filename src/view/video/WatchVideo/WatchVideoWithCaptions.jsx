@@ -15,7 +15,7 @@ import {
 import YoutubePlayer from "react-native-youtube-iframe";
 import axios from "axios";
 
-const WatchVideoWithCaptions = ({ route }) => {
+const WatchVideoWithCaptions = ({navigation, route }) => {
   const { data } = route.params;
   const { videoId } = data.id;
   console.log("videoId:", videoId);
@@ -159,7 +159,9 @@ const WatchVideoWithCaptions = ({ route }) => {
       >
         {/* back  */}
         <View style={{ justifyContent: "center", paddingLeft: 20 }}>
-          <TouchableOpacity>
+          <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          >
             <Ionicons name="chevron-back-outline" color="white" size={35} />
           </TouchableOpacity>
         </View>

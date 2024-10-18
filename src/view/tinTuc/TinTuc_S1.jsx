@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 import { PaperProvider } from "react-native-paper";
-import { Education, Entertainment, Travel } from "../../api/ApiTinTuc";
+import { News } from "../../api/ApiTinTuc";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
 
@@ -18,43 +18,53 @@ const TinTuc_S1 = ({ navigation }) => {
   const [news, setNews] = useState([]);
   const [categoryNews, setCategoryNews] = useState([]);
 
+  const entertainment = News.filter((item) => item.category === "Giải trí");
+  const educationTips = News.filter((item) => item.category === "Mẹo giáo dục");
+  const newLiteracyEducation = News.filter(
+    (item) => item.category === "Giáo dục về tin tức"
+  );
+  const scienceAndTechnology = News.filter(
+    (item) => item.category === "Khoa học & Công nghệ"
+  );
+  const wordsAndTheirStories = News.filter(
+    (item) => item.category === "Từ ngữ & câu chuyện của chúng"
+  );
+  const healthAndLifeStyle = News.filter(
+    (item) => item.category === "Sức khỏe & Phong cách sống"
+  );
 
-  useEffect(() => {
-    fetchAllCategoryNews();
-    fetchNews();
-  }, []);
+  // useEffect(() => {
+  //   fetchAllCategoryNews();
+  //   fetchNews();
+  // }, []);
 
+  // const fetchNews = async () => {
+  //   try {
+  //     const res = await fetch(`${appInfo.Host_URL}/api/news`);
+  //     const data = await res.json();
+  //     setNews(data.data);
+  //     console.log("News:", data.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const fetchNews = async () => {
-    try {
-      const res = await fetch(`${appInfo.Host_URL}/api/news`);
-      const data = await res.json();
-      setNews(data.data);
-      console.log("News:", data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchAllCategoryNews = async () => {
-    try {
-      const res = await fetch(`${appInfo.Host_URL}/api/categoryNews`);
-      const data = await res.json();
-      setCategoryNews(data.data);
-      console.log("Category News:", data.data);
-      
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
+  // const fetchAllCategoryNews = async () => {
+  //   try {
+  //     const res = await fetch(`${appInfo.Host_URL}/api/categoryNews`);
+  //     const data = await res.json();
+  //     setCategoryNews(data.data);
+  //     console.log("Category News:", data.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const listTinTuc = ({ item }) => (
     <TouchableOpacity
       style={{
-        width: 230,
-        height: 200,
+        width: 250,
+        height: 220,
       }}
       onPress={() => navigation.navigate("TinTuc_S2", { data: item })}
     >
@@ -68,9 +78,10 @@ const TinTuc_S1 = ({ navigation }) => {
         <Image
           source={item.image}
           style={{
-            width: "90%",
+            width: "93%",
             height: "90%",
             resizeMode: "contain",
+            borderRadius: 10,
           }}
         />
       </View>
@@ -82,7 +93,7 @@ const TinTuc_S1 = ({ navigation }) => {
         <Text
           style={{
             fontSize: 15,
-            marginLeft: 13,
+            paddingHorizontal: 10,
             fontWeight: "500",
           }}
         >
@@ -92,12 +103,39 @@ const TinTuc_S1 = ({ navigation }) => {
     </TouchableOpacity>
   );
 
+  const TitleOfNews = ({ data }) => (
+    <View style={{ flex: 2, flexDirection: "row" }}>
+      <View
+        style={{
+          flex: 7.3,
+          justifyContent: "center",
+        }}
+      >
+        <Text style={{ fontWeight: "bold", marginLeft: 13, fontSize: 18 }}>
+          {data}
+        </Text>
+      </View>
+      <TouchableOpacity
+        style={{
+          flex: 2.7,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        //   onPress={() => navigation.navigate("")}
+      >
+        <Text style={{ fontSize: 15, color: "gray" }}>Xem thêm</Text>
+        <Ionicons name="chevron-forward-outline" size={20} color="gray" />
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <PaperProvider>
       <HeaderScreen title={"Tin Tức"} />
 
       <ScrollView style={{ flex: 1, backgroundColor: "#F1F1F1" }}>
-        {/* FlatList Entertainment */}
+        {/* Entertainment */}
         <View
           style={{
             width: "100%",
@@ -107,50 +145,20 @@ const TinTuc_S1 = ({ navigation }) => {
             borderBottomWidth: 1,
           }}
         >
-          <View style={{ flex: 2, flexDirection: "row" }}>
-            <View
-              style={{
-                flex: 7.3,
-                justifyContent: "center",
-              }}
-            >
-              <Text
-                style={{ fontWeight: "bold", marginLeft: 13, fontSize: 19 }}
-              >
-                Giải trí
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                flex: 2.7,
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            //   onPress={() => navigation.navigate("")}
-            >
-              <Text style={{ fontSize: 15, color: "gray" }}>Xem thêm</Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={20}
-                color="gray"
-              // style={{ marginRight: -30, marginLeft: 10 }}
-              />
-            </TouchableOpacity>
-          </View>
+          <TitleOfNews data={entertainment[0].category} />
           <View style={{ flex: 8 }}>
             <FlatList
               keyExtractor={(item) => item.id}
               horizontal={true}
               renderItem={listTinTuc}
-              data={Entertainment}
+              data={entertainment}
               showsHorizontalScrollIndicator={false}
             />
           </View>
         </View>
 
-        {/* FlatList Travel */}
-        {/* <View
+        {/* educationTips */}
+        <View
           style={{
             width: "100%",
             height: 260,
@@ -159,49 +167,20 @@ const TinTuc_S1 = ({ navigation }) => {
             borderBottomWidth: 1,
           }}
         >
-          <View style={{ flex: 2, flexDirection: "row" }}>
-            <View
-              style={{
-                flex: 7.3,
-                justifyContent: "center",
-              }}
-            >
-              <Text
-                style={{ fontWeight: "bold", marginLeft: 13, fontSize: 19 }}
-              >
-                Du lịch
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                flex: 2.7,
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ fontSize: 15, color: "gray" }}>Xem thêm</Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={20}
-                color="gray"
-              // style={{ marginRight: -30, marginLeft: 10 }}
-              />
-            </TouchableOpacity>
-          </View>
+          <TitleOfNews data={educationTips[0].category} />
           <View style={{ flex: 8 }}>
             <FlatList
               keyExtractor={(item) => item.id}
               horizontal={true}
               renderItem={listTinTuc}
-              data={Travel}
+              data={educationTips}
               showsHorizontalScrollIndicator={false}
             />
           </View>
-        </View> */}
+        </View>
 
-        {/* FlatList Education */}
-        {/* <View
+        {/* scienceAndTechnology */}
+        <View
           style={{
             width: "100%",
             height: 260,
@@ -210,46 +189,83 @@ const TinTuc_S1 = ({ navigation }) => {
             borderBottomWidth: 1,
           }}
         >
-          <View style={{ flex: 2, flexDirection: "row" }}>
-            <View
-              style={{
-                flex: 7.3,
-                justifyContent: "center",
-              }}
-            >
-              <Text
-                style={{ fontWeight: "bold", marginLeft: 13, fontSize: 19 }}
-              >
-                Giáo dục
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                flex: 2.7,
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ fontSize: 15, color: "gray" }}>Xem thêm</Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={20}
-                color="gray"
-              // style={{ marginRight: -30, marginLeft: 10 }}
-              />
-            </TouchableOpacity>
-          </View>
+          <TitleOfNews data={scienceAndTechnology[0].category} />
           <View style={{ flex: 8 }}>
             <FlatList
               keyExtractor={(item) => item.id}
               horizontal={true}
               renderItem={listTinTuc}
-              data={Education}
+              data={scienceAndTechnology}
               showsHorizontalScrollIndicator={false}
             />
           </View>
-        </View> */}
+        </View>
+
+        {/* wordsAndTheirStories */}
+        <View
+          style={{
+            width: "100%",
+            height: 260,
+            marginTop: 10,
+            borderColor: "#D0D0D0",
+            borderBottomWidth: 1,
+          }}
+        >
+          <TitleOfNews data={wordsAndTheirStories[0].category} />
+          <View style={{ flex: 8 }}>
+            <FlatList
+              keyExtractor={(item) => item.id}
+              horizontal={true}
+              renderItem={listTinTuc}
+              data={wordsAndTheirStories}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+        </View>
+
+        {/* healthAndLifeStyle */}
+        <View
+          style={{
+            width: "100%",
+            height: 260,
+            marginTop: 10,
+            borderColor: "#D0D0D0",
+            borderBottomWidth: 1,
+          }}
+        >
+          <TitleOfNews data={healthAndLifeStyle[0].category} />
+          <View style={{ flex: 8 }}>
+            <FlatList
+              keyExtractor={(item) => item.id}
+              horizontal={true}
+              renderItem={listTinTuc}
+              data={healthAndLifeStyle}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+        </View>
+
+        {/* newLiteracyEducation */}
+        <View
+          style={{
+            width: "100%",
+            height: 260,
+            marginTop: 10,
+            borderColor: "#D0D0D0",
+            borderBottomWidth: 1,
+          }}
+        >
+          <TitleOfNews data={newLiteracyEducation[0].category} />
+          <View style={{ flex: 8 }}>
+            <FlatList
+              keyExtractor={(item) => item.id}
+              horizontal={true}
+              renderItem={listTinTuc}
+              data={newLiteracyEducation}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+        </View>
       </ScrollView>
     </PaperProvider>
   );

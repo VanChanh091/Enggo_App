@@ -5,13 +5,33 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { apiSongNgu } from "../../api/apiSongNgu";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import { appInfo } from "../../constants/appInfos";
 
 const SongNgu_S1 = ({ navigation }) => {
+
+  const [bilingual, setBilingual] = useState([]);
+
+  useEffect(() => {
+    fetchApiSongNgu();
+  }, []);
+
+  const fetchApiSongNgu = async () => {
+    try {
+      const res = await fetch(`${appInfo.Host_URL}/api/bilingual-topics`);
+      const data = await res.json();
+      setBilingual(data.data);
+      console.log("bilingual :", data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   const renderTagName = ({ item }) => (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity
@@ -25,9 +45,10 @@ const SongNgu_S1 = ({ navigation }) => {
           flexDirection: "row",
         }}
         onPress={() => navigation.navigate("SongNgu_S2", { data: item })}
+        key={item._id}
       >
         <View style={{ flex: 9, alignItems: "center", flexDirection: "row" }}>
-          <Text style={{ marginLeft: 15, fontSize: 18 }}>{item.id}.</Text>
+          <Text style={{ marginLeft: 15, fontSize: 18 }}>{item.id}</Text>
           <Text style={{ marginLeft: 5, fontSize: 18 }}>{item.topic}</Text>
         </View>
         <View
@@ -44,9 +65,9 @@ const SongNgu_S1 = ({ navigation }) => {
 
       <View style={{ flex: 1 }}>
         <FlatList
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item._id.toString()}
           renderItem={renderTagName}
-          data={apiSongNgu}
+          data={bilingual}
         />
       </View>
     </PaperProvider>

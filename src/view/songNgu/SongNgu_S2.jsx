@@ -23,7 +23,7 @@ const SongNgu_S2 = ({ navigation, route }) => {
               marginHorizontal: 10,
               marginTop: 10,
             }}
-            key={subTopic.id}
+            key={subTopic._id}
             onPress={() =>
               navigation.navigate("SongNgu_S3", { dataTruyen: subTopic })
             }

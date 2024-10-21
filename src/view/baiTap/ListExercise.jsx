@@ -67,15 +67,10 @@ const ListExercise = ({ navigation, route }) => {
               <TouchableOpacity
                 key={index}
                 style={styles.touchableMap}
-                onPress={
-                  () => {
-                    setSelectedItem(item);
-                    actionSheetRef.current?.show();
-                  }
-                  // navigation.navigate("ListenAndFillWord", {
-                  //   data: item,
-                  // })
-                }
+                onPress={() => {
+                  setSelectedItem(item);
+                  actionSheetRef.current?.show();
+                }}
               >
                 <View
                   style={{

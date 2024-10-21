@@ -6,12 +6,30 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import ApiTruyenChem from "../../api/ApiTruyenChem";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import { appInfo } from "../../constants/appInfos";
 
 const TruyenChem_S1 = ({ navigation }) => {
+  const [stories, setStories] = useState([]);
+
+  useEffect(() => {
+    fetchStories();
+  }, []);
+
+  const fetchStories = async () => {
+    try {
+      const res = await fetch(`${appInfo.Host_URL}/api/stories`);
+      const data = res.json();
+      setStories(data.data);
+      console.log(stories);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   const listTruyenChem = ({ item }) => (
     <TouchableOpacity
       style={{
@@ -53,7 +71,7 @@ const TruyenChem_S1 = ({ navigation }) => {
       >
         <View style={{ flex: 9 }}>
           <FlatList
-            keyExtractor={(item) => item.id}
+            keyExtractor={(index) => index.id}
             horizontal={false}
             renderItem={listTruyenChem}
             data={ApiTruyenChem}

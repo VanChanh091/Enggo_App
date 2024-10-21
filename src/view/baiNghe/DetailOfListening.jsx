@@ -6,49 +6,41 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Audio } from "expo-av";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import {
+  playVoiceText,
+  stopVoiceText,
+} from "../../components/translate/PLayTranslateVoice";
 
 const DetailOfListening = ({ route }) => {
   const { data } = route.params;
-  console.log(data);
 
   const [paused, setPaused] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [playbackSpeed, setPlaybackSpeed] = useState(1.0);
-  const [sound, setSound] = useState(null);
-  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handlePlayVoice = async () => {
+    setIsPlaying(!isPlaying);
+    if (isPlaying) {
+      await stopVoiceText();
+    } else {
+      const allText = data.content.map((item) => item.text).join(" ");
+      await playVoiceText(allText);
+    }
+  };
 
   const formatTime = (timeInSeconds) => {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = Math.floor(timeInSeconds % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
-
-  const onProgress = (data) => {
-    setCurrentTime(data.currentTime);
-  };
-
-  const onLoad = (data) => {
-    setDuration(data.duration);
-  };
-
-  const skipForward = () => {
-    videoRef.current.seek(currentTime + 5);
-  };
-
-  const skipBackward = () => {
-    videoRef.current.seek(currentTime - 5);
-  };
-
-  const togglePlayPause = () => {
-    setPaused(!paused);
   };
 
   const changePlaybackSpeed = () => {
@@ -60,34 +52,7 @@ const DetailOfListening = ({ route }) => {
     } else {
       newSpeed = 1.0;
     }
-    // await TrackPlayer.setRate(newSpeed);
     setPlaybackSpeed(newSpeed);
-  };
-
-  const playSound = async () => {
-    try {
-      // Nếu đã có âm thanh đang phát, hủy âm thanh trước khi phát từ mới
-      if (sound) {
-        await sound.unloadAsync();
-        setSound(null);
-      }
-      await Audio.setAudioModeAsync({
-        playsInSilentModeIOS: true,
-        shouldDuckAndroid: false,
-        staysActiveInBackground: false,
-      });
-
-      // Tạo âm thanh mới từ file require
-      const { sound: newSound } = await Audio.Sound.createAsync(
-        require("../../audio/Listening/climateChange/SwitzerlandAndItaly_1.mp3")
-      );
-      setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
-
-      // Phát âm thanh
-      await newSound.playAsync();
-    } catch (error) {
-      console.error("Lỗi khi phát âm thanh: ", error);
-    }
   };
 
   return (
@@ -96,6 +61,7 @@ const DetailOfListening = ({ route }) => {
 
       <View style={{ flex: 1 }}>
         <ScrollView>
+          {/* title */}
           <View
             style={{
               width: "100%",
@@ -113,11 +79,12 @@ const DetailOfListening = ({ route }) => {
             >
               {data.title}
             </Text>
-            <TouchableOpacity style={{ marginTop: 15 }} onPress={playSound}>
+            <TouchableOpacity style={{ marginTop: 15 }}>
               <MaterialIcons name="g-translate" size={28} color="black" />
             </TouchableOpacity>
           </View>
 
+          {/* image */}
           <View
             style={{
               width: "100%",
@@ -132,6 +99,7 @@ const DetailOfListening = ({ route }) => {
             />
           </View>
 
+          {/* content */}
           <View style={{ flex: 8, marginTop: 10 }}>
             {data.content.map((item, index) => (
               <View key={index}>
@@ -148,7 +116,7 @@ const DetailOfListening = ({ route }) => {
                     marginTop: 10,
                   }}
                 >
-                  <TouchableOpacity key={index} onPress={playSound}>
+                  <TouchableOpacity key={index}>
                     <MaterialIcons name="g-translate" size={28} color="black" />
                   </TouchableOpacity>
 
@@ -189,7 +157,6 @@ const DetailOfListening = ({ route }) => {
                 minimumValue={0}
                 maximumValue={duration}
                 value={currentTime}
-                onValueChange={(value) => videoRef.current.seek(value)}
                 minimumTrackTintColor="#1E90FF"
                 maximumTrackTintColor="#d3d3d3"
                 thumbTintColor="#1E90FF"
@@ -198,7 +165,6 @@ const DetailOfListening = ({ route }) => {
             <View
               style={{
                 flex: 1.5,
-
                 justifyContent: "center",
                 alignItems: "center",
               }}
@@ -240,7 +206,7 @@ const DetailOfListening = ({ route }) => {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity onPress={skipBackward}>
+              <TouchableOpacity>
                 <Icon name="replay-5" size={35} color="#888" />
               </TouchableOpacity>
             </View>
@@ -253,9 +219,9 @@ const DetailOfListening = ({ route }) => {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity onPress={togglePlayPause}>
+              <TouchableOpacity onPress={handlePlayVoice}>
                 <Icon
-                  name={paused ? "play-arrow" : "pause"}
+                  name={isPlaying ? "pause" : "play-arrow"}
                   size={50}
                   color="#1E90FF"
                 />
@@ -270,7 +236,7 @@ const DetailOfListening = ({ route }) => {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity onPress={skipForward}>
+              <TouchableOpacity>
                 <Icon name="forward-5" size={35} color="#888" />
               </TouchableOpacity>
             </View>
@@ -283,7 +249,7 @@ const DetailOfListening = ({ route }) => {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity onPress={() => console.log("Repeat")}>
+              <TouchableOpacity>
                 <Icon name="repeat" size={35} color="#1E90FF" />
               </TouchableOpacity>
             </View>

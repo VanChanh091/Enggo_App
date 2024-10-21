@@ -15,17 +15,32 @@ const splitText = (text, maxLength = 200) => {
 
 let currentSound = null;
 let isPlaying = false;
-let isStopped = false; // Flag to indicate if playback should stop
+let isStopped = false;
+let currentPosition = 0;
 
 export const playVoiceText = async (text) => {
-  if (isPlaying) return; // Prevent multiple simultaneous plays
-  isPlaying = true; // Set as playing
-  isStopped = false; // Reset stop flag
+  // Nếu âm thanh đang phát, dừng nó và lưu lại vị trí hiện tại
+  if (isPlaying) {
+    await stopVoiceText(); // Dừng âm thanh hiện tại
+    return; // Không phát lại nếu đang dừng
+  }
 
-  const textChunks = splitText(text, 200); // Limit to 200 characters per chunk
+  isPlaying = true; // Đặt trạng thái là đang phát
+  isStopped = false; // Đặt lại flag dừng
 
-  for (const chunk of textChunks) {
-    if (isStopped) break; // Stop playback if the stop flag is set
+  if (currentSound) {
+    await currentSound.sound.unloadAsync(); // Giải phóng âm thanh hiện tại nếu có
+    currentSound = null; // Đặt lại đối tượng âm thanh
+  }
+
+  const textChunks = splitText(text, 200); // Giới hạn mỗi đoạn văn bản là 200 ký tự
+
+  // Phát từng đoạn âm thanh, và nếu âm thanh đã dừng thì tiếp tục từ vị trí lưu
+  for (const [index, chunk] of textChunks.entries()) {
+    if (isStopped) {
+      await stopVoiceText(); // Dừng nếu flag dừng được thiết lập
+      break; // Thoát khỏi vòng lặp nếu dừng
+    }
 
     const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=${encodeURIComponent(
       chunk
@@ -37,16 +52,22 @@ export const playVoiceText = async (text) => {
         shouldDuckAndroid: false,
         staysActiveInBackground: false,
       });
-      currentSound = await Audio.Sound.createAsync({ uri: audioUrl });
-      
-      await currentSound.sound.playAsync();
 
-      // Wait for the sound to finish playing before proceeding
+      if (currentSound && currentPosition > 0 && index === 0) {
+        // Nếu âm thanh đã dừng trước đó, phát lại từ vị trí lưu
+        await currentSound.sound.playFromPositionAsync(currentPosition);
+      } else {
+        // Nếu không có âm thanh đã dừng trước đó, tạo âm thanh mới
+        currentSound = await Audio.Sound.createAsync({ uri: audioUrl });
+        await currentSound.sound.playAsync();
+      }
+
+      // Chờ âm thanh phát xong trước khi tiếp tục phát đoạn tiếp theo
       await new Promise((resolve) => {
         currentSound.sound.setOnPlaybackStatusUpdate((status) => {
-          if (status.didJustFinish) {
-            currentSound.sound.unloadAsync(); // Clean up after playing
-            resolve(); // Proceed to next chunk
+          if (status.didJustFinish && !isStopped) {
+            currentSound.sound.unloadAsync(); // Giải phóng sau khi phát xong
+            resolve(); // Chuyển tiếp tới đoạn tiếp theo
           }
         });
       });
@@ -55,14 +76,26 @@ export const playVoiceText = async (text) => {
     }
   }
 
-  isPlaying = false; // Reset playing state after all chunks are done
+  isPlaying = false; // Đặt lại trạng thái phát khi hoàn tất
 };
 
 export const stopVoiceText = async () => {
   isStopped = true;
   if (currentSound) {
-    await currentSound.sound.stopAsync();
-    await currentSound.sound.unloadAsync();
-    currentSound = null;
+    try {
+      // Kiểm tra xem âm thanh hiện tại có đang phát hay không
+      const status = await currentSound.sound.getStatusAsync();
+      if (status.isPlaying || status.positionMillis > 0) {
+        await currentSound.sound.stopAsync();
+      }
+
+      // Giải phóng tài nguyên âm thanh
+      await currentSound.sound.unloadAsync();
+      currentSound = null;
+    } catch (error) {
+      console.error("Error stopping the sound:", error);
+    }
   }
+
+  isPlaying = false;
 };

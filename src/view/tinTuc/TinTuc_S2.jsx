@@ -1,7 +1,6 @@
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { PaperProvider } from "react-native-paper";
-import { Audio } from "expo-av";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { FontAwesome } from "@expo/vector-icons";
 import TranslateLanguage from "../../components/translate/TranslateLanguage";
@@ -9,41 +8,6 @@ import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
 
 const TinTuc_S2 = ({ route }) => {
   const { data } = route.params;
-
-  const [translatedText, setTranslatedText] = useState(null);
-  const [isEnglishToVietnamese, setIsEnglishToVietnamese] = useState(true);
-
-  const [soundCurrent, setSoundCurrent] = useState();
-
-  // Play sound function
-  const playSound = async () => {
-    const uri =
-      "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/surprise.mp3";
-
-    try {
-      await Audio.setAudioModeAsync({
-        playsInSilentModeIOS: true,
-        shouldDuckAndroid: false,
-        staysActiveInBackground: false,
-      });
-
-      const { sound, status } = await Audio.Sound.createAsync(
-        {
-          uri: uri,
-        },
-        {
-          shouldPlay: true,
-          isLooping: false,
-        }
-      );
-      console.log("sound status :", status);
-
-      setSoundCurrent(sound);
-      await sound.playAsync();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <PaperProvider>
@@ -60,7 +24,7 @@ const TinTuc_S2 = ({ route }) => {
             }}
           >
             <TranslateLanguage
-              data={data.title}
+              data={data.content}
               styleText={{
                 fontSize: 22,
                 fontWeight: 600,
@@ -72,7 +36,7 @@ const TinTuc_S2 = ({ route }) => {
 
           <View style={{ flex: 8.8 }}>
             {/* content */}
-            {data.content.map((item, index) => (
+            {data.information.map((item, index) => (
               <View key={index} style={{ width: "100%", height: "auto" }}>
                 <View style={{ flex: 2 }}>
                   {item.subTitle ? (
@@ -100,7 +64,7 @@ const TinTuc_S2 = ({ route }) => {
                 >
                   {item.image ? (
                     <Image
-                      source={item.image}
+                      source={{ uri: item.image }}
                       style={{
                         width: 380,
                         height: 230,

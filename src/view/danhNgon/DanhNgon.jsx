@@ -1,6 +1,5 @@
 import {
   Animated,
-  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -9,14 +8,34 @@ import {
 import React, { useRef, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
-import { quote } from "../../api/ApiDanhNgon";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
+import { appInfo } from "../../constants/appInfos";
+import { useFocusEffect } from "@react-navigation/native";
 
 const DanhNgon = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [istTranslate, setIstTranslate] = useState(true);
   const [translatedText, setTranslatedText] = useState(null);
+  const [quotes, setQuotes] = useState([]);
+
+  // Sử dụng useFocusEffect để fetch dữ liệu mỗi khi màn hình được focus
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchQuotes();
+    }, [])
+  );
+
+  const fetchQuotes = async () => {
+    try {
+      const res = await fetch(`${appInfo.Host_URL}/api/quotes`);
+      const data = await res.json();
+      setQuotes(data.data);
+      console.log(quotes.text);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const fadeAnimation = useRef(new Animated.Value(0)).current;
 
@@ -36,7 +55,6 @@ const DanhNgon = () => {
     }).start();
   };
 
-  // Sử dụng fetch để gọi Google Translate API
   const handleTranslate = async (data) => {
     try {
       const response = await fetch(
@@ -47,12 +65,11 @@ const DanhNgon = () => {
       const result = await response.json();
       if (result && result[0]) {
         const translatedTextArray = result[0].map((item) => item[0]);
-        setTranslatedText(translatedTextArray.join("")); // Nối các phần dịch
+        setTranslatedText(translatedTextArray.join(""));
       }
 
-      setIstTranslate(!istTranslate); // Toggle trạng thái dịch
+      setIstTranslate(!istTranslate);
 
-      // Kiểm soát hiển thị dựa vào trạng thái dịch
       if (istTranslate) {
         fadeIn();
       } else {
@@ -63,16 +80,14 @@ const DanhNgon = () => {
     }
   };
 
-  // Chuyển đến từ tiếp theo
   const handleNext = () => {
-    if (currentIndex < quote.length - 1) {
+    if (currentIndex < quotes.length - 1) {
       fadeOut(0);
       setIstTranslate(!istTranslate);
       setCurrentIndex(currentIndex + 1);
     }
   };
 
-  // Quay về từ trước đó
   const handlePrevious = () => {
     if (currentIndex > 0) {
       fadeOut(0);
@@ -96,47 +111,50 @@ const DanhNgon = () => {
               justifyContent: "center",
             }}
           >
-            {quote[currentIndex].words.map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  flexDirection: "row",
-                  paddingVertical: 3,
-                  marginHorizontal: 15,
-                }}
-              >
-                <TouchableOpacity onPress={() => playVoiceText(item.word)}>
-                  <Text
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 17,
-                    }}
-                  >
-                    {item.word}
-                    <Text style={{ fontSize: 17, fontWeight: "regular" }}>
-                      {" "}
-                      -{" "}
+            {quotes.length > 0 &&
+            quotes[currentIndex] &&
+            quotes[currentIndex].words ? (
+              quotes[currentIndex].words.map((item, index) => (
+                <View
+                  key={index}
+                  style={{
+                    flexDirection: "row",
+                    paddingVertical: 3,
+                    marginHorizontal: 15,
+                  }}
+                >
+                  <TouchableOpacity onPress={() => playVoiceText(item.word)}>
+                    <Text style={{ fontWeight: "bold", fontSize: 17 }}>
+                      {item.word}
+                      <Text style={{ fontSize: 17, fontWeight: "regular" }}>
+                        {" "}
+                        -{" "}
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 17,
+                          color: "gray",
+                          fontWeight: "regular",
+                        }}
+                      >
+                        {item.pronunciation}
+                      </Text>
+                      <Text style={{ fontSize: 17, fontWeight: "regular" }}>
+                        {" "}
+                        {item.type}:{" "}
+                      </Text>
+                      <Text style={{ fontSize: 17, fontWeight: "regular" }}>
+                        {item.meaning}
+                      </Text>
                     </Text>
-                    <Text
-                      style={{
-                        fontSize: 17,
-                        color: "gray",
-                        fontWeight: "regular",
-                      }}
-                    >
-                      {item.pronunciation}
-                    </Text>
-                    <Text style={{ fontSize: 17, fontWeight: "regular" }}>
-                      {" "}
-                      {item.type}:{" "}
-                    </Text>
-                    <Text style={{ fontSize: 17, fontWeight: "regular" }}>
-                      {item.meaning}
-                    </Text>
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            ))}
+                  </TouchableOpacity>
+                </View>
+              ))
+            ) : (
+              <Text style={{ marginHorizontal: 15, fontSize: 17 }}>
+                Đang tải dữ liệu...
+              </Text>
+            )}
           </View>
 
           {/* quote */}
@@ -146,7 +164,7 @@ const DanhNgon = () => {
             <View style={{ width: "100%", height: 150 }}>
               <View style={{ alignItems: "center" }}>
                 <TouchableOpacity
-                  onPress={() => playVoiceText(quote[currentIndex].text)}
+                  onPress={() => playVoiceText(quotes[currentIndex].text)}
                 >
                   <Text
                     style={{
@@ -157,7 +175,9 @@ const DanhNgon = () => {
                       color: "#2A7BD3",
                     }}
                   >
-                    {quote[currentIndex].text}
+                    {quotes[currentIndex]
+                      ? quotes[currentIndex].text
+                      : "Đang tải dữ liệu..."}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -170,7 +190,9 @@ const DanhNgon = () => {
                     paddingTop: 12,
                   }}
                 >
-                  -- {quote[currentIndex].author} --
+                  {quotes[currentIndex]
+                    ? `-- ${quotes[currentIndex].author} --`
+                    : ""}
                 </Text>
               </View>
             </View>
@@ -192,7 +214,7 @@ const DanhNgon = () => {
                   alignItems: "center",
                 }}
                 onPress={() => {
-                  handleTranslate(quote[currentIndex].text);
+                  handleTranslate(quotes[currentIndex].text);
                 }}
               >
                 <Text style={{ fontWeight: 600, fontSize: 18, color: "white" }}>
@@ -221,11 +243,7 @@ const DanhNgon = () => {
         {/* button next & previous */}
         <View style={{ flex: 1.5 }}>
           <View
-            style={{
-              flex: 0.6,
-              borderColor: "#D0D0D0",
-              flexDirection: "row",
-            }}
+            style={{ flex: 0.6, borderColor: "#D0D0D0", flexDirection: "row" }}
           >
             <View
               style={{
@@ -247,7 +265,7 @@ const DanhNgon = () => {
             >
               <Text style={{ fontWeight: 500, fontSize: 20 }}>{`${
                 currentIndex + 1
-              }/${quote.length}`}</Text>
+              }/${quotes.length}`}</Text>
             </View>
             <View
               style={{

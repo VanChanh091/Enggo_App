@@ -15,10 +15,22 @@ import { appInfo } from "../../constants/appInfos";
 const SongNgu_S1 = ({ navigation }) => {
   const [bilingual, setBilingual] = useState([]);
 
-  const fetch = async () => {
-    const res = await fetch(`${{ base_url }}/api/bilingual-topics`);
+  useEffect(() => {
+    fetchBilingual();
+  }, []);
+
+  const fetchBilingual = async () => {
+    try {
+      const res = await fetch(`${appInfo.Host_URL}/api/bilingual-topics`);
+      const data = await res.json();
+      setBilingual(data.data);
+      console.log(bilingual);
+    } catch (error) {
+      console.error(error);
+    }
   };
-  const renderTagName = ({ item }) => (
+
+  const renderTagName = ({ item, index }) => (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity
         style={{
@@ -34,7 +46,7 @@ const SongNgu_S1 = ({ navigation }) => {
         key={item._id}
       >
         <View style={{ flex: 9, alignItems: "center", flexDirection: "row" }}>
-          <Text style={{ marginLeft: 15, fontSize: 18 }}>{item.id}.</Text>
+          <Text style={{ marginLeft: 15, fontSize: 18 }}>{index + 1}.</Text>
           <Text style={{ marginLeft: 5, fontSize: 18 }}>{item.topic}</Text>
         </View>
         <View
@@ -52,9 +64,9 @@ const SongNgu_S1 = ({ navigation }) => {
 
       <View style={{ flex: 1 }}>
         <FlatList
-          keyExtractor={(item) => item.id}
+          keyExtractor={(index) => index._id}
           renderItem={renderTagName}
-          data={apiSongNgu}
+          data={bilingual}
         />
       </View>
     </PaperProvider>

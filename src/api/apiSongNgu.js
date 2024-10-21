@@ -7,53 +7,25 @@ export const apiSongNgu = [
         id: 1,
         titleEn: "Never Tell A Lie",
         titleVn: "Không Bao Giờ Được Nói Dối",
-        text: `On his deathbed, a father advised his son to always speak truth. The son promised that he would never tell a lie.
-
-One day, while going to the city through a forest, he got surrounded by some robbers. One of them asked, "What do you have?"
-The boy answered, "I have fifty rupees."
-
-They searched him but couldn't find anything. When they were about to go, the boy called out, "I am not telling a lie. See this fifty rupee note which I had hidden in my shirt."
-
-The leader of the robbers felt pleased at the truthfulness of the boy, gave him hundred rupees as reward and went away.`,
+        text: `On his deathbed, a father advised his son to always speak truth. The son promised that he would never tell a lie.\n\nOne day, while going to the city through a forest, he got surrounded by some robbers. One of them asked, "What do you have?\n\nThe boy answered, "I have fifty rupees."\n\nThey searched him but couldn't find anything. When they were about to go, the boy called out, "I am not telling a lie. See this fifty rupee note which I had hidden in my shirt."\n\nThe leader of the robbers felt pleased at the truthfulness of the boy, gave him hundred rupees as reward and went away.`,
       },
       {
         id: 2,
         titleEn: "Better Bent Than Broken",
         titleVn: "Dẻo Cong Hơn Rắn Giòn",
-        text: `Once a huge oak tree stood on the bank of a river. It was well nourished by the water of the river. Naturally, it was very strong and had a thick stem. Just nearby, grew some reeds with thin but flexible stems. They stood almost half in water and had flourished well too.
-
-One day, strong winds blew. The tree, though huge and strong, broke from the middle and was thrown across the stream just among the reeds. On the other hand, the tree was very surprised to see that the reeds suffered no harm at all.
-
-The oak could not make out the reason of the safety of the reeds and asked them, "How is it that, you being frail and slender, managed to face the gale without any harm. But I, strong enough, have been broken."
-
-The reeds replied, "You were proud of your strength and refused to bend. So, you broke while we bowed and yielded to the gale and were spared."`,
+        text: `Once a huge oak tree stood on the bank of a river. It was well nourished by the water of the river. Naturally, it was very strong and had a thick stem. Just nearby, grew some reeds with thin but flexible stems. They stood almost half in water and had flourished well too.\n\nOne day, strong winds blew. The tree, though huge and strong, broke from the middle and was thrown across the stream just among the reeds. On the other hand, the tree was very surprised to see that the reeds suffered no harm at all.\n\nThe oak could not make out the reason of the safety of the reeds and asked them, "How is it that, you being frail and slender, managed to face the gale without any harm. But I, strong enough, have been broken."\n\nThe reeds replied, "You were proud of your strength and refused to bend. So, you broke while we bowed and yielded to the gale and were spared."`,
       },
       {
         id: 3,
         titleEn: "Never Fight Over Trifles",
         titleVn: "Đừng Bao Giờ Đấu Tranh Vì Những Chuyện Vặt",
-        text: `It was high summer. A traveller hired a donkey and set out on a journey. The owner of the donkey was following behind to drive the beast. At mid-day, they decided to take rest for some time but couldn't find any shady place around. So, the traveler decided to rest in the shade of the donkey. But the owner didn't let him do so as he himself wanted to sit in its shadow.
-The trveller said, "How can you refuse me the shadow? I have paid you money after all."
-
-"But you have paid for the ride, not for resting in his shadow", retorted the owner.
-
-So, an argument followed between the two. When the donkey saw that the owner and the hirer were busy fighting, he took to his heels and was soon out of sight.`,
+        text: `It was high summer. A traveller hired a donkey and set out on a journey. The owner of the donkey was following behind to drive the beast. At mid-day, they decided to take rest for some time but couldn't find any shady place around. So, the traveler decided to rest in the shade of the donkey. But the owner didn't let him do so as he himself wanted to sit in its shadow\n\nThe trveller said, "How can you refuse me the shadow? I have paid you money after all."\n\n"But you have paid for the ride, not for resting in his shadow", retorted the owner.\n\nSo, an argument followed between the two. When the donkey saw that the owner and the hirer were busy fighting, he took to his heels and was soon out of sight.`,
       },
       {
         id: 4,
         titleEn: "A Coward Can't Teach Courage",
         titleVn: "Kẻ Nhút Nhát Không Thể Dạy Sự Dũng Cảm",
-        text: `Once there lived a hind in a forest. She had a son who had grown very young and strong. She was very happy to see his stout body and branched strong horns and thought, "stags have powerful horns, why should they be afraid of hounds, wolves then? It's sheer cowardice. I would never like my son to do it at all."
-
-After some time, the hind's son came there. The hind wanted to teach him to be courageous. She said, "Son! You have a stout body and strong horns. So, you must not run away from hounds and wolves. Don't be a coward."
-
-"Ok, mom; I won't", said the stag.
-
-Just then the mother and the son heard the bark of the hounds. The hind got ready to run away when her son asked her to stay on. She said, "You may, but I have no horns."
-
-Saying so, she ran as fast as she could.
-
-The mother herself was a coward and was teaching courage to her son. What a satire!`,
+        text: `Once there lived a hind in a forest. She had a son who had grown very young and strong. She was very happy to see his stout body and branched strong horns and thought, "stags have powerful horns, why should they be afraid of hounds, wolves then? It's sheer cowardice. I would never like my son to do it at all."\n\nAfter some time, the hind's son came there. The hind wanted to teach him to be courageous. She said, "Son! You have a stout body and strong horns. So, you must not run away from hounds and wolves. Don't be a coward."\n\n"Ok, mom; I won't", said the stag.\n\nJust then the mother and the son heard the bark of the hounds. The hind got ready to run away when her son asked her to stay on. She said, "You may, but I have no horns."\n\nSaying so, she ran as fast as she could.\n\nThe mother herself was a coward and was teaching courage to her son. What a satire!`,
       },
       {
         id: 5,
@@ -75,6 +47,7 @@ The mother herself was a coward and was teaching courage to her son. What a sati
       },
     ],
   },
+
   {
     id: 2,
     topic: "Truyện cổ tích",
@@ -87,6 +60,7 @@ The mother herself was a coward and was teaching courage to her son. What a sati
       },
     ],
   },
+
   {
     id: 3,
     topic: "Truyện cười",
@@ -95,44 +69,17 @@ The mother herself was a coward and was teaching courage to her son. What a sati
         id: 1,
         titleEn: "The Bum",
         titleVn: "Kẻ Ăn Mày",
-        text: `A bum approaches a well dressed gentleman on the street. "Hey, Buddy, can you spare two dollars?" The well-dressed gentleman responds, "You are not going to spend in on liquor are you?"
-
-"No, sir, I don't drink," retorts the bum.
-
-"You are not going to throw it away in some crap game, are you?" asks the gentleman.
-
-"No way, I don't gamble," answers the bum.
-
-"You wouldn't waste the money at a golf course for greens fees, would you?" asks the man.
-
-"Never," says the bum, "I don't play golf."
-
-The man asks the bum if he would like to come home with him for a home cooked meal. The bum accepts eagerly. While they are heading for the man's house, the bum's curiosity gets the better of him. "Isn't your wife going to be angry when she sees a guy like me at your table?"
-
-"Probably," says the man, "but it will be worth it. I want her to see what happens to a guy who doesn't drink, gamble or play golf."`,
+        text: `A bum approaches a well dressed gentleman on the street. "Hey, Buddy, can you spare two dollars?" The well-dressed gentleman responds, "You are not going to spend in on liquor are you?"\n\n"No, sir, I don't drink," retorts the bum.\n\n"You are not going to throw it away in some crap game, are you?" asks the gentleman.\n\n"No way, I don't gamble," answers the bum.\n\n"You wouldn't waste the money at a golf course for greens fees, would you?" asks the man.\n\n"Never," says the bum, "I don't play golf."\n\nThe man asks the bum if he would like to come home with him for a home cooked meal. The bum accepts eagerly. While they are heading for the man's house, the bum's curiosity gets the better of him. "Isn't your wife going to be angry when she sees a guy like me at your table?"\n\n"Probably," says the man, "but it will be worth it. I want her to see what happens to a guy who doesn't drink, gamble or play golf."`,
       },
       {
         id: 2,
         titleEn: "Inherited",
         titleVn: "Thừa Kế",
-        text: `Two friends meet on a Miami street. One looked forlorn, and almost on the verge of tears. The other man said, "Hey, how come you look like the whole world caved in?"
-
-The sad fellow said, "Let me tell you. Three weeks ago, an uncle died and left me forty thousand dollars."
-
-"That's not bad."
-
-"Hold on, I'm just getting started. Two weeks ago, a cousin I never knew kicked the bucket, and left me eighty-five thousand dollars."
-
-"Sounds like you should be grateful."
-
-"Last week my great aunt passed away. I inherited almost a quarter of a million."
-
-"Then how come you look so glum?"
-
-"This week... nothing!"`,
+        text: `Two friends meet on a Miami street. One looked forlorn, and almost on the verge of tears. The other man said, "Hey, how come you look like the whole world caved in?"\n\nThe sad fellow said, "Let me tell you. Three weeks ago, an uncle died and left me forty thousand dollars."\n\n"That's not bad."\n\n"Hold on, I'm just getting started. Two weeks ago, a cousin I never knew kicked the bucket, and left me eighty-five thousand dollars."\n\n"Sounds like you should be grateful."\n\n"Last week my great aunt passed away. I inherited almost a quarter of a million."\n\n"Then how come you look so glum?"\n\n"This week... nothing!"`,
       },
     ],
   },
+
   {
     id: 4,
     topic: "Truyện ngụ ngônn",

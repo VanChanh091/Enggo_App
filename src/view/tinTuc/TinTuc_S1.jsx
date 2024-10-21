@@ -10,31 +10,13 @@ import {
   View,
 } from "react-native";
 import { PaperProvider } from "react-native-paper";
-import { News } from "../../api/ApiTinTuc";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
 
 const TinTuc_S1 = ({ navigation }) => {
   const [news, setNews] = useState([]);
-  const [categoryNews, setCategoryNews] = useState([]);
-
-  const entertainment = News.filter((item) => item.category === "Giải trí");
-  const educationTips = News.filter((item) => item.category === "Mẹo giáo dục");
-  const newLiteracyEducation = News.filter(
-    (item) => item.category === "Giáo dục về tin tức"
-  );
-  const scienceAndTechnology = News.filter(
-    (item) => item.category === "Khoa học & Công nghệ"
-  );
-  const wordsAndTheirStories = News.filter(
-    (item) => item.category === "Từ ngữ & câu chuyện của chúng"
-  );
-  const healthAndLifeStyle = News.filter(
-    (item) => item.category === "Sức khỏe & Phong cách sống"
-  );
 
   useEffect(() => {
-    fetchAllCategoryNews();
     fetchNews();
   }, []);
 
@@ -44,17 +26,6 @@ const TinTuc_S1 = ({ navigation }) => {
       const data = await res.json();
       setNews(data.data);
       // console.log("News:", data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchAllCategoryNews = async () => {
-    try {
-      const res = await fetch(`${appInfo.Host_URL}/api/categoryNews`);
-      const data = await res.json();
-      setCategoryNews(data.data);
-      // console.log("Category News:", data.data);
     } catch (error) {
       console.log(error);
     }

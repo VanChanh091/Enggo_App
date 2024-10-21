@@ -11,7 +11,7 @@ const SongNgu_S2 = ({ navigation, route }) => {
       <HeaderScreen title={data.topic} />
 
       <View style={{ flex: 1 }}>
-        {data.subTopic.map((subTopic) => (
+        {data.subTopic.map((subTopic, index) => (
           <TouchableOpacity
             style={{
               width: "95%",
@@ -23,7 +23,7 @@ const SongNgu_S2 = ({ navigation, route }) => {
               marginHorizontal: 10,
               marginTop: 10,
             }}
-            key={subTopic.id}
+            key={index}
             onPress={() =>
               navigation.navigate("SongNgu_S3", { dataTruyen: subTopic })
             }
@@ -35,11 +35,8 @@ const SongNgu_S2 = ({ navigation, route }) => {
                 alignItems: "center",
               }}
             >
-              <Text
-                key={subTopic.id}
-                style={{ fontWeight: "bold", fontSize: 18 }}
-              >
-                {subTopic.id}
+              <Text key={index} style={{ fontWeight: "bold", fontSize: 18 }}>
+                {index + 1}
               </Text>
             </View>
             <View style={{ flex: 8.8, justifyContent: "center" }}>

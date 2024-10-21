@@ -7,7 +7,7 @@ import {
   View,
   Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Appbar, PaperProvider, Searchbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { Subjects, Suggest } from "../../api/apiHome";
@@ -187,19 +187,6 @@ const Home = ({ navigation }) => {
                   Nguồn học
                 </Text>
               </View>
-              <TouchableOpacity
-                style={{
-                  flex: 3.5,
-                  justifyContent: "center",
-                  alignItems: "flex-end",
-                }}
-              >
-                <Text
-                  style={{ fontSize: 18, color: "#1977F3", marginRight: 15 }}
-                >
-                  Cách học
-                </Text>
-              </TouchableOpacity>
             </View>
             <View style={{ flex: 8 }}>
               <FlatList

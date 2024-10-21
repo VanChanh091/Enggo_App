@@ -1,7 +1,8 @@
 export const News = [
   {
     id: 1,
-    category: "Giải trí",
+    title: "Giải trí",
+    category: "",
     image: require("../img/imgTinTuc/banner/vegetable.png"),
     title: "5 vegetables that aid in weight loss",
     content: [

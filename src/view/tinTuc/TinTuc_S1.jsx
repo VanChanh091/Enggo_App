@@ -33,32 +33,32 @@ const TinTuc_S1 = ({ navigation }) => {
     (item) => item.category === "Sức khỏe & Phong cách sống"
   );
 
-  // useEffect(() => {
-  //   fetchAllCategoryNews();
-  //   fetchNews();
-  // }, []);
+  useEffect(() => {
+    fetchAllCategoryNews();
+    fetchNews();
+  }, []);
 
-  // const fetchNews = async () => {
-  //   try {
-  //     const res = await fetch(`${appInfo.Host_URL}/api/news`);
-  //     const data = await res.json();
-  //     setNews(data.data);
-  //     console.log("News:", data.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const fetchNews = async () => {
+    try {
+      const res = await fetch(`${appInfo.Host_URL}/api/news`);
+      const data = await res.json();
+      setNews(data.data);
+      console.log("News:", data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // const fetchAllCategoryNews = async () => {
-  //   try {
-  //     const res = await fetch(`${appInfo.Host_URL}/api/categoryNews`);
-  //     const data = await res.json();
-  //     setCategoryNews(data.data);
-  //     console.log("Category News:", data.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const fetchAllCategoryNews = async () => {
+    try {
+      const res = await fetch(`${appInfo.Host_URL}/api/categoryNews`);
+      const data = await res.json();
+      setCategoryNews(data.data);
+      console.log("Category News:", data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const listTinTuc = ({ item }) => (
     <TouchableOpacity

@@ -7,19 +7,25 @@ import {
   Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { PaperProvider } from "react-native-paper";
+import {
+  ActivityIndicator,
+  MD2Colors,
+  PaperProvider,
+} from "react-native-paper";
 import ApiTruyenChem from "../../api/ApiTruyenChem";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
 
 const TruyenChem_S1 = ({ navigation }) => {
   const [stories, setStories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchStories();
   }, []);
 
   const fetchStories = async () => {
+    setLoading(true);
     try {
       const res = await fetch(`${appInfo.Host_URL}/api/stories`);
       const data = res.json();
@@ -27,6 +33,8 @@ const TruyenChem_S1 = ({ navigation }) => {
       console.log(stories);
     } catch (error) {
       console.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -70,12 +78,24 @@ const TruyenChem_S1 = ({ navigation }) => {
         }}
       >
         <View style={{ flex: 9 }}>
-          <FlatList
-            keyExtractor={(index) => index.id}
-            horizontal={false}
-            renderItem={listTruyenChem}
-            data={ApiTruyenChem}
-          />
+          {loading ? (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <ActivityIndicator animating={true} color={MD2Colors.blue800} />
+            </View>
+          ) : (
+            <FlatList
+              keyExtractor={(index) => index.id}
+              horizontal={false}
+              renderItem={listTruyenChem}
+              data={ApiTruyenChem}
+            />
+          )}
         </View>
         <View style={{ flex: 1 }}></View>
       </View>

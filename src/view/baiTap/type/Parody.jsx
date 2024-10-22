@@ -2,16 +2,92 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  Touchable,
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../../components/header/HeaderScreen";
 import { Ionicons } from "@expo/vector-icons";
+import {
+  playVoiceText,
+  stopVoiceText,
+} from "../../../components/translate/PLayTranslateVoice";
+import { Audio } from "expo-av";
 
 const Parody = ({ route }) => {
   const { data } = route.params;
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [recording, setRecording] = useState(null);
+  const [recordingURI, setRecordingURI] = useState(null);
+  const [sound, setSound] = useState(null);
+
+  const togglePlay = (text, index) => {
+    setIsPlaying(!isPlaying);
+    if (isPlaying && activeIndex === index) {
+      stopVoiceText();
+      setActiveIndex(null);
+    } else {
+      playVoiceText(text);
+      setActiveIndex(index);
+    }
+  };
+
+  // Bắt đầu ghi âm
+  const startRecording = async () => {
+    try {
+      console.log("Đang chuẩn bị ghi âm...");
+      await Audio.requestPermissionsAsync(); // Yêu cầu quyền truy cập microphone
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true,
+      });
+
+      const { recording } = await Audio.Recording.createAsync(
+        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+      );
+      setRecording(recording);
+      console.log("Bắt đầu ghi âm...");
+    } catch (err) {
+      console.error("Không thể ghi âm:", err);
+    }
+  };
+
+  // Dừng ghi âm
+  const stopRecording = async () => {
+    try {
+      console.log("Dừng ghi âm...");
+      setRecording(null);
+      await recording.stopAndUnloadAsync();
+      const uri = recording.getURI(); // Lấy URI của file ghi âm
+      console.log("Ghi âm được lưu tại:", uri);
+      setRecordingURI(uri);
+    } catch (error) {
+      console.error("Không thể dừng ghi âm:", error);
+    }
+  };
+
+  // Phát lại âm thanh đã ghi
+  const playRecording = async () => {
+    if (recordingURI) {
+      try {
+        if (sound) {
+          await sound.unloadAsync(); // Hủy âm thanh trước khi phát lại
+          setSound(null);
+        }
+        console.log("Đang phát âm thanh...");
+        const { sound } = await Audio.Sound.createAsync({ uri: recordingURI });
+        setSound(sound);
+        await sound.playAsync();
+      } catch (error) {
+        console.error("Lỗi khi phát lại âm thanh: ", error);
+      }
+    }
+  };
+
   return (
     <PaperProvider>
       <HeaderScreen title={"Nói nhại"} />
@@ -30,15 +106,14 @@ const Parody = ({ route }) => {
               <View
                 style={{
                   width: "90%",
-                  height: 150,
+                  height: 170,
                   borderWidth: 1,
                   borderRadius: 10,
                   marginVertical: 10,
-                  flexDirection: "row",
                 }}
                 key={index}
               >
-                <View style={{ flex: 8, borderRightWidth: 1 }}>
+                <View style={{ flex: 7, borderBottomWidth: 1 }}>
                   <ScrollView>
                     <Text
                       style={{
@@ -54,23 +129,59 @@ const Parody = ({ route }) => {
                 </View>
                 <View
                   style={{
-                    flex: 2,
+                    flex: 3,
                     justifyContent: "center",
                     alignItems: "center",
+                    flexDirection: "row",
                   }}
                 >
-                  <TouchableOpacity>
+                  {/* play text */}
+                  {isPlaying && activeIndex === index ? (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => togglePlay(item.text, index)}
+                    >
+                      <Ionicons
+                        name="pause-circle-outline"
+                        color="black"
+                        size={32}
+                      />
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() => togglePlay(item.text, index)}
+                    >
+                      <Ionicons
+                        name="play-circle-outline"
+                        color="black"
+                        size={32}
+                      />
+                    </TouchableOpacity>
+                  )}
+
+                  {/* recording text */}
+                  <TouchableOpacity
+                    style={{ paddingHorizontal: 12 }}
+                    onPress={recording ? stopRecording : startRecording}
+                  >
+                    <Ionicons name="mic-sharp" color="black" size={32} />
+                  </TouchableOpacity>
+
+                  {/* play recording */}
+                  <TouchableOpacity onPress={playRecording}>
                     <Ionicons
                       name="volume-medium-sharp"
                       color="black"
                       size={32}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity style={{ paddingTop: 15 }}>
-                    <Ionicons name="mic-sharp" color="black" size={32} />
-                  </TouchableOpacity>
                 </View>
               </View>
+              <Text style={{ fontSize: 16, color: "gray", marginVertical: 5 }}>
+                {recording
+                  ? "Đang ghi âm... Nhấn để dừng"
+                  : "Chạm vào micro để ghi âm"}
+              </Text>
             </View>
           ))}
         </ScrollView>

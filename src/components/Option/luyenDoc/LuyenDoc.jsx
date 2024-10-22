@@ -1,11 +1,11 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import HeaderScreen from "../../header/HeaderScreen";
 
-const LuyenDoc = ({ navigation, route }) => {
+const LuyenDoc = ({ route }) => {
   const { dataVocab } = route.params;
 
   const [currentIndex, setCurrentIndex] = useState(0);

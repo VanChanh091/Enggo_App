@@ -20,10 +20,10 @@ let currentPosition = 0;
 
 export const playVoiceText = async (text) => {
   // Nếu âm thanh đang phát, dừng nó và lưu lại vị trí hiện tại
-  if (isPlaying) {
-    await stopVoiceText(); // Dừng âm thanh hiện tại
-    return; // Không phát lại nếu đang dừng
-  }
+  // if (isPlaying) {
+  //   await stopVoiceText(); // Dừng âm thanh hiện tại
+  //   return; // Không phát lại nếu đang dừng
+  // }
 
   isPlaying = true; // Đặt trạng thái là đang phát
   isStopped = false; // Đặt lại flag dừng
@@ -96,6 +96,5 @@ export const stopVoiceText = async () => {
       console.error("Error stopping the sound:", error);
     }
   }
-
   isPlaying = false;
 };

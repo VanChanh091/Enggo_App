@@ -22,11 +22,15 @@ const TruyenChem_S1 = ({ navigation }) => {
   const fetchStories = async () => {
     try {
       const res = await fetch(`${appInfo.Host_URL}/api/stories`);
-      const data = res.json();
-      setStories(data.data);
-      console.log(stories);
+      const data = await res.json();
+      if (data && data.data) {
+        setStories(data.data);
+        console.log('Stories:', data.data);
+      } else {
+        console.log('No stories found');
+      }
     } catch (error) {
-      console.error(error.message);
+      console.log('Error fetching stories:', error);
     }
   };
 

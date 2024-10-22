@@ -11,6 +11,7 @@ import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../../components/header/HeaderScreen";
 import PlayVoice from "../../../components/playVoice/PlayVoice";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import TranslateLanguage from "../../../components/translate/TranslateLanguage";
 
 const ListenAndRead = ({ route }) => {
   const { data } = route.params;
@@ -24,22 +25,20 @@ const ListenAndRead = ({ route }) => {
         <View style={{ flex: 8.2, marginTop: 10 }}>
           <ScrollView>
             <View style={{ width: "100%", height: 135 }}>
-              <Text
-                style={{
+              <TranslateLanguage
+                data={data.title}
+                styleText={{
                   fontWeight: 500,
                   fontSize: 19,
                   paddingHorizontal: 12,
                   paddingTop: 10,
                 }}
-              >
-                {data.title}
-              </Text>
-
-              <View style={{ justifyContent: "center", alignItems: "center" }}>
-                <TouchableOpacity style={{ paddingTop: 12 }}>
-                  <MaterialIcons name="g-translate" size={30} color="black" />
-                </TouchableOpacity>
-              </View>
+                iconStyle={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  paddingVertical: 12,
+                }}
+              />
             </View>
 
             <View

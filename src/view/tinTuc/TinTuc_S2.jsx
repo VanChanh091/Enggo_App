@@ -1,13 +1,24 @@
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import {
+  Image,
+  ScrollView,
+  Text,
+  Touchable,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
-import { FontAwesome } from "@expo/vector-icons";
-import TranslateLanguage from "../../components/translate/TranslateLanguage";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import TranslateLanguage, {
+  useTranslate,
+} from "../../components/translate/TranslateLanguage";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
 
 const TinTuc_S2 = ({ route }) => {
   const { data } = route.params;
+
+  const { translatedText, translateWithDelay } = useTranslate();
 
   return (
     <PaperProvider>
@@ -23,15 +34,26 @@ const TinTuc_S2 = ({ route }) => {
               alignItems: "center",
             }}
           >
-            <TranslateLanguage
-              data={data.content}
-              styleText={{
-                fontSize: 22,
+            <Text
+              style={{
+                fontSize: 20,
                 fontWeight: 600,
                 paddingVertical: 12,
-                paddingHorizontal: 10,
+                paddingHorizontal: 12,
               }}
-            />
+            >
+              {translatedText[data._id] || data.content}
+            </Text>
+            <TouchableOpacity
+              onPress={() => translateWithDelay(data._id, data.content)}
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                paddingVertical: 12,
+              }}
+            >
+              <MaterialIcons name="g-translate" size={30} color="black" />
+            </TouchableOpacity>
           </View>
 
           <View style={{ flex: 8.8 }}>
@@ -83,31 +105,50 @@ const TinTuc_S2 = ({ route }) => {
                   }}
                 >
                   {item.text ? (
-                    <TranslateLanguage
-                      data={item.text}
-                      styleText={{
-                        fontSize: 16,
-                        paddingHorizontal: 12,
-                        paddingVertical: 10,
-                      }}
-                    />
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          paddingHorizontal: 12,
+                          paddingVertical: 10,
+                        }}
+                      >
+                        {translatedText[index] || item.text}
+                      </Text>
+                    </View>
                   ) : (
                     <View></View>
                   )}
-                </View>
-                <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    paddingTop: 12,
-                  }}
-                >
-                  <TouchableOpacity
-                    style={{ marginLeft: 15 }}
-                    onPress={() => playVoiceText(item.text)}
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                   >
-                    <FontAwesome name="volume-up" size={35} color="black" />
-                  </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => translateWithDelay(index, item.text)}
+                      style={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        paddingVertical: 12,
+                      }}
+                    >
+                      <MaterialIcons
+                        name="g-translate"
+                        size={30}
+                        color="black"
+                      />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      onPress={() => playVoiceText(item.text)}
+                      style={{ paddingHorizontal: 20 }}
+                    >
+                      <FontAwesome name="volume-up" size={35} color="black" />
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             ))}

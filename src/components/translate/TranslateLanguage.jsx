@@ -1,62 +1,51 @@
-import { Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
+import { useState } from "react";
 
-const TranslateLanguage = ({ data, styleText }) => {
-  console.log("data", data);
+export const useTranslate = () => {
+  const [translatedText, setTranslatedText] = useState({});
+  const [languageToggles, setLanguageToggles] = useState({});
 
-  const [translatedText, setTranslatedText] = useState(null);
-  const [isEnglishToVietnamese, setIsEnglishToVietnamese] = useState(true);
-
-  const toggleLanguage = () => {
-    setIsEnglishToVietnamese(!isEnglishToVietnamese);
+  const toggleLanguage = (id) => {
+    setLanguageToggles((prev) => ({
+      ...prev,
+      [id]: !prev[id], // Toggle the language state for the given id
+    }));
   };
 
-  // Use fetch to call Google Translate API
-  const handleTranslate = async () => {
+  // Function to call the Google Translate API
+  const translateText = async (id, text) => {
     try {
-      const sourceLang = isEnglishToVietnamese ? "en" : "vi"; // Determine source language
-      const targetLang = isEnglishToVietnamese ? "vi" : "en"; // Determine target language
+      const isEnglishToVietnamese = languageToggles[id] ?? true; // Default to true if not toggled yet
+      const sourceLang = isEnglishToVietnamese ? "en" : "vi";
+      const targetLang = isEnglishToVietnamese ? "vi" : "en";
 
       const response = await fetch(
         `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(
-          data
+          text
         )}`
       );
       const result = await response.json();
       if (result && result[0]) {
         const translatedTextArray = result[0].map((item) => item[0]);
-        setTranslatedText(translatedTextArray.join("")); // Join translated parts
+        setTranslatedText((prev) => ({
+          ...prev,
+          [id]: translatedTextArray.join(""),
+        }));
       }
     } catch (error) {
       console.error("Error translating text:", error);
     }
   };
 
-  const handleTranslateWithDelay = () => {
+  // Function to handle translation with a delay
+  const translateWithDelay = (id, text) => {
     setTimeout(() => {
-      toggleLanguage();
+      toggleLanguage(id);
     }, 100);
-    handleTranslate();
+    translateText(id, text);
   };
 
-  return (
-    <View>
-      <Text style={styleText}>{translatedText || data}</Text>
-
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          paddingTop: 12,
-        }}
-      >
-        <TouchableOpacity onPress={handleTranslateWithDelay}>
-          <MaterialIcons name="g-translate" size={30} color="black" />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+  return {
+    translatedText,
+    translateWithDelay,
+  };
 };
-
-export default TranslateLanguage;

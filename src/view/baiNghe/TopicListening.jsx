@@ -1,11 +1,30 @@
 import { View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TopicListen } from "../../api/apiListen";
 import { PaperProvider } from "react-native-paper";
 import ListTopic from "../../components/topic/ListTopic";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import { appInfo } from "../../constants/appInfos";
 
 const TopicListening = () => {
+
+  const [listTopicListen, setListTopicListen] = useState([]);
+
+  useEffect(() => {
+    fetchTopicListen();
+  }, []);
+
+  const fetchTopicListen = async () => {
+    try {
+      const response = await fetch(`${appInfo.Host_URL}/api/topicListen`);
+      const data = await response.json();
+      setListTopicListen(data.data);
+      console.log("topic listen :",data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <PaperProvider>
       <HeaderScreen title={"Bài nghe"} />

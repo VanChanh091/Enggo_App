@@ -50,7 +50,7 @@ const NguPhap_S1 = ({ navigation }) => {
 
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <FlatList
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={renderCategories}
           data={Categories}
         />

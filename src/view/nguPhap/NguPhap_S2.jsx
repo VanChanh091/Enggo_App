@@ -11,8 +11,8 @@ const NguPhap_S2 = ({ navigation, route }) => {
       <HeaderScreen title={data.title} />
 
       <ScrollView style={{ flex: 1 }}>
-        {data.content.map((noiDung) => (
-          <View key={noiDung.id}>
+        {data.content.map((noiDung,index) => (
+          <View key={noiDung.id || index}>
             <View style={{ flexDirection: "row", marginTop: 12 }}>
               <Text style={{ fontSize: 18, fontWeight: 500, marginLeft: 12 }}>
                 {noiDung.id}.{" "}

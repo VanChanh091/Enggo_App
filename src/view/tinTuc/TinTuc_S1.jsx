@@ -9,18 +9,24 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { PaperProvider } from "react-native-paper";
+import {
+  ActivityIndicator,
+  MD2Colors,
+  PaperProvider,
+} from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
 
 const TinTuc_S1 = ({ navigation }) => {
   const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchNews();
   }, []);
 
   const fetchNews = async () => {
+    setLoading(true);
     try {
       const res = await fetch(`${appInfo.Host_URL}/api/news`);
       const data = await res.json();
@@ -28,6 +34,8 @@ const TinTuc_S1 = ({ navigation }) => {
       // console.log("News:", data.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,54 +111,62 @@ const TinTuc_S1 = ({ navigation }) => {
       <HeaderScreen title={"Tin Tức"} />
 
       <ScrollView style={{ flex: 1, backgroundColor: "#F1F1F1" }}>
-        {Object.keys(groupedNewsByCategory).map((categoryId) => (
+        {loading ? (
           <View
-            key={categoryId}
-            style={{ borderBottomWidth: 1, borderColor: "#d0d0d0" }}
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
           >
+            <ActivityIndicator animating={true} color={MD2Colors.blue800} />
+          </View>
+        ) : (
+          Object.keys(groupedNewsByCategory).map((categoryId) => (
             <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                paddingHorizontal: 10,
-                paddingVertical: 10,
-              }}
+              key={categoryId}
+              style={{ borderBottomWidth: 1, borderColor: "#d0d0d0" }}
             >
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontWeight: "bold",
-                }}
-              >
-                {uniqueTitlesByCategory[categoryId]}
-              </Text>
-              <TouchableOpacity
+              <View
                 style={{
                   flexDirection: "row",
-                  justifyContent: "center",
                   alignItems: "center",
+                  justifyContent: "space-between",
+                  paddingHorizontal: 10,
+                  paddingVertical: 10,
                 }}
-                //   onPress={() => navigation.navigate("")}
               >
-                <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={20}
-                  color="gray"
-                />
-              </TouchableOpacity>
-            </View>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {uniqueTitlesByCategory[categoryId]}
+                </Text>
+                <TouchableOpacity
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  //   onPress={() => navigation.navigate("")}
+                >
+                  <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
+                  <Ionicons
+                    name="chevron-forward-outline"
+                    size={20}
+                    color="gray"
+                  />
+                </TouchableOpacity>
+              </View>
 
-            <FlatList
-              keyExtractor={(item) => item._id}
-              horizontal={true}
-              renderItem={listTinTuc}
-              data={groupedNewsByCategory[categoryId]}
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-        ))}
+              <FlatList
+                keyExtractor={(item) => item._id}
+                horizontal={true}
+                renderItem={listTinTuc}
+                data={groupedNewsByCategory[categoryId]}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+          ))
+        )}
       </ScrollView>
     </PaperProvider>
   );

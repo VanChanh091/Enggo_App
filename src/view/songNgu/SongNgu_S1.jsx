@@ -6,20 +6,25 @@ import {
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { PaperProvider } from "react-native-paper";
+import {
+  ActivityIndicator,
+  MD2Colors,
+  PaperProvider,
+} from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
-import { apiSongNgu } from "../../api/apiSongNgu";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
 
 const SongNgu_S1 = ({ navigation }) => {
   const [bilingual, setBilingual] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchBilingual();
   }, []);
 
   const fetchBilingual = async () => {
+    setLoading(true);
     try {
       const res = await fetch(`${appInfo.Host_URL}/api/bilingual-topics`);
       const data = await res.json();
@@ -27,6 +32,8 @@ const SongNgu_S1 = ({ navigation }) => {
       console.log(bilingual);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,11 +70,19 @@ const SongNgu_S1 = ({ navigation }) => {
       <HeaderScreen title="Truyện Song Ngữ" />
 
       <View style={{ flex: 1 }}>
-        <FlatList
-          keyExtractor={(index) => index._id}
-          renderItem={renderTagName}
-          data={bilingual}
-        />
+        {loading ? (
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <ActivityIndicator animating={true} color={MD2Colors.blue800} />
+          </View>
+        ) : (
+          <FlatList
+            keyExtractor={(index) => index._id}
+            renderItem={renderTagName}
+            data={bilingual}
+          />
+        )}
       </View>
     </PaperProvider>
   );

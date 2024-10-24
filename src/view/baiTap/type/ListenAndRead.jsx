@@ -11,11 +11,12 @@ import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../../components/header/HeaderScreen";
 import PlayVoice from "../../../components/playVoice/PlayVoice";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import TranslateLanguage from "../../../components/translate/TranslateLanguage";
+import { useTranslate } from "../../../components/translate/TranslateLanguage";
 
 const ListenAndRead = ({ route }) => {
   const { data } = route.params;
-  console.log(data);
+
+  const { translatedText, translateWithDelay } = useTranslate();
 
   return (
     <PaperProvider>
@@ -25,20 +26,28 @@ const ListenAndRead = ({ route }) => {
         <View style={{ flex: 8.2, marginTop: 10 }}>
           <ScrollView>
             <View style={{ width: "100%", height: 135 }}>
-              <TranslateLanguage
-                data={data.title}
-                styleText={{
+              <Text
+                style={{
                   fontWeight: 500,
                   fontSize: 19,
                   paddingHorizontal: 12,
                   paddingTop: 10,
                 }}
-                iconStyle={{
+              >
+                {translatedText[`title_${data.id}`] || data.title}
+              </Text>
+              <TouchableOpacity
+                onPress={() =>
+                  translateWithDelay(`title_${data.id}`, data.title)
+                }
+                style={{
                   justifyContent: "center",
                   alignItems: "center",
                   paddingVertical: 12,
                 }}
-              />
+              >
+                <MaterialIcons name="g-translate" size={30} color="black" />
+              </TouchableOpacity>
             </View>
 
             <View
@@ -63,7 +72,7 @@ const ListenAndRead = ({ route }) => {
                     fontSize: 17,
                   }}
                 >
-                  {item.text}
+                  {translatedText[index] || item.text}
                 </Text>
                 <View
                   style={{
@@ -73,7 +82,9 @@ const ListenAndRead = ({ route }) => {
                     paddingTop: 12,
                   }}
                 >
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => translateWithDelay(index, item.text)}
+                  >
                     <MaterialIcons name="g-translate" size={30} color="black" />
                   </TouchableOpacity>
                   <TouchableOpacity style={{ paddingHorizontal: 15 }}>

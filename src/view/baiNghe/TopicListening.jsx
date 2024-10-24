@@ -7,7 +7,6 @@ import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
 
 const TopicListening = () => {
-
   const [listTopicListen, setListTopicListen] = useState([]);
 
   useEffect(() => {
@@ -19,7 +18,7 @@ const TopicListening = () => {
       const response = await fetch(`${appInfo.Host_URL}/api/topicListen`);
       const data = await response.json();
       setListTopicListen(data.data);
-      console.log("topic listen :",data.data);
+      console.log("topic listen :", data.data);
     } catch (error) {
       console.error(error);
     }

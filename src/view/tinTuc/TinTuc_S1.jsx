@@ -110,15 +110,15 @@ const TinTuc_S1 = ({ navigation }) => {
     <PaperProvider>
       <HeaderScreen title={"Tin Tức"} />
 
-      <ScrollView style={{ flex: 1, backgroundColor: "#F1F1F1" }}>
-        {loading ? (
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <ActivityIndicator animating={true} color={MD2Colors.blue800} />
-          </View>
-        ) : (
-          Object.keys(groupedNewsByCategory).map((categoryId) => (
+      {loading ? (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator animating={true} color={MD2Colors.blue800} />
+        </View>
+      ) : (
+        <ScrollView style={{ flex: 1, backgroundColor: "#F1F1F1" }}>
+          {Object.keys(groupedNewsByCategory).map((categoryId) => (
             <View
               key={categoryId}
               style={{ borderBottomWidth: 1, borderColor: "#d0d0d0" }}
@@ -165,9 +165,9 @@ const TinTuc_S1 = ({ navigation }) => {
                 showsHorizontalScrollIndicator={false}
               />
             </View>
-          ))
-        )}
-      </ScrollView>
+          ))}
+        </ScrollView>
+      )}
     </PaperProvider>
   );
 };

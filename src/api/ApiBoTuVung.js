@@ -9,53 +9,31 @@ export const TopicAndVocabulary = [
         id: 1,
         en: "Congratulation!",
         vn: "Xin chúc mừng",
-        audioEn:
-          "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/congratulation.mp3",
-        audioVn:
-          "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/congratulation.mp3",
       },
       {
         id: 2,
         en: "Goodbye",
         vn: "Tạm biệt",
-        audioEn:
-          "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/goodbye.mp3",
-        audioVn:
-          "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/goodbye.mp3",
       },
       {
         id: 3,
         en: "Hello",
         vn: "Xin chào",
-        audioEn:
-          "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/hello.mp3",
-        audioVn:
-          "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/hello.mp3",
       },
       {
         id: 4,
         en: "Name",
         vn: "Tên",
-        audioEn: "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/name.mp3",
-        audioVn: "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/name.mp3",
       },
       {
         id: 5,
         en: "Please",
         vn: "Làm ơn",
-        audioEn:
-          "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/please.mp3",
-        audioVn:
-          "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/please.mp3",
       },
       {
         id: 6,
         en: "Surprise",
         vn: "Gây nhạc nhiên",
-        audioEn:
-          "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/surprise.mp3",
-        audioVn:
-          "https://audio-enggo.s3.ap-southeast-1.amazonaws.com/surprise.mp3",
       },
     ],
   },

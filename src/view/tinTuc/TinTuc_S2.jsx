@@ -1,18 +1,9 @@
-import {
-  Image,
-  ScrollView,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import React, { useState } from "react";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
-import TranslateLanguage, {
-  useTranslate,
-} from "../../components/translate/TranslateLanguage";
+import { useTranslate } from "../../components/translate/TranslateLanguage";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
 
 const TinTuc_S2 = ({ route }) => {
@@ -42,10 +33,12 @@ const TinTuc_S2 = ({ route }) => {
                 paddingHorizontal: 12,
               }}
             >
-              {translatedText[data._id] || data.content}
+              {translatedText[`content_${data._id}`] || data.content}
             </Text>
             <TouchableOpacity
-              onPress={() => translateWithDelay(data._id, data.content)}
+              onPress={() =>
+                translateWithDelay(`content_${data._id}`, data.content)
+              }
               style={{
                 justifyContent: "center",
                 alignItems: "center",

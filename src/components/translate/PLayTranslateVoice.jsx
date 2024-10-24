@@ -18,12 +18,12 @@ let isPlaying = false;
 let isStopped = false;
 let currentPosition = 0;
 
-export const playVoiceText = async (text) => {
+export const playVoiceText = async (text, playbackSpeed) => {
   // Nếu âm thanh đang phát, dừng nó và lưu lại vị trí hiện tại
-  // if (isPlaying) {
-  //   await stopVoiceText(); // Dừng âm thanh hiện tại
-  //   return; // Không phát lại nếu đang dừng
-  // }
+  if (isPlaying) {
+    await stopVoiceText(); // Dừng âm thanh hiện tại
+    return; // Không phát lại nếu đang dừng
+  }
 
   isPlaying = true; // Đặt trạng thái là đang phát
   isStopped = false; // Đặt lại flag dừng
@@ -75,7 +75,6 @@ export const playVoiceText = async (text) => {
       console.error("Error playing sound:", error);
     }
   }
-
   isPlaying = false; // Đặt lại trạng thái phát khi hoàn tất
 };
 
@@ -88,7 +87,6 @@ export const stopVoiceText = async () => {
       if (status.isPlaying || status.positionMillis > 0) {
         await currentSound.sound.stopAsync();
       }
-
       // Giải phóng tài nguyên âm thanh
       await currentSound.sound.unloadAsync();
       currentSound = null;

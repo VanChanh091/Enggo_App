@@ -14,62 +14,50 @@ export const TopicBaiTap = [
           {
             id: 1,
             text: "Part of the border between Italy and Switzerland is set to be redrawn as the glaciers that mark the boundary melt, in yet another sign of how much humans are changing the world by burning planet-heating fossil fuels..",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_1.mp3"),
           },
           {
             id: 2,
             text: "The two countries have agreed to change the border under the iconic Matterhorn Peak, one of the highest summits in the Alps, which overlooks Zermatt, a popular skiing destination.",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_2.mp3"),
           },
           {
             id: 3,
             text: "While national boundaries are often thought of as fixed, large sections of the Swiss-Italian border are defined by glaciers and snow fields. “With the melting of the glaciers, these natural elements evolve and redefine the national border,” the Swiss government said in a statement Friday.",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_3.mp3"),
           },
           {
             id: 4,
             text: "The border changes were agreed back in 2023 and the Swiss government officially approved the adjustment on Friday. The process for approval is underway in Italy. As soon as both parties have signed, the agreement will be published and details of the new border made public, according to the Swiss government.",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_4.mp3"),
           },
           {
             id: 5,
             text: "Europe is the world's fastest-warming continent and the impact on its glaciers has been stark. In Switzerland, they are melting at an alarming rate. The country’s glaciers lost 4% of their volume last year, second only to the record-setting 6% lost in 2022.",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_5.mp3"),
           },
           {
             id: 6,
             text: "This downward trend shows no sign of ending, said Matthias Huss, a glaciologist at the Swiss university ETH Zürich and director of GLAMOS, the Swiss glacier monitoring network.",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_6.mp3"),
           },
           {
             id: 7,
             text: "“In 2024, glaciers continued to lose ice at a high speed despite much snow in winter that was expected to bring some relief,” he told CNN. “Some glaciers are literally falling apart, small glaciers are disappearing.”",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_7.mp3"),
           },
           {
             id: 8,
             text: "Even with the most ambitious climate action, up to half the world’s glaciers may be gone by 2100. It’s causing a cascade of impacts.",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_8.mp3"),
           },
           {
             id: 9,
             text: "It makes the landscape more unstable, prone to dangerous landslides and collapses. In 2022, 11 people lost their lives when a glacier collapsed in the Italian Alps.",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_9.mp3"),
           },
           {
             id: 10,
             text: "Shrinking glaciers are leading to grim discoveries. Last year, the remains of a mountain climber who had gone missing 37 years earlier while hiking near the Matterhorn were recovered.",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_10.mp3"),
           },
           {
             id: 11,
             text: "As they recede, glaciers are also losing their vital role in contributing freshwater, which could aggravate shortages during heat waves.",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_11.mp3"),
           },
           {
             id: 12,
             text: "The shifting of national borders “is one small side-effect” of glaciers melting, Huss said. But when people can see it “directly affects our world map,” he added, it makes the immense changes of a warming world much more visible.",
-            audio: require("../audio/Listening/climateChange/SwitzerlandAndItaly/SwitzerlandAndItaly_12.mp3"),
           },
         ],
         choosePhrase: [
@@ -177,6 +165,36 @@ export const TopicBaiTap = [
           {
             id: 17,
             text: "A recent study found materials from old cell phones, electric vehicles and other sources could provide a huge and overlooked source of rare earths that could vastly reduce the need to mine.",
+          },
+        ],
+        choosePhrase: [
+          {
+            id: 1,
+            question: "New travel policies that will permit...",
+            answer: [
+              { id: 1, text: "approved for emergency use by the WHO" },
+              { id: 3, text: "within 72 hours of departure" },
+              { id: 2, text: "vaccinated international travelers" },
+            ],
+          },
+          {
+            id: 2,
+            question: "proof of a negative COVID-19 test carried out...",
+            answer: [
+              { id: 1, text: "vaccinated international travelers" },
+              { id: 3, text: "approved for emergency use by the WHO" },
+              { id: 2, text: "within 72 hours of departure" },
+            ],
+          },
+          {
+            id: 3,
+            question:
+              "the government will accept full vaccination of travelers with any COVID-19 vaccine...",
+            answer: [
+              { id: 1, text: "within 72 hours of departure" },
+              { id: 3, text: "vaccinated international travelers" },
+              { id: 2, text: "approved for emergency use by the WHO" },
+            ],
           },
         ],
       },
@@ -292,6 +310,36 @@ export const TopicBaiTap = [
             text: "“Until November the situation will continue to worsen,” Cuartas said.",
           },
         ],
+        choosePhrase: [
+          {
+            id: 1,
+            question: "New travel policies that will permit...",
+            answer: [
+              { id: 1, text: "approved for emergency use by the WHO" },
+              { id: 3, text: "within 72 hours of departure" },
+              { id: 2, text: "vaccinated international travelers" },
+            ],
+          },
+          {
+            id: 2,
+            question: "proof of a negative COVID-19 test carried out...",
+            answer: [
+              { id: 1, text: "vaccinated international travelers" },
+              { id: 3, text: "approved for emergency use by the WHO" },
+              { id: 2, text: "within 72 hours of departure" },
+            ],
+          },
+          {
+            id: 3,
+            question:
+              "the government will accept full vaccination of travelers with any COVID-19 vaccine...",
+            answer: [
+              { id: 1, text: "within 72 hours of departure" },
+              { id: 3, text: "vaccinated international travelers" },
+              { id: 2, text: "approved for emergency use by the WHO" },
+            ],
+          },
+        ],
       },
       {
         id: 4,
@@ -362,6 +410,36 @@ export const TopicBaiTap = [
           {
             id: 16,
             text: "“Consider the roads closed in western North Carolina,” Gov. Roy Cooper told CNN Monday. “We do not need sightseers coming in to observe the damage. We ask you not to come in unless you are on a specific mission to help with rescue.”",
+          },
+        ],
+        choosePhrase: [
+          {
+            id: 1,
+            question: "New travel policies that will permit...",
+            answer: [
+              { id: 1, text: "approved for emergency use by the WHO" },
+              { id: 3, text: "within 72 hours of departure" },
+              { id: 2, text: "vaccinated international travelers" },
+            ],
+          },
+          {
+            id: 2,
+            question: "proof of a negative COVID-19 test carried out...",
+            answer: [
+              { id: 1, text: "vaccinated international travelers" },
+              { id: 3, text: "approved for emergency use by the WHO" },
+              { id: 2, text: "within 72 hours of departure" },
+            ],
+          },
+          {
+            id: 3,
+            question:
+              "the government will accept full vaccination of travelers with any COVID-19 vaccine...",
+            answer: [
+              { id: 1, text: "within 72 hours of departure" },
+              { id: 3, text: "vaccinated international travelers" },
+              { id: 2, text: "approved for emergency use by the WHO" },
+            ],
           },
         ],
       },

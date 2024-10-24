@@ -1,9 +1,9 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import axios from "axios";
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { playVoiceText } from "../../../components/translate/PLayTranslateVoice";
 
 // Hàm tạo các ô trống cho bài tập
 const generateFillInTheBlank = (texts) => {
@@ -33,7 +33,7 @@ const generateFillInTheBlank = (texts) => {
       .map((index) => words[index])
       .map((word) => word.replace(/[.,]/g, "").replace(/[^a-zA-Z]/g, ""));
 
-    return { blankedText, correctWords }; // Giữ nguyên thứ tự từ trong correctWords
+    return { blankedText, correctWords, originalText: text }; // Thêm originalText vào kết quả
   });
 };
 
@@ -212,7 +212,10 @@ const FillInTheBlankExercise = ({ data }) => {
               <Text style={{ paddingLeft: 10 }}>{translatedText}</Text>
             )}
 
-            <TouchableOpacity style={{ paddingLeft: 20 }}>
+            <TouchableOpacity
+              style={{ paddingLeft: 20 }}
+              onPress={() => playVoiceText(item.originalText)}
+            >
               <Ionicons name="volume-medium-sharp" color="black" size={35} />
             </TouchableOpacity>
           </View>

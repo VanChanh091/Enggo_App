@@ -12,6 +12,8 @@ import { useNavigation } from "@react-navigation/native";
 const ListItems = ({ data, navigationScreen }) => {
   const navigation = useNavigation();
 
+  console.log("data :", data);
+
   return (
     <View style={{ flex: 1, marginTop: 10 }}>
       <ScrollView>
@@ -25,7 +27,7 @@ const ListItems = ({ data, navigationScreen }) => {
           }}
         >
           <Image
-            source={data.background}
+            source={{ uri: data.background }}
             style={{ width: "92%", height: "100%", resizeMode: "contain" }}
           />
         </View>
@@ -46,7 +48,7 @@ const ListItems = ({ data, navigationScreen }) => {
               alignItems: "flex-end",
             }}
           >
-            {data.list.map((item, index) => (
+            {data?.Items?.map((item, index) => (
               <TouchableOpacity
                 key={index}
                 style={{
@@ -71,9 +73,7 @@ const ListItems = ({ data, navigationScreen }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Text style={{ fontSize: 15, paddingLeft: 10 }}>
-                    {item.title}
-                  </Text>
+                  <Text style={{ fontSize: 15, paddingLeft: 10 }}>{item.title}</Text>
                 </View>
                 <View
                   style={{
@@ -83,7 +83,7 @@ const ListItems = ({ data, navigationScreen }) => {
                   }}
                 >
                   <Image
-                    source={item.image}
+                    source={{ uri: item.image }}
                     style={{
                       width: "80%",
                       height: "80%",
@@ -93,6 +93,7 @@ const ListItems = ({ data, navigationScreen }) => {
                 </View>
               </TouchableOpacity>
             ))}
+
           </View>
         </View>
       </ScrollView>

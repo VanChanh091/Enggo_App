@@ -9,7 +9,7 @@ import PlayVoice from "../../components/playVoice/PlayVoice";
 
 const DetailOfListening = ({ route }) => {
   const { data } = route.params;
-
+  
   const allText = data.content.map((item) => item.text).join(" ");
 
   const { translatedText, translateWithDelay } = useTranslate();
@@ -70,7 +70,8 @@ const DetailOfListening = ({ route }) => {
               }}
             >
               <Image
-                source={data.image}
+                // source={data.image}
+                source={{ uri: data.image }}
                 style={{ width: "93%", height: "93%", borderRadius: 10 }}
               />
             </View>

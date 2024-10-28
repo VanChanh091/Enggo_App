@@ -1,41 +1,51 @@
-import { View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { TopicListen } from "../../api/apiListen";
+import { View } from "react-native";
 import { PaperProvider } from "react-native-paper";
-import ListTopic from "../../components/topic/ListTopic";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import ListTopic from "../../components/topic/ListTopic";
 import { appInfo } from "../../constants/appInfos";
 
 const TopicListening = () => {
-  const [listTopicListen, setListTopicListen] = useState([]);
+  const [groupedTopics, setGroupedTopics] = useState([]);
 
   useEffect(() => {
-    fetchTopicListen();
+    fetchData();
   }, []);
 
-  const fetchTopicListen = async () => {
+  const fetchData = async () => {
     try {
-      const response = await fetch(`${appInfo.Host_URL}/api/topicListen`);
-      const data = await response.json();
-      setListTopicListen(data.data);
-      console.log("topic listen :", data.data);
+      // Fetch category topics
+      const categoryResponse = await fetch(`${appInfo.Host_URL}/api/categoryTopicListen`);
+      const categories = await categoryResponse.json();
+
+      // Fetch topics
+      const topicResponse = await fetch(`${appInfo.Host_URL}/api/topicListen`);
+      const topics = await topicResponse.json();
+
+      // Group topics by category ID
+      const groupedData = categories.data.map(category => ({
+        ...category,
+        topics: topics.data.filter(topic => topic.category === category._id)
+      }));
+
+      setGroupedTopics(groupedData);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching data: ", error);
     }
   };
 
   return (
     <PaperProvider>
-      <HeaderScreen title={"Bài nghe"} />
+      <HeaderScreen title="Bài nghe" />
       <View style={{ flex: 1, backgroundColor: "white", marginTop: 7 }}>
-        <View style={{ flex: 9.5 }}>
-          {/* render list topic */}
+        {groupedTopics.map(category => (
           <ListTopic
-            data={TopicListen}
-            navigationScreen={"ListListeningOfTopic"}
+            key={category._id}
+            title={category.name}
+            data={category.topics}
+            navigationScreen="ListListeningOfTopic"
           />
-        </View>
-        <View style={{ flex: 0.5 }}></View>
+        ))}
       </View>
     </PaperProvider>
   );

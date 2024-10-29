@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
-import { Audio } from "expo-av";
+import { playVoiceText } from "../../translate/PLayTranslateVoice";
 
 const TracNghiem_Doc = ({ navigation, route }) => {
   const { settings } = route.params;
@@ -21,7 +21,6 @@ const TracNghiem_Doc = ({ navigation, route }) => {
   const [isQuizCompleted, setIsQuizCompleted] = useState(false); // Kiểm tra đã hoàn thành chưa
   const [answers, setAnswers] = useState([]); // Danh sách câu trả lời được trộn
   const [lives, setLives] = useState(3); // Số lượng trái tim
-  const [sound, setSound] = useState(null);
 
   const currentVocab = data[currentQuestion]; // Lấy ra từ vựng hiện tại
 
@@ -46,7 +45,7 @@ const TracNghiem_Doc = ({ navigation, route }) => {
     }
 
     if (isCorrect) {
-      await playWordSound();
+      await playVoiceText(currentVocab.en, 1);
     }
 
     // Tự động chuyển câu hỏi sau 1 giây
@@ -59,37 +58,6 @@ const TracNghiem_Doc = ({ navigation, route }) => {
         setCorrectAnswer(null); // Reset trạng thái đúng/sai
       }
     }, 1000);
-  };
-
-  const playWordSound = async () => {
-    try {
-      // Nếu đã có âm thanh đang phát, hủy âm thanh trước khi phát từ mới
-      if (sound) {
-        await sound.unloadAsync();
-        setSound(null);
-      }
-
-      await Audio.setAudioModeAsync({
-        playsInSilentModeIOS: true,
-        shouldDuckAndroid: false,
-        staysActiveInBackground: false,
-      });
-
-      // console.log("currentVocab.audio: ", currentVocab.audio);
-
-      // Tạo âm thanh mới từ file require
-      const { sound: newSound } = await Audio.Sound.createAsync(
-        // currentVocab.audioEn
-        { uri: currentVocab.audioEn }
-      );
-
-      setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
-
-      // Phát âm thanh
-      await newSound.playAsync();
-    } catch (error) {
-      console.error("Lỗi khi phát âm thanh: ", error);
-    }
   };
 
   useEffect(() => {

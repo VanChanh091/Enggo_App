@@ -6,49 +6,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { PaperProvider } from "react-native-paper";
-import { Ionicons } from "@expo/vector-icons";
-import { Audio } from "expo-av";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
 
 const BoTuVung_S2 = ({ navigation, route }) => {
   const { data } = route.params;
-
-  const [sound, setSound] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const currentVocab = data[currentIndex];
-
-  // Hàm phát âm thanh cho từ vựng hiện tại
-  const playWordSound = async () => {
-    try {
-      // Nếu đã có âm thanh đang phát, hủy âm thanh trước khi phát từ mới
-      if (sound) {
-        await sound.unloadAsync();
-        setSound(null);
-      }
-      await Audio.setAudioModeAsync({
-        playsInSilentModeIOS: true,
-        shouldDuckAndroid: false,
-        staysActiveInBackground: false,
-      });
-
-      // Tạo âm thanh mới từ file require
-      const { sound: newSound } = await Audio.Sound.createAsync(
-        // currentVocab.audio
-        currentVocab.audioEn
-        // { uri: currentVocab.audioEn }
-      );
-
-      setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
-
-      // Phát âm thanh
-      await newSound.playAsync();
-    } catch (error) {
-      console.error("Lỗi khi phát âm thanh: ", error);
-    }
-  };
 
   return (
     <PaperProvider>
@@ -224,8 +189,10 @@ const BoTuVung_S2 = ({ navigation, route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <TouchableOpacity onPress={playWordSound}>
-                    <Ionicons name="mic-outline" size={28} color="black" />
+                  <TouchableOpacity
+                    onPress={() => playVoiceText(vocabulary.en, 1)}
+                  >
+                    <FontAwesome name="volume-up" size={28} color="black" />
                   </TouchableOpacity>
                 </View>
               </View>

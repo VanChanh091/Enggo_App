@@ -4,6 +4,7 @@ import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import HeaderScreen from "../../header/HeaderScreen";
+import { playVoiceText } from "../../translate/PLayTranslateVoice";
 
 const LuyenDoc = ({ route }) => {
   const { dataVocab } = route.params;
@@ -15,38 +16,9 @@ const LuyenDoc = ({ route }) => {
 
   const currentVocab = dataVocab[currentIndex];
 
-  // Hàm phát âm thanh cho từ vựng hiện tại
-  const playWordSound = async () => {
-    try {
-      // Nếu đã có âm thanh đang phát, hủy âm thanh trước khi phát từ mới
-      if (sound) {
-        await sound.unloadAsync();
-        setSound(null);
-      }
-      await Audio.setAudioModeAsync({
-        playsInSilentModeIOS: true,
-        shouldDuckAndroid: false,
-        staysActiveInBackground: false,
-      });
-
-      // Tạo âm thanh mới từ file require
-      const { sound: newSound } = await Audio.Sound.createAsync(
-        // currentVocab.audio
-        { uri: currentVocab.audioEn }
-      );
-
-      setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
-
-      // Phát âm thanh
-      await newSound.playAsync();
-    } catch (error) {
-      console.error("Lỗi khi phát âm thanh: ", error);
-    }
-  };
-
   useEffect(() => {
     if (currentVocab) {
-      playWordSound(); // Tự động phát âm thanh khi từ vựng thay đổi
+      playVoiceText(currentVocab.en);
     }
   }, [currentVocab]);
 
@@ -152,7 +124,7 @@ const LuyenDoc = ({ route }) => {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity onPress={playWordSound}>
+            <TouchableOpacity onPress={() => playVoiceText(currentVocab.en)}>
               <Image
                 source={require("../../../img/imgBoTuVung/voice.png")}
                 style={{ width: 70, height: 70, resizeMode: "contain" }}

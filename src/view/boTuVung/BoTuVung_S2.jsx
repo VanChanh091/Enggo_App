@@ -190,7 +190,7 @@ const BoTuVung_S2 = ({ navigation, route }) => {
                   }}
                 >
                   <TouchableOpacity
-                    onPress={() => playVoiceText(vocabulary.en, 1)}
+                    onPress={() => playVoiceText(vocabulary.en, "en")}
                   >
                     <FontAwesome name="volume-up" size={28} color="black" />
                   </TouchableOpacity>

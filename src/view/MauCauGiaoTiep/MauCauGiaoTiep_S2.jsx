@@ -8,8 +8,9 @@ import {
 } from "react-native";
 import React from "react";
 import { PaperProvider } from "react-native-paper";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
 
 const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
   const { data } = route.params;
@@ -188,8 +189,10 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                     alignItems: "center",
                   }}
                 >
-                  <TouchableOpacity>
-                    <Ionicons name="mic-outline" size={28} color="black" />
+                  <TouchableOpacity
+                    onPress={() => playVoiceText(vocabulary.en, "en")}
+                  >
+                    <FontAwesome name="volume-up" size={28} color="black" />
                   </TouchableOpacity>
                 </View>
               </View>

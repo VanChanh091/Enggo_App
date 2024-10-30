@@ -18,7 +18,7 @@ const LuyenDoc = ({ route }) => {
 
   useEffect(() => {
     if (currentVocab) {
-      playVoiceText(currentVocab.en);
+      playVoiceText(currentVocab.en, "en");
     }
   }, [currentVocab]);
 
@@ -124,7 +124,9 @@ const LuyenDoc = ({ route }) => {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity onPress={() => playVoiceText(currentVocab.en)}>
+            <TouchableOpacity
+              onPress={() => playVoiceText(currentVocab.en, "en")}
+            >
               <Image
                 source={require("../../../img/imgBoTuVung/voice.png")}
                 style={{ width: 70, height: 70, resizeMode: "contain" }}

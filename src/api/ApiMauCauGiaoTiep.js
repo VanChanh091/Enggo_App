@@ -7,7 +7,7 @@ export const MauCau = [
     vocab: [
       {
         id: 1,
-        en: "Certaily!",
+        en: "Certainly!",
         vn: "Dĩ nhiên",
         audioEn: "",
         audioVn: "",

@@ -1,21 +1,21 @@
 import {
   Alert,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Audio } from "expo-av";
 import { Appbar, PaperProvider } from "react-native-paper";
+import { playVoiceText } from "../../translate/PLayTranslateVoice";
 
 const VietCau_Doc = ({ navigation, route }) => {
   const { settings } = route.params;
   const { data } = route.params;
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [sound, setSound] = useState(null);
   const [selectedWords, setSelectedWords] = useState([]); // Lưu trữ các từ đã chọn
   const [lives, setLives] = useState(3); // Số lượng trái tim
   const [wordOptions, setWordOptions] = useState([]); // Danh sách từ để chọn
@@ -28,6 +28,7 @@ const VietCau_Doc = ({ navigation, route }) => {
   useEffect(() => {
     let allOptions = [];
 
+    // en - vn
     if (settings.mode === "tu-nghia") {
       // Tách từ tiếng Việt (theo từ)
       const correctWords = currentVocab.vn.split(" ").map((word, index) => ({
@@ -52,29 +53,36 @@ const VietCau_Doc = ({ navigation, route }) => {
       allOptions = shuffleArray([...correctWords, ...selectedRandomWords]); // Trộn các tùy chọn từ tiếng Việt
       setCorrectAnswer(correctWords); // Đặt câu trả lời đúng là các từ tiếng Việt
     } else {
-      // Tách từng chữ cái của từ tiếng Anh
-      const correctLetters = splitWordIntoLetters(currentVocab.en).map(
-        (letter, index) => ({
+      // vn - en
+
+      // Tách từng chữ cái của từ tiếng Anh và loại bỏ khoảng trắng
+      const correctLetters = splitWordIntoLetters(currentVocab.en)
+        .filter((letter) => letter !== " ") // Loại bỏ khoảng trắng
+        .map((letter, index) => ({
           id: index, // Gán id duy nhất cho từng chữ cái
           letter: letter,
-        })
-      );
-
-      const randomLetters = data
-        .filter((item) => item.id !== currentVocab.id)
-        .map((item) => splitWordIntoLetters(item.en))
-        .flat()
-        .map((word, index) => ({
-          id: correctLetters.length + index, // Đảm bảo id duy nhất cho từ ngẫu nhiên
-          letter: word,
         }));
 
+      // Tạo các chữ cái ngẫu nhiên từ các từ khác trong dữ liệu
+      const randomLetters = data
+        .filter((item) => item.id !== currentVocab.id)
+        .map((item) =>
+          splitWordIntoLetters(item.en).filter((letter) => letter !== " ")
+        )
+        .flat()
+        .map((letter, index) => ({
+          id: correctLetters.length + index, // Đảm bảo id duy nhất cho từ ngẫu nhiên
+          letter: letter,
+        }));
+
+      // Chọn một số lượng chữ cái ngẫu nhiên để không vượt quá tổng số tùy chọn cần thiết
       const selectedRandomLetter = shuffleArray(randomLetters).slice(
-        20,
-        8 - correctLetters.length
+        0,
+        Math.max(8 - correctLetters.length, 0) // Đảm bảo không chọn quá nhiều chữ cái
       );
 
-      allOptions = shuffleArray([...selectedRandomLetter, ...correctLetters]); // Trộn các tùy chọn chữ cái
+      // Trộn các tùy chọn chữ cái để hiển thị
+      allOptions = shuffleArray([...correctLetters, ...selectedRandomLetter]);
       setCorrectAnswer(correctLetters); // Đặt câu trả lời đúng là các chữ cái
     }
 
@@ -107,28 +115,6 @@ const VietCau_Doc = ({ navigation, route }) => {
     setWordOptions((prevWordOptions) => [...prevWordOptions, wordObj]); // Thêm từ/chữ trở lại danh sách tùy chọn
   };
 
-  const playWordSound = async () => {
-    try {
-      // Nếu đã có âm thanh đang phát, hủy âm thanh trước khi phát từ mới
-      if (sound) {
-        await sound.unloadAsync();
-        setSound(null);
-      }
-
-      // Tạo âm thanh mới từ file require
-      const { sound: newSound } = await Audio.Sound.createAsync({
-        uri: currentVocab.audioEn,
-      });
-
-      setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
-
-      // Phát âm thanh
-      await newSound.playAsync();
-    } catch (error) {
-      console.error("Lỗi khi phát âm thanh: ", error);
-    }
-  };
-
   // Tự động chuyển câu hỏi sau 1 giây
   const moveToNextWord = () => {
     setTimeout(() => {
@@ -151,7 +137,7 @@ const VietCau_Doc = ({ navigation, route }) => {
       correctAnswer.join(" ").toLowerCase()
     ) {
       Alert.alert("Chính xác", "Bạn đã ghép đúng câu!");
-      await playWordSound();
+      await playVoiceText(currentVocab.en, "en");
       moveToNextWord();
     } else {
       Alert.alert("Sai", "Câu ghép chưa đúng, hãy thử lại.");
@@ -160,7 +146,7 @@ const VietCau_Doc = ({ navigation, route }) => {
         setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
         // return;
       } else {
-        setLives((prev) => prev - 1); // Trừ 1 trái tim nếu sai
+        setLives((prev) => prev - 1);
       }
       setSelectedWords([]);
     }
@@ -269,19 +255,21 @@ const VietCau_Doc = ({ navigation, route }) => {
             {/* choose word */}
             <View style={{ flex: 6.5 }}>
               {/* Hiển thị các từ bên dưới */}
-              <View style={styles.wordOptionsContainer}>
-                {wordOptions.map((wordObj) => (
-                  <TouchableOpacity
-                    key={wordObj.id} // Sử dụng id duy nhất
-                    onPress={() => handleSelectWord(wordObj)}
-                    style={styles.wordOption}
-                  >
-                    <Text style={styles.wordText}>
-                      {wordObj.word || wordObj.letter}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
+              <ScrollView>
+                <View style={styles.wordOptionsContainer}>
+                  {wordOptions.map((wordObj) => (
+                    <TouchableOpacity
+                      key={wordObj.id} // Sử dụng id duy nhất
+                      onPress={() => handleSelectWord(wordObj)}
+                      style={styles.wordOption}
+                    >
+                      <Text style={styles.wordText}>
+                        {wordObj.word || wordObj.letter}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </ScrollView>
             </View>
 
             {/* button */}

@@ -15,7 +15,9 @@ const TopicListening = () => {
   const fetchData = async () => {
     try {
       // Fetch category topics
-      const categoryResponse = await fetch(`${appInfo.Host_URL}/api/categoryTopicListen`);
+      const categoryResponse = await fetch(
+        `${appInfo.Host_URL}/api/categoryTopicListen`
+      );
       const categories = await categoryResponse.json();
 
       // Fetch topics
@@ -23,12 +25,13 @@ const TopicListening = () => {
       const topics = await topicResponse.json();
 
       // Group topics by category ID
-      const groupedData = categories.data.map(category => ({
+      const groupedData = categories.data.map((category) => ({
         ...category,
-        topics: topics.data.filter(topic => topic.category === category._id)
+        topics: topics.data.filter((topic) => topic.category === category._id),
       }));
 
       setGroupedTopics(groupedData);
+      // console.log(groupedData);
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
@@ -38,14 +41,18 @@ const TopicListening = () => {
     <PaperProvider>
       <HeaderScreen title="Bài nghe" />
       <View style={{ flex: 1, backgroundColor: "white", marginTop: 7 }}>
-        {groupedTopics.map(category => (
+        {/* {groupedTopics.map((category, index) => (
           <ListTopic
-            key={category._id}
-            title={category.name}
-            data={category.topics}
+            key={index}
+            data={category}
             navigationScreen="ListListeningOfTopic"
           />
-        ))}
+        ))} */}
+
+        <ListTopic
+          data={groupedTopics}
+          navigationScreen="ListListeningOfTopic"
+        />
       </View>
     </PaperProvider>
   );

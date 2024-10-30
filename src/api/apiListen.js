@@ -356,7 +356,7 @@ export const TopicListen = [
 
   {
     id: 6,
-    title: "Việt nam",
+    title: "Việt Nam",
     background: require("../img/imgListen/topicListen/vietnam.png"),
     list: [],
   },

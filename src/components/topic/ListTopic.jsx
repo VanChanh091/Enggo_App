@@ -8,68 +8,74 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const ListTopic = ({ title, data, navigationScreen }) => {
+const ListTopic = ({ data, navigationScreen }) => {
   const navigation = useNavigation();
 
-  const renderTopic = ({ item }) => (
-    <View style={{ flex: 1, alignItems: "center" }}>
-      <TouchableOpacity
-        style={{ width: "92%", height: 125, marginVertical: 6 }}
-        onPress={() => navigation.navigate(navigationScreen, { data: item })}
+  const allTopics = data.flatMap((category) =>
+    category.topics.map((item) => ({
+      ...item,
+      categoryName: category.name, // Keep track of category name for each topic
+    }))
+  );
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+      style={{ flex: 1, height: 125, margin: 6 }}
+      onPress={() => navigation.navigate(navigationScreen, { data: item })}
+    >
+      <ImageBackground
+        source={{ uri: item.background }}
+        style={{
+          width: "100%",
+          height: "100%",
+          resizeMode: "cover",
+          borderRadius: 8,
+          overflow: "hidden",
+        }}
       >
-        <ImageBackground
-          source={{ uri: item.background }}
+        <View style={{ flex: 4 }}>
+          <Text style={{ fontSize: 17, color: "white", margin: 6 }}>
+            {item.categoryName}
+          </Text>
+        </View>
+        <View
           style={{
-            width: "100%",
-            height: "100%",
-            resizeMode: "contain",
-            borderRadius: 8,
+            flex: 6,
+            justifyContent: "flex-end",
+            alignItems: "flex-end",
           }}
         >
-          <View style={{ flex: 4 }}>
-            <Text style={{ fontSize: 17, color: "white", margin: 6 }}>
-              {title}
-            </Text>
-          </View>
           <View
             style={{
-              flex: 6,
-              justifyContent: "flex-end",
-              alignItems: "flex-end",
+              width: 30,
+              height: 30,
+              borderRadius: 15,
+              backgroundColor: "white",
+              justifyContent: "center",
+              alignItems: "center",
+              borderWidth: 1,
+              borderColor: "#d0d0d0",
+              marginRight: 7,
+              marginBottom: 7,
             }}
           >
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: 30,
-                backgroundColor: "white",
-                justifyContent: "center",
-                alignItems: "center",
-                borderWidth: 1,
-                borderColor: "#d0d0d0",
-                marginRight: 7,
-                marginBottom: 7,
-              }}
-            >
-              <Text style={{ fontWeight: "500", fontSize: 15 }}>
-                {item.Items.length}
-              </Text>
-            </View>
+            <Text style={{ fontWeight: "500", fontSize: 15 }}>
+              {item.Items.length}
+            </Text>
           </View>
-        </ImageBackground>
-      </TouchableOpacity>
-    </View>
+        </View>
+      </ImageBackground>
+    </TouchableOpacity>
   );
 
   return (
     <View style={{ flex: 1, marginBottom: 10 }}>
-      {/* <Text style={{ fontSize: 20, fontWeight: "bold", marginLeft: 10, marginVertical: 5 }}>{title}</Text> */}
       <FlatList
-        keyExtractor={(item) => item._id}
-        data={data}
-        renderItem={renderTopic}
+        data={allTopics}
+        keyExtractor={(index) => index._id}
+        renderItem={renderItem}
         numColumns={2}
+        contentContainerStyle={{ paddingHorizontal: 8 }}
       />
     </View>
   );

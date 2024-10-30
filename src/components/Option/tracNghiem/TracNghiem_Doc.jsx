@@ -1,6 +1,5 @@
 import {
   Alert,
-  Button,
   Image,
   StyleSheet,
   Text,

@@ -1,6 +1,5 @@
 import ChannelScreen from "./topTab/ChannelScreen";
 import TopicScreen from "./topTab/TopicScreen";
-import HistoryScreen from "./topTab/HistoryScreen";
 import TopTabVideo from "./TopTabVideo";
 import ListVideoOfTopic from "./ListVideoOfTopic";
 import VideoSettingTopic from "./VideoSettingTopic";
@@ -12,7 +11,6 @@ import WatchVideoWriteWord from "./WatchVideo/WatchVideoWriteWord";
 export {
   ChannelScreen,
   TopicScreen,
-  HistoryScreen,
   TopTabVideo,
   ListVideoOfTopic,
   VideoSettingTopic,

@@ -23,28 +23,21 @@ const ChannelScreen = ({ navigation }) => {
 
   const videoCache = {}; // Cache dữ liệu của từng kênh
 
-
   useEffect(() => {
     fetchChannelId();
   }, []);
 
-
   const fetchChannelId = async () => {
     try {
-      const response = await fetch(
-        `${appInfo.Host_URL}/api/channels`
-      );
-      const data = await response.json();      
-      data.data.map((item) => {          
-        fetchVideos(item.channelId) // 
+      const response = await fetch(`${appInfo.Host_URL}/api/channels`);
+      const data = await response.json();
+      data.data.map((item) => {
+        fetchVideos(item.channelId); //
       });
-      
     } catch (error) {
       console.error("Error fetching YouTube data:", error);
     }
   };
-
-
 
   const fetchVideos = async (channelId) => {
     const cachedData = videoCache[channelId];
@@ -96,8 +89,6 @@ const ChannelScreen = ({ navigation }) => {
       console.error("Error fetching YouTube data:", error);
     }
   };
-
-
 
   const renderChannel = ({ item }) => {
     const { title, thumbnails, channelId } = item.snippet;

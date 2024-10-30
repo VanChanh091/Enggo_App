@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
-import { Audio } from "expo-av";
+import { playVoiceText } from "../../translate/PLayTranslateVoice";
 
 const TracNghiem_Nghe = ({ navigation, route }) => {
   const { settings } = route.params;
@@ -24,63 +24,9 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
 
   const currentVocab = data[currentQuestion]; // Lấy ra từ vựng hiện tại
 
-  const playWordSound = async () => {
-    try {
-      // Nếu đã có âm thanh đang phát, hủy âm thanh trước khi phát từ mới
-      if (sound) {
-        await sound.unloadAsync();
-        setSound(null);
-      }
-      await Audio.setAudioModeAsync({
-        playsInSilentModeIOS: true,
-        shouldDuckAndroid: false,
-        staysActiveInBackground: false,
-      });
-
-      // console.log("currentVocab.audioVn :", currentVocab.audioVn);
-
-      if (!currentVocab.audioVn) {
-        throw new Error(
-          "Đường dẫn âm thanh tiếng Việt không hợp lệ hoặc bị null."
-        );
-      }
-
-      // Tạo âm thanh mới từ file require
-      if (settings.mode === "tu-nghia") {
-        const { sound: newSound } = await Audio.Sound.createAsync(
-          {
-            uri: currentVocab.audioEn,
-          },
-          {
-            shouldPlay: true,
-            isLooping: false,
-          }
-        );
-        setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
-        // Phát âm thanh
-        await newSound.playAsync();
-      } else {
-        const { sound: newSound } = await Audio.Sound.createAsync(
-          {
-            uri: currentVocab.audioVn,
-          },
-          {
-            shouldPlay: true,
-            isLooping: false,
-          }
-        );
-        setSound(newSound); // Lưu lại đối tượng âm thanh mới để quản lý
-        // Phát âm thanh
-        await newSound.playAsync();
-      }
-    } catch (error) {
-      console.error("Lỗi khi phát âm thanh: ", error);
-    }
-  };
-
   useEffect(() => {
     if (currentVocab) {
-      playWordSound(); // Tự động phát âm thanh khi từ vựng thay đổi
+      playVoiceText(currentVocab.vn, "vi");
     }
   }, [currentVocab]);
 
@@ -198,7 +144,9 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity onPress={playWordSound}>
+              <TouchableOpacity
+                onPress={() => playVoiceText(currentVocab.vn, "vi")}
+              >
                 <Image
                   source={require("../../../img/imgBoTuVung/voice.png")}
                   style={{ width: 75, height: 75, resizeMode: "contain" }}

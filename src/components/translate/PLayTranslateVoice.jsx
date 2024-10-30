@@ -18,7 +18,7 @@ let isPlaying = false;
 let isStopped = false;
 let currentPosition = 0;
 
-export const playVoiceText = async (text, playbackSpeed) => {
+export const playVoiceText = async (text, language) => {
   // Nếu âm thanh đang phát, dừng nó và lưu lại vị trí hiện tại
   if (isPlaying) {
     await stopVoiceText(); // Dừng âm thanh hiện tại
@@ -44,7 +44,7 @@ export const playVoiceText = async (text, playbackSpeed) => {
 
     const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=${encodeURIComponent(
       chunk
-    )}&tl=en`;
+    )}&tl=${language}`;
 
     try {
       await Audio.setAudioModeAsync({

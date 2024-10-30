@@ -12,8 +12,6 @@ import { useNavigation } from "@react-navigation/native";
 const ListItems = ({ data, navigationScreen }) => {
   const navigation = useNavigation();
 
-  console.log("data :", data);
-
   return (
     <View style={{ flex: 1, marginTop: 10 }}>
       <ScrollView>
@@ -73,7 +71,9 @@ const ListItems = ({ data, navigationScreen }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Text style={{ fontSize: 15, paddingLeft: 10 }}>{item.title}</Text>
+                  <Text style={{ fontSize: 15, paddingLeft: 10 }}>
+                    {item.title}
+                  </Text>
                 </View>
                 <View
                   style={{
@@ -93,7 +93,6 @@ const ListItems = ({ data, navigationScreen }) => {
                 </View>
               </TouchableOpacity>
             ))}
-
           </View>
         </View>
       </ScrollView>

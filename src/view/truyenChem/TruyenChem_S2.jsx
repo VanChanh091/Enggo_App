@@ -23,7 +23,7 @@ const TruyenChem_S2 = ({ route }) => {
         return (
           <TouchableOpacity
             key={index}
-            onPress={() => playVoiceText(cleanedWord)}
+            onPress={() => playVoiceText(cleanedWord, "en")}
             style={{ marginTop: -2 }}
           >
             <Text
@@ -137,7 +137,9 @@ const TruyenChem_S2 = ({ route }) => {
             <View style={{ marginVertical: 10, marginLeft: 25 }}>
               {data.words.map((words, index) => (
                 <View key={index}>
-                  <TouchableOpacity onPress={() => playVoiceText(words.word)}>
+                  <TouchableOpacity
+                    onPress={() => playVoiceText(words.word, "en")}
+                  >
                     <Text style={{ fontSize: 18, paddingVertical: 6 }}>
                       {words.id}.
                       <Text style={{ fontWeight: "bold" }}> {words.word}</Text>

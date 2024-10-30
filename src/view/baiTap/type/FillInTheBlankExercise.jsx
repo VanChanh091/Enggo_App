@@ -214,7 +214,7 @@ const FillInTheBlankExercise = ({ data }) => {
 
             <TouchableOpacity
               style={{ paddingLeft: 20 }}
-              onPress={() => playVoiceText(item.originalText)}
+              onPress={() => playVoiceText(item.originalText, "en")}
             >
               <Ionicons name="volume-medium-sharp" color="black" size={35} />
             </TouchableOpacity>

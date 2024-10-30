@@ -138,7 +138,9 @@ const DanhNgon = () => {
                       marginHorizontal: 15,
                     }}
                   >
-                    <TouchableOpacity onPress={() => playVoiceText(item.word)}>
+                    <TouchableOpacity
+                      onPress={() => playVoiceText(item.word, "en")}
+                    >
                       <Text style={{ fontWeight: "bold", fontSize: 17 }}>
                         {item.word}
                         <Text style={{ fontSize: 17, fontWeight: "regular" }}>
@@ -179,7 +181,9 @@ const DanhNgon = () => {
               <View style={{ width: "100%", height: 150 }}>
                 <View style={{ alignItems: "center" }}>
                   <TouchableOpacity
-                    onPress={() => playVoiceText(quotes[currentIndex].text)}
+                    onPress={() =>
+                      playVoiceText(quotes[currentIndex].text, "en")
+                    }
                   >
                     <Text
                       style={{

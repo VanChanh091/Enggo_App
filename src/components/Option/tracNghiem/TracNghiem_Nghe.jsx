@@ -20,7 +20,6 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
   const [isQuizCompleted, setIsQuizCompleted] = useState(false); // Kiểm tra đã hoàn thành chưa
   const [answers, setAnswers] = useState([]); // Danh sách câu trả lời được trộn
   const [lives, setLives] = useState(3); // Số lượng trái tim
-  const [sound, setSound] = useState(null);
 
   const currentVocab = data[currentQuestion]; // Lấy ra từ vựng hiện tại
 
@@ -31,7 +30,7 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
   }, [currentVocab]);
 
   // Xử lý khi chọn đáp án
-  const handleAnswer = (answer) => {
+  const handleAnswer = async (answer) => {
     const isCorrect =
       (settings.mode === "tu-nghia" && answer === currentVocab.vn) ||
       (settings.mode === "nghia-tu" && answer === currentVocab.en);
@@ -44,6 +43,10 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
       Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
       setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
       return;
+    }
+
+    if (isCorrect) {
+      await playVoiceText(currentVocab.en, "en");
     }
 
     if (!isCorrect) {

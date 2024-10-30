@@ -136,7 +136,7 @@ const TinTuc_S2 = ({ route }) => {
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                      onPress={() => playVoiceText(item.text)}
+                      onPress={() => playVoiceText(item.text, "en")}
                       style={{ paddingHorizontal: 20 }}
                     >
                       <FontAwesome name="volume-up" size={35} color="black" />

@@ -78,7 +78,7 @@ const SongNgu_S3 = ({ route }) => {
         >
           <TouchableOpacity
             style={{ marginLeft: 15 }}
-            onPress={() => playVoiceText(dataTruyen.text)}
+            onPress={() => playVoiceText(dataTruyen.text, "en")}
           >
             <FontAwesome name="volume-up" size={35} color="black" />
           </TouchableOpacity>

@@ -9,7 +9,7 @@ import PlayVoice from "../../components/playVoice/PlayVoice";
 
 const DetailOfListening = ({ route }) => {
   const { data } = route.params;
-  
+
   const allText = data.content.map((item) => item.text).join(" ");
 
   const { translatedText, translateWithDelay } = useTranslate();
@@ -106,7 +106,7 @@ const DetailOfListening = ({ route }) => {
 
                     <TouchableOpacity
                       style={{ marginLeft: 15 }}
-                      onPress={() => playVoiceText(item.text)}
+                      onPress={() => playVoiceText(item.text, "en")}
                     >
                       <FontAwesome name="volume-up" size={28} color="black" />
                     </TouchableOpacity>

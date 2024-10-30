@@ -31,7 +31,7 @@ const Parody = ({ route }) => {
       stopVoiceText();
       setActiveIndex(null);
     } else {
-      playVoiceText(text);
+      playVoiceText(text, "en");
       setActiveIndex(index);
     }
   };

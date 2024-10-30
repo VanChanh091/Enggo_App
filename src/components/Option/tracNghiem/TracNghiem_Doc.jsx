@@ -44,7 +44,7 @@ const TracNghiem_Doc = ({ navigation, route }) => {
     }
 
     if (isCorrect) {
-      await playVoiceText(currentVocab.en, 1);
+      await playVoiceText(currentVocab.en, "en");
     }
 
     // Tự động chuyển câu hỏi sau 1 giây

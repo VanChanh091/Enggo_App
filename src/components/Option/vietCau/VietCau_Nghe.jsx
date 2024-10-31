@@ -12,22 +12,32 @@ import { playVoiceText } from "../../translate/PLayTranslateVoice";
 
 const VietCau_Nghe = ({ navigation, route }) => {
   const { settings } = route.params;
+  console.log(settings);
+
   const { data } = route.params;
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [sound, setSound] = useState(null);
   const [selectedWords, setSelectedWords] = useState([]); // Lưu trữ các từ đã chọn
   const [lives, setLives] = useState(3); // Số lượng trái tim
   const [wordOptions, setWordOptions] = useState([]); // Danh sách từ để chọn
   const [correctAnswer, setCorrectAnswer] = useState([]); // Câu trả lời chính xác
   const [isQuizCompleted, setIsQuizCompleted] = useState(false); // Kiểm tra đã hoàn thành chưa
+  const [showAnswer, setShowAnswer] = useState(false);
 
   const currentVocab = data[currentQuestion]; // Lấy ra từ vựng hiện tại
+
+  useEffect(() => {
+    if (currentVocab) {
+      playVoiceText(currentVocab.en, "en");
+    }
+  }, [currentVocab]);
 
   // Khởi tạo danh sách từ khi từ vựng thay đổi
   useEffect(() => {
     let allOptions = [];
 
+    //cau
+    // en - vn
     if (settings.mode === "tu-nghia") {
       // Tách từ tiếng Việt (theo từ)
       const correctWords = currentVocab.vn.split(" ").map((word, index) => ({
@@ -52,41 +62,43 @@ const VietCau_Nghe = ({ navigation, route }) => {
       allOptions = shuffleArray([...correctWords, ...selectedRandomWords]); // Trộn các tùy chọn từ tiếng Việt
       setCorrectAnswer(correctWords); // Đặt câu trả lời đúng là các từ tiếng Việt
     } else {
-      // Tách từng chữ cái của từ tiếng Anh
-      const correctLetters = splitWordIntoLetters(currentVocab.en).map(
-        (letter, index) => ({
+      // nghia
+      // vn - en
+
+      // Tách từng chữ cái của từ tiếng Anh và loại bỏ khoảng trắng
+      const correctLetters = splitWordIntoLetters(currentVocab.en)
+        .filter((letter) => letter !== " ") // Loại bỏ khoảng trắng
+        .map((letter, index) => ({
           id: index, // Gán id duy nhất cho từng chữ cái
           letter: letter,
-        })
-      );
-
-      const randomLetters = data
-        .filter((item) => item.id !== currentVocab.id)
-        .map((item) => item.en.split(" "))
-        .flat()
-        .map((word, index) => ({
-          id: correctLetters.length + index, // Đảm bảo id duy nhất cho từ ngẫu nhiên
-          letter: word,
         }));
 
+      // Tạo các chữ cái ngẫu nhiên từ các từ khác trong dữ liệu
+      const randomLetters = data
+        .filter((item) => item.id !== currentVocab.id)
+        .map((item) =>
+          splitWordIntoLetters(item.en).filter((letter) => letter !== " ")
+        )
+        .flat()
+        .map((letter, index) => ({
+          id: correctLetters.length + index, // Đảm bảo id duy nhất cho từ ngẫu nhiên
+          letter: letter,
+        }));
+
+      // Chọn một số lượng chữ cái ngẫu nhiên để không vượt quá tổng số tùy chọn cần thiết
       const selectedRandomLetter = shuffleArray(randomLetters).slice(
         0,
-        8 - correctLetters.length
+        Math.max(8 - correctLetters.length, 0) // Đảm bảo không chọn quá nhiều chữ cái
       );
 
-      allOptions = shuffleArray([...selectedRandomLetter, ...correctLetters]); // Trộn các tùy chọn chữ cái
+      // Trộn các tùy chọn chữ cái để hiển thị
+      allOptions = shuffleArray([...correctLetters, ...selectedRandomLetter]);
       setCorrectAnswer(correctLetters); // Đặt câu trả lời đúng là các chữ cái
     }
 
     setWordOptions(allOptions); // Cập nhật danh sách các tùy chọn (từ hoặc chữ cái)
     setSelectedWords([]); // Reset từ đã chọn
   }, [currentQuestion, settings.mode]);
-
-  useEffect(() => {
-    if (currentVocab) {
-      playVoiceText(currentVocab.en, "en");
-    }
-  }, [currentVocab]);
 
   const splitWordIntoLetters = (word) => {
     return word.split(""); // Tách từng chữ cái của từ tiếng Anh
@@ -124,6 +136,20 @@ const VietCau_Nghe = ({ navigation, route }) => {
     }, 1000);
   };
 
+  const skipWord = () => {
+    setShowAnswer(true);
+
+    setTimeout(() => {
+      setShowAnswer(false);
+
+      if (currentQuestion === data.length - 1) {
+        setIsQuizCompleted(true);
+      } else {
+        setCurrentQuestion((prev) => prev + 1);
+      }
+    }, 2000);
+  };
+
   const checkAnswer = async () => {
     if (selectedWords.length === 0) {
       Alert.alert(
@@ -144,10 +170,29 @@ const VietCau_Nghe = ({ navigation, route }) => {
         setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
         // return;
       } else {
-        setLives((prev) => prev - 1); // Trừ 1 trái tim nếu sai
+        setLives((prev) => prev - 1);
       }
       setSelectedWords([]);
     }
+  };
+
+  const renderCorrectAnswer = () => {
+    let correctAnswer;
+    if (!showAnswer) return null;
+
+    if (settings.mode == "nghia-tu") {
+      correctAnswer = data[currentVocab.en];
+    } else {
+      correctAnswer = data[currentVocab.vn];
+    }
+
+    return (
+      <View
+        style={{ padding: 10, backgroundColor: "lightyellow", borderRadius: 8 }}
+      >
+        <Text style={{ fontSize: 18, color: "green" }}>{correctAnswer}</Text>
+      </View>
+    );
   };
 
   return (
@@ -246,7 +291,7 @@ const VietCau_Nghe = ({ navigation, route }) => {
                 alignItems: "flex-end",
               }}
             >
-              <TouchableOpacity onPress={moveToNextWord}>
+              <TouchableOpacity onPress={skipWord}>
                 <Text style={{ fontSize: 18, color: "gray", marginRight: 20 }}>
                   Bỏ qua
                 </Text>

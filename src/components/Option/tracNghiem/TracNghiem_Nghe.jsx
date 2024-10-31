@@ -12,6 +12,8 @@ import { playVoiceText } from "../../translate/PLayTranslateVoice";
 
 const TracNghiem_Nghe = ({ navigation, route }) => {
   const { settings } = route.params;
+  console.log(settings);
+
   const { data } = route.params;
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -25,7 +27,7 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
 
   useEffect(() => {
     if (currentVocab) {
-      playVoiceText(currentVocab.vn, "vi");
+      handlePlayVoice();
     }
   }, [currentVocab]);
 
@@ -91,6 +93,14 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
     setAnswers(answers); // Đặt câu trả lời đã trộn vào state
   }, [currentQuestion]);
 
+  const handlePlayVoice = () => {
+    if (settings.mode === "tu-nghia") {
+      playVoiceText(currentVocab.en, "en");
+    } else {
+      playVoiceText(currentVocab.vn, "vi");
+    }
+  };
+
   return (
     <PaperProvider>
       <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
@@ -147,9 +157,7 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity
-                onPress={() => playVoiceText(currentVocab.vn, "vi")}
-              >
+              <TouchableOpacity onPress={handlePlayVoice}>
                 <Image
                   source={require("../../../img/imgBoTuVung/voice.png")}
                   style={{ width: 75, height: 75, resizeMode: "contain" }}

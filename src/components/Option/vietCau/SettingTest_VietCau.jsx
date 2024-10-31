@@ -12,7 +12,7 @@ const SettingTest_VietCau = ({ navigation, route }) => {
   const handleStart = () => {
     const settings = {
       type: isDocNgheSelected ? "nghe" : "doc",
-      mode: isNghiaTuSelected ? "tu-nghia" : "nghia-tu",
+      mode: isNghiaTuSelected ? "tu-nghia" : "nghia-tu", //cau - nghia
     };
     if (settings.type === "doc") {
       navigation.navigate("VietCau_Doc", {
@@ -44,6 +44,8 @@ const SettingTest_VietCau = ({ navigation, route }) => {
           <Text style={{ fontSize: 18, marginTop: 25, marginLeft: 12 }}>
             Cài đặt kiểm tra:
           </Text>
+
+          {/* option read/listen */}
           <View
             style={{
               width: "100%",
@@ -92,6 +94,7 @@ const SettingTest_VietCau = ({ navigation, route }) => {
               <Text style={{ fontSize: 18 }}>Nghe</Text>
             </View>
           </View>
+
           <View
             style={{
               marginTop: 15,
@@ -116,7 +119,11 @@ const SettingTest_VietCau = ({ navigation, route }) => {
                   checkedIcon="dot-circle-o"
                   uncheckedIcon="circle-o"
                 />
-                <Text style={{ fontSize: 18 }}>Nghĩa - Từ</Text>
+                {isDocNgheSelected === 0 ? (
+                  <Text style={{ fontSize: 18 }}>Nghĩa - Từ</Text>
+                ) : (
+                  <Text style={{ fontSize: 18 }}>Chọn câu</Text>
+                )}
               </View>
             </View>
             <View style={{ flex: 1 }}>
@@ -136,7 +143,12 @@ const SettingTest_VietCau = ({ navigation, route }) => {
                   checkedIcon="dot-circle-o"
                   uncheckedIcon="circle-o"
                 />
-                <Text style={{ fontSize: 18 }}>Từ - Nghĩa</Text>
+
+                {isDocNgheSelected === 0 ? (
+                  <Text style={{ fontSize: 18 }}>Từ - Nghĩa</Text>
+                ) : (
+                  <Text style={{ fontSize: 18 }}>Chọn nghĩa</Text>
+                )}
               </View>
             </View>
           </View>

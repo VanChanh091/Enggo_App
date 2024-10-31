@@ -28,6 +28,7 @@ const VietCau_Doc = ({ navigation, route }) => {
   useEffect(() => {
     let allOptions = [];
 
+    //cau
     // en - vn
     if (settings.mode === "tu-nghia") {
       // Tách từ tiếng Việt (theo từ)
@@ -53,6 +54,7 @@ const VietCau_Doc = ({ navigation, route }) => {
       allOptions = shuffleArray([...correctWords, ...selectedRandomWords]); // Trộn các tùy chọn từ tiếng Việt
       setCorrectAnswer(correctWords); // Đặt câu trả lời đúng là các từ tiếng Việt
     } else {
+      // nghia
       // vn - en
 
       // Tách từng chữ cái của từ tiếng Anh và loại bỏ khoảng trắng

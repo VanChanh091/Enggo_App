@@ -115,7 +115,11 @@ const SettingTest_TracNghiem = ({ navigation, route }) => {
                   checkedIcon="dot-circle-o"
                   uncheckedIcon="circle-o"
                 />
-                <Text style={{ fontSize: 18 }}>Nghĩa - Từ</Text>
+                {isDocNgheSelected === 0 ? (
+                  <Text style={{ fontSize: 18 }}>Nghĩa - Từ</Text>
+                ) : (
+                  <Text style={{ fontSize: 18 }}>Chọn câu</Text>
+                )}
               </View>
             </View>
             <View style={{ flex: 1 }}>
@@ -135,7 +139,11 @@ const SettingTest_TracNghiem = ({ navigation, route }) => {
                   checkedIcon="dot-circle-o"
                   uncheckedIcon="circle-o"
                 />
-                <Text style={{ fontSize: 18 }}>Từ - Nghĩa</Text>
+                {isDocNgheSelected === 0 ? (
+                  <Text style={{ fontSize: 18 }}>Từ - Nghĩa</Text>
+                ) : (
+                  <Text style={{ fontSize: 18 }}>Chọn nghĩa</Text>
+                )}
               </View>
             </View>
           </View>

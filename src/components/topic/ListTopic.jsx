@@ -11,13 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 const ListTopic = ({ data, navigationScreen }) => {
   const navigation = useNavigation();
 
-  const allTopics = data.flatMap((category) =>
-    category.topics.map((item) => ({
-      ...item,
-      categoryName: category.name, // Keep track of category name for each topic
-    }))
-  );
-
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={{ flex: 1, height: 125, margin: 6 }}
@@ -34,8 +27,15 @@ const ListTopic = ({ data, navigationScreen }) => {
         }}
       >
         <View style={{ flex: 4 }}>
-          <Text style={{ fontSize: 17, color: "white", margin: 6 }}>
-            {item.categoryName}
+          <Text
+            style={{
+              fontSize: 17,
+              color: "white",
+              marginVertical: 10,
+              marginHorizontal: 10,
+            }}
+          >
+            {item.title}
           </Text>
         </View>
         <View
@@ -71,7 +71,7 @@ const ListTopic = ({ data, navigationScreen }) => {
   return (
     <View style={{ flex: 1, marginBottom: 10 }}>
       <FlatList
-        data={allTopics}
+        data={data}
         keyExtractor={(index) => index._id}
         renderItem={renderItem}
         numColumns={2}

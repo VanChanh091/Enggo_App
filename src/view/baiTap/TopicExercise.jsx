@@ -17,11 +17,11 @@ const TopicExercise = () => {
       const res = await fetch(`${appInfo.Host_URL}/api/exercises`);
       const data = await res.json();
       setExercises(data.data);
-      console.log(data);
     } catch (error) {
       console.error(error.message);
     }
   };
+
   return (
     <PaperProvider>
       <HeaderScreen title={"Bài Tập"} />

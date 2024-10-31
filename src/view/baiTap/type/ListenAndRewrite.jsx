@@ -14,6 +14,8 @@ import { TextInput } from "react-native";
 const ListenAndRewrite = ({ route }) => {
   const { data } = route.params;
 
+  const allText = data.content.map((item) => item.text).join(" ");
+
   const [isShowText, setIsShowText] = useState(false);
 
   return (
@@ -120,7 +122,7 @@ const ListenAndRewrite = ({ route }) => {
             borderColor: "#d0d0d0",
           }}
         >
-          <PlayVoice />
+          <PlayVoice text={allText} />
         </View>
       </View>
     </PaperProvider>

@@ -15,6 +15,8 @@ import { CheckBox } from "@rneui/themed";
 const ListenAndChoosePhrase = ({ route }) => {
   const { data } = route.params;
 
+  const allText = data.content.map((item) => item.text).join(" ");
+
   const [checked, setChecked] = useState(0);
 
   return (
@@ -189,7 +191,7 @@ const ListenAndChoosePhrase = ({ route }) => {
             borderColor: "#d0d0d0",
           }}
         >
-          <PlayVoice />
+          <PlayVoice text={allText} />
         </View>
       </View>
     </PaperProvider>

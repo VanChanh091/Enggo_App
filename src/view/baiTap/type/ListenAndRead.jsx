@@ -16,6 +16,8 @@ import { useTranslate } from "../../../components/translate/TranslateLanguage";
 const ListenAndRead = ({ route }) => {
   const { data } = route.params;
 
+  const allText = data.content.map((item) => item.text).join(" ");
+
   const { translatedText, translateWithDelay } = useTranslate();
 
   return (
@@ -59,7 +61,7 @@ const ListenAndRead = ({ route }) => {
               }}
             >
               <Image
-                source={data.image}
+                source={{ uri: data.image }}
                 style={{ width: "93%", height: "93%", borderRadius: 10 }}
               />
             </View>
@@ -110,7 +112,7 @@ const ListenAndRead = ({ route }) => {
             borderColor: "#d0d0d0",
           }}
         >
-          <PlayVoice />
+          <PlayVoice text={allText} />
         </View>
       </View>
     </PaperProvider>

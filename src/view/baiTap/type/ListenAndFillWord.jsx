@@ -9,6 +9,8 @@ import FillInTheBlankExercise from "./FillInTheBlankExercise";
 const ListenAndFillWord = ({ route }) => {
   const { data } = route.params;
 
+  const allText = data.content.map((item) => item.text).join(" ");
+
   return (
     <PaperProvider>
       <HeaderScreen title={"Nghe và điền từ"} />
@@ -37,7 +39,7 @@ const ListenAndFillWord = ({ route }) => {
               }}
             >
               <Image
-                source={data.image}
+                source={{ uri: data.image }}
                 style={{ width: "93%", height: "93%", borderRadius: 10 }}
               />
             </View>
@@ -53,7 +55,7 @@ const ListenAndFillWord = ({ route }) => {
             borderColor: "#d0d0d0",
           }}
         >
-          <PlayVoice />
+          <PlayVoice text={allText} />
         </View>
       </View>
     </PaperProvider>

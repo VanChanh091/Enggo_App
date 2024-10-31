@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Slider from "@react-native-community/slider";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import * as Speech from "expo-speech";
-import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const PlayVoice = (text) => {
   const [isSpeaking, setIsSpeaking] = useState(false);

@@ -47,7 +47,7 @@ const ListExercise = ({ navigation, route }) => {
           }}
         >
           <Image
-            source={data.background}
+            source={{ uri: data.background }}
             style={{ width: "92%", height: "100%", resizeMode: "contain" }}
           />
         </View>
@@ -63,7 +63,7 @@ const ListExercise = ({ navigation, route }) => {
               alignItems: "flex-end",
             }}
           >
-            {data.list.map((item, index) => (
+            {data?.Items?.map((item, index) => (
               <TouchableOpacity
                 key={index}
                 style={styles.touchableMap}
@@ -90,7 +90,7 @@ const ListExercise = ({ navigation, route }) => {
                   }}
                 >
                   <Image
-                    source={item.image}
+                    source={{ uri: item.image }}
                     style={{
                       width: "80%",
                       height: "80%",

@@ -31,12 +31,14 @@ const TruyenChem_S1 = ({ navigation }) => {
       const data = await res.json();
       if (data && data.data) {
         setStories(data.data);
-        console.log('Stories:', data.data);
+        console.log("Stories:", data.data);
       } else {
-        console.log('No stories found');
+        console.log("No stories found");
       }
     } catch (error) {
       console.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,7 +60,7 @@ const TruyenChem_S1 = ({ navigation }) => {
       </View>
       <View style={{ flex: 3, justifyContent: "center", alignItems: "center" }}>
         <Image
-          source={item.image}
+          source={{ uri: item.image }}
           style={{
             width: 95,
             height: 95,
@@ -92,10 +94,10 @@ const TruyenChem_S1 = ({ navigation }) => {
             </View>
           ) : (
             <FlatList
-              keyExtractor={(index) => index.id}
+              keyExtractor={(index) => index._id}
               horizontal={false}
               renderItem={listTruyenChem}
-              data={ApiTruyenChem}
+              data={stories}
             />
           )}
         </View>

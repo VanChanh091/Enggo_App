@@ -20,6 +20,7 @@ const BoTuVung_S2 = ({ navigation, route }) => {
       <HeaderScreen title={data.titleEn} />
 
       <View style={{ flex: 1 }}>
+        {/* option */}
         <View
           style={{
             width: "100%",
@@ -133,6 +134,7 @@ const BoTuVung_S2 = ({ navigation, route }) => {
           </View>
         </View>
 
+        {/* vocabularies */}
         <ScrollView>
           <View
             style={{
@@ -141,9 +143,9 @@ const BoTuVung_S2 = ({ navigation, route }) => {
               alignItems: "center",
             }}
           >
-            {data.vocab.map((vocabulary) => (
+            {data.vocab.map((vocabulary, index) => (
               <View
-                key={vocabulary.id}
+                key={index}
                 style={{
                   width: "92%",
                   height: 60,

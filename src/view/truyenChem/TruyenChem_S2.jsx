@@ -64,7 +64,7 @@ const TruyenChem_S2 = ({ route }) => {
                 style={{
                   fontWeight: "bold",
                   fontSize: 20,
-                  marginLeft: 12,
+                  paddingHorizontal: 20,
                   marginTop: 15,
                 }}
               >
@@ -76,11 +76,11 @@ const TruyenChem_S2 = ({ route }) => {
                 style={{
                   fontStyle: "italic",
                   fontSize: 18,
-                  marginLeft: 12,
+                  paddingHorizontal: 20,
                   marginTop: 15,
                 }}
               >
-                {data.nameEN}
+                {data.nameEn}
               </Text>
 
               {/* image */}
@@ -88,18 +88,17 @@ const TruyenChem_S2 = ({ route }) => {
                 style={{
                   width: "100%",
                   height: 220,
-                  marginTop: 10,
+                  marginVertical: 15,
                   justifyContent: "center",
                   alignItems: "center",
                 }}
               >
                 <Image
-                  source={data.image}
+                  source={{ uri: data.image }}
                   style={{
-                    width: 350,
+                    width: 380,
                     height: 250,
                     resizeMode: "contain",
-                    borderRadius: 40,
                   }}
                 />
               </View>
@@ -109,7 +108,8 @@ const TruyenChem_S2 = ({ route }) => {
                 style={{
                   width: "93%",
                   height: "100%",
-                  marginLeft: 14,
+                  marginHorizontal: 14,
+                  paddingVertical: 10,
                 }}
               >
                 <Text
@@ -141,7 +141,7 @@ const TruyenChem_S2 = ({ route }) => {
                     onPress={() => playVoiceText(words.word, "en")}
                   >
                     <Text style={{ fontSize: 18, paddingVertical: 6 }}>
-                      {words.id}.
+                      {index + 1}.
                       <Text style={{ fontWeight: "bold" }}> {words.word}</Text>
                       <Text> {words.meaning}</Text>
                     </Text>

@@ -141,9 +141,9 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
               alignItems: "center",
             }}
           >
-            {data.vocab.map((vocabulary) => (
+            {data.vocab.map((vocabulary, index) => (
               <View
-                key={vocabulary.id}
+                key={index}
                 style={{
                   width: "92%",
                   height: 60,

@@ -37,7 +37,7 @@ const DanhNgon = () => {
       const res = await fetch(`${appInfo.Host_URL}/api/quotes`);
       const data = await res.json();
       setQuotes(data.data);
-      console.log(quotes.text);
+      // console.log(quotes.text);
     } catch (error) {
       console.error(error);
     } finally {

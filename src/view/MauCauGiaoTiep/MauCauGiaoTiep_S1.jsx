@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   StyleSheet,
@@ -6,12 +7,33 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
-import { PaperProvider } from "react-native-paper";
-import { MauCau } from "../../api/ApiMauCauGiaoTiep";
+import React, { useEffect, useState } from "react";
+import { MD2Colors, PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import { appInfo } from "../../constants/appInfos";
 
 const MauCauGiaoTiep_S1 = ({ navigation }) => {
+  const [communication, setCommunication] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch(`${appInfo.Host_URL}/api/communication`);
+      const data = await res.json();
+      setCommunication(data);
+      console.log("communication data: ", data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const renderTopicAndVocabulary = ({ item }) => (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity
@@ -34,7 +56,7 @@ const MauCauGiaoTiep_S1 = ({ navigation }) => {
           }}
         >
           <Image
-            source={item.image}
+            source={{ uri: item.image }}
             style={{ width: 45, height: 45, resizeMode: "contain" }}
           />
         </View>
@@ -51,14 +73,24 @@ const MauCauGiaoTiep_S1 = ({ navigation }) => {
     <PaperProvider>
       <HeaderScreen title="Mẫu Câu Giao Tiếp" />
 
-      <View style={{ flex: 9, backgroundColor: "#F1F1F1" }}>
-        <FlatList
-          keyExtractor={(item) => item.id}
-          renderItem={renderTopicAndVocabulary}
-          data={MauCau}
-        />
-      </View>
-      <View style={{ flex: 1 }}></View>
+      {isLoading ? (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator animating={true} color={MD2Colors.blue800} />
+        </View>
+      ) : (
+        <View style={{ flex: 1 }}>
+          <View style={{ flex: 9, backgroundColor: "#F1F1F1" }}>
+            <FlatList
+              keyExtractor={(item) => item._id}
+              renderItem={renderTopicAndVocabulary}
+              data={communication}
+            />
+          </View>
+          <View style={{ flex: 1 }}></View>
+        </View>
+      )}
     </PaperProvider>
   );
 };

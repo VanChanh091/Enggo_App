@@ -63,7 +63,7 @@ const ListenAndChoosePhrase = ({ route }) => {
                     }}
                   >
                     <Text style={{ fontWeight: 600, fontSize: 17 }}>
-                      {item.id}. {item.question}
+                      {index + 1}. {item.question}
                     </Text>
                   </View>
                   <View style={{ flex: 7 }}>

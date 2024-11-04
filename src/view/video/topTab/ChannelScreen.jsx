@@ -20,6 +20,7 @@ const ChannelScreen = ({ navigation }) => {
   const [videosByChannel, setVideosByChannel] = useState({});
   const [channelInfo, setChannelInfo] = useState({});
   const [listChannelId, setListChannelId] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const videoCache = {}; // Cache dữ liệu của từng kênh
 
@@ -28,6 +29,7 @@ const ChannelScreen = ({ navigation }) => {
   }, []);
 
   const fetchChannelId = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${appInfo.Host_URL}/api/channels`);
       const data = await response.json();
@@ -36,6 +38,8 @@ const ChannelScreen = ({ navigation }) => {
       });
     } catch (error) {
       console.error("Error fetching YouTube data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -268,6 +268,63 @@ const BoTuVungNavigation = () => {
   );
 };
 
+const MauCauGiaoTiepNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="MauCauGiaoTiep_S1"
+        component={MauCauGiaoTiep_S1}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="MauCauGiaoTiep_S2"
+        component={MauCauGiaoTiep_S2}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="GhepCap"
+        component={GhepCap}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="LuyenDoc"
+        component={LuyenDoc}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TracNghiem_Doc"
+        component={TracNghiem_Doc}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TracNghiem_Nghe"
+        component={TracNghiem_Nghe}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="VietCau_Doc"
+        component={VietCau_Doc}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="VietCau_Nghe"
+        component={VietCau_Nghe}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SettingTest_TracNghiem"
+        component={SettingTest_TracNghiem}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SettingTest_VietCau"
+        component={SettingTest_VietCau}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const VideoNavigation = () => {
   return (
     <Stack.Navigator>
@@ -335,63 +392,6 @@ const ListenNavigation = () => {
   );
 };
 
-const MauCauGiaoTiepNavigation = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="MauCauGiaoTiep_S1"
-        component={MauCauGiaoTiep_S1}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="MauCauGiaoTiep_S2"
-        component={MauCauGiaoTiep_S2}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="GhepCap"
-        component={GhepCap}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="LuyenDoc"
-        component={LuyenDoc}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="TracNghiem_Doc"
-        component={TracNghiem_Doc}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="TracNghiem_Nghe"
-        component={TracNghiem_Nghe}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="VietCau_Doc"
-        component={VietCau_Doc}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="VietCau_Nghe"
-        component={VietCau_Nghe}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="SettingTest_TracNghiem"
-        component={SettingTest_TracNghiem}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="SettingTest_VietCau"
-        component={SettingTest_VietCau}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-};
-
 const BaiTapNavigation = () => {
   return (
     <Stack.Navigator>
@@ -429,6 +429,23 @@ const BaiTapNavigation = () => {
         name="Parody"
         component={Parody}
         options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const ListVocabularyNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="BoTuVung_S1"
+        component={BoTuVung_S1}
+        options={{ headerTitle: "Chi Tiết Từ Vựng" }}
+      />
+      <Stack.Screen
+        name="MauCauGiaoTiep_S1"
+        component={MauCauGiaoTiep_S1}
+        options={{ headerTitle: "Chi Tiết Từ Vựng" }}
       />
     </Stack.Navigator>
   );
@@ -500,6 +517,12 @@ const MainNavigator = () => {
       <Stack.Screen
         name="BaiTapNavigation"
         component={BaiTapNavigation}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ListVocabularyNavigation"
+        component={ListVocabularyNavigation}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

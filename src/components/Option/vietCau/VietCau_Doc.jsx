@@ -14,6 +14,7 @@ import { playVoiceText } from "../../translate/PLayTranslateVoice";
 const VietCau_Doc = ({ navigation, route }) => {
   const { settings } = route.params;
   const { data } = route.params;
+  const { screenNavigation } = route.params;
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedWords, setSelectedWords] = useState([]); // Lưu trữ các từ đã chọn
@@ -31,28 +32,33 @@ const VietCau_Doc = ({ navigation, route }) => {
     //cau
     // en - vn
     if (settings.mode === "tu-nghia") {
-      // Tách từ tiếng Việt (theo từ)
       const correctWords = currentVocab.vn.split(" ").map((word, index) => ({
-        id: index, // Gán id duy nhất cho từng từ
-        word: word, // Giá trị từ
+        id: index,
+        word: word,
       }));
 
       const randomWords = data
-        .filter((item) => item.id !== currentVocab.id)
+        .filter((item) => item._id !== currentVocab._id) // Loại trừ câu hiện tại
         .map((item) => item.vn.split(" "))
         .flat()
+        .filter(
+          (word) => !correctWords.some((correct) => correct.word === word)
+        ) // Loại bỏ các từ trùng lặp với câu trả lời đúng
         .map((word, index) => ({
-          id: correctWords.length + index, // Đảm bảo id duy nhất cho từ ngẫu nhiên
+          id: correctWords.length + index, // Gán id duy nhất cho từ ngẫu nhiên
           word: word,
         }));
 
+      // Chọn ngẫu nhiên từ 2 đến 3 từ từ danh sách từ ngẫu nhiên
       const selectedRandomWords = shuffleArray(randomWords).slice(
         0,
-        8 - correctWords.length
+        Math.floor(Math.random() * 2) + 5
       );
 
-      allOptions = shuffleArray([...correctWords, ...selectedRandomWords]); // Trộn các tùy chọn từ tiếng Việt
-      setCorrectAnswer(correctWords); // Đặt câu trả lời đúng là các từ tiếng Việt
+      // Trộn các từ đúng với từ ngẫu nhiên
+      allOptions = shuffleArray([...correctWords, ...selectedRandomWords]);
+
+      setCorrectAnswer(correctWords);
     } else {
       // nghia
       // vn - en
@@ -125,7 +131,7 @@ const VietCau_Doc = ({ navigation, route }) => {
       } else {
         setCurrentQuestion((prev) => prev + 1);
       }
-    }, 1000);
+    }, 500);
   };
 
   const checkAnswer = async () => {
@@ -144,7 +150,8 @@ const VietCau_Doc = ({ navigation, route }) => {
     } else {
       Alert.alert("Sai", "Câu ghép chưa đúng, hãy thử lại.");
       if (lives === 1) {
-        // Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
+        Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
+        setLives(0);
         setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
         // return;
       } else {
@@ -331,7 +338,7 @@ const VietCau_Doc = ({ navigation, route }) => {
               marginTop: 20,
               backgroundColor: "#F4C33A",
             }}
-            onPress={() => navigation.navigate("BoTuVung_S1")}
+            onPress={() => navigation.navigate(screenNavigation)}
           >
             <Text style={{ fontWeight: "bold", fontSize: 20 }}>OK</Text>
           </TouchableOpacity>

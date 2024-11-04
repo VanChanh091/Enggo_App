@@ -26,7 +26,7 @@ const MauCauGiaoTiep_S1 = ({ navigation }) => {
       const res = await fetch(`${appInfo.Host_URL}/api/communication`);
       const data = await res.json();
       setCommunication(data);
-      console.log("communication data: ", data);
+      // console.log("communication data: ", data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -57,6 +57,7 @@ const MauCauGiaoTiep_S1 = ({ navigation }) => {
         >
           <Image
             source={{ uri: item.image }}
+            // source={item.image}
             style={{ width: 45, height: 45, resizeMode: "contain" }}
           />
         </View>

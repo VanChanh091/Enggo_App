@@ -102,6 +102,8 @@ const ListenAndRead = ({ route }) => {
                 </View>
               </View>
             ))}
+
+            <View style={{ width: "100%", height: 20 }}></View>
           </ScrollView>
         </View>
 

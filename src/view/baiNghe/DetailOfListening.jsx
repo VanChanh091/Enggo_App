@@ -14,12 +14,6 @@ const DetailOfListening = ({ route }) => {
 
   const { translatedText, translateWithDelay } = useTranslate();
 
-  if (typeof allText !== "string") {
-    console.log("Not a string");
-  } else {
-    console.log("Text a string ");
-  }
-
   return (
     <PaperProvider>
       <HeaderScreen title="" />

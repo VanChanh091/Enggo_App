@@ -1,11 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import { Appbar, PaperProvider } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { CheckBox } from "@rneui/themed";
 import HeaderScreen from "../../header/HeaderScreen";
 
 const SettingTest_TracNghiem = ({ navigation, route }) => {
   const { dataVocab } = route.params;
+  const { screenNavigation } = route.params;
 
   const [isDocNgheSelected, setIsDocNgheSelected] = useState(0);
   const [isNghiaTuSelected, setIsNghiaTuSelected] = useState(0);
@@ -19,11 +20,13 @@ const SettingTest_TracNghiem = ({ navigation, route }) => {
       navigation.navigate("TracNghiem_Doc", {
         settings: settings,
         data: dataVocab,
+        screenNavigation: screenNavigation,
       });
     } else {
       navigation.navigate("TracNghiem_Nghe", {
         settings: settings,
         data: dataVocab,
+        screenNavigation: screenNavigation,
       });
     }
   };

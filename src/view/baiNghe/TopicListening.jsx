@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
-import { PaperProvider } from "react-native-paper";
+import { ActivityIndicator, View } from "react-native";
+import { MD2Colors, PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import ListTopic from "../../components/topic/ListTopic";
 import { appInfo } from "../../constants/appInfos";
 
 const TopicListening = () => {
-  const [groupedTopics, setGroupedTopics] = useState([]);
+  // const [groupedTopics, setGroupedTopics] = useState([]);
   const [listen, setListen] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const res = await fetch(`${appInfo.Host_URL}/api/exercises`);
       const data = await res.json();
       setListen(data.data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,9 +56,17 @@ const TopicListening = () => {
   return (
     <PaperProvider>
       <HeaderScreen title="Bài nghe" />
-      <View style={{ flex: 1, backgroundColor: "white", marginTop: 7 }}>
-        <ListTopic data={listen} navigationScreen="ListListeningOfTopic" />
-      </View>
+      {loading ? (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator animating={true} color={MD2Colors.blue800} />
+        </View>
+      ) : (
+        <View style={{ flex: 1, backgroundColor: "white", marginTop: 7 }}>
+          <ListTopic data={listen} navigationScreen="ListListeningOfTopic" />
+        </View>
+      )}
     </PaperProvider>
   );
 };

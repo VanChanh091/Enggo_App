@@ -5,6 +5,7 @@ import { CheckBox } from "@rneui/themed";
 
 const SettingTest_VietCau = ({ navigation, route }) => {
   const { dataVocab } = route.params;
+  const { screenNavigation } = route.params;
 
   const [isDocNgheSelected, setIsDocNgheSelected] = useState(0);
   const [isNghiaTuSelected, setIsNghiaTuSelected] = useState(0);
@@ -18,11 +19,13 @@ const SettingTest_VietCau = ({ navigation, route }) => {
       navigation.navigate("VietCau_Doc", {
         settings: settings,
         data: dataVocab,
+        screenNavigation: screenNavigation,
       });
     } else {
       navigation.navigate("VietCau_Nghe", {
         settings: settings,
         data: dataVocab,
+        screenNavigation: screenNavigation,
       });
     }
   };

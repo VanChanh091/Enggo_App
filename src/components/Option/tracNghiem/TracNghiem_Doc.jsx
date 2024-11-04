@@ -13,6 +13,8 @@ import { playVoiceText } from "../../translate/PLayTranslateVoice";
 const TracNghiem_Doc = ({ navigation, route }) => {
   const { settings } = route.params;
   const { data } = route.params;
+  const { screenNavigation } = route.params;
+  console.log(screenNavigation);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null); // Đáp án đã chọn
@@ -22,42 +24,6 @@ const TracNghiem_Doc = ({ navigation, route }) => {
   const [lives, setLives] = useState(3); // Số lượng trái tim
 
   const currentVocab = data[currentQuestion]; // Lấy ra từ vựng hiện tại
-
-  // Xử lý khi chọn đáp án
-  const handleAnswer = async (answer) => {
-    const isCorrect =
-      (settings.mode === "tu-nghia" && answer === currentVocab.vn) ||
-      (settings.mode === "nghia-tu" && answer === currentVocab.en);
-
-    setSelectedAnswer(answer); // Lưu lại câu trả lời đã chọn
-    setCorrectAnswer(isCorrect ? "correct" : "wrong"); // Đặt trạng thái đúng/sai
-
-    if (!isCorrect) {
-      setLives((prev) => prev - 1); // Trừ 1 trái tim nếu sai
-    }
-
-    // Kiểm tra nếu hết trái tim
-    if (lives === 1 && !isCorrect) {
-      Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
-      setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
-      return;
-    }
-
-    if (isCorrect) {
-      await playVoiceText(currentVocab.en, "en");
-    }
-
-    // Tự động chuyển câu hỏi sau 1 giây
-    setTimeout(() => {
-      if (currentQuestion === data.length - 1) {
-        setIsQuizCompleted(true);
-      } else {
-        setCurrentQuestion((prev) => prev + 1);
-        setSelectedAnswer(null); // Reset trạng thái đã chọn
-        setCorrectAnswer(null); // Reset trạng thái đúng/sai
-      }
-    }, 1000);
-  };
 
   useEffect(() => {
     // Hàm trộn mảng ngẫu nhiên (Fisher-Yates Shuffle)
@@ -83,6 +49,43 @@ const TracNghiem_Doc = ({ navigation, route }) => {
     ].sort(() => Math.random() - 0.5); // Trộn ngẫu nhiên các câu trả lời
     setAnswers(answers); // Đặt câu trả lời đã trộn vào state
   }, [currentQuestion]);
+
+  // Xử lý khi chọn đáp án
+  const handleAnswer = async (answer) => {
+    const isCorrect =
+      (settings.mode === "tu-nghia" && answer === currentVocab.vn) ||
+      (settings.mode === "nghia-tu" && answer === currentVocab.en);
+
+    setSelectedAnswer(answer); // Lưu lại câu trả lời đã chọn
+    setCorrectAnswer(isCorrect ? "correct" : "wrong"); // Đặt trạng thái đúng/sai
+
+    if (!isCorrect) {
+      setLives((prev) => prev - 1); // Trừ 1 trái tim nếu sai
+    }
+
+    // Kiểm tra nếu hết trái tim
+    if (lives === 1 && !isCorrect) {
+      Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
+      setLives(0);
+      setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
+      return;
+    }
+
+    if (isCorrect) {
+      await playVoiceText(currentVocab.en, "en");
+    }
+
+    // Tự động chuyển câu hỏi sau 1 giây
+    setTimeout(() => {
+      if (currentQuestion === data.length - 1) {
+        setIsQuizCompleted(true);
+      } else {
+        setCurrentQuestion((prev) => prev + 1);
+        setSelectedAnswer(null); // Reset trạng thái đã chọn
+        setCorrectAnswer(null); // Reset trạng thái đúng/sai
+      }
+    }, 1000);
+  };
 
   return (
     <PaperProvider>
@@ -203,7 +206,7 @@ const TracNghiem_Doc = ({ navigation, route }) => {
               marginTop: 20,
               backgroundColor: "#F4C33A",
             }}
-            onPress={() => navigation.navigate("BoTuVung_S1")}
+            onPress={() => navigation.navigate(screenNavigation)}
           >
             <Text style={{ fontWeight: "bold", fontSize: 20 }}>OK</Text>
           </TouchableOpacity>

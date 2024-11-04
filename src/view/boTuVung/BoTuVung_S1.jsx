@@ -35,8 +35,6 @@ const BoTuVung_S1 = ({ navigation }) => {
     }
   };
 
-  console.log("vocabulary: ", vocabulary);
-
   const renderTopicAndVocabulary = ({ item }) => (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity

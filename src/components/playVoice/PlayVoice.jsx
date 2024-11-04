@@ -202,6 +202,7 @@ const PlayVoice = (text) => {
     setCurrentPosition(0); // Đặt lại vị trí về đầu
     setElapsedTime(0); // Reset lại thời gian đã phát
     speakText(); // Phát lại từ đầu
+    setIsSpeaking(false);
   };
 
   const toggleLoop = () => {
@@ -230,6 +231,7 @@ const PlayVoice = (text) => {
               {formatTime(elapsedTime)}
             </Text>
           </View>
+
           <View style={{ flex: 7 }}>
             <Slider
               style={{ flex: 1 }}
@@ -259,6 +261,8 @@ const PlayVoice = (text) => {
             }}
           >
             <Text style={{ fontSize: 15, color: "#666" }}>
+              {" "}
+              ++
               {formatTime(totalDuration)}
             </Text>
           </View>

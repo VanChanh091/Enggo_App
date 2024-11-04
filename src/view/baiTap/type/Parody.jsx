@@ -184,6 +184,7 @@ const Parody = ({ route }) => {
               </Text>
             </View>
           ))}
+          <View style={{ width: "100%", height: 45 }}></View>
         </ScrollView>
       </View>
     </PaperProvider>

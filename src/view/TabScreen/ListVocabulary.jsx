@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { PaperProvider, Appbar } from "react-native-paper";
 
-const ListVocabulary = () => {
+const ListVocabulary = ({ navigation }) => {
   return (
     <PaperProvider>
       <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
@@ -101,21 +101,65 @@ const ListVocabulary = () => {
                 >
                   Lưu các từ vựng có sẵn tại đây
                 </Text>
-                <TouchableOpacity
+                <View
                   style={{
-                    width: 180,
-                    height: 45,
-                    borderRadius: 12,
-                    backgroundColor: "#50C5AA",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: 20,
+                    width: "100%",
+                    height: 70,
+                    flexDirection: "row",
                   }}
                 >
-                  <Text style={{ fontSize: "17", color: "white" }}>
-                    Bộ từ vựng
-                  </Text>
-                </TouchableOpacity>
+                  <View
+                    style={{
+                      flex: 1,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{
+                        width: "90%",
+                        height: 45,
+                        borderRadius: 12,
+                        backgroundColor: "#50C5AA",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginTop: 20,
+                      }}
+                      onPress={() =>
+                        navigation.navigate("ListVocabularyNavigation")
+                      }
+                    >
+                      <Text style={{ fontSize: "17", color: "white" }}>
+                        Bộ từ vựng
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View
+                    style={{
+                      flex: 1,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onPress={() => navigation.navigate("BoTuVung_S1")}
+                  >
+                    <TouchableOpacity
+                      style={{
+                        width: "90%",
+                        height: 45,
+                        borderRadius: 12,
+                        backgroundColor: "#50C5AA",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginTop: 20,
+                      }}
+                      onPress={() => navigation.navigate("MauCauGiaoTiep_S1")}
+                    >
+                      <Text style={{ fontSize: "17", color: "white" }}>
+                        Mẫu câu
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
             </View>
           </View>

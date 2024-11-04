@@ -52,6 +52,7 @@ const BoTuVung_S2 = ({ navigation, route }) => {
               onPress={() =>
                 navigation.navigate("SettingTest_VietCau", {
                   dataVocab: data.vocab,
+                  screenNavigation: "BoTuVung_S1",
                 })
               }
             >
@@ -101,6 +102,7 @@ const BoTuVung_S2 = ({ navigation, route }) => {
               onPress={() =>
                 navigation.navigate("SettingTest_TracNghiem", {
                   dataVocab: data.vocab,
+                  screenNavigation: "BoTuVung_S1",
                 })
               }
             >

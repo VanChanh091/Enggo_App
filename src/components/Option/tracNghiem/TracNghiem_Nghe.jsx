@@ -12,18 +12,18 @@ import { playVoiceText } from "../../translate/PLayTranslateVoice";
 
 const TracNghiem_Nghe = ({ navigation, route }) => {
   const { settings } = route.params;
-  console.log(settings);
-
   const { data } = route.params;
+  const { screenNavigation } = route.params;
+  console.log(screenNavigation);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null); // Đáp án đã chọn
-  const [correctAnswer, setCorrectAnswer] = useState(null); // Đáp án đúng/sai
-  const [isQuizCompleted, setIsQuizCompleted] = useState(false); // Kiểm tra đã hoàn thành chưa
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [correctAnswer, setCorrectAnswer] = useState(null);
+  const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const [answers, setAnswers] = useState([]); // Danh sách câu trả lời được trộn
-  const [lives, setLives] = useState(3); // Số lượng trái tim
+  const [lives, setLives] = useState(3);
 
-  const currentVocab = data[currentQuestion]; // Lấy ra từ vựng hiện tại
+  const currentVocab = data[currentQuestion];
 
   useEffect(() => {
     if (currentVocab) {
@@ -43,6 +43,7 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
     // Kiểm tra nếu hết trái tim
     if (lives === 1 && !isCorrect) {
       Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
+      setLives(0);
       setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
       return;
     }
@@ -226,7 +227,7 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
               marginTop: 20,
               backgroundColor: "#F4C33A",
             }}
-            onPress={() => navigation.navigate("BoTuVung_S1")}
+            onPress={() => navigation.navigate(screenNavigation)}
           >
             <Text style={{ fontWeight: "bold", fontSize: 20 }}>OK</Text>
           </TouchableOpacity>

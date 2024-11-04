@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { MD2Colors, PaperProvider } from "react-native-paper";
-import { TopicAndVocabulary } from "../../api/ApiBoTuVung";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
 
@@ -27,7 +26,7 @@ const BoTuVung_S1 = ({ navigation }) => {
       const res = await fetch(`${appInfo.Host_URL}/api/vocabularies`);
       const data = await res.json();
       setVocabulary(data);
-      console.log("Vocabulary data: ", data);
+      // console.log("Vocabulary data: ", data);
     } catch (error) {
       console.error(error);
     } finally {

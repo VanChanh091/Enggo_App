@@ -14,7 +14,6 @@ const TracNghiem_Nghe = ({ navigation, route }) => {
   const { settings } = route.params;
   const { data } = route.params;
   const { screenNavigation } = route.params;
-  console.log(screenNavigation);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);

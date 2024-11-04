@@ -152,7 +152,7 @@ const VietCau_Doc = ({ navigation, route }) => {
       if (lives === 1) {
         Alert.alert("Kết thúc", "Bạn đã hết trái tim!");
         setLives(0);
-        setIsQuizCompleted(true); // Kết thúc bài kiểm tra khi hết trái tim
+        setIsQuizCompleted(true);
         // return;
       } else {
         setLives((prev) => prev - 1);

@@ -11,42 +11,34 @@ import { Appbar, PaperProvider } from "react-native-paper";
 
 const GhepCap = ({ navigation, route }) => {
   const { dataVocab } = route.params;
+  console.log(dataVocab);
 
   const [shuffledData, setShuffledData] = useState([]);
-  const [selectedWord, setSelectedWord] = useState([]);
+  const [selectedWord, setSelectedWord] = useState(null);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
   const [lives, setLives] = useState(3);
   const [tempColors, setTempColors] = useState({});
 
   useEffect(() => {
-    // create new array contain value "en" and "vn"
     let combinedData = [];
 
     dataVocab.forEach((item) => {
-      combinedData.push({ id: item.id, value: item.en, type: "en" });
-      combinedData.push({ id: item.id, value: item.vn, type: "vn" });
+      combinedData.push({ _id: item._id, value: item.en, type: "en" });
+      combinedData.push({ _id: item._id, value: item.vn, type: "vn" });
     });
 
-    // Shuffle contain random values
+    // Shuffle the array to create randomness
     const shuffled = shuffleArray(combinedData);
 
     setShuffledData(shuffled.slice(0, countEnVn(dataVocab)));
   }, []);
 
-  //  cal total vocab en and vn in api
+  // Calculate total vocabulary entries in API
   const countEnVn = (data) => {
-    let countEn = 0;
-    let countVn = 0;
-
-    data.forEach((item) => {
-      if (item.en) countEn++;
-      if (item.vn) countVn++;
-    });
-
-    return countEn + countVn;
+    return data.length * 2;
   };
 
-  // random items
+  // Function to shuffle array
   const shuffleArray = (array) => {
     return array.sort(() => Math.random() - 0.5);
   };
@@ -55,23 +47,25 @@ const GhepCap = ({ navigation, route }) => {
     // If there's no selected word, select this word
     if (!selectedWord) {
       setSelectedWord(word);
-      setTempColors({ [word.id + word.type]: "blue" }); // Highlight selected item
+      setTempColors({ [word._id + word.type]: "blue" }); // Highlight selected item
     } else {
       // If the clicked word is the same as the selected one, deselect it
-      if (selectedWord.id === word.id && selectedWord.type === word.type) {
+      if (selectedWord._id === word._id && selectedWord.type === word.type) {
         setSelectedWord(null);
         setTempColors({}); // Reset selection colors
       } else {
-        // Check for match
-        if (selectedWord.id === word.id && selectedWord.type !== word.type) {
+        // Check for a match
+        if (selectedWord._id === word._id && selectedWord.type !== word.type) {
           // Correct match
           const updatedData = shuffledData.map((item) =>
-            item.id === word.id ? { ...item, tempColor: "green" } : item
+            item._id === word._id ? { ...item, tempColor: "green" } : item
           );
 
           setShuffledData(updatedData);
           setTimeout(() => {
-            const finalData = updatedData.filter((item) => item.id !== word.id);
+            const finalData = updatedData.filter(
+              (item) => item._id !== word._id
+            );
             setShuffledData(finalData);
             setSelectedWord(null);
             setTempColors({}); // Reset selection colors
@@ -81,7 +75,7 @@ const GhepCap = ({ navigation, route }) => {
             }
           }, 500);
         } else {
-          // Incorrect match: highlight both selected items red
+          // Incorrect match: highlight both selected items in red
           const updatedData = shuffledData.map((item) =>
             item === selectedWord || item === word
               ? { ...item, tempColor: "red" }
@@ -114,7 +108,7 @@ const GhepCap = ({ navigation, route }) => {
 
   const renderVocabulary = ({ item }) => {
     const backgroundColor = item.tempColor || "white"; // Use tempColor if set, otherwise white
-    const borderColor = tempColors[item.id + item.type] || "gray"; // Default to gray unless selected
+    const borderColor = tempColors[item._id + item.type] || "gray"; // Default to gray unless selected
 
     return (
       <TouchableOpacity
@@ -178,14 +172,14 @@ const GhepCap = ({ navigation, route }) => {
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           <FlatList
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item._id + item.type}
             renderItem={renderVocabulary}
             data={shuffledData}
             numColumns={3}
           />
         </View>
       ) : (
-        // Hiển thị khi hoàn thành bài trắc nghiệm
+        // Display upon quiz completion
         <View
           style={{
             flex: 1,

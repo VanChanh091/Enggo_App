@@ -16,8 +16,6 @@ const PlayVoice = (text) => {
 
   const intervalRef = useRef(null); // Ref để giữ bộ đếm
 
-  // const [text] = useState(text.text);
-
   const textLength = text.text.length;
 
   const getText = text.text; //get all text from allText
@@ -47,7 +45,7 @@ const PlayVoice = (text) => {
   }, [isSpeaking, totalDuration]);
 
   useEffect(() => {
-    if (isLooping && !isSpeaking) {
+    if (isLooping) {
       startSpeech(0, getText); // Phát lại từ đầu
     }
   }, [isLooping, isSpeaking]);
@@ -173,36 +171,13 @@ const PlayVoice = (text) => {
     setPlaybackRate(newRate);
   };
 
-  const handleForward = async () => {
-    const newPosition = Math.min(
-      currentPosition + 5 * charsPerSecond,
-      textLength
-    );
-    setCurrentPosition(newPosition);
-    setElapsedTime(Math.min(elapsedTime + 5, totalDuration)); // Cập nhật thời gian hiển thị
-    if (isSpeaking) {
-      await stopSpeech();
-      startSpeech(newPosition, getText); // Phát lại từ vị trí mới
-    }
-  };
-
-  const handleBackward = async () => {
-    const newPosition = Math.max(currentPosition - 5 * charsPerSecond, 0);
-    setCurrentPosition(newPosition);
-    setElapsedTime(Math.max(elapsedTime - 5, 0)); // Cập nhật thời gian hiển thị
-    if (isSpeaking) {
-      await stopSpeech();
-      startSpeech(newPosition, getText); // Phát lại từ vị trí mới
-    }
-  };
-
   // Lặp lại từ đầu
   const handleRepeat = () => {
     stopSpeech();
     setCurrentPosition(0); // Đặt lại vị trí về đầu
     setElapsedTime(0); // Reset lại thời gian đã phát
     speakText(); // Phát lại từ đầu
-    setIsSpeaking(false);
+    setIsSpeaking(!isSpeaking);
   };
 
   const toggleLoop = () => {
@@ -252,17 +227,15 @@ const PlayVoice = (text) => {
               thumbTintColor="#1E90FF"
             />
           </View>
+
           <View
             style={{
               flex: 1.5,
-
               justifyContent: "center",
               alignItems: "center",
             }}
           >
             <Text style={{ fontSize: 15, color: "#666" }}>
-              {" "}
-              ++
               {formatTime(totalDuration)}
             </Text>
           </View>
@@ -292,19 +265,6 @@ const PlayVoice = (text) => {
               </Text>
             </TouchableOpacity>
           </View>
-
-          {/* stop */}
-          {/* <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <TouchableOpacity>
-              <Entypo name="controller-stop" size={35} color="#1E90FF" />
-            </TouchableOpacity>
-          </View> */}
 
           {/* play/pause */}
           <View
@@ -373,3 +333,26 @@ const PlayVoice = (text) => {
 export default PlayVoice;
 
 const styles = StyleSheet.create({});
+
+// const handleForward = async () => {
+//   const newPosition = Math.min(
+//     currentPosition + 5 * charsPerSecond,
+//     textLength
+//   );
+//   setCurrentPosition(newPosition);
+//   setElapsedTime(Math.min(elapsedTime + 5, totalDuration)); // Cập nhật thời gian hiển thị
+//   if (isSpeaking) {
+//     await stopSpeech();
+//     startSpeech(newPosition, getText); // Phát lại từ vị trí mới
+//   }
+// };
+
+// const handleBackward = async () => {
+//   const newPosition = Math.max(currentPosition - 5 * charsPerSecond, 0);
+//   setCurrentPosition(newPosition);
+//   setElapsedTime(Math.max(elapsedTime - 5, 0)); // Cập nhật thời gian hiển thị
+//   if (isSpeaking) {
+//     await stopSpeech();
+//     startSpeech(newPosition, getText); // Phát lại từ vị trí mới
+//   }
+// };

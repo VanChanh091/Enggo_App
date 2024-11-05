@@ -10,13 +10,23 @@ import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../../components/header/HeaderScreen";
 import PlayVoice from "../../../components/playVoice/PlayVoice";
 import { TextInput } from "react-native";
+import { Feather, FontAwesome } from "@expo/vector-icons";
+import { playVoiceText } from "../../../components/translate/PLayTranslateVoice";
 
 const ListenAndRewrite = ({ route }) => {
   const { data } = route.params;
 
+  const [visibleTranscripts, setVisibleTranscripts] = useState({});
+  const [useInput, setUserInput] = useState({});
+
   const allText = data.content.map((item) => item.text).join(" ");
 
-  const [isShowText, setIsShowText] = useState(false);
+  const toggleTranscript = (id) => {
+    setVisibleTranscripts((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   return (
     <PaperProvider>
@@ -24,95 +34,122 @@ const ListenAndRewrite = ({ route }) => {
 
       <View style={{ flex: 1 }}>
         <View style={{ flex: 8.2 }}>
-          <View style={{ width: "100%", height: "93%" }}>
-            <View
-              style={{
-                flex: 4,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+          <ScrollView>
+            {data.content.map((item, index) => (
               <View
+                key={index}
                 style={{
-                  width: "92%",
-                  height: "90%",
-                  borderWidth: 1,
-                  borderColor: "#2A7BD3",
-                  borderRadius: 10,
-                }}
-              >
-                <TextInput
-                  placeholder="Nghe và ghi những từ nghe được vào đây..."
-                  style={{
-                    fontWeight: 400,
-                    fontSize: 17,
-                    width: "100%",
-                    height: "100%",
-                    paddingHorizontal: 22,
-                    borderRadius: 10,
-                  }}
-                />
-              </View>
-            </View>
-
-            <View
-              style={{
-                flex: 1.5,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <TouchableOpacity
-                style={{
-                  width: "65%",
-                  height: 65,
-                  borderRadius: 10,
-                  backgroundColor: "#D1E4F3",
                   justifyContent: "center",
                   alignItems: "center",
                 }}
-                onPress={() => setIsShowText(!isShowText)}
               >
-                <Text
-                  style={{ fontSize: 20, color: "#2A7BD3", fontWeight: 500 }}
+                <View
+                  style={{
+                    width: "90%",
+                    height: 120,
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    marginVertical: 12,
+                  }}
                 >
-                  Hiện Transcript
-                </Text>
-              </TouchableOpacity>
-            </View>
+                  <TextInput
+                    placeholder="Nghe và ghi những từ nghe được vào đây..."
+                    style={{
+                      fontWeight: 400,
+                      fontSize: 17,
+                      width: "100%",
+                      height: "100%",
+                      paddingHorizontal: 10,
+                      borderRadius: 10,
+                    }}
+                  />
+                </View>
 
-            <View
-              style={{
-                flex: 4,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  width: "92%",
-                  height: "90%",
-                  borderWidth: 1,
-                  borderColor: "#2A7BD3",
-                  borderRadius: 10,
-                }}
-              >
-                {isShowText ? (
-                  <ScrollView>
-                    {data.content.map((item, index) => (
-                      <View key={index} style={{ paddingVertical: 8 }}>
-                        <Text style={{ fontSize: 16, paddingHorizontal: 12 }}>
-                          {item.text}
-                        </Text>
-                      </View>
-                    ))}
-                  </ScrollView>
-                ) : (
-                  <View></View>
-                )}
+                <View
+                  style={{
+                    width: "90%",
+                    height: 120,
+                    borderRadius: 10,
+                    borderWidth: 1,
+                  }}
+                >
+                  <View style={{ flex: 1, flexDirection: "row" }}>
+                    <View style={{ flex: 8.5, borderRightWidth: 1 }}>
+                      {visibleTranscripts[index] ? (
+                        <ScrollView
+                          showsHorizontalScrollIndicator={false}
+                          showsVerticalScrollIndicator={false}
+                        >
+                          <Text
+                            style={{
+                              fontSize: 16,
+                              paddingHorizontal: 12,
+                              paddingVertical: 10,
+                            }}
+                          >
+                            {item.text}
+                          </Text>
+                        </ScrollView>
+                      ) : (
+                        <Text></Text>
+                      )}
+                    </View>
+
+                    <View
+                      style={{
+                        flex: 1.5,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <TouchableOpacity
+                        onPress={() => playVoiceText(item.text, "en")}
+                      >
+                        <FontAwesome
+                          name="volume-up"
+                          size={28}
+                          color="#2A7BD3"
+                        />
+                      </TouchableOpacity>
+
+                      <TouchableOpacity style={{ paddingTop: 15 }}>
+                        <Feather
+                          name="check-square"
+                          size={28}
+                          color="#2A7BD3"
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+
+                <TouchableOpacity
+                  style={{
+                    width: "65%",
+                    height: 60,
+                    borderRadius: 10,
+                    backgroundColor: "#D1E4F3",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginVertical: 12,
+                  }}
+                  onPress={() => toggleTranscript(index)}
+                >
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      color: "#2A7BD3",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {visibleTranscripts[index]
+                      ? "Ẩn Transcript"
+                      : "Hiện Transcript"}
+                  </Text>
+                </TouchableOpacity>
               </View>
-            </View>
-          </View>
+            ))}
+          </ScrollView>
         </View>
 
         <View

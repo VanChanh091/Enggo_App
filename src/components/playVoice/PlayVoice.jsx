@@ -161,14 +161,16 @@ const PlayVoice = (text) => {
   // Change playback speed
   const handleChangeSpeed = () => {
     let newRate;
-    if (playbackRate === 1.0) {
+    if (playbackRate === 0.75) {
+      newRate = 1.0;
+    } else if (playbackRate === 1.0) {
       newRate = 1.25;
-    } else if (playbackRate === 1.25) {
-      newRate = 0.75;
     } else {
-      newRate = 1.0; // Trở về bình thường
+      newRate = 0.75; // Trở về bình thường
     }
     setPlaybackRate(newRate);
+    setIsSpeaking(true);
+    handleRepeat();
   };
 
   // Lặp lại từ đầu
@@ -177,7 +179,7 @@ const PlayVoice = (text) => {
     setCurrentPosition(0); // Đặt lại vị trí về đầu
     setElapsedTime(0); // Reset lại thời gian đã phát
     speakText(); // Phát lại từ đầu
-    setIsSpeaking(!isSpeaking);
+    setIsSpeaking(true);
   };
 
   const toggleLoop = () => {

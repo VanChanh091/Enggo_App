@@ -1,4 +1,5 @@
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,7 +10,7 @@ import React, { useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../../components/header/HeaderScreen";
 import PlayVoice from "../../../components/playVoice/PlayVoice";
-import { Feather, Ionicons } from "@expo/vector-icons";
+import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { CheckBox } from "@rneui/themed";
 
 const ListenAndChoosePhrase = ({ route }) => {
@@ -17,11 +18,66 @@ const ListenAndChoosePhrase = ({ route }) => {
 
   const allText = data.content.map((item) => item.text).join(" ");
 
-  const [checked, setChecked] = useState(0);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [results, setResults] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
+  const [showAnswers, setShowAnswers] = useState(false);
+
+  const handleOptionSelect = (questionIndex, optionIndex) => {
+    setSelectedAnswers((prev) => ({
+      ...prev,
+      [questionIndex]: optionIndex, // Store the selected option index for each question index
+    }));
+  };
+
+  // Check answers function
+  const checkAnswers = () => {
+    let score = 0;
+    const newResults = data.choosePhrase.map((item, questionIndex) => {
+      const selectedOptionIndex = selectedAnswers[questionIndex];
+      const selectedOptionText = item.options[selectedOptionIndex];
+      const correctAnswerText = item.correctAnswer;
+
+      const isCorrect =
+        selectedOptionText &&
+        selectedOptionText.trim().toLowerCase() ===
+          correctAnswerText.trim().toLowerCase();
+
+      if (isCorrect) {
+        score += 1;
+      }
+
+      return isCorrect; // Store true for correct, false for incorrect
+    });
+
+    setResults(newResults); // Update the results state
+    setIsChecked(true); // Allow displaying icons
+    Alert.alert(
+      "Quiz Result",
+      `You scored ${score} out of ${data.choosePhrase.length}!`
+    );
+  };
+
+  const handleShowAllAnswers = () => {
+    const updatedAnswers = { ...selectedAnswers };
+    data.choosePhrase.forEach((item, questionIndex) => {
+      if (updatedAnswers[questionIndex] === undefined) {
+        const correctAnswerIndex = item.options.findIndex(
+          (option) =>
+            option.trim().toLowerCase() ===
+            item.correctAnswer.trim().toLowerCase()
+        );
+        updatedAnswers[questionIndex] = correctAnswerIndex;
+      }
+    });
+
+    setSelectedAnswers(updatedAnswers);
+    setShowAnswers(true);
+  };
 
   return (
     <PaperProvider>
-      <HeaderScreen title={"Nghe và hoàn thành cụm từ"} />
+      <HeaderScreen title={"Nghe và trả lời câu hỏi"} />
 
       <View style={{ flex: 1, backgroundColor: "white" }}>
         <View style={{ flex: 8.2 }}>
@@ -39,70 +95,58 @@ const ListenAndChoosePhrase = ({ route }) => {
               </Text>
             </View>
 
-            {data.choosePhrase.map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <View
-                  key={index}
-                  style={{
-                    width: "90%",
-                    height: 220,
-                    marginVertical: 7,
-                  }}
-                >
-                  <View
-                    style={{
-                      flex: 3,
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Text style={{ fontWeight: 600, fontSize: 17 }}>
-                      {index + 1}. {item.question}
+            {data.choosePhrase.map((item, questionIndex) => {
+              const isCorrect = isChecked && results[questionIndex];
+
+              return (
+                <View key={questionIndex}>
+                  <View>
+                    <Text
+                      style={{
+                        fontWeight: 600,
+                        fontSize: 18,
+                        paddingHorizontal: 15,
+                      }}
+                    >
+                      {questionIndex + 1}. {item.question}{" "}
+                      {isChecked && (
+                        <FontAwesome
+                          name={isCorrect ? "check-circle" : "times-circle"} // Show check or X based on correctness
+                          size={28}
+                          color={isCorrect ? "green" : "red"}
+                        />
+                      )}
                     </Text>
                   </View>
-                  <View style={{ flex: 7 }}>
-                    {item.answer.map((answer, index) => (
+
+                  {item.options.map((option, optionIndex) => (
+                    <View key={optionIndex} style={{ flexDirection: "row" }}>
                       <View
-                        key={index}
                         style={{
-                          flex: 1,
-                          flexDirection: "row",
-                          // backgroundColor:
-                          //   answer.correct === true ? "#D1E4F3" : "#E9E9E9",
+                          flex: 1.8,
+                          justifyContent: "center",
+                          alignItems: "flex-end",
                         }}
-                        // onPress={() =>
-                        //   console.log("Choose phrase: ", answer.content)
-                        // }
                       >
-                        <View
-                          style={{
-                            flex: 1.5,
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <CheckBox
-                            checked={checked}
-                            onPress={() => setChecked(!checked)}
-                            checkedIcon="dot-circle-o"
-                            uncheckedIcon="circle-o"
-                          />
-                        </View>
-                        <View style={{ flex: 8.5, justifyContent: "center" }}>
-                          <Text style={{ fontSize: 16 }}>{answer.text}</Text>
-                        </View>
+                        <CheckBox
+                          checked={
+                            selectedAnswers[questionIndex] === optionIndex
+                          }
+                          onPress={() =>
+                            handleOptionSelect(questionIndex, optionIndex)
+                          }
+                          checkedIcon="dot-circle-o"
+                          uncheckedIcon="circle-o"
+                        />
                       </View>
-                    ))}
-                  </View>
+                      <View style={{ flex: 8.2, justifyContent: "center" }}>
+                        <Text style={{ fontSize: 16 }}>{option}</Text>
+                      </View>
+                    </View>
+                  ))}
                 </View>
-              </View>
-            ))}
+              );
+            })}
 
             <View
               style={{
@@ -123,6 +167,7 @@ const ListenAndChoosePhrase = ({ route }) => {
                   alignItems: "center",
                   flexDirection: "row",
                 }}
+                onPress={checkAnswers}
               >
                 <View
                   style={{
@@ -158,6 +203,7 @@ const ListenAndChoosePhrase = ({ route }) => {
                   flexDirection: "row",
                   marginTop: 12,
                 }}
+                onPress={handleShowAllAnswers}
               >
                 <View
                   style={{

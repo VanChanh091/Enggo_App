@@ -63,31 +63,102 @@ export const TopicBaiTap = [
         choosePhrase: [
           {
             id: 1,
-            question: "New travel policies that will permit...",
-            answer: [
-              { id: 1, text: "approved for emergency use by the WHO" },
-              { id: 3, text: "within 72 hours of departure" },
-              { id: 2, text: "vaccinated international travelers" },
+            question:
+              "The border between Italy and Switzerland is set to be redrawn due to",
+            options: [
+              "Melting glaciers that mark the boundary",
+              "A recent earthquake shifting land",
+              "A political agreement",
             ],
+            correctAnswer: "Melting glaciers that mark the boundary",
           },
           {
             id: 2,
-            question: "proof of a negative COVID-19 test carried out...",
-            answer: [
-              { id: 1, text: "vaccinated international travelers" },
-              { id: 3, text: "approved for emergency use by the WHO" },
-              { id: 2, text: "within 72 hours of departure" },
+            question: "The Matterhorn Peak, located in the Alps, overlooks",
+            options: [
+              "A large glacier formation in Austria",
+              "The popular skiing destination Zermatt",
+              "Lake Geneva",
             ],
+            correctAnswer: "The popular skiing destination Zermatt",
           },
           {
             id: 3,
             question:
-              "the government will accept full vaccination of travelers with any COVID-19 vaccine...",
-            answer: [
-              { id: 1, text: "within 72 hours of departure" },
-              { id: 3, text: "vaccinated international travelers" },
-              { id: 2, text: "approved for emergency use by the WHO" },
+              "Large sections of the Swiss-Italian border are defined by",
+            options: [
+              "Rivers and forests",
+              "Glaciers and snow fields",
+              "National roads",
             ],
+            correctAnswer: "Glaciers and snow fields",
+          },
+          {
+            id: 4,
+            question: "In 2023, Switzerland and Italy agreed to",
+            options: [
+              "Open new ski resorts in the Alps",
+              "Adjust the national border due to melting glaciers",
+              "Build new mountain infrastructure",
+            ],
+            correctAnswer: "Adjust the national border due to melting glaciers",
+          },
+          {
+            id: 5,
+            question:
+              "Swiss glaciers lost what percentage of their volume in 2022?",
+            options: ["2%", "6%", "10%"],
+            correctAnswer: "6%",
+          },
+          {
+            id: 6,
+            question:
+              "According to Matthias Huss, glaciers continued to lose ice at a high speed in",
+            options: ["2024", "2025", "2023"],
+            correctAnswer: "2024",
+          },
+          {
+            id: 7,
+            question: "Despite heavy snowfall, glaciers in 2024",
+            options: [
+              "Remained completely stable",
+              "Continued to melt rapidly",
+              "Increased in size significantly",
+            ],
+            correctAnswer: "Continued to melt rapidly",
+          },
+          {
+            id: 8,
+            question:
+              "In the Italian Alps, a glacier collapse in 2022 resulted in",
+            options: [
+              "The loss of 11 lives",
+              "The discovery of rare artifacts",
+              "The creation of a new lake",
+            ],
+            correctAnswer: "The loss of 11 lives",
+          },
+          {
+            id: 9,
+            question:
+              "The impact of melting glaciers on freshwater availability could",
+            options: [
+              "Worsen shortages during heat waves",
+              "Lead to new water sources",
+              "Stabilize water levels",
+            ],
+            correctAnswer: "Worsen shortages during heat waves",
+          },
+          {
+            id: 10,
+            question:
+              "The shifting of national borders due to glacier melt is described as",
+            options: [
+              "A common event worldwide",
+              "One small side-effect of climate change",
+              "A temporary change",
+            ],
+            correctAnswer: "One small side-effect of climate change",
           },
         ],
       },

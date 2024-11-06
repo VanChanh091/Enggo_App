@@ -1,4 +1,5 @@
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -17,7 +18,8 @@ const ListenAndRewrite = ({ route }) => {
   const { data } = route.params;
 
   const [visibleTranscripts, setVisibleTranscripts] = useState({});
-  const [useInput, setUserInput] = useState({});
+  const [userInput, setUserInput] = useState({});
+  const [answerStatus, setAnswerStatus] = useState({});
 
   const allText = data.content.map((item) => item.text).join(" ");
 
@@ -26,6 +28,36 @@ const ListenAndRewrite = ({ route }) => {
       ...prev,
       [id]: !prev[id],
     }));
+  };
+
+  const handleInputChange = (id, value) => {
+    setUserInput((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
+  };
+
+  const checkAnswer = (id, correctText) => {
+    const inputValue = userInput[id] || ""; // Đảm bảo giá trị không bị undefined
+    if (inputValue.trim().toLowerCase() === correctText.trim().toLowerCase()) {
+      Alert.alert("Chính xác!", "Bạn đã nhập đúng.");
+      setAnswerStatus((prev) => ({
+        ...prev,
+        [id]: "correct",
+      }));
+    } else {
+      Alert.alert("Sai rồi", "Bạn đã nhập không chính xác.");
+      setAnswerStatus((prev) => ({
+        ...prev,
+        [id]: "incorrect",
+      }));
+    }
+  };
+
+  const getBorderColor = (id) => {
+    if (answerStatus[id] === "correct") return "green";
+    if (answerStatus[id] === "incorrect") return "red";
+    return "black"; // Mặc định là màu đen
   };
 
   return (
@@ -37,7 +69,7 @@ const ListenAndRewrite = ({ route }) => {
           <ScrollView>
             {data.content.map((item, index) => (
               <View
-                key={index}
+                key={item._id}
                 style={{
                   justifyContent: "center",
                   alignItems: "center",
@@ -50,18 +82,24 @@ const ListenAndRewrite = ({ route }) => {
                     borderRadius: 10,
                     borderWidth: 1,
                     marginVertical: 12,
+                    borderColor: getBorderColor(item._id),
                   }}
                 >
                   <TextInput
                     placeholder="Nghe và ghi những từ nghe được vào đây..."
                     style={{
-                      fontWeight: 400,
+                      fontWeight: "400",
                       fontSize: 17,
                       width: "100%",
                       height: "100%",
                       paddingHorizontal: 10,
                       borderRadius: 10,
                     }}
+                    multiline={true}
+                    textAlignVertical="top"
+                    value={userInput[item._id] || ""}
+                    onChangeText={(text) => handleInputChange(item._id, text)}
+                    autoCorrect={false}
                   />
                 </View>
 
@@ -71,11 +109,18 @@ const ListenAndRewrite = ({ route }) => {
                     height: 120,
                     borderRadius: 10,
                     borderWidth: 1,
+                    borderColor: getBorderColor(item._id),
                   }}
                 >
                   <View style={{ flex: 1, flexDirection: "row" }}>
-                    <View style={{ flex: 8.5, borderRightWidth: 1 }}>
-                      {visibleTranscripts[index] ? (
+                    <View
+                      style={{
+                        flex: 8.5,
+                        borderRightWidth: 1,
+                        borderColor: getBorderColor(item._id),
+                      }}
+                    >
+                      {visibleTranscripts[item._id] ? (
                         <ScrollView
                           showsHorizontalScrollIndicator={false}
                           showsVerticalScrollIndicator={false}
@@ -91,7 +136,16 @@ const ListenAndRewrite = ({ route }) => {
                           </Text>
                         </ScrollView>
                       ) : (
-                        <Text></Text>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            color: "gray",
+                            paddingHorizontal: 12,
+                            paddingVertical: 12,
+                          }}
+                        >
+                          Văn bản đã bị ẩn
+                        </Text>
                       )}
                     </View>
 
@@ -112,12 +166,15 @@ const ListenAndRewrite = ({ route }) => {
                         />
                       </TouchableOpacity>
 
-                      <TouchableOpacity style={{ paddingTop: 15 }}>
-                        <Feather
-                          name="check-square"
-                          size={28}
-                          color="#2A7BD3"
-                        />
+                      <TouchableOpacity
+                        style={{ paddingTop: 15 }}
+                        onPress={() => toggleTranscript(item._id)}
+                      >
+                        {visibleTranscripts[item._id] ? (
+                          <Feather name="eye" size={26} color="#2A7BD3" />
+                        ) : (
+                          <Feather name="eye-off" size={26} color="#2A7BD3" />
+                        )}
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -133,18 +190,16 @@ const ListenAndRewrite = ({ route }) => {
                     alignItems: "center",
                     marginVertical: 12,
                   }}
-                  onPress={() => toggleTranscript(index)}
+                  onPress={() => checkAnswer(item._id, item.text)}
                 >
                   <Text
                     style={{
                       fontSize: 20,
                       color: "#2A7BD3",
-                      fontWeight: 500,
+                      fontWeight: "500",
                     }}
                   >
-                    {visibleTranscripts[index]
-                      ? "Ẩn Transcript"
-                      : "Hiện Transcript"}
+                    Kiểm tra đáp án
                   </Text>
                 </TouchableOpacity>
               </View>

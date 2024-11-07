@@ -6,7 +6,7 @@ import ListItems from "../../components/topic/ListItems";
 
 const ListVideoOfTopic = ({ route }) => {
   const { data } = route.params;
-  console.log(data);
+  // console.log(data);
 
   return (
     <PaperProvider>

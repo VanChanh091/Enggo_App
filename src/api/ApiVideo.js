@@ -11,12 +11,11 @@ export const topicVideo = [
     id: 1,
     title: "Âm nhạc",
     background: require("../img/imgVideo/imgTopic/topic/music.png"),
-    list: [
+    Items: [
       {
         id: 1,
         image: require("../img/imgVideo/imgTopic/music/music_1.png"),
         title: "Adele - Hello",
-        // link: "https://www.youtube.com/watch?v=YQHsXMglC9A",
         videoId: "YQHsXMglC9A",
       },
       {
@@ -73,7 +72,6 @@ export const topicVideo = [
         id: 1,
         image: require("../img/imgVideo/imgTopic/ancient/ancient_1.png"),
         title: "The Timeless, Ancient Language of Art | Wangechi Mutu | TED",
-        link: "https://www.youtube.com/watch?v=rAhyvSk9cF0",
         videoId: "rAhyvSk9cF0",
       },
       {
@@ -81,7 +79,6 @@ export const topicVideo = [
         image: require("../img/imgVideo/imgTopic/ancient/ancient_2.png"),
         title:
           "Are There Deadly Pathogens in Ancient Egyptian Tombs?! | Tut’s Toxic Tomb | Science Channel",
-        link: "https://www.youtube.com/watch?v=cllXViWK5-M",
         videoId: "cllXViWK5-M",
       },
       {
@@ -89,21 +86,18 @@ export const topicVideo = [
         image: require("../img/imgVideo/imgTopic/ancient/ancient_3.png"),
         title:
           "An Inside Look at the Ancient Sumerian City of Nippur | Unearthed | Science Channel",
-        link: "https://www.youtube.com/watch?v=V4ptdxaWnks",
         videoId: "V4ptdxaWnks",
       },
       {
         id: 4,
         image: require("../img/imgVideo/imgTopic/ancient/ancient_4.png"),
         title: "Is AI the most important technology of the century?",
-        link: "https://www.youtube.com/watch?v=-T__YWoq45I",
         videoId: "T__YWoq45I",
       },
       {
         id: 5,
         image: require("../img/imgVideo/imgTopic/ancient/ancient_5.png"),
         title: "How Richest City in History Collapsed",
-        link: "https://www.youtube.com/watch?v=c9I9LCvGK2w",
         videoId: "c9I9LCvGK2w",
       },
     ],
@@ -327,7 +321,6 @@ export const topicVideo = [
         id: 1,
         image: require("../img/imgVideo/imgTopic/energy/energy_1.png"),
         title: "The Best Worst Energy Source",
-        link: "https://www.youtube.com/watch?v=edBJ1LkvdQQ",
         videoId: "edBJ1LkvdQQ",
       },
       {
@@ -335,35 +328,30 @@ export const topicVideo = [
         image: require("../img/imgVideo/imgTopic/energy/energy_2.png"),
         title:
           "The Engineering Challenges of Renewable Energy: Crash Course Engineering #30",
-        link: "https://www.youtube.com/watch?v=4k5gyYAAEEU",
         videoId: "4k5gyYAAEEU",
       },
       {
         id: 3,
         image: require("../img/imgVideo/imgTopic/energy/energy_3.png"),
         title: "The Essentials of Energy",
-        link: "https://www.youtube.com/watch?v=ytwIzy3XuGg",
         videoId: "ytwIzy3XuGg",
       },
       {
         id: 4,
         image: require("../img/imgVideo/imgTopic/energy/energy_4.png"),
         title: "Who is leading in renewable energy? | CNBC Explains",
-        link: "https://www.youtube.com/watch?v=fyqDC_AKVgE",
         videoId: "fyqDC_AKVgE",
       },
       {
         id: 5,
         image: require("../img/imgVideo/imgTopic/energy/energy_5.png"),
         title: "Why bitcoin uses so much energy | CNBC Explains",
-        link: "https://www.youtube.com/watch?v=JT22_dUsl5M",
         videoId: "JT22_dUsl5M",
       },
       {
         id: 6,
         image: require("../img/imgVideo/imgTopic/energy/energy_6.png"),
         title: "Why the US isn't ready for clean energy",
-        link: "https://www.youtube.com/watch?v=s3ScJ_FwaZk",
         videoId: "s3ScJ_FwaZk",
       },
     ],

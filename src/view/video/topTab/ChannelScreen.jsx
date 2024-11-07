@@ -178,7 +178,7 @@ const ChannelScreen = ({ navigation }) => {
             <View style={{ flex: 2, flexDirection: "row" }}>
               <View
                 style={{
-                  flex: 7.5,
+                  flex: 1,
                   flexDirection: "row",
                   alignItems: "center",
                 }}
@@ -204,29 +204,6 @@ const ChannelScreen = ({ navigation }) => {
                 >
                   {info.title} {/* Channel name */}
                 </Text>
-              </View>
-              <View style={{ flex: 2.5, justifyContent: "center" }}>
-                <TouchableOpacity
-                  style={{
-                    flex: 2.7,
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: 5,
-                  }}
-                  onPress={() =>
-                    navigation.navigate("ListVideoOfChannel", {
-                      data: videosByChannel[channel.channelId],
-                    })
-                  }
-                >
-                  <Text style={{ fontSize: 16, color: "gray" }}>Xem thêm</Text>
-                  <Ionicons
-                    name="chevron-forward-outline"
-                    size={20}
-                    color="gray"
-                  />
-                </TouchableOpacity>
               </View>
             </View>
 

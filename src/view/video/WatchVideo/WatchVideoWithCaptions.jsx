@@ -7,65 +7,57 @@ import {
   ActivityIndicator,
 } from "react-native";
 import {
-  Feather,
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
 import YoutubePlayer from "react-native-youtube-iframe";
-import axios from "axios";
 
-const WatchVideoWithCaptions = ({navigation, route }) => {
+const WatchVideoWithCaptions = ({ navigation, route }) => {
   const { data } = route.params;
-  const { videoId } = data.id;
-  console.log("videoId:", videoId);
+  const videoId = data?.videoId || data.id?.videoId;
+
+  // const API_KEY = "AIzaSyBbI6fO7DrTmpRYh3NwXGaXLWSr04ysY2g"; //api key cua anh da` :))
+  const API_KEY = "AIzaSyD6InaX9MSCEigdalQJRw5g8qmMRllOhBE"; //api key cua vchanh406
+  // const API_KEY = "AIzaSyAV0MOQtzTpPHwQqXf4E4YbTJrLV8lT0kg"; //api key cua vanchanh0730
 
   const [playing, setPlaying] = useState(true);
   const [loading, setLoading] = useState(true);
   const [repeatOnOff, setRepeatOnOff] = useState(true);
   const [playCaption, setPlayCaption] = useState(true);
+  const [captions, setCaptions] = useState([]);
+  const [selectedCaption, setSelectedCaption] = useState(null);
 
-  const [videoUrl, setVideoUrl] = useState(
-    `https://www.youtube.com/watch?v=${videoId}`
-  );
-  const [subtitles, setSubtitles] = useState("");
+  useEffect(() => {
+    fetchCaptionsMetadata();
+  }, [videoId]);
 
-  const [currentCaption, setCurrentCaption] = useState("");
+  // Fetch captions metadata when the component mounts
+  const fetchCaptionsMetadata = async () => {
+    if (!videoId) return;
 
-  // Fetch subtitles when the component mounts
-  const downloadSubtitle = async () => {
-    setLoading(true);
     try {
-      // Fetch the HTML from downsub.com
       const response = await fetch(
-        `https://downsub.com/?url=${encodeURIComponent(videoUrl)}`
+        `https://www.googleapis.com/youtube/v3/captions?part=snippet&videoId=${videoId}&key=${API_KEY}`
       );
-      const html = await response.text();
+      const result = await response.json();
 
-      // Use a regex to extract the .srt link from the HTML
-      const srtLinkMatch = html.match(/(https[^"]+\.srt)/); // Match the .srt link
-
-      if (srtLinkMatch) {
-        const srtLink = srtLinkMatch[1];
-
-        // Now fetch the SRT file
-        const srtResponse = await fetch(srtLink);
-        const srtText = await srtResponse.text();
-
-        setSubtitles(srtText);
+      if (result.items && result.items.length > 0) {
+        // Filter available captions by language or other criteria if needed
+        setCaptions(result.items);
       } else {
-        console.error("No subtitle link found.");
+        console.log("No captions available for this video.");
       }
     } catch (error) {
-      console.error("Error downloading subtitles:", error);
-    } finally {
-      setLoading(false);
+      console.error("Error fetching captions metadata:", error);
     }
   };
 
-  useEffect(() => {
-    downloadSubtitle();
-  }, [videoUrl]);
+  const handleSelectCaption = (captionId) => {
+    setSelectedCaption(captionId);
+    // Here, you'd typically fetch the caption text if possible.
+    // This would require OAuth and additional API permissions, which isn't covered by the standard API key.
+  };
 
   const parseSRT = (srt) => {
     // Function to parse SRT format to display in the app
@@ -112,7 +104,7 @@ const WatchVideoWithCaptions = ({navigation, route }) => {
       >
         <YoutubePlayer
           height="100%"
-          videoId={data.videoId || videoId}
+          videoId={videoId}
           play={playing}
 
           // onChangeState={repeatVideo} // You can uncomment this to handle repeating the video
@@ -125,23 +117,25 @@ const WatchVideoWithCaptions = ({navigation, route }) => {
           <ActivityIndicator size="large" color="#fff" />
         ) : (
           <ScrollView>
-            <View
-              style={{
-                width: "100%",
-                borderBottomWidth: 1,
-                borderColor: "#fff",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "white",
-                  paddingHorizontal: 10,
-                  paddingBottom: 10,
-                }}
-              >
-                {subtitles}
+            <View style={{ flex: 1, padding: 20 }}>
+              <Text style={{ color: "#fff", fontSize: 18, fontWeight: "bold" }}>
+                Available Captions:
               </Text>
+              {captions.map((caption) => (
+                <View key={caption.id} style={{ marginVertical: 5 }}>
+                  <Button
+                    title={`Language: ${caption.snippet.language} - ${
+                      caption.snippet.name || "Auto-Generated"
+                    }`}
+                    onPress={() => handleSelectCaption(caption.id)}
+                  />
+                </View>
+              ))}
+              {selectedCaption && (
+                <Text style={{ color: "#fff", marginTop: 10 }}>
+                  Selected Caption ID: {selectedCaption}
+                </Text>
+              )}
             </View>
           </ScrollView>
         )}
@@ -159,9 +153,7 @@ const WatchVideoWithCaptions = ({navigation, route }) => {
       >
         {/* back  */}
         <View style={{ justifyContent: "center", paddingLeft: 20 }}>
-          <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          >
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons name="chevron-back-outline" color="white" size={35} />
           </TouchableOpacity>
         </View>

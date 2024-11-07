@@ -12,10 +12,10 @@ const TopicScreen = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(`${appInfo.Host_URL}/api/exercises`);
+      const res = await fetch(`${appInfo.Host_URL}/api/topicVideos`);
       const data = await res.json();
       setVideos(data.data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error(error.message);
     }

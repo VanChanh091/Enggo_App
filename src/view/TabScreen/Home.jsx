@@ -7,13 +7,31 @@ import {
   View,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Appbar, PaperProvider, Searchbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
-import { Subjects, Suggest } from "../../api/apiHome";
+import { Subjects } from "../../api/apiHome";
+import { appInfo } from "../../constants/appInfos";
 
 const Home = ({ navigation }) => {
   const [search, setSearch] = useState("");
+  const [news, setNews] = useState([]);
+  const [videos, setVideos] = useState([]);
+  const [listen, setListen] = useState([]);
+
+  const randomNews = Math.floor(Math.random() * news.length);
+  const randomVideos = Math.floor(Math.random() * videos.length);
+  const randomListen = Math.floor(Math.random() * listen.length);
+
+  const limitedNews = news.slice(randomNews, randomNews + 1);
+  const limitedVideos = videos.slice(randomVideos, randomVideos + 1);
+  const limitedListen = listen.slice(randomListen, randomListen + 1);
+
+  useEffect(() => {
+    fetchNews();
+    fetchVideos();
+    fetchExercise();
+  }, []);
 
   const listSubjects = ({ item }) => (
     <View
@@ -76,7 +94,7 @@ const Home = ({ navigation }) => {
     }
   };
 
-  const listSuggest = ({ item }) => (
+  const renderSuggestNews = ({ item }) => (
     <TouchableOpacity
       style={{
         width: "100%",
@@ -86,14 +104,27 @@ const Home = ({ navigation }) => {
         borderBottomWidth: 1,
         borderColor: "#D0D0D0",
       }}
+      onPress={() => navigation.navigate("TinTuc_S2", { data: item })}
     >
       <View style={{ flex: 6.7 }}>
-        <View style={{ flex: 6.5 }}>
-          <Text style={{ fontSize: 15, marginTop: 4 }}>{item.title}</Text>
+        <View style={{ flex: 6 }}>
+          <Text
+            style={{
+              fontSize: 16,
+              paddingVertical: 12,
+              paddingHorizontal: 5,
+              fontWeight: 500,
+            }}
+          >
+            {item.content}
+          </Text>
         </View>
-        <View style={{ flex: 3.5, flexDirection: "row", alignItems: "center" }}>
-          <Image source={item.icon} />
-          <Text style={{ fontSize: 16, marginLeft: 5 }}>{item.subject}</Text>
+        <View style={{ flex: 4, flexDirection: "row", alignItems: "center" }}>
+          <Image
+            source={require("../../img/imgTab/newSmall.png")}
+            style={{ paddingHorizontal: 5 }}
+          />
+          <Text style={{ fontSize: 16, paddingHorizontal: 5 }}>Tin tức</Text>
         </View>
       </View>
       <View
@@ -104,12 +135,147 @@ const Home = ({ navigation }) => {
         }}
       >
         <Image
-          source={item.image}
-          style={{ width: 100, height: 100, resizeMode: "contain" }}
+          source={{ uri: item.image }}
+          style={{ width: 115, height: 90, borderRadius: 5 }}
         />
       </View>
     </TouchableOpacity>
   );
+
+  const renderSuggestVideos = ({ item }) =>
+    item.Items.map((video, index) => (
+      <TouchableOpacity
+        key={index}
+        style={{
+          width: "100%",
+          height: 120,
+          marginVertical: 7,
+          flexDirection: "row",
+          borderBottomWidth: 1,
+          borderColor: "#D0D0D0",
+        }}
+        onPress={() =>
+          navigation.navigate("WatchVideoWithCaptions", { data: video })
+        }
+      >
+        <View style={{ flex: 6.7 }}>
+          <View style={{ flex: 6 }}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 500,
+                paddingVertical: 12,
+                paddingHorizontal: 5,
+              }}
+            >
+              {video.title}
+            </Text>
+          </View>
+          <View style={{ flex: 4, flexDirection: "row", alignItems: "center" }}>
+            <Image
+              source={require("../../img/imgTab/videoSmall.png")}
+              style={{ paddingHorizontal: 5 }}
+            />
+            <Text style={{ fontSize: 16, paddingHorizontal: 5 }}>Videos</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            flex: 3.3,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            source={{ uri: video.image }}
+            style={{ width: 115, height: 90, borderRadius: 5 }}
+          />
+        </View>
+      </TouchableOpacity>
+    ));
+
+  const renderSuggestListen = ({ item }) =>
+    item.Items.map((listen, index) => (
+      <TouchableOpacity
+        key={index}
+        style={{
+          width: "100%",
+          height: 120,
+          marginVertical: 7,
+          flexDirection: "row",
+          borderBottomWidth: 1,
+          borderColor: "#D0D0D0",
+        }}
+        onPress={() =>
+          navigation.navigate("DetailOfListening", { data: listen })
+        }
+      >
+        <View style={{ flex: 6.7 }}>
+          <View style={{ flex: 6 }}>
+            <Text
+              style={{
+                fontSize: 15,
+                fontWeight: 500,
+                paddingHorizontal: 5,
+              }}
+            >
+              {listen.title}
+            </Text>
+          </View>
+          <View style={{ flex: 4, flexDirection: "row", alignItems: "center" }}>
+            <Image
+              source={require("../../img/imgTab/listenSmall.png")}
+              style={{ paddingHorizontal: 5 }}
+            />
+            <Text style={{ fontSize: 16, paddingHorizontal: 5 }}>Listen</Text>
+          </View>
+        </View>
+        <View
+          style={{
+            flex: 3.3,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Image
+            source={{ uri: listen.image }}
+            style={{ width: 115, height: 90, borderRadius: 5 }}
+          />
+        </View>
+      </TouchableOpacity>
+    ));
+
+  const fetchNews = async () => {
+    try {
+      const res = await fetch(`${appInfo.Host_URL}/api/news`);
+      const data = await res.json();
+      setNews(data.data);
+      // console.log("News: ", data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const fetchVideos = async () => {
+    try {
+      const res = await fetch(`${appInfo.Host_URL}/api/topicVideos`);
+      const data = await res.json();
+      setVideos(data.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const fetchExercise = async () => {
+    try {
+      const res = await fetch(`${appInfo.Host_URL}/api/exercises`);
+      const data = await res.json();
+      setListen(data.data);
+      // console.log("Exercises: ", data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   return (
     <PaperProvider style={{ flex: 1 }}>
@@ -241,14 +407,37 @@ const Home = ({ navigation }) => {
                 </View>
               </View>
             </View>
+
             <View style={{ flex: 8.5 }}>
-              <FlatList
-                keyExtractor={(item) => item.id}
-                horizontal={false}
-                renderItem={listSuggest}
-                data={Suggest}
-                scrollEnabled={false}
-              />
+              {/* news */}
+              <View style={{ flex: 1 }}>
+                <FlatList
+                  key={(index) => index._id}
+                  renderItem={renderSuggestNews}
+                  data={limitedNews}
+                  scrollEnabled={false}
+                />
+              </View>
+
+              {/* videos */}
+              <View style={{ flex: 1 }}>
+                <FlatList
+                  key={(index) => index._id}
+                  renderItem={renderSuggestVideos}
+                  data={limitedVideos}
+                  scrollEnabled={false}
+                />
+              </View>
+
+              {/* listen */}
+              <View style={{ flex: 1 }}>
+                <FlatList
+                  key={(index) => index._id}
+                  renderItem={renderSuggestListen}
+                  data={limitedListen}
+                  scrollEnabled={false}
+                />
+              </View>
             </View>
           </View>
         </View>

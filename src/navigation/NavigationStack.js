@@ -434,23 +434,6 @@ const BaiTapNavigation = () => {
   );
 };
 
-const ListVocabularyNavigation = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="BoTuVung_S1"
-        component={BoTuVung_S1}
-        options={{ headerTitle: "Chi Tiết Từ Vựng" }}
-      />
-      <Stack.Screen
-        name="MauCauGiaoTiep_S1"
-        component={MauCauGiaoTiep_S1}
-        options={{ headerTitle: "Chi Tiết Từ Vựng" }}
-      />
-    </Stack.Navigator>
-  );
-};
-
 const MainNavigator = () => {
   return (
     <Stack.Navigator>
@@ -521,8 +504,20 @@ const MainNavigator = () => {
       />
 
       <Stack.Screen
-        name="ListVocabularyNavigation"
-        component={ListVocabularyNavigation}
+        name="TinTuc_S2"
+        component={TinTuc_S2}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="WatchVideoWithCaptions"
+        component={WatchVideoWithCaptions}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="DetailOfListening"
+        component={DetailOfListening}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

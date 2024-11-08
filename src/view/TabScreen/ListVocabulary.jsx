@@ -125,9 +125,7 @@ const ListVocabulary = ({ navigation }) => {
                         justifyContent: "center",
                         marginTop: 20,
                       }}
-                      onPress={() =>
-                        navigation.navigate("ListVocabularyNavigation")
-                      }
+                      onPress={() => navigation.navigate("BoTuVungNavigation")}
                     >
                       <Text style={{ fontSize: "17", color: "white" }}>
                         Bộ từ vựng
@@ -152,7 +150,9 @@ const ListVocabulary = ({ navigation }) => {
                         justifyContent: "center",
                         marginTop: 20,
                       }}
-                      onPress={() => navigation.navigate("MauCauGiaoTiep_S1")}
+                      onPress={() =>
+                        navigation.navigate("MauCauGiaoTiepNavigation")
+                      }
                     >
                       <Text style={{ fontSize: "17", color: "white" }}>
                         Mẫu câu

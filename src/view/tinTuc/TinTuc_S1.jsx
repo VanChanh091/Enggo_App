@@ -1,5 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   FlatList,
   Image,
@@ -16,8 +16,11 @@ import {
 } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
+import themeContext from "../../theme/themeContext";
 
 const TinTuc_S1 = ({ navigation }) => {
+  const theme = useContext(themeContext);
+
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -74,6 +77,7 @@ const TinTuc_S1 = ({ navigation }) => {
             fontSize: 15,
             paddingHorizontal: 10,
             fontWeight: "500",
+            color: theme.color,
           }}
         >
           {item.content}
@@ -91,7 +95,7 @@ const TinTuc_S1 = ({ navigation }) => {
     return acc;
   }, {});
 
-  console.log("Grouped by Category: ", groupedNewsByCategory);
+  // console.log("Grouped by Category: ", groupedNewsByCategory);
 
   const uniqueTitlesByCategory = news.reduce((acc, item) => {
     const categoryId = item.category;
@@ -117,11 +121,11 @@ const TinTuc_S1 = ({ navigation }) => {
           <ActivityIndicator animating={true} color={MD2Colors.blue800} />
         </View>
       ) : (
-        <ScrollView style={{ flex: 1, backgroundColor: "#F1F1F1" }}>
+        <ScrollView style={{ flex: 1, backgroundColor: theme.background }}>
           {Object.keys(groupedNewsByCategory).map((categoryId) => (
             <View
               key={categoryId}
-              style={{ borderBottomWidth: 1, borderColor: "#d0d0d0" }}
+              style={{ borderBottomWidth: 1, borderColor: theme.border }}
             >
               <View
                 style={{
@@ -136,6 +140,7 @@ const TinTuc_S1 = ({ navigation }) => {
                   style={{
                     fontSize: 18,
                     fontWeight: "bold",
+                    color: theme.color,
                   }}
                 >
                   {uniqueTitlesByCategory[categoryId]}

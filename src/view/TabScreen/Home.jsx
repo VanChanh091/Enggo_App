@@ -7,17 +7,20 @@ import {
   View,
   Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Appbar, PaperProvider, Searchbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { Subjects } from "../../api/apiHome";
 import { appInfo } from "../../constants/appInfos";
+import themeContext from "../../theme/themeContext";
 
 const Home = ({ navigation }) => {
   const [search, setSearch] = useState("");
   const [news, setNews] = useState([]);
   const [videos, setVideos] = useState([]);
   const [listen, setListen] = useState([]);
+
+  const theme = useContext(themeContext);
 
   const randomNews = Math.floor(Math.random() * news.length);
   const randomVideos = Math.floor(Math.random() * videos.length);
@@ -50,7 +53,14 @@ const Home = ({ navigation }) => {
           style={{ width: 45, height: 45, resizeMode: "contain" }}
         />
       </TouchableOpacity>
-      <Text style={{ fontSize: 15, marginTop: 5, textAlign: "center" }}>
+      <Text
+        style={{
+          fontSize: 15,
+          marginTop: 5,
+          textAlign: "center",
+          color: theme.color,
+        }}
+      >
         {item.name}
       </Text>
     </View>
@@ -96,25 +106,30 @@ const Home = ({ navigation }) => {
 
   const renderSuggestNews = ({ item }) => (
     <TouchableOpacity
-      style={{
-        width: "100%",
-        height: 120,
-        marginVertical: 7,
-        flexDirection: "row",
-        borderBottomWidth: 1,
-        borderColor: "#D0D0D0",
-      }}
+      style={[
+        {
+          width: "100%",
+          height: 120,
+          marginVertical: 7,
+          flexDirection: "row",
+          borderBottomWidth: 1,
+        },
+        { borderColor: theme.border },
+      ]}
       onPress={() => navigation.navigate("TinTuc_S2", { data: item })}
     >
       <View style={{ flex: 6.7 }}>
         <View style={{ flex: 6 }}>
           <Text
-            style={{
-              fontSize: 16,
-              paddingVertical: 12,
-              paddingHorizontal: 5,
-              fontWeight: 500,
-            }}
+            style={[
+              {
+                fontSize: 16,
+                paddingVertical: 12,
+                paddingHorizontal: 5,
+                fontWeight: 500,
+              },
+              { color: theme.color },
+            ]}
           >
             {item.content}
           </Text>
@@ -124,7 +139,14 @@ const Home = ({ navigation }) => {
             source={require("../../img/imgTab/newSmall.png")}
             style={{ paddingHorizontal: 5 }}
           />
-          <Text style={{ fontSize: 16, paddingHorizontal: 5 }}>Tin tức</Text>
+          <Text
+            style={[
+              { fontSize: 16, paddingHorizontal: 5 },
+              { color: theme.color },
+            ]}
+          >
+            Tin tức
+          </Text>
         </View>
       </View>
       <View
@@ -152,7 +174,7 @@ const Home = ({ navigation }) => {
           marginVertical: 7,
           flexDirection: "row",
           borderBottomWidth: 1,
-          borderColor: "#D0D0D0",
+          borderColor: theme.border,
         }}
         onPress={() =>
           navigation.navigate("WatchVideoWithCaptions", { data: video })
@@ -166,6 +188,7 @@ const Home = ({ navigation }) => {
                 fontWeight: 500,
                 paddingVertical: 12,
                 paddingHorizontal: 5,
+                color: theme.color,
               }}
             >
               {video.title}
@@ -176,7 +199,11 @@ const Home = ({ navigation }) => {
               source={require("../../img/imgTab/videoSmall.png")}
               style={{ paddingHorizontal: 5 }}
             />
-            <Text style={{ fontSize: 16, paddingHorizontal: 5 }}>Videos</Text>
+            <Text
+              style={{ fontSize: 16, paddingHorizontal: 5, color: theme.color }}
+            >
+              Videos
+            </Text>
           </View>
         </View>
         <View
@@ -204,7 +231,7 @@ const Home = ({ navigation }) => {
           marginVertical: 7,
           flexDirection: "row",
           borderBottomWidth: 1,
-          borderColor: "#D0D0D0",
+          borderColor: theme.border,
         }}
         onPress={() =>
           navigation.navigate("DetailOfListening", { data: listen })
@@ -217,6 +244,7 @@ const Home = ({ navigation }) => {
                 fontSize: 15,
                 fontWeight: 500,
                 paddingHorizontal: 5,
+                color: theme.color,
               }}
             >
               {listen.title}
@@ -227,7 +255,11 @@ const Home = ({ navigation }) => {
               source={require("../../img/imgTab/listenSmall.png")}
               style={{ paddingHorizontal: 5 }}
             />
-            <Text style={{ fontSize: 16, paddingHorizontal: 5 }}>Listen</Text>
+            <Text
+              style={{ fontSize: 16, paddingHorizontal: 5, color: theme.color }}
+            >
+              Listen
+            </Text>
           </View>
         </View>
         <View
@@ -279,7 +311,10 @@ const Home = ({ navigation }) => {
 
   return (
     <PaperProvider style={{ flex: 1 }}>
-      <Appbar.Header elevated="true" style={{ backgroundColor: "white" }}>
+      <Appbar.Header
+        elevated="true"
+        style={{ backgroundColor: theme.background }}
+      >
         <View
           style={{
             width: "85%",
@@ -294,11 +329,11 @@ const Home = ({ navigation }) => {
         </View>
 
         <TouchableOpacity>
-          <Appbar.Action icon="bell" size={30} />
+          <Appbar.Action icon="bell" size={30} color={theme.color} />
         </TouchableOpacity>
       </Appbar.Header>
 
-      <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <ScrollView style={{ flex: 1, backgroundColor: theme.background }}>
         {/* search bar */}
         <View
           style={{
@@ -324,15 +359,16 @@ const Home = ({ navigation }) => {
 
         {/* Subject */}
         <View
-          style={{
-            width: "100%",
-            height: 320,
-            // height: 230,
-            justifyContent: "center",
-            alignItems: "center",
-            borderBottomWidth: 1,
-            borderColor: "#D0D0D0",
-          }}
+          style={[
+            {
+              width: "100%",
+              height: 320,
+              justifyContent: "center",
+              alignItems: "center",
+              borderBottomWidth: 1,
+            },
+            { borderColor: theme.border },
+          ]}
         >
           <View style={{ width: "95%", height: "100%" }}>
             <View
@@ -348,7 +384,10 @@ const Home = ({ navigation }) => {
                 }}
               >
                 <Text
-                  style={{ fontWeight: "bold", fontSize: 18, marginLeft: 10 }}
+                  style={[
+                    { fontWeight: "bold", fontSize: 18, marginLeft: 10 },
+                    { color: theme.color },
+                  ]}
                 >
                   Nguồn học
                 </Text>

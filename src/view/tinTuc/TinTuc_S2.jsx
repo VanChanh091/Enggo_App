@@ -1,13 +1,16 @@
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useTranslate } from "../../components/translate/TranslateLanguage";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
+import themeContext from "../../theme/themeContext";
 
 const TinTuc_S2 = ({ route }) => {
   const { data } = route.params;
+
+  const theme = useContext(themeContext);
 
   const { translatedText, translateWithDelay } = useTranslate();
 
@@ -15,7 +18,7 @@ const TinTuc_S2 = ({ route }) => {
     <PaperProvider>
       <HeaderScreen title="" />
 
-      <ScrollView style={{ backgroundColor: "white" }}>
+      <ScrollView style={{ backgroundColor: theme.background }}>
         <View style={{ flex: 1 }}>
           {/* Title */}
           <View
@@ -31,6 +34,7 @@ const TinTuc_S2 = ({ route }) => {
                 fontWeight: 600,
                 paddingVertical: 12,
                 paddingHorizontal: 12,
+                color: theme.color,
               }}
             >
               {translatedText[`content_${data._id}`] || data.content}
@@ -45,7 +49,7 @@ const TinTuc_S2 = ({ route }) => {
                 paddingVertical: 12,
               }}
             >
-              <MaterialIcons name="g-translate" size={30} color="black" />
+              <MaterialIcons name="g-translate" size={30} color={theme.color} />
             </TouchableOpacity>
           </View>
 
@@ -61,6 +65,7 @@ const TinTuc_S2 = ({ route }) => {
                         fontWeight: 600,
                         paddingTop: 15,
                         paddingHorizontal: 12,
+                        color: theme.color,
                       }}
                     >
                       {item.subTitle}
@@ -104,6 +109,7 @@ const TinTuc_S2 = ({ route }) => {
                           fontSize: 16,
                           paddingHorizontal: 12,
                           paddingVertical: 10,
+                          color: theme.color,
                         }}
                       >
                         {translatedText[index] || item.text}
@@ -131,7 +137,7 @@ const TinTuc_S2 = ({ route }) => {
                       <MaterialIcons
                         name="g-translate"
                         size={30}
-                        color="black"
+                        color={theme.color}
                       />
                     </TouchableOpacity>
 
@@ -139,7 +145,11 @@ const TinTuc_S2 = ({ route }) => {
                       onPress={() => playVoiceText(item.text, "en")}
                       style={{ paddingHorizontal: 20 }}
                     >
-                      <FontAwesome name="volume-up" size={35} color="black" />
+                      <FontAwesome
+                        name="volume-up"
+                        size={35}
+                        color={theme.color}
+                      />
                     </TouchableOpacity>
                   </View>
                 </View>

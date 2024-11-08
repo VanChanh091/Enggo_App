@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { PaperProvider, Appbar } from "react-native-paper";
+import themeContext from "../../theme/themeContext";
 
 const ListVocabulary = ({ navigation }) => {
+  const theme = useContext(themeContext);
   return (
     <PaperProvider>
       <Appbar.Header style={{ backgroundColor: "#2A7BD3" }}>
@@ -23,8 +25,8 @@ const ListVocabulary = ({ navigation }) => {
         </TouchableOpacity>
       </Appbar.Header>
 
-      <View style={{ flex: 1, backgroundColor: "#F4F4F4" }}>
-        {/* component 1 */}
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
+        {/* slogan */}
         <View style={{ flex: 4.5 }}>
           <View
             style={{
@@ -52,7 +54,7 @@ const ListVocabulary = ({ navigation }) => {
           </View>
         </View>
 
-        {/* component 2 */}
+        {/* my vocab */}
         <View style={{ flex: 5.5 }}>
           <Text
             style={{
@@ -60,6 +62,7 @@ const ListVocabulary = ({ navigation }) => {
               fontSize: 20,
               marginTop: 20,
               marginLeft: 20,
+              color: theme.color,
             }}
           >
             Bộ từ của bạn
@@ -78,12 +81,14 @@ const ListVocabulary = ({ navigation }) => {
                 width: 300,
                 height: 260,
                 borderRadius: 10,
-                backgroundColor: "white",
+                backgroundColor: theme.background,
+                borderColor: theme.border,
+                borderWidth: 1,
               }}
             >
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <Image
-                  source={require("../../img/imgTab/folderNull.png")}
+                  source={require("../../img/imgTab/folder.png")}
                   style={{
                     width: 60,
                     height: 60,
@@ -92,12 +97,22 @@ const ListVocabulary = ({ navigation }) => {
                   }}
                 />
                 <Text
-                  style={{ textAlign: "center", fontSize: 14, marginTop: 10 }}
+                  style={{
+                    textAlign: "center",
+                    fontSize: 14,
+                    marginTop: 10,
+                    color: theme.color,
+                  }}
                 >
                   Bạn chưa lưu từ vựng nào. Hãy lưu lại để ôn tập nhé.
                 </Text>
                 <Text
-                  style={{ textAlign: "center", fontSize: 14, marginTop: 25 }}
+                  style={{
+                    textAlign: "center",
+                    fontSize: 14,
+                    marginTop: 25,
+                    color: theme.color,
+                  }}
                 >
                   Lưu các từ vựng có sẵn tại đây
                 </Text>

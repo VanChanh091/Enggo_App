@@ -1,14 +1,17 @@
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { PaperProvider } from "react-native-paper";
 import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
 import { useTranslate } from "../../components/translate/TranslateLanguage";
 import PlayVoice from "../../components/playVoice/PlayVoice";
+import themeContext from "../../theme/themeContext";
 
 const DetailOfListening = ({ route }) => {
   const { data } = route.params;
+
+  const theme = useContext(themeContext);
 
   const allText = data.content.map((item) => item.text).join(" ");
 
@@ -18,7 +21,7 @@ const DetailOfListening = ({ route }) => {
     <PaperProvider>
       <HeaderScreen title="" />
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
         {/* content */}
         <View style={{ flex: 8.2 }}>
           <ScrollView>
@@ -36,6 +39,7 @@ const DetailOfListening = ({ route }) => {
                   fontSize: 19,
                   marginTop: 15,
                   paddingHorizontal: 10,
+                  color: theme.color,
                 }}
               >
                 {translatedText[`title_${data.id}`] || data.title}
@@ -50,7 +54,11 @@ const DetailOfListening = ({ route }) => {
                   paddingVertical: 12,
                 }}
               >
-                <MaterialIcons name="g-translate" size={30} color="black" />
+                <MaterialIcons
+                  name="g-translate"
+                  size={30}
+                  color={theme.color}
+                />
               </TouchableOpacity>
             </View>
 
@@ -74,7 +82,13 @@ const DetailOfListening = ({ route }) => {
             <View style={{ flex: 8, marginTop: 10 }}>
               {data.content.map((item, index) => (
                 <View key={index}>
-                  <Text style={{ fontSize: 16, paddingHorizontal: 10 }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      paddingHorizontal: 10,
+                      color: theme.color,
+                    }}
+                  >
                     {translatedText[index] || item.text}
                   </Text>
                   <View
@@ -94,7 +108,7 @@ const DetailOfListening = ({ route }) => {
                       <MaterialIcons
                         name="g-translate"
                         size={28}
-                        color="black"
+                        color={theme.color}
                       />
                     </TouchableOpacity>
 
@@ -102,7 +116,11 @@ const DetailOfListening = ({ route }) => {
                       style={{ marginLeft: 15 }}
                       onPress={() => playVoiceText(item.text, "en")}
                     >
-                      <FontAwesome name="volume-up" size={28} color="black" />
+                      <FontAwesome
+                        name="volume-up"
+                        size={28}
+                        color={theme.color}
+                      />
                     </TouchableOpacity>
                   </View>
                 </View>

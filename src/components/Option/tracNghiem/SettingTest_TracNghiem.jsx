@@ -1,12 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import { CheckBox } from "@rneui/themed";
 import HeaderScreen from "../../header/HeaderScreen";
+import themeContext from "../../../theme/themeContext";
 
 const SettingTest_TracNghiem = ({ navigation, route }) => {
   const { dataVocab } = route.params;
   const { screenNavigation } = route.params;
+  const theme = useContext(themeContext);
 
   const [isDocNgheSelected, setIsDocNgheSelected] = useState(0);
   const [isNghiaTuSelected, setIsNghiaTuSelected] = useState(0);
@@ -38,12 +40,19 @@ const SettingTest_TracNghiem = ({ navigation, route }) => {
       <View
         style={{
           flex: 1,
-          backgroundColor: "white",
+          backgroundColor: theme.background,
         }}
       >
         {/* setting test */}
         <View style={{ flex: 8 }}>
-          <Text style={{ fontSize: 18, marginTop: 25, marginLeft: 12 }}>
+          <Text
+            style={{
+              fontSize: 18,
+              marginTop: 25,
+              marginLeft: 12,
+              color: theme.color,
+            }}
+          >
             Cài đặt kiểm tra:
           </Text>
           <View
@@ -73,7 +82,7 @@ const SettingTest_TracNghiem = ({ navigation, route }) => {
                 checkedIcon="dot-circle-o"
                 uncheckedIcon="circle-o"
               />
-              <Text style={{ fontSize: 18 }}>Đọc</Text>
+              <Text style={{ fontSize: 18, color: theme.color }}>Đọc</Text>
             </View>
             <View
               style={{
@@ -91,7 +100,7 @@ const SettingTest_TracNghiem = ({ navigation, route }) => {
                 checkedIcon="dot-circle-o"
                 uncheckedIcon="circle-o"
               />
-              <Text style={{ fontSize: 18 }}>Nghe</Text>
+              <Text style={{ fontSize: 18, color: theme.color }}>Nghe</Text>
             </View>
           </View>
           <View
@@ -119,9 +128,13 @@ const SettingTest_TracNghiem = ({ navigation, route }) => {
                   uncheckedIcon="circle-o"
                 />
                 {isDocNgheSelected === 0 ? (
-                  <Text style={{ fontSize: 18 }}>Nghĩa - Từ</Text>
+                  <Text style={{ fontSize: 18, color: theme.color }}>
+                    Nghĩa - Từ
+                  </Text>
                 ) : (
-                  <Text style={{ fontSize: 18 }}>Chọn câu</Text>
+                  <Text style={{ fontSize: 18, color: theme.color }}>
+                    Chọn câu
+                  </Text>
                 )}
               </View>
             </View>
@@ -143,9 +156,13 @@ const SettingTest_TracNghiem = ({ navigation, route }) => {
                   uncheckedIcon="circle-o"
                 />
                 {isDocNgheSelected === 0 ? (
-                  <Text style={{ fontSize: 18 }}>Từ - Nghĩa</Text>
+                  <Text style={{ fontSize: 18, color: theme.color }}>
+                    Từ - Nghĩa
+                  </Text>
                 ) : (
-                  <Text style={{ fontSize: 18 }}>Chọn nghĩa</Text>
+                  <Text style={{ fontSize: 18, color: theme.color }}>
+                    Chọn nghĩa
+                  </Text>
                 )}
               </View>
             </View>

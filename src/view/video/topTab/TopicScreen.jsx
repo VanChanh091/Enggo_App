@@ -1,10 +1,13 @@
 import { View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ListTopic from "../../../components/topic/ListTopic";
 import { appInfo } from "../../../constants/appInfos";
+import themeContext from "../../../theme/themeContext";
 
 const TopicScreen = () => {
   const [videos, setVideos] = useState([]);
+
+  const theme = useContext(themeContext);
 
   useEffect(() => {
     fetchData();
@@ -22,7 +25,7 @@ const TopicScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
+    <View style={{ flex: 1, backgroundColor: theme.background }}>
       {/* render list topic */}
       <ListTopic data={videos} navigationScreen={"ListVideoOfTopic"} />
     </View>

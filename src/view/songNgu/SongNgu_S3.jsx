@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { FontAwesome } from "@expo/vector-icons";
@@ -7,9 +7,11 @@ import {
   playVoiceText,
   stopVoiceText,
 } from "../../components/translate/PLayTranslateVoice";
+import themeContext from "../../theme/themeContext";
 
 const SongNgu_S3 = ({ route }) => {
   const { dataTruyen } = route.params;
+  const theme = useContext(themeContext);
 
   //   Chuyen doi ngon ngu giua anh va viet
   const [isTextEnglish, setIsTextEnglish] = useState(true);
@@ -58,13 +60,20 @@ const SongNgu_S3 = ({ route }) => {
         title={isTextEnglish ? dataTruyen.titleEn : dataTruyen.titleVn}
       />
 
-      <View style={{ flex: 9, borderBottomWidth: 1 }}>
+      <View
+        style={{
+          flex: 9,
+          borderBottomWidth: 1,
+          backgroundColor: theme.background,
+        }}
+      >
         <Text
           style={{
             fontSize: 17,
             marginHorizontal: 12,
             textAlign: "justify",
             marginTop: 10,
+            color: theme.color,
           }}
         >
           {translatedText || dataTruyen.text}
@@ -80,7 +89,7 @@ const SongNgu_S3 = ({ route }) => {
             style={{ marginLeft: 15 }}
             onPress={() => playVoiceText(dataTruyen.text, "en")}
           >
-            <FontAwesome name="volume-up" size={35} color="black" />
+            <FontAwesome name="volume-up" size={35} color={theme.color} />
           </TouchableOpacity>
         </View>
       </View>

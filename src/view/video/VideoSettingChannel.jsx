@@ -1,20 +1,22 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import themeContext from "../../theme/themeContext";
 
 const VideoSettingChannel = ({ navigation, route }) => {
   const { data } = route.params;
-  console.log(data);
 
   const { title, thumbnails } = data.snippet;
+
+  const theme = useContext(themeContext);
 
   return (
     <PaperProvider>
       <HeaderScreen title="" />
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
         <View style={{ flex: 4 }}>
           <Image
             source={{ uri: thumbnails.medium.url }}
@@ -36,7 +38,12 @@ const VideoSettingChannel = ({ navigation, route }) => {
               }}
             >
               <Text
-                style={{ fontWeight: "bold", fontSize: 15, marginLeft: 10 }}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 15,
+                  marginLeft: 10,
+                  color: theme.color,
+                }}
               >
                 {title}
               </Text>
@@ -48,7 +55,7 @@ const VideoSettingChannel = ({ navigation, route }) => {
                 alignItems: "center",
               }}
             >
-              <Ionicons name="heart-outline" size={35} color="gray" />
+              <Ionicons name="heart-outline" size={35} color={theme.color} />
             </TouchableOpacity>
           </View>
         </View>
@@ -63,7 +70,9 @@ const VideoSettingChannel = ({ navigation, route }) => {
               marginLeft: 15,
             }}
           >
-            <Text style={{ marginLeft: 5, fontSize: 18 }}>Chọn chế độ</Text>
+            <Text style={{ marginLeft: 5, fontSize: 18, color: theme.color }}>
+              Chọn chế độ
+            </Text>
           </View>
           <View
             style={{

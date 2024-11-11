@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -8,12 +8,20 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import themeContext from "../../theme/themeContext";
 
 const ListItems = ({ data, navigationScreen }) => {
+  const theme = useContext(themeContext);
   const navigation = useNavigation();
 
   return (
-    <View style={{ flex: 1, marginTop: 10 }}>
+    <View
+      style={{
+        flex: 1,
+        paddingVertical: 7,
+        backgroundColor: theme.background,
+      }}
+    >
       <ScrollView>
         {/* background */}
         <View

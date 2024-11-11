@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../../components/header/HeaderScreen";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,9 +15,12 @@ import {
   stopVoiceText,
 } from "../../../components/translate/PLayTranslateVoice";
 import { Audio } from "expo-av";
+import themeContext from "../../../theme/themeContext";
 
 const Parody = ({ route }) => {
   const { data } = route.params;
+
+  const theme = useContext(themeContext);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeIndex, setActiveIndex] = useState(null);
@@ -92,7 +95,7 @@ const Parody = ({ route }) => {
     <PaperProvider>
       <HeaderScreen title={"Nói nhại"} />
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
         <ScrollView>
           {data.content.map((item, index) => (
             <View
@@ -108,12 +111,19 @@ const Parody = ({ route }) => {
                   width: "90%",
                   height: 170,
                   borderWidth: 1,
+                  borderColor: theme.color,
                   borderRadius: 10,
                   marginVertical: 10,
                 }}
                 key={index}
               >
-                <View style={{ flex: 7, borderBottomWidth: 1 }}>
+                <View
+                  style={{
+                    flex: 7,
+                    borderBottomWidth: 1,
+                    borderColor: theme.color,
+                  }}
+                >
                   <ScrollView>
                     <Text
                       style={{
@@ -121,6 +131,7 @@ const Parody = ({ route }) => {
                         fontSize: 16,
                         paddingHorizontal: 10,
                         paddingVertical: 10,
+                        color: theme.color,
                       }}
                     >
                       {item.text}
@@ -143,7 +154,7 @@ const Parody = ({ route }) => {
                     >
                       <Ionicons
                         name="pause-circle-outline"
-                        color="black"
+                        color={theme.color}
                         size={32}
                       />
                     </TouchableOpacity>
@@ -153,7 +164,7 @@ const Parody = ({ route }) => {
                     >
                       <Ionicons
                         name="play-circle-outline"
-                        color="black"
+                        color={theme.color}
                         size={32}
                       />
                     </TouchableOpacity>
@@ -164,20 +175,27 @@ const Parody = ({ route }) => {
                     style={{ paddingHorizontal: 12 }}
                     onPress={recording ? stopRecording : startRecording}
                   >
-                    <Ionicons name="mic-sharp" color="black" size={32} />
+                    <Ionicons name="mic-sharp" color={theme.color} size={32} />
                   </TouchableOpacity>
 
                   {/* play recording */}
                   <TouchableOpacity onPress={playRecording}>
                     <Ionicons
                       name="volume-medium-sharp"
-                      color="black"
+                      color={theme.color}
                       size={32}
                     />
                   </TouchableOpacity>
                 </View>
               </View>
-              <Text style={{ fontSize: 16, color: "gray", marginVertical: 5 }}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: "gray",
+                  marginVertical: 5,
+                  color: theme.color,
+                }}
+              >
                 {recording
                   ? "Đang ghi âm... Nhấn để dừng"
                   : "Chạm vào micro để ghi âm"}

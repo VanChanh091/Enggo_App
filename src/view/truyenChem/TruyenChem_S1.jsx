@@ -6,17 +6,19 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   ActivityIndicator,
   MD2Colors,
   PaperProvider,
 } from "react-native-paper";
-import ApiTruyenChem from "../../api/ApiTruyenChem";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
+import themeContext from "../../theme/themeContext";
 
 const TruyenChem_S1 = ({ navigation }) => {
+  const theme = useContext(themeContext);
+
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -29,12 +31,7 @@ const TruyenChem_S1 = ({ navigation }) => {
     try {
       const res = await fetch(`${appInfo.Host_URL}/api/stories`);
       const data = await res.json();
-      if (data && data.data) {
-        setStories(data.data);
-        console.log("Stories:", data.data);
-      } else {
-        console.log("No stories found");
-      }
+      setStories(data.data);
     } catch (error) {
       console.error(error.message);
     } finally {
@@ -48,7 +45,8 @@ const TruyenChem_S1 = ({ navigation }) => {
         width: "90%",
         height: 100,
         flexDirection: "row",
-        backgroundColor: "#f3f3f3",
+        // backgroundColor: "#f3f3f3",
+        backgroundColor: theme.backgroundStories,
         marginTop: 12,
         marginLeft: 18,
         borderRadius: 12,
@@ -78,7 +76,7 @@ const TruyenChem_S1 = ({ navigation }) => {
       <View
         style={{
           flex: 1,
-          backgroundColor: "white",
+          backgroundColor: theme.background,
         }}
       >
         <View style={{ flex: 9 }}>
@@ -88,6 +86,7 @@ const TruyenChem_S1 = ({ navigation }) => {
                 flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
+                backgroundColor: theme.background,
               }}
             >
               <ActivityIndicator animating={true} color={MD2Colors.blue800} />

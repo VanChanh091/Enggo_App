@@ -1,19 +1,22 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import themeContext from "../../theme/themeContext";
 
 const VideoSettingTopic = ({ navigation, route }) => {
   const { data } = route.params;
-  console.log(data);
+  const theme = useContext(themeContext);
 
   return (
     <PaperProvider>
       <HeaderScreen title="" />
 
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 4, borderBottomWidth: 1, borderColor: "#d0d0d0" }}>
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
+        <View
+          style={{ flex: 4, borderBottomWidth: 1, borderColor: theme.border }}
+        >
           <Image
             source={{ uri: data.image }}
             style={{ width: "100%", height: 235 }}
@@ -32,7 +35,12 @@ const VideoSettingTopic = ({ navigation, route }) => {
               }}
             >
               <Text
-                style={{ fontWeight: "bold", fontSize: 16, marginLeft: 10 }}
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 16,
+                  marginLeft: 10,
+                  color: theme.color,
+                }}
               >
                 {data.title}
               </Text>
@@ -44,7 +52,7 @@ const VideoSettingTopic = ({ navigation, route }) => {
                 alignItems: "center",
               }}
             >
-              <Ionicons name="heart-outline" size={35} color="gray" />
+              <Ionicons name="heart-outline" size={35} color={theme.color} />
             </TouchableOpacity>
           </View>
         </View>
@@ -59,7 +67,9 @@ const VideoSettingTopic = ({ navigation, route }) => {
               marginLeft: 15,
             }}
           >
-            <Text style={{ marginLeft: 5, fontSize: 18 }}>Chọn chế độ</Text>
+            <Text style={{ marginLeft: 5, fontSize: 18, color: theme.color }}>
+              Chọn chế độ
+            </Text>
           </View>
           <View
             style={{

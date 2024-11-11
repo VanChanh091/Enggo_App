@@ -6,15 +6,18 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../../components/header/HeaderScreen";
 import PlayVoice from "../../../components/playVoice/PlayVoice";
 import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { CheckBox } from "@rneui/themed";
+import themeContext from "../../../theme/themeContext";
 
 const ListenAndChoosePhrase = ({ route }) => {
   const { data } = route.params;
+
+  const theme = useContext(themeContext);
 
   const allText = data.content.map((item) => item.text).join(" ");
 
@@ -79,7 +82,7 @@ const ListenAndChoosePhrase = ({ route }) => {
     <PaperProvider>
       <HeaderScreen title={"Nghe và trả lời câu hỏi"} />
 
-      <View style={{ flex: 1, backgroundColor: "white" }}>
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
         <View style={{ flex: 8.2 }}>
           <ScrollView>
             <View style={{ width: "100%", height: 100 }}>
@@ -89,6 +92,7 @@ const ListenAndChoosePhrase = ({ route }) => {
                   fontSize: 19,
                   paddingHorizontal: 12,
                   paddingTop: 10,
+                  color: theme.color,
                 }}
               >
                 {data.title}
@@ -106,6 +110,7 @@ const ListenAndChoosePhrase = ({ route }) => {
                         fontWeight: 600,
                         fontSize: 18,
                         paddingHorizontal: 15,
+                        color: theme.color,
                       }}
                     >
                       {questionIndex + 1}. {item.question}{" "}
@@ -137,10 +142,13 @@ const ListenAndChoosePhrase = ({ route }) => {
                           }
                           checkedIcon="dot-circle-o"
                           uncheckedIcon="circle-o"
+                          style={{ backgroundColor: theme.color }}
                         />
                       </View>
                       <View style={{ flex: 8.2, justifyContent: "center" }}>
-                        <Text style={{ fontSize: 16 }}>{option}</Text>
+                        <Text style={{ fontSize: 16, color: theme.color }}>
+                          {option}
+                        </Text>
                       </View>
                     </View>
                   ))}

@@ -1,11 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import ActionSheet from "react-native-actions-sheet";
+import themeContext from "../../theme/themeContext";
 
 const ListExercise = ({ navigation, route }) => {
   const { data } = route.params;
+
+  const theme = useContext(themeContext);
 
   const [selectedItem, setSelectedItem] = useState(null); // Lưu trữ item được chọn
   const actionSheetRef = useRef(null); // Tham chiếu đến ActionSheet
@@ -37,7 +40,7 @@ const ListExercise = ({ navigation, route }) => {
     <PaperProvider>
       <HeaderScreen title={data.title} />
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
         {/* background */}
         <View
           style={{

@@ -1,11 +1,14 @@
 import { ActivityIndicator, StyleSheet, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MD2Colors, PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import ListTopic from "../../components/topic/ListTopic";
 import { appInfo } from "../../constants/appInfos";
+import themeContext from "../../theme/themeContext";
 
 const TopicExercise = () => {
+  const theme = useContext(themeContext);
+
   const [exercises, setExercises] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -32,12 +35,23 @@ const TopicExercise = () => {
 
       {loading ? (
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: theme.background,
+          }}
         >
           <ActivityIndicator animating={true} color={MD2Colors.blue800} />
         </View>
       ) : (
-        <View style={{ flex: 1, backgroundColor: "white", marginTop: 7 }}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: theme.background,
+            paddingVertical: 7,
+          }}
+        >
           <ListTopic data={exercises} navigationScreen={"ListExercise"} />
         </View>
       )}

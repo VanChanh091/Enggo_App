@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   FlatList,
   ImageBackground,
@@ -7,9 +7,12 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import themeContext from "../../theme/themeContext";
 
 const ListTopic = ({ data, navigationScreen }) => {
   const navigation = useNavigation();
+
+  const theme = useContext(themeContext);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity

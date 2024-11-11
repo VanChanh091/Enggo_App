@@ -1,11 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Slider from "@react-native-community/slider";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import * as Speech from "expo-speech";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import themeContext from "../../theme/themeContext";
 
 const PlayVoice = (text) => {
+  const theme = useContext(themeContext);
+
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(0.75);
@@ -187,7 +190,7 @@ const PlayVoice = (text) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: theme.background }}>
       <View
         style={{
           flex: 1.7,
@@ -204,7 +207,7 @@ const PlayVoice = (text) => {
               alignItems: "center",
             }}
           >
-            <Text style={{ fontSize: 15, color: "#666" }}>
+            <Text style={{ fontSize: 15, color: theme.color }}>
               {formatTime(elapsedTime)}
             </Text>
           </View>
@@ -237,7 +240,7 @@ const PlayVoice = (text) => {
               alignItems: "center",
             }}
           >
-            <Text style={{ fontSize: 15, color: "#666" }}>
+            <Text style={{ fontSize: 15, color: theme.color }}>
               {formatTime(totalDuration)}
             </Text>
           </View>

@@ -6,12 +6,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
+import themeContext from "../../../theme/themeContext";
 
 const GhepCap = ({ navigation, route }) => {
   const { dataVocab } = route.params;
-  console.log(dataVocab);
+
+  const theme = useContext(themeContext);
 
   const [shuffledData, setShuffledData] = useState([]);
   const [selectedWord, setSelectedWord] = useState(null);
@@ -169,7 +171,12 @@ const GhepCap = ({ navigation, route }) => {
 
       {!isQuizCompleted ? (
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: theme.backgroundGhepCap,
+          }}
         >
           <FlatList
             keyExtractor={(item) => item._id + item.type}
@@ -185,18 +192,35 @@ const GhepCap = ({ navigation, route }) => {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
+            backgroundColor: theme.backgroundGhepCap,
           }}
         >
           {lives === 0 ? (
-            <Text style={{ fontSize: 18, marginTop: 10, color: "gray" }}>
+            <Text
+              style={{
+                fontSize: 18,
+                marginTop: 10,
+                color: "gray",
+                color: theme.color,
+              }}
+            >
               Cố gắng lên bạn nhé!
             </Text>
           ) : (
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Text style={{ fontWeight: "bold", fontSize: 22 }}>
+              <Text
+                style={{ fontWeight: "bold", fontSize: 22, color: theme.color }}
+              >
                 Congratulation!
               </Text>
-              <Text style={{ fontSize: 18, marginTop: 7, color: "gray" }}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  marginTop: 7,
+                  color: "gray",
+                  color: theme.color,
+                }}
+              >
                 Bạn đã hoàn thành tất cả câu hỏi!
               </Text>
             </View>

@@ -1,16 +1,18 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import themeContext from "../../theme/themeContext";
 
 const SongNgu_S2 = ({ navigation, route }) => {
   const { data } = route.params;
+  const theme = useContext(themeContext);
 
   return (
     <PaperProvider>
       <HeaderScreen title={data.topic} />
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
         {data.subTopic.map((subTopic, index) => (
           <TouchableOpacity
             style={{
@@ -18,7 +20,7 @@ const SongNgu_S2 = ({ navigation, route }) => {
               height: 80,
               borderWidth: 1,
               borderRadius: 12,
-              borderColor: "gray",
+              borderColor: theme.border,
               flexDirection: "row",
               marginHorizontal: 10,
               marginTop: 10,
@@ -35,12 +37,17 @@ const SongNgu_S2 = ({ navigation, route }) => {
                 alignItems: "center",
               }}
             >
-              <Text key={index} style={{ fontWeight: "bold", fontSize: 18 }}>
+              <Text
+                key={index}
+                style={{ fontWeight: "bold", fontSize: 18, color: theme.color }}
+              >
                 {index + 1}
               </Text>
             </View>
             <View style={{ flex: 8.8, justifyContent: "center" }}>
-              <Text style={{ fontWeight: 500, fontSize: 17 }}>
+              <Text
+                style={{ fontWeight: 500, fontSize: 17, color: theme.color }}
+              >
                 {subTopic.titleEn}
               </Text>
               <Text
@@ -49,6 +56,7 @@ const SongNgu_S2 = ({ navigation, route }) => {
                   fontSize: 16,
                   color: "gray",
                   marginTop: 3,
+                  color: theme.color,
                 }}
               >
                 {subTopic.titleVn}

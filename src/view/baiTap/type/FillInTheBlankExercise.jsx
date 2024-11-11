@@ -1,9 +1,10 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { playVoiceText } from "../../../components/translate/PLayTranslateVoice";
+import themeContext from "../../../theme/themeContext";
 
 // Hàm tạo các ô trống cho bài tập
 const generateFillInTheBlank = (texts) => {
@@ -50,6 +51,8 @@ const FillInTheBlankExercise = ({ data }) => {
   const userInputsRef = useRef(
     allBlanks.map((item) => Array(item.correctWords.length).fill(""))
   );
+
+  const theme = useContext(themeContext);
 
   const [checkResults, setCheckResults] = useState(allBlanks.map(() => null)); // null for unanswered, true/false for correctness
   const [translatedText, setTranslatedText] = useState(""); // Trạng thái lưu kết quả dịch
@@ -131,7 +134,7 @@ const FillInTheBlankExercise = ({ data }) => {
       {allBlanks.map((item, blankIndex) => (
         <View key={blankIndex} style={{ marginVertical: 7 }}>
           {/* Hiển thị văn bản gốc tiếng Anh */}
-          <Text style={{ fontSize: 16, lineHeight: 28 }}>
+          <Text style={{ fontSize: 16, lineHeight: 28, color: theme.color }}>
             {item.blankedText}
           </Text>
 
@@ -146,6 +149,7 @@ const FillInTheBlankExercise = ({ data }) => {
                   color: "#2A7BD3",
                   marginTop: 5,
                   lineHeight: 28,
+                  color: theme.color,
                 }}
               >
                 {translations[blankIndex]}
@@ -184,6 +188,7 @@ const FillInTheBlankExercise = ({ data }) => {
                   height: "100%",
                   paddingLeft: 12,
                   fontSize: 16,
+                  color: theme.color,
                 }}
               />
             </View>
@@ -204,7 +209,7 @@ const FillInTheBlankExercise = ({ data }) => {
               }} // Thực hiện dịch khi nhấn vào icon
               disabled={isTranslating}
             >
-              <MaterialIcons name="g-translate" size={30} color="black" />
+              <MaterialIcons name="g-translate" size={30} color={theme.color} />
             </TouchableOpacity>
 
             {/* Hiển thị kết quả dịch */}
@@ -216,7 +221,11 @@ const FillInTheBlankExercise = ({ data }) => {
               style={{ paddingLeft: 20 }}
               onPress={() => playVoiceText(item.originalText, "en")}
             >
-              <Ionicons name="volume-medium-sharp" color="black" size={35} />
+              <Ionicons
+                name="volume-medium-sharp"
+                color={theme.color}
+                size={35}
+              />
             </TouchableOpacity>
           </View>
         </View>

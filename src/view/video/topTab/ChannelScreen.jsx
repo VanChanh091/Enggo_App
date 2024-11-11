@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ScrollView,
@@ -7,19 +8,22 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { ApiChannel } from "../../../api/ApiVideo";
 import { appInfo } from "../../../constants/appInfos";
+import themeContext from "../../../theme/themeContext";
+import { MD2Colors } from "react-native-paper";
 
 const ChannelScreen = ({ navigation }) => {
   // const API_KEY = "AIzaSyBbI6fO7DrTmpRYh3NwXGaXLWSr04ysY2g"; //api key cua anh da` :))
   const API_KEY = "AIzaSyD6InaX9MSCEigdalQJRw5g8qmMRllOhBE"; //api key cua vchanh406
   // const API_KEY = "AIzaSyAV0MOQtzTpPHwQqXf4E4YbTJrLV8lT0kg"; //api key cua vanchanh0730
 
+  const theme = useContext(themeContext);
+
   const [videosByChannel, setVideosByChannel] = useState({});
   const [channelInfo, setChannelInfo] = useState({});
-  const [listChannelId, setListChannelId] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const videoCache = {}; // Cache dữ liệu của từng kênh
@@ -147,6 +151,7 @@ const ChannelScreen = ({ navigation }) => {
                   fontSize: 15,
                   marginHorizontal: 12,
                   paddingTop: 5,
+                  color: theme.color,
                 }}
               >
                 {title}
@@ -159,7 +164,7 @@ const ChannelScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
+    <ScrollView style={{ flex: 1, backgroundColor: theme.background }}>
       {ApiChannel.map((channel, index) => {
         const info = channelInfo[channel.channelId]; // Get channel info
         if (!info) {
@@ -200,6 +205,7 @@ const ChannelScreen = ({ navigation }) => {
                     fontSize: 17,
                     marginLeft: 10,
                     marginTop: 5,
+                    color: theme.color,
                   }}
                 >
                   {info.title} {/* Channel name */}

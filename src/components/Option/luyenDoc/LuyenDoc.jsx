@@ -1,13 +1,16 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import HeaderScreen from "../../header/HeaderScreen";
 import { playVoiceText } from "../../translate/PLayTranslateVoice";
+import themeContext from "../../../theme/themeContext";
 
 const LuyenDoc = ({ route }) => {
   const { dataVocab } = route.params;
+
+  const theme = useContext(themeContext);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [recording, setRecording] = useState(null);
@@ -109,7 +112,7 @@ const LuyenDoc = ({ route }) => {
     <PaperProvider>
       <HeaderScreen title="" />
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
         {/* vocab */}
         <View
           style={{
@@ -137,7 +140,14 @@ const LuyenDoc = ({ route }) => {
             <Text style={{ fontSize: 18, color: "#2A7BD3", fontWeight: 500 }}>
               {currentVocab.en}
             </Text>
-            <Text style={{ fontSize: 16, marginTop: 4, color: "gray" }}>
+            <Text
+              style={{
+                fontSize: 16,
+                marginTop: 4,
+                color: "gray",
+                color: theme.color,
+              }}
+            >
               {currentVocab.vn}
             </Text>
           </View>
@@ -159,7 +169,14 @@ const LuyenDoc = ({ route }) => {
               style={{ width: 150, height: 150, resizeMode: "contain" }}
             />
           </TouchableOpacity>
-          <Text style={{ fontSize: 16, color: "gray", marginTop: 5 }}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: "gray",
+              marginTop: 5,
+              color: theme.color,
+            }}
+          >
             {recording
               ? "Đang ghi âm... Nhấn để dừng"
               : "Chạm vào micro để ghi âm"}
@@ -185,7 +202,11 @@ const LuyenDoc = ({ route }) => {
               }}
             >
               <TouchableOpacity onPress={handlePrevious}>
-                <Ionicons name="play-back-outline" size={35} color="black" />
+                <Ionicons
+                  name="play-back-outline"
+                  size={35}
+                  color={theme.color}
+                />
               </TouchableOpacity>
             </View>
             <View
@@ -195,9 +216,9 @@ const LuyenDoc = ({ route }) => {
                 alignItems: "center",
               }}
             >
-              <Text style={{ fontWeight: 500, fontSize: 20 }}>{`${
-                currentIndex + 1
-              }/${dataVocab.length}`}</Text>
+              <Text
+                style={{ fontWeight: 500, fontSize: 20, color: theme.color }}
+              >{`${currentIndex + 1}/${dataVocab.length}`}</Text>
             </View>
             <View
               style={{
@@ -207,7 +228,11 @@ const LuyenDoc = ({ route }) => {
               }}
             >
               <TouchableOpacity onPress={handleNext}>
-                <Ionicons name="play-forward-outline" size={35} color="black" />
+                <Ionicons
+                  name="play-forward-outline"
+                  size={35}
+                  color={theme.color}
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -217,7 +242,7 @@ const LuyenDoc = ({ route }) => {
             style={{
               flex: 1,
               flexDirection: "row",
-              backgroundColor: "#F1F1F1",
+              backgroundColor: theme.background,
             }}
           >
             <View
@@ -237,14 +262,22 @@ const LuyenDoc = ({ route }) => {
                 }}
                 onPress={recording ? stopRecording : startRecording}
               >
-                <Ionicons name="mic-circle-outline" size={40} color="black" />
-                <Text style={{ fontSize: 18, marginLeft: 6 }}>Ghi âm</Text>
+                <Ionicons
+                  name="mic-circle-outline"
+                  size={40}
+                  color={theme.color}
+                />
+                <Text
+                  style={{ fontSize: 18, marginLeft: 6, color: theme.color }}
+                >
+                  Ghi âm
+                </Text>
               </TouchableOpacity>
             </View>
             <View
               style={{
                 flex: 1,
-                borderRightWidth: 1,
+                borderColor: theme.border,
                 justifyContent: "center",
                 alignItems: "center",
               }}
@@ -260,9 +293,13 @@ const LuyenDoc = ({ route }) => {
                 <Ionicons
                   name="volume-medium-outline"
                   size={40}
-                  color="black"
+                  color={theme.color}
                 />
-                <Text style={{ fontSize: 18, marginLeft: 6 }}>Nghe lại</Text>
+                <Text
+                  style={{ fontSize: 18, marginLeft: 6, color: theme.color }}
+                >
+                  Nghe lại
+                </Text>
               </TouchableOpacity>
             </View>
           </View>

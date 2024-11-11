@@ -6,16 +6,18 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../../components/header/HeaderScreen";
 import PlayVoice from "../../../components/playVoice/PlayVoice";
 import { TextInput } from "react-native";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { playVoiceText } from "../../../components/translate/PLayTranslateVoice";
+import themeContext from "../../../theme/themeContext";
 
 const ListenAndRewrite = ({ route }) => {
   const { data } = route.params;
+  const theme = useContext(themeContext);
 
   const [visibleTranscripts, setVisibleTranscripts] = useState({});
   const [userInput, setUserInput] = useState({});
@@ -57,14 +59,14 @@ const ListenAndRewrite = ({ route }) => {
   const getBorderColor = (id) => {
     if (answerStatus[id] === "correct") return "green";
     if (answerStatus[id] === "incorrect") return "red";
-    return "black"; // Mặc định là màu đen
+    return theme.color; // Mặc định là màu đen
   };
 
   return (
     <PaperProvider>
       <HeaderScreen title={"Nghe chép chính tả"} />
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
         <View style={{ flex: 8.2 }}>
           <ScrollView>
             {data.content.map((item, index) => (
@@ -94,6 +96,7 @@ const ListenAndRewrite = ({ route }) => {
                       height: "100%",
                       paddingHorizontal: 10,
                       borderRadius: 10,
+                      color: theme.color,
                     }}
                     multiline={true}
                     textAlignVertical="top"
@@ -130,6 +133,7 @@ const ListenAndRewrite = ({ route }) => {
                               fontSize: 16,
                               paddingHorizontal: 12,
                               paddingVertical: 10,
+                              color: theme.color,
                             }}
                           >
                             {item.text}

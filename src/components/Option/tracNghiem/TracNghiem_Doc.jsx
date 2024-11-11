@@ -6,14 +6,17 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { playVoiceText } from "../../translate/PLayTranslateVoice";
+import themeContext from "../../../theme/themeContext";
+import { theme } from "../../../theme/theme";
 
 const TracNghiem_Doc = ({ navigation, route }) => {
   const { settings } = route.params;
   const { data } = route.params;
   const { screenNavigation } = route.params;
+  const theme = useContext(themeContext);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null); // Đáp án đã chọn
@@ -114,7 +117,7 @@ const TracNghiem_Doc = ({ navigation, route }) => {
       </Appbar.Header>
 
       {!isQuizCompleted ? (
-        <View style={{ flex: 1, backgroundColor: "white" }}>
+        <View style={{ flex: 1, backgroundColor: theme.background }}>
           {/* Câu hỏi */}
           <View style={{ flex: 2.5 }}>
             <View
@@ -127,7 +130,7 @@ const TracNghiem_Doc = ({ navigation, route }) => {
                 style={{
                   fontWeight: "500",
                   fontSize: 17,
-                  color: "gray",
+                  color: theme.color,
                   marginLeft: 20,
                   marginTop: 20,
                 }}
@@ -142,7 +145,9 @@ const TracNghiem_Doc = ({ navigation, route }) => {
                 alignItems: "center",
               }}
             >
-              <Text style={{ fontWeight: "bold", fontSize: 28 }}>
+              <Text
+                style={{ fontWeight: "bold", fontSize: 28, color: theme.color }}
+              >
                 {settings.mode === "tu-nghia"
                   ? currentVocab.en
                   : currentVocab.vn}
@@ -178,18 +183,21 @@ const TracNghiem_Doc = ({ navigation, route }) => {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
+            backgroundColor: theme.backgroundGhepCap,
           }}
         >
           {lives === 0 ? (
-            <Text style={{ fontSize: 18, marginTop: 10, color: "gray" }}>
+            <Text style={{ fontSize: 18, marginTop: 10, color: theme.color }}>
               Cố gắng lên bạn nhé!
             </Text>
           ) : (
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Text style={{ fontWeight: "bold", fontSize: 22 }}>
+              <Text
+                style={{ fontWeight: "bold", fontSize: 22, color: theme.color }}
+              >
                 Congratulation!
               </Text>
-              <Text style={{ fontSize: 18, marginTop: 7, color: "gray" }}>
+              <Text style={{ fontSize: 18, marginTop: 7, color: theme.color }}>
                 Bạn đã hoàn thành tất cả câu hỏi!
               </Text>
             </View>
@@ -227,6 +235,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
+    backgroundColor: "#fff",
   },
   correctAnswer: {
     backgroundColor: "green",

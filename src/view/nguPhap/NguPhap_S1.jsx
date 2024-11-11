@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FlatList, View } from "react-native";
 import { List, PaperProvider } from "react-native-paper";
 import { Categories } from "../../api/apiNguPhap";
 import HeaderScreen from "../../components/header/HeaderScreen";
+import themeContext from "../../theme/themeContext";
 
 const NguPhap_S1 = ({ navigation }) => {
+  const theme = useContext(themeContext);
+
   const renderCategories = ({ item }) => (
     <List.Accordion
       key={item.id}
@@ -12,7 +15,7 @@ const NguPhap_S1 = ({ navigation }) => {
       style={{
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: "gray",
+        borderColor: "#d0d0d0",
         marginVertical: 6,
         marginHorizontal: 10,
         height: 60,
@@ -32,11 +35,13 @@ const NguPhap_S1 = ({ navigation }) => {
             style={{
               borderRadius: 12,
               borderWidth: 1,
-              borderColor: "gray",
+              borderColor: "#d0d0d0",
               marginVertical: 3,
               backgroundColor: "white",
+              color: "red",
               width: "93%",
               height: 50,
+              // color: theme.color,
             }}
           />
         </View>
@@ -48,7 +53,7 @@ const NguPhap_S1 = ({ navigation }) => {
     <PaperProvider>
       <HeaderScreen title="Ngữ Pháp" />
 
-      <View style={{ flex: 1, backgroundColor: "white" }}>
+      <View style={{ flex: 1, backgroundColor: "#fff" }}>
         <FlatList
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderCategories}

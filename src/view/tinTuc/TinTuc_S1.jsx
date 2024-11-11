@@ -108,7 +108,7 @@ const TinTuc_S1 = ({ navigation }) => {
     return acc;
   }, {});
 
-  console.log("Unique Titles by Category: ", uniqueTitlesByCategory);
+  // console.log("Unique Titles by Category: ", uniqueTitlesByCategory);
 
   return (
     <PaperProvider>
@@ -116,7 +116,12 @@ const TinTuc_S1 = ({ navigation }) => {
 
       {loading ? (
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: theme.background,
+          }}
         >
           <ActivityIndicator animating={true} color={MD2Colors.blue800} />
         </View>

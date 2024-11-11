@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { MD2Colors, PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import ListTopic from "../../components/topic/ListTopic";
 import { appInfo } from "../../constants/appInfos";
+import themeContext from "../../theme/themeContext";
 
 const TopicListening = () => {
   // const [groupedTopics, setGroupedTopics] = useState([]);
+
+  const theme = useContext(themeContext);
+
   const [listen, setListen] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -58,12 +62,23 @@ const TopicListening = () => {
       <HeaderScreen title="Bài nghe" />
       {loading ? (
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: theme.background,
+          }}
         >
           <ActivityIndicator animating={true} color={MD2Colors.blue800} />
         </View>
       ) : (
-        <View style={{ flex: 1, backgroundColor: "white", marginTop: 7 }}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: theme.background,
+            paddingVertical: 7,
+          }}
+        >
           <ListTopic data={listen} navigationScreen="ListListeningOfTopic" />
         </View>
       )}

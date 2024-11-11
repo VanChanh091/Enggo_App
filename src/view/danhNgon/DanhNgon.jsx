@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
   ActivityIndicator,
   MD2Colors,
@@ -16,8 +16,11 @@ import HeaderScreen from "../../components/header/HeaderScreen";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
 import { appInfo } from "../../constants/appInfos";
 import { useFocusEffect } from "@react-navigation/native";
+import themeContext from "../../theme/themeContext";
 
 const DanhNgon = () => {
+  const theme = useContext(themeContext);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [istTranslate, setIstTranslate] = useState(true);
   const [translatedText, setTranslatedText] = useState(null);
@@ -110,12 +113,17 @@ const DanhNgon = () => {
 
       {loading ? (
         <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: theme.background,
+          }}
         >
           <ActivityIndicator animating={true} color={MD2Colors.blue800} />
         </View>
       ) : (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: theme.background }}>
           <View style={{ flex: 8.5 }}>
             {/* vocab */}
             <View
@@ -141,9 +149,21 @@ const DanhNgon = () => {
                     <TouchableOpacity
                       onPress={() => playVoiceText(item.word, "en")}
                     >
-                      <Text style={{ fontWeight: "bold", fontSize: 17 }}>
+                      <Text
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 17,
+                          color: theme.color,
+                        }}
+                      >
                         {item.word}
-                        <Text style={{ fontSize: 17, fontWeight: "regular" }}>
+                        <Text
+                          style={{
+                            fontSize: 17,
+                            fontWeight: "regular",
+                            color: theme.color,
+                          }}
+                        >
                           {" "}
                           -{" "}
                         </Text>
@@ -152,6 +172,7 @@ const DanhNgon = () => {
                             fontSize: 17,
                             color: "gray",
                             fontWeight: "regular",
+                            color: theme.color,
                           }}
                         >
                           {item.pronunciation}
@@ -168,7 +189,13 @@ const DanhNgon = () => {
                   </View>
                 ))
               ) : (
-                <Text style={{ marginHorizontal: 15, fontSize: 17 }}>
+                <Text
+                  style={{
+                    marginHorizontal: 15,
+                    fontSize: 17,
+                    color: theme.color,
+                  }}
+                >
                   Đang tải dữ liệu...
                 </Text>
               )}
@@ -278,7 +305,11 @@ const DanhNgon = () => {
                 }}
               >
                 <TouchableOpacity onPress={handlePrevious}>
-                  <Ionicons name="play-back-outline" size={35} color="black" />
+                  <Ionicons
+                    name="play-back-outline"
+                    size={35}
+                    color={theme.color}
+                  />
                 </TouchableOpacity>
               </View>
               <View
@@ -288,9 +319,9 @@ const DanhNgon = () => {
                   alignItems: "center",
                 }}
               >
-                <Text style={{ fontWeight: 500, fontSize: 20 }}>{`${
-                  currentIndex + 1
-                }/${quotes.length}`}</Text>
+                <Text
+                  style={{ fontWeight: 500, fontSize: 20, color: theme.color }}
+                >{`${currentIndex + 1}/${quotes.length}`}</Text>
               </View>
               <View
                 style={{
@@ -303,7 +334,7 @@ const DanhNgon = () => {
                   <Ionicons
                     name="play-forward-outline"
                     size={35}
-                    color="black"
+                    color={theme.color}
                   />
                 </TouchableOpacity>
               </View>

@@ -1,12 +1,15 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import HeaderScreen from "../../../components/header/HeaderScreen";
 import { PaperProvider } from "react-native-paper";
 import PlayVoice from "../../../components/playVoice/PlayVoice";
 import { Image } from "react-native";
 import FillInTheBlankExercise from "./FillInTheBlankExercise";
+import themeContext from "../../../theme/themeContext";
 
 const ListenAndFillWord = ({ route }) => {
+  const theme = useContext(themeContext);
+
   const { data } = route.params;
 
   const allText = data.content.map((item) => item.text).join(" ");
@@ -15,7 +18,7 @@ const ListenAndFillWord = ({ route }) => {
     <PaperProvider>
       <HeaderScreen title={"Nghe và điền từ"} />
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
         <View style={{ flex: 8.2 }}>
           <ScrollView>
             <View style={{ width: "100%", height: 100 }}>
@@ -25,6 +28,7 @@ const ListenAndFillWord = ({ route }) => {
                   fontSize: 19,
                   paddingHorizontal: 12,
                   paddingTop: 10,
+                  color: theme.color,
                 }}
               >
                 {data.title}

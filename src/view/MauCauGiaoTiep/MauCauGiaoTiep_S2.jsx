@@ -6,27 +6,29 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { PaperProvider } from "react-native-paper";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
+import themeContext from "../../theme/themeContext";
 
 const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
   const { data } = route.params;
+  const theme = useContext(themeContext);
 
   return (
     <PaperProvider>
       <HeaderScreen title={data.titleEn} />
 
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: theme.background }}>
         <View
           style={{
             width: "100%",
             height: 175,
             borderBottomWidth: 1,
             flexDirection: "row",
-            borderColor: "#D0D0D0",
+            borderColor: theme.border,
           }}
         >
           <View
@@ -43,7 +45,7 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                 height: "40%",
                 borderWidth: 1,
                 borderRadius: 12,
-                borderColor: "gray",
+                borderColor: theme.border,
                 justifyContent: "center",
                 alignItems: "center",
                 marginRight: -12,
@@ -57,9 +59,16 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
             >
               <Image
                 source={require("../../img/imgBoTuVung/writting.png")}
-                style={{ width: 35, height: 35, resizeMode: "contain" }}
+                style={{
+                  width: 35,
+                  height: 35,
+                  resizeMode: "contain",
+                  tintColor: theme.color,
+                }}
               />
-              <Text style={{ fontSize: 18 }}>Luyện viết</Text>
+              <Text style={{ fontSize: 18, color: theme.text }}>
+                Luyện viết
+              </Text>
             </TouchableOpacity>
 
             {/* Luyen doc */}
@@ -69,7 +78,7 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                 height: "40%",
                 borderWidth: 1,
                 borderRadius: 12,
-                borderColor: "gray",
+                borderColor: theme.border,
                 justifyContent: "center",
                 alignItems: "center",
                 marginTop: 10,
@@ -79,8 +88,10 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                 navigation.navigate("LuyenDoc", { dataVocab: data.vocab })
               }
             >
-              <Ionicons name="mic-outline" size={35} color="black" />
-              <Text style={{ fontSize: 18 }}>Luyện đọc</Text>
+              <Ionicons name="mic-outline" size={35} color={theme.color} />
+              <Text style={{ fontSize: 18, color: theme.color }}>
+                Luyện đọc
+              </Text>
             </TouchableOpacity>
           </View>
           <View
@@ -93,7 +104,7 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                 height: "40%",
                 borderWidth: 1,
                 borderRadius: 12,
-                borderColor: "gray",
+                borderColor: theme.border,
                 justifyContent: "center",
                 alignItems: "center",
                 marginLeft: -10,
@@ -105,8 +116,10 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                 })
               }
             >
-              <Ionicons name="checkbox-outline" size={35} color="black" />
-              <Text style={{ fontSize: 18 }}>Trắc nghiệm</Text>
+              <Ionicons name="checkbox-outline" size={35} color={theme.color} />
+              <Text style={{ fontSize: 18, color: theme.color }}>
+                Trắc nghiệm
+              </Text>
             </TouchableOpacity>
 
             {/* ghep cap */}
@@ -116,7 +129,7 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                 height: "40%",
                 borderWidth: 1,
                 borderRadius: 12,
-                borderColor: "gray",
+                borderColor: theme.border,
                 justifyContent: "center",
                 alignItems: "center",
                 marginTop: 10,
@@ -128,9 +141,14 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
             >
               <Image
                 source={require("../../img/imgBoTuVung/match.png")}
-                style={{ width: 35, height: 35, resizeMode: "contain" }}
+                style={{
+                  width: 35,
+                  height: 35,
+                  resizeMode: "contain",
+                  tintColor: theme.color,
+                }}
               />
-              <Text style={{ fontSize: 18 }}>Ghép cặp</Text>
+              <Text style={{ fontSize: 18, color: theme.color }}>Ghép cặp</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -139,7 +157,7 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
           <View
             style={{
               flex: 1,
-              backgroundColor: "#F1F1F1",
+              backgroundColor: theme.background,
               alignItems: "center",
             }}
           >
@@ -151,7 +169,7 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                   height: 60,
                   borderWidth: 1,
                   borderRadius: 12,
-                  borderColor: "gray",
+                  borderColor: theme.border,
                   marginTop: 12,
                   flexDirection: "row",
                 }}
@@ -161,6 +179,7 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                     flex: 8.5,
                     borderRightWidth: 1,
                     justifyContent: "center",
+                    borderColor: theme.border,
                   }}
                 >
                   <Text
@@ -178,7 +197,7 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                       fontSize: 16,
                       marginLeft: 15,
                       marginTop: 4,
-                      color: "gray",
+                      color: theme.text,
                     }}
                   >
                     {vocabulary.vn}
@@ -194,7 +213,11 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                   <TouchableOpacity
                     onPress={() => playVoiceText(vocabulary.en, "en")}
                   >
-                    <FontAwesome name="volume-up" size={28} color="black" />
+                    <FontAwesome
+                      name="volume-up"
+                      size={28}
+                      color={theme.color}
+                    />
                   </TouchableOpacity>
                 </View>
               </View>

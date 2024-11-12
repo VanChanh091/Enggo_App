@@ -7,14 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { playVoiceText } from "../../translate/PLayTranslateVoice";
+import themeContext from "../../../theme/themeContext";
 
 const VietCau_Doc = ({ navigation, route }) => {
   const { settings } = route.params;
   const { data } = route.params;
   const { screenNavigation } = route.params;
+  const theme = useContext(themeContext);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedWords, setSelectedWords] = useState([]); // Lưu trữ các từ đã chọn
@@ -189,7 +191,7 @@ const VietCau_Doc = ({ navigation, route }) => {
       </Appbar.Header>
 
       {!isQuizCompleted ? (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: theme.backgroundGhepCap }}>
           {/* box match word */}
           <View
             style={{
@@ -255,7 +257,14 @@ const VietCau_Doc = ({ navigation, route }) => {
               }}
             >
               <TouchableOpacity onPress={moveToNextWord}>
-                <Text style={{ fontSize: 18, color: "gray", marginRight: 20 }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: "gray",
+                    marginRight: 20,
+                    color: theme.color,
+                  }}
+                >
                   Bỏ qua
                 </Text>
               </TouchableOpacity>
@@ -309,19 +318,22 @@ const VietCau_Doc = ({ navigation, route }) => {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
+            backgroundColor: theme.backgroundGhepCap,
           }}
         >
           {/* check lives === 0  */}
           {lives === 0 ? (
-            <Text style={{ fontSize: 18, marginTop: 10, color: "gray" }}>
+            <Text style={{ fontSize: 18, marginTop: 10, color: theme.color }}>
               Cố gắng lên bạn nhé!
             </Text>
           ) : (
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Text style={{ fontWeight: "bold", fontSize: 22 }}>
+              <Text
+                style={{ fontWeight: "bold", fontSize: 22, color: theme.color }}
+              >
                 Congratulation!
               </Text>
-              <Text style={{ fontSize: 18, marginTop: 7, color: "gray" }}>
+              <Text style={{ fontSize: 18, marginTop: 7, color: theme.color }}>
                 Bạn đã hoàn thành tất cả câu hỏi!
               </Text>
             </View>

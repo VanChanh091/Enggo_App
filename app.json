@@ -20,7 +20,10 @@
       "favicon": "./assets/favicon.png"
     },
     "expo": {
-      "plugins": ["@react-native-voice/voice"]
+      "plugins": ["@react-native-voice/voice"],
+      "android": {
+        "permissions": ["NOTIFICATIONS", "WAKE_LOCK"]
+      }
     }
   }
 }

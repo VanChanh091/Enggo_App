@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Switch,
+  Alert,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
@@ -16,8 +17,9 @@ import { useDispatch } from "react-redux";
 import { removeAuth } from "../../redux/reducers/authReducer";
 import { EventRegister } from "react-native-event-listeners";
 import themeContext from "../../theme/themeContext";
+import * as Notifications from "expo-notifications";
 
-const Account = ({ navigation }) => {
+const Account = () => {
   const [isEnabledClock, setIsEnabledClock] = useState(false);
   const [time, setTime] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
@@ -28,14 +30,16 @@ const Account = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  const toggleSwitchNightMode = () => setIsEnabledNightMode((prev) => !prev);
   const toggleSwitchClock = () => setIsEnabledClock((prev) => !prev);
 
   // DateTimePicker
   const onTimeChange = (event, selectedTime) => {
     setShowPicker(false);
-    if (selectedTime) {
+    if (selectedTime && selectedTime instanceof Date) {
       setTime(selectedTime);
+      const selectedHour = selectedTime.getHours();
+      const selectedMinute = selectedTime.getMinutes();
+      scheduleNotificationsReminder(selectedHour, selectedMinute);
     }
   };
 
@@ -70,6 +74,31 @@ const Account = ({ navigation }) => {
     }
   };
 
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
+
+  const scheduleNotificationsReminder = async (hour, minute) => {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "It's time to study!",
+        body: "Let's get some learning done!",
+        sound: true,
+      },
+      trigger: {
+        hour: hour,
+        minute: minute,
+        repeats: true,
+      },
+    });
+  };
+
   return (
     <PaperProvider style={{ flex: 1 }}>
       <Appbar.Header
@@ -93,7 +122,7 @@ const Account = ({ navigation }) => {
         </TouchableOpacity>
       </Appbar.Header>
 
-      <ScrollView style={[{ flex: 1 }, { backgroundColor: theme.background }]}>
+      <ScrollView style={{ flex: 1, backgroundColor: theme.background }}>
         {/* Info User */}
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -173,15 +202,11 @@ const Account = ({ navigation }) => {
           </View>
 
           <View
-            style={[
-              {
-                flex: 5,
-              },
-              {
-                backgroundColor: theme.background,
-                borderColor: theme.borderColor,
-              },
-            ]}
+            style={{
+              flex: 5,
+              backgroundColor: theme.background,
+              borderColor: theme.borderColor,
+            }}
           >
             {/* che do ban dem */}
             <View
@@ -210,10 +235,12 @@ const Account = ({ navigation }) => {
                 }}
               >
                 <Text
-                  style={[
-                    { fontSize: 17, fontWeight: 500, paddingLeft: 5 },
-                    { color: theme.color },
-                  ]}
+                  style={{
+                    fontSize: 17,
+                    fontWeight: 500,
+                    paddingLeft: 5,
+                    color: theme.color,
+                  }}
                 >
                   Chế độ ban đêm
                 </Text>
@@ -263,10 +290,12 @@ const Account = ({ navigation }) => {
                 }}
               >
                 <Text
-                  style={[
-                    { fontSize: 17, fontWeight: 500, paddingLeft: 5 },
-                    { color: theme.color },
-                  ]}
+                  style={{
+                    fontSize: 17,
+                    fontWeight: 500,
+                    paddingLeft: 5,
+                    color: theme.color,
+                  }}
                 >
                   Nhắc nhở học
                 </Text>
@@ -314,13 +343,11 @@ const Account = ({ navigation }) => {
                   }}
                 >
                   <Text
-                    style={[
-                      {
-                        fontSize: 16,
-                        marginLeft: 5,
-                      },
-                      { color: theme.color },
-                    ]}
+                    style={{
+                      fontSize: 16,
+                      marginLeft: 5,
+                      color: theme.color,
+                    }}
                   >
                     Thời gian
                   </Text>
@@ -332,7 +359,14 @@ const Account = ({ navigation }) => {
                     flex: 3,
                   }}
                 >
-                  <TouchableOpacity onPress={showTimePicker}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      scheduleNotificationsReminder(
+                        time.getHours(),
+                        time.getMinutes()
+                      );
+                    }}
+                  >
                     <Text style={{ paddingLeft: 12, marginTop: 7 }}>
                       <DateTimePicker
                         value={time}
@@ -379,6 +413,51 @@ const Account = ({ navigation }) => {
                     { fontSize: 17, fontWeight: 500, paddingLeft: 5 },
                     { color: theme.color },
                   ]}
+                >
+                  Yêu thích
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1.5,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Ionicons
+                  name="chevron-forward-outline"
+                  size={25}
+                  color={theme.color}
+                />
+              </View>
+            </TouchableOpacity>
+
+            {/* notification */}
+            <TouchableOpacity
+              style={{
+                width: "100%",
+                height: 55,
+                borderWidth: 1,
+                borderColor: "gray",
+                flexDirection: "row",
+              }}
+              onPress={() => {
+                scheduleNotificationsReminder(11, 30);
+              }}
+            >
+              <View
+                style={{
+                  flex: 7,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 17,
+                    fontWeight: 500,
+                    paddingLeft: 5,
+                    color: theme.color,
+                  }}
                 >
                   Yêu thích
                 </Text>
@@ -480,17 +559,5 @@ const styles = StyleSheet.create({
   timeText: { fontSize: 16, color: "#2A7BD3" },
   switch: { marginRight: 10 },
 });
-
-const lightTheme = {
-  name: "Light",
-  background: "#FFFFFF",
-  text: "#000000",
-};
-
-const darkTheme = {
-  name: "Dark",
-  background: "#000000",
-  text: "#FFFFFF",
-};
 
 export default Account;

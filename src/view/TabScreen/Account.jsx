@@ -382,8 +382,8 @@ const Account = () => {
               </View>
             </View>
 
-            {/* yeu thich */}
-            <TouchableOpacity
+            {/* change password */}
+            <View
               style={{
                 width: "100%",
                 height: 55,
@@ -398,53 +398,10 @@ const Account = () => {
                 }}
               >
                 <Image
-                  source={require("../../img/imgTab/heart.png")}
-                  style={{ width: 50, height: 50, resizeMode: "contain" }}
+                  source={require("../../img/imgTab/changePassword.png")}
+                  style={{ width: 42, height: 42, resizeMode: "contain" }}
                 />
               </View>
-              <View
-                style={{
-                  flex: 7,
-                  justifyContent: "center",
-                }}
-              >
-                <Text
-                  style={[
-                    { fontSize: 17, fontWeight: 500, paddingLeft: 5 },
-                    { color: theme.color },
-                  ]}
-                >
-                  Yêu thích
-                </Text>
-              </View>
-              <View
-                style={{
-                  flex: 1.5,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Ionicons
-                  name="chevron-forward-outline"
-                  size={25}
-                  color={theme.color}
-                />
-              </View>
-            </TouchableOpacity>
-
-            {/* notification */}
-            <TouchableOpacity
-              style={{
-                width: "100%",
-                height: 55,
-                borderWidth: 1,
-                borderColor: "gray",
-                flexDirection: "row",
-              }}
-              onPress={() => {
-                scheduleNotificationsReminder(11, 30);
-              }}
-            >
               <View
                 style={{
                   flex: 7,
@@ -459,7 +416,7 @@ const Account = () => {
                     color: theme.color,
                   }}
                 >
-                  Yêu thích
+                  Thay đổi mật khẩu
                 </Text>
               </View>
               <View
@@ -475,7 +432,7 @@ const Account = () => {
                   color={theme.color}
                 />
               </View>
-            </TouchableOpacity>
+            </View>
           </View>
         </View>
 

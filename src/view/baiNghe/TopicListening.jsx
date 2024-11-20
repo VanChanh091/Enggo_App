@@ -4,7 +4,7 @@ import { MD2Colors, PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import ListTopic from "../../components/topic/ListTopic";
 import { appInfo } from "../../constants/appInfos";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const TopicListening = () => {
   // const [groupedTopics, setGroupedTopics] = useState([]);

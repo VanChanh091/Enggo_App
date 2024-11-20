@@ -5,7 +5,7 @@ import HeaderScreen from "../../components/header/HeaderScreen";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { useTranslate } from "../../components/translate/TranslateLanguage";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const TinTuc_S2 = ({ route }) => {
   const { data } = route.params;

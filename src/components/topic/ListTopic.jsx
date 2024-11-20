@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const ListTopic = ({ data, navigationScreen }) => {
   const navigation = useNavigation();

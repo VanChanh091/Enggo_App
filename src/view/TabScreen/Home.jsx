@@ -12,7 +12,7 @@ import { Appbar, PaperProvider, Searchbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import { Subjects } from "../../api/apiHome";
 import { appInfo } from "../../constants/appInfos";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const Home = ({ navigation }) => {
   const [search, setSearch] = useState("");

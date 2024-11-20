@@ -2,7 +2,7 @@ import { View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import ListTopic from "../../../components/topic/ListTopic";
 import { appInfo } from "../../../constants/appInfos";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const TopicScreen = () => {
   const [videos, setVideos] = useState([]);

@@ -9,8 +9,8 @@ import {
 import React, { useState, useEffect, useContext } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { playVoiceText } from "../../translate/PLayTranslateVoice";
-import themeContext from "../../../theme/themeContext";
-import { theme } from "../../../theme/theme";
+import themeContext from "../../../context/themeContext";
+import { theme } from "../../../context/theme";
 
 const TracNghiem_Doc = ({ navigation, route }) => {
   const { settings } = route.params;

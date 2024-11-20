@@ -13,7 +13,7 @@ import PlayVoice from "../../../components/playVoice/PlayVoice";
 import { TextInput } from "react-native";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { playVoiceText } from "../../../components/translate/PLayTranslateVoice";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const ListenAndRewrite = ({ route }) => {
   const { data } = route.params;

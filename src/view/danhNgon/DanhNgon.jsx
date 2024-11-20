@@ -16,7 +16,7 @@ import HeaderScreen from "../../components/header/HeaderScreen";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
 import { appInfo } from "../../constants/appInfos";
 import { useFocusEffect } from "@react-navigation/native";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const DanhNgon = () => {
   const theme = useContext(themeContext);

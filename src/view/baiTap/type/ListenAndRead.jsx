@@ -12,7 +12,7 @@ import HeaderScreen from "../../../components/header/HeaderScreen";
 import PlayVoice from "../../../components/playVoice/PlayVoice";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useTranslate } from "../../../components/translate/TranslateLanguage";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const ListenAndRead = ({ route }) => {
   const { data } = route.params;

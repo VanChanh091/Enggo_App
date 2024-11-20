@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const ListItems = ({ data, navigationScreen }) => {
   const theme = useContext(themeContext);

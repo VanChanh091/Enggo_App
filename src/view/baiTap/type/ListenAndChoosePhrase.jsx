@@ -12,7 +12,7 @@ import HeaderScreen from "../../../components/header/HeaderScreen";
 import PlayVoice from "../../../components/playVoice/PlayVoice";
 import { Feather, FontAwesome, Ionicons } from "@expo/vector-icons";
 import { CheckBox } from "@rneui/themed";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const ListenAndChoosePhrase = ({ route }) => {
   const { data } = route.params;

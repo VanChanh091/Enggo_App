@@ -4,7 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { playVoiceText } from "../../../components/translate/PLayTranslateVoice";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 // Hàm tạo các ô trống cho bài tập
 const generateFillInTheBlank = (texts) => {

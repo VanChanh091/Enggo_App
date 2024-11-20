@@ -14,7 +14,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const SongNgu_S1 = ({ navigation }) => {
   const theme = useContext(themeContext);

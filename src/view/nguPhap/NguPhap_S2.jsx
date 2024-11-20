@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ScrollView, Text, View } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const NguPhap_S2 = ({ route }) => {
   const { data } = route.params;

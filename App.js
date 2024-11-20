@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import { NavigationContainer, DarkTheme } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import { Provider } from "react-redux";
 import NavigationStack from "./src/navigation/NavigationStack";
 import store from "./src/redux/store";
 import { EventRegister } from "react-native-event-listeners";
-import { theme } from "./src/theme/theme";
-import themeContext from "./src/theme/themeContext";
+import { theme } from "./src/context/theme";
+import themeContext from "./src/context/themeContext";
+import { FavoriteProvider } from "./src/context/favoriteContext";
 
 export default function App() {
   const [accessToken, setAccessToken] = useState("");
@@ -23,6 +24,7 @@ export default function App() {
       EventRegister.removeEventListener(listener);
     };
   }, [isDarkMode]);
+
   return (
     <>
       <Provider store={store}>
@@ -33,9 +35,11 @@ export default function App() {
         />
         {
           <themeContext.Provider value={isDarkMode ? theme.dark : theme.light}>
-            <NavigationContainer>
-              <NavigationStack />
-            </NavigationContainer>
+            <FavoriteProvider>
+              <NavigationContainer>
+                <NavigationStack />
+              </NavigationContainer>
+            </FavoriteProvider>
           </themeContext.Provider>
         }
       </Provider>

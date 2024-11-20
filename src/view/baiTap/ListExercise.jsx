@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import ActionSheet from "react-native-actions-sheet";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const ListExercise = ({ navigation, route }) => {
   const { data } = route.params;

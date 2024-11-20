@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const TruyenChem_S2 = ({ route }) => {
   const { data } = route.params;

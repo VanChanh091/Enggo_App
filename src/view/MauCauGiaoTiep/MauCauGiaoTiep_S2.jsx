@@ -11,17 +11,29 @@ import { PaperProvider } from "react-native-paper";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
+import { favoriteContext } from "../../context/favoriteContext";
 
 const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
   const { data } = route.params;
+
   const theme = useContext(themeContext);
+  const { favorites, setFavorites } = useContext(favoriteContext);
+
+  const toggleFavorite = (word) => {
+    if (favorites.some((fav) => fav._id === word._id)) {
+      setFavorites(favorites.filter((fav) => fav._id !== word._id));
+    } else {
+      setFavorites([...favorites, word]);
+    }
+  };
 
   return (
     <PaperProvider>
       <HeaderScreen title={data.titleEn} />
 
       <View style={{ flex: 1, backgroundColor: theme.background }}>
+        {/* option */}
         <View
           style={{
             width: "100%",
@@ -153,6 +165,7 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
           </View>
         </View>
 
+        {/* vocabulary */}
         <ScrollView>
           <View
             style={{
@@ -174,12 +187,13 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                   flexDirection: "row",
                 }}
               >
+                {/* vocab */}
                 <View
                   style={{
-                    flex: 8.5,
+                    flex: 7,
                     borderRightWidth: 1,
-                    justifyContent: "center",
                     borderColor: theme.border,
+                    justifyContent: "center",
                   }}
                 >
                   <Text
@@ -203,6 +217,27 @@ const MauCauGiaoTiep_S2 = ({ navigation, route }) => {
                     {vocabulary.vn}
                   </Text>
                 </View>
+
+                {/* favorite */}
+                <View
+                  style={{
+                    flex: 1.5,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRightWidth: 1,
+                    borderColor: theme.border,
+                  }}
+                >
+                  <TouchableOpacity onPress={() => toggleFavorite(vocabulary)}>
+                    <Text style={{ fontSize: 22 }}>
+                      {favorites.some((fav) => fav._id === vocabulary._id)
+                        ? "❤️"
+                        : "🤍"}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+
+                {/* play voice */}
                 <View
                   style={{
                     flex: 1.5,

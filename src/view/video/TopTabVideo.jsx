@@ -5,7 +5,7 @@ import { PaperProvider } from "react-native-paper";
 import ChannelScreen from "./topTab/ChannelScreen";
 import TopicScreen from "./topTab/TopicScreen";
 import HeaderScreen from "../../components/header/HeaderScreen";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const TopTab = createMaterialTopTabNavigator();
 

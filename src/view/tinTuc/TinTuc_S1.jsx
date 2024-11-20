@@ -16,7 +16,7 @@ import {
 } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const TinTuc_S1 = ({ navigation }) => {
   const theme = useContext(themeContext);

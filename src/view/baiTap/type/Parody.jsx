@@ -15,7 +15,7 @@ import {
   stopVoiceText,
 } from "../../../components/translate/PLayTranslateVoice";
 import { Audio } from "expo-av";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const Parody = ({ route }) => {
   const { data } = route.params;

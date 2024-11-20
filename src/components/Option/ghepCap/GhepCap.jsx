@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const GhepCap = ({ navigation, route }) => {
   const { dataVocab } = route.params;

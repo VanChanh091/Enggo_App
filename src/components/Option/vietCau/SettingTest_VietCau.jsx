@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useContext, useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { CheckBox } from "@rneui/themed";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const SettingTest_VietCau = ({ navigation, route }) => {
   const { dataVocab } = route.params;

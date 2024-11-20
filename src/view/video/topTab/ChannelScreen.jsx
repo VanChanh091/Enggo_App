@@ -12,7 +12,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { ApiChannel } from "../../../api/ApiVideo";
 import { appInfo } from "../../../constants/appInfos";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 import { MD2Colors } from "react-native-paper";
 
 const ChannelScreen = ({ navigation }) => {

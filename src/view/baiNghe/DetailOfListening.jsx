@@ -6,7 +6,7 @@ import HeaderScreen from "../../components/header/HeaderScreen";
 import { playVoiceText } from "../../components/translate/PLayTranslateVoice";
 import { useTranslate } from "../../components/translate/TranslateLanguage";
 import PlayVoice from "../../components/playVoice/PlayVoice";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const DetailOfListening = ({ route }) => {
   const { data } = route.params;

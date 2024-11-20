@@ -10,7 +10,7 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { playVoiceText } from "../../translate/PLayTranslateVoice";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const VietCau_Doc = ({ navigation, route }) => {
   const { settings } = route.params;

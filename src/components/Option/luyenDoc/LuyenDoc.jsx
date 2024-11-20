@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Audio } from "expo-av";
 import HeaderScreen from "../../header/HeaderScreen";
 import { playVoiceText } from "../../translate/PLayTranslateVoice";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const LuyenDoc = ({ route }) => {
   const { dataVocab } = route.params;

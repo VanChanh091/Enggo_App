@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import ListItems from "../../components/topic/ListItems";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const ListListeningOfTopic = ({ route }) => {
   const { data } = route.params;

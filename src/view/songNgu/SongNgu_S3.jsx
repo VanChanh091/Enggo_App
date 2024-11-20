@@ -7,7 +7,7 @@ import {
   playVoiceText,
   stopVoiceText,
 } from "../../components/translate/PLayTranslateVoice";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const SongNgu_S3 = ({ route }) => {
   const { dataTruyen } = route.params;

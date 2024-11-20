@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useContext } from "react";
 import { PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const SongNgu_S2 = ({ navigation, route }) => {
   const { data } = route.params;

@@ -3,7 +3,7 @@ import { FlatList, View } from "react-native";
 import { List, PaperProvider } from "react-native-paper";
 import { Categories } from "../../api/apiNguPhap";
 import HeaderScreen from "../../components/header/HeaderScreen";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const NguPhap_S1 = ({ navigation }) => {
   const theme = useContext(themeContext);

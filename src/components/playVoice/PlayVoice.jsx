@@ -4,7 +4,7 @@ import Slider from "@react-native-community/slider";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import * as Speech from "expo-speech";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const PlayVoice = (text) => {
   const theme = useContext(themeContext);

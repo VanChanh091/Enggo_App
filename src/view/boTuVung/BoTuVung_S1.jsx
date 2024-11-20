@@ -11,7 +11,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { MD2Colors, PaperProvider } from "react-native-paper";
 import HeaderScreen from "../../components/header/HeaderScreen";
 import { appInfo } from "../../constants/appInfos";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const BoTuVung_S1 = ({ navigation }) => {
   const theme = useContext(themeContext);

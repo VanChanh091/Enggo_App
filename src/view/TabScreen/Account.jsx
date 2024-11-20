@@ -16,7 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { removeAuth } from "../../redux/reducers/authReducer";
 import { EventRegister } from "react-native-event-listeners";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 import * as Notifications from "expo-notifications";
 
 const Account = () => {
@@ -24,9 +24,9 @@ const Account = () => {
   const [time, setTime] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
   const [user, setUser] = useState("");
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const theme = useContext(themeContext);
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -192,10 +192,12 @@ const Account = () => {
             }}
           >
             <Text
-              style={[
-                { fontSize: 16, fontWeight: "bold", marginLeft: 12 },
-                { color: theme.color },
-              ]}
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                marginLeft: 12,
+                color: theme.color,
+              }}
             >
               Cài đặt
             </Text>

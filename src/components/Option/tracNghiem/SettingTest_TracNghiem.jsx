@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import { CheckBox } from "@rneui/themed";
 import HeaderScreen from "../../header/HeaderScreen";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const SettingTest_TracNghiem = ({ navigation, route }) => {
   const { dataVocab } = route.params;

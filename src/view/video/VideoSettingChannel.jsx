@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 import HeaderScreen from "../../components/header/HeaderScreen";
-import themeContext from "../../theme/themeContext";
+import themeContext from "../../context/themeContext";
 
 const VideoSettingChannel = ({ navigation, route }) => {
   const { data } = route.params;

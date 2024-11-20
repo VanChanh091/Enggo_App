@@ -9,7 +9,7 @@ import {
 import React, { useState, useEffect, useContext } from "react";
 import { Appbar, PaperProvider } from "react-native-paper";
 import { playVoiceText } from "../../translate/PLayTranslateVoice";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const TracNghiem_Nghe = ({ navigation, route }) => {
   const { settings } = route.params;

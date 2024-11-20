@@ -5,7 +5,7 @@ import { PaperProvider } from "react-native-paper";
 import PlayVoice from "../../../components/playVoice/PlayVoice";
 import { Image } from "react-native";
 import FillInTheBlankExercise from "./FillInTheBlankExercise";
-import themeContext from "../../../theme/themeContext";
+import themeContext from "../../../context/themeContext";
 
 const ListenAndFillWord = ({ route }) => {
   const theme = useContext(themeContext);

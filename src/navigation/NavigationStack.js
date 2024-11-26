@@ -55,6 +55,8 @@ import {
   Parody,
   TopicExercise,
 } from "../view/baiTap";
+import Bubble from "../view/Bubble/Bubble";
+import ChatBot from "../components/chat/ChatBot";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -518,6 +520,18 @@ const MainNavigator = () => {
       <Stack.Screen
         name="DetailOfListening"
         component={DetailOfListening}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Bubble"
+        component={Bubble}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ChatBot"
+        component={ChatBot}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

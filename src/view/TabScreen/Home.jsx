@@ -5,18 +5,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useContext, useState } from "react";
-import { Appbar, PaperProvider, Searchbar } from "react-native-paper";
+import React, { useContext } from "react";
+import { Appbar, PaperProvider } from "react-native-paper";
 import themeContext from "../../context/themeContext";
 import Subject from "./components/Subject";
 import Suggested from "./components/Suggested";
 import Bubble from "../Bubble/Bubble";
+import DictionarySearch from "./components/DictionarySearch";
 
 const Home = () => {
-  const [searchText, setSearchText] = useState("");
-  const [translatedText, setTranslatedText] = useState("");
-  const [loading, setLoading] = useState(false);
-
   const theme = useContext(themeContext);
 
   const fetchTranslationFromGlosbe = async (word) => {
@@ -32,19 +29,6 @@ const Home = () => {
       console.error("Lỗi gọi Glosbe API:", error);
       return "Có lỗi xảy ra.";
     }
-  };
-
-  const handleSearch = async (text) => {
-    setSearchText(text);
-    if (text.trim() === "") {
-      setTranslatedText(""); // Nếu không nhập gì, xóa kết quả
-      return;
-    }
-
-    setLoading(true); // Hiển thị trạng thái loading
-    const translation = await fetchTranslationFromGlosbe(text); // Gọi API
-    setTranslatedText(translation); // Cập nhật kết quả dịch
-    setLoading(false); // Tắt loading
   };
 
   return (
@@ -70,47 +54,28 @@ const Home = () => {
           <Appbar.Action icon="bell" size={30} color={theme.color} />
         </TouchableOpacity>
       </Appbar.Header>
-
-      <ScrollView style={{ flex: 1, backgroundColor: theme.background }}>
+      <View
+        style={{
+          flex: 1.2,
+        }}
+      >
         {/* search bar */}
-        <View
-          style={{
-            width: "100%",
-            height: 85,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+        <DictionarySearch />
+      </View>
+
+      <View style={{ flex: 8.8 }}>
+        <ScrollView
+          style={{ backgroundColor: theme.background }}
+          keyboardShouldPersistTaps="handled"
         >
-          <Searchbar
-            placeholder="Search"
-            value={searchText}
-            onChangeText={handleSearch}
-            style={{
-              width: "90%",
-              height: "65%",
-              backgroundColor: "#E9E3E3",
-              borderWidth: 1,
-              borderColor: "gray",
-            }}
-          />
-          {loading ? (
-            <ActivityIndicator size="small" color="#0000ff" /> // Hiển thị loading
-          ) : (
-            translatedText && (
-              <Text style={styles.translation}>{translatedText}</Text>
-            )
-          )}
-        </View>
-
-        {/* Subject */}
-        <Subject />
-
-        {/* suggested */}
-        <Suggested />
-
-        {/* bubble */}
-        <Bubble />
-      </ScrollView>
+          {/* Subject */}
+          <Subject />
+          {/* bubble */}
+          <Bubble />
+          {/* suggested */}
+          <Suggested />
+        </ScrollView>
+      </View>
     </PaperProvider>
   );
 };

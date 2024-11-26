@@ -1,5 +1,4 @@
 import {
-  ActivityIndicator,
   FlatList,
   Image,
   ScrollView,
@@ -9,17 +8,12 @@ import {
   View,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
 import { ApiChannel } from "../../../api/ApiVideo";
 import { appInfo } from "../../../constants/appInfos";
 import themeContext from "../../../context/themeContext";
-import { MD2Colors } from "react-native-paper";
+import { API_KEY_YOUTUBE } from "@env";
 
 const ChannelScreen = ({ navigation }) => {
-  // const API_KEY = "AIzaSyBbI6fO7DrTmpRYh3NwXGaXLWSr04ysY2g"; //api key cua anh da` :))
-  const API_KEY = "AIzaSyD6InaX9MSCEigdalQJRw5g8qmMRllOhBE"; //api key cua vchanh406
-  // const API_KEY = "AIzaSyAV0MOQtzTpPHwQqXf4E4YbTJrLV8lT0kg"; //api key cua vanchanh0730
-
   const theme = useContext(themeContext);
 
   const [videosByChannel, setVideosByChannel] = useState({});
@@ -64,7 +58,7 @@ const ChannelScreen = ({ navigation }) => {
     try {
       // Fetch videos from YouTube API
       const response = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${channelId}&part=snippet,id&order=date&maxResults=5`
+        `https://www.googleapis.com/youtube/v3/search?key=${API_KEY_YOUTUBE}&channelId=${channelId}&part=snippet,id&order=date&maxResults=5`
       );
       const data = await response.json();
 
@@ -80,7 +74,7 @@ const ChannelScreen = ({ navigation }) => {
 
       // Fetch channel info
       const channelResponse = await fetch(
-        `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=${API_KEY}`
+        `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelId}&key=${API_KEY_YOUTUBE}`
       );
       const channelData = await channelResponse.json();
 

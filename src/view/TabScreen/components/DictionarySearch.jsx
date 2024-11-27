@@ -214,10 +214,37 @@ const DictionarySearch = () => {
           {selectedWord?.antonyms?.length > 0 ? (
             <View style={styles.listContainer}>
               {selectedWord.antonyms.map((antonym, index) => (
-                <Text key={index} style={styles.listItem}>
-                  {index + 1}. {capitalizeFirstLetter(antonym)} -{" "}
-                  {translateEnToVn(capitalizeFirstLetter(antonym))}
-                </Text>
+                <View
+                  key={index}
+                  style={{ flexDirection: "row", paddingVertical: 3 }}
+                >
+                  <View style={{ flex: 8.5 }}>
+                    <Text style={styles.listItem}>
+                      {index + 1}. {capitalizeFirstLetter(antonym)} -{" "}
+                      {translateEnToVn(capitalizeFirstLetter(antonym))}
+                    </Text>
+                  </View>
+                  <View style={{ flex: 1.5 }}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        toggleFavorite({
+                          _id: `${selectedWord.word}-${antonym}`,
+                          en: capitalizeFirstLetter(antonym),
+                          vn: translateEnToVn(capitalizeFirstLetter(antonym)),
+                        })
+                      }
+                    >
+                      <Text style={{ fontSize: 22 }}>
+                        {favorites.some(
+                          (fav) => fav._id === `${selectedWord.word}-${antonym}`
+                        )
+                          ? "❤️"
+                          : "🤍"}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View></View>
+                </View>
               ))}
             </View>
           ) : (
@@ -349,7 +376,9 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
   },
   synonymsContainer: {
-    marginTop: 10,
+    marginVertical: 10,
+    borderBottomWidth: 1,
+    borderColor: "#d0d0d0",
   },
   sectionTitle: {
     fontSize: 18,

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,13 +8,13 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
-  Modal,
   ScrollView,
 } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { useTranslate } from "../../../components/translate/TranslateLanguage";
 import ActionSheet from "react-native-actions-sheet";
 import { playVoiceText } from "../../../components/translate/PLayTranslateVoice";
+import { favoriteContext } from "../../../context/favoriteContext";
 
 const DictionarySearch = () => {
   const [searchText, setSearchText] = useState("");
@@ -25,6 +25,17 @@ const DictionarySearch = () => {
   const actionSheetRef = useRef(null); // Reference to ActionSheet
 
   const { translateEnToVn } = useTranslate();
+  const { favorites, setFavorites } = useContext(favoriteContext);
+
+  const toggleFavorite = (word) => {
+    if (favorites.some((fav) => fav._id === word._id)) {
+      // Nếu từ đã tồn tại, loại bỏ từ đó
+      setFavorites(favorites.filter((fav) => fav._id !== word._id));
+    } else {
+      // Nếu từ chưa tồn tại, thêm vào favorites
+      setFavorites([...favorites, word]);
+    }
+  };
 
   const fetchSuggestions = async (text) => {
     setLoading(true);
@@ -40,11 +51,12 @@ const DictionarySearch = () => {
           item.meanings.map((meaning) => ({
             word: item.word,
             phonetic: item.phonetic,
-            meaning: meaning.definitions[0]?.definition || "N/A",
+            meaning:
+              translateEnToVn(meaning.definitions[0]?.definition) || "N/A",
             partOfSpeech: meaning.partOfSpeech || "N/A",
             synonyms: meaning.synonyms || [], // Lấy synonyms từ nghĩa
             antonyms: meaning.antonyms || [],
-            wordVn: translateEnToVn(item.word), // Gọi hàm dịch
+            wordVn: translateEnToVn(capitalizeFirstLetter(item.word)), // Gọi hàm dịch
           }))
         );
         console.log(formattedData);
@@ -74,6 +86,11 @@ const DictionarySearch = () => {
     actionSheetRef.current?.show(); // Open the ActionSheet
   };
 
+  const capitalizeFirstLetter = (str) => {
+    if (typeof str !== "string" || str.length === 0) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   const renderSuggestion = ({ item }) => (
     <TouchableOpacity
       style={styles.suggestionItem}
@@ -81,17 +98,18 @@ const DictionarySearch = () => {
     >
       <View>
         <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-          {item.word} - {item.phonetic} - {item.partOfSpeech} - {item.wordVn}
+          {capitalizeFirstLetter(item.word)}{" "}
+          <Text style={{ fontWeight: "regular" }}>-</Text>{" "}
+          <Text style={{ fontWeight: "regular", fontSize: 16 }}>
+            <Text style={{ fontStyle: "italic" }}>{item.phonetic}</Text> (
+            {item.partOfSpeech}
+            ): {item.wordVn}
+          </Text>
         </Text>
-        <Text>{item.meaning}</Text>
+        <Text style={{ fontSize: 14, paddingTop: 5 }}>{item.meaning}</Text>
       </View>
     </TouchableOpacity>
   );
-
-  const capitalizeFirstLetter = (str) => {
-    if (typeof str !== "string" || str.length === 0) return str;
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
 
   return (
     <KeyboardAvoidingView
@@ -149,9 +167,40 @@ const DictionarySearch = () => {
                 <Text style={styles.sectionTitle}>Synonyms</Text>
                 <View style={styles.listContainer}>
                   {selectedWord.synonyms.map((synonym, index) => (
-                    <Text key={index} style={styles.listItem}>
-                      {index + 1}. {synonym}
-                    </Text>
+                    <View
+                      key={index}
+                      style={{ flexDirection: "row", paddingVertical: 3 }}
+                    >
+                      <View style={{ flex: 8.5 }}>
+                        <Text style={styles.listItem}>
+                          {index + 1}. {capitalizeFirstLetter(synonym)} -{" "}
+                          {translateEnToVn(capitalizeFirstLetter(synonym))}
+                        </Text>
+                      </View>
+                      <View style={{ flex: 1.5 }}>
+                        <TouchableOpacity
+                          onPress={() =>
+                            toggleFavorite({
+                              _id: `${selectedWord.word}-${synonym}`,
+                              en: capitalizeFirstLetter(synonym),
+                              vn: translateEnToVn(
+                                capitalizeFirstLetter(synonym)
+                              ),
+                            })
+                          }
+                        >
+                          <Text style={{ fontSize: 22 }}>
+                            {favorites.some(
+                              (fav) =>
+                                fav._id === `${selectedWord.word}-${synonym}`
+                            )
+                              ? "❤️"
+                              : "🤍"}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                      <View></View>
+                    </View>
                   ))}
                 </View>
               </ScrollView>
@@ -166,7 +215,8 @@ const DictionarySearch = () => {
             <View style={styles.listContainer}>
               {selectedWord.antonyms.map((antonym, index) => (
                 <Text key={index} style={styles.listItem}>
-                  {index + 1}. {capitalizeFirstLetter(antonym)}
+                  {index + 1}. {capitalizeFirstLetter(antonym)} -{" "}
+                  {translateEnToVn(capitalizeFirstLetter(antonym))}
                 </Text>
               ))}
             </View>

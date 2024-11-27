@@ -147,7 +147,6 @@ const ListVocabulary = ({ navigation }) => {
         </View>
 
         {/* my vocab */}
-
         {favorites.length > 0 ? (
           <View style={{ flex: 5.5 }}>
             <View style={{ flex: 1.5 }}>

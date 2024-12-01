@@ -51,7 +51,7 @@ const SignIn = ({ navigation }) => {
 
     try {
       setLoading(true);
-      const res = await authentication.HandleAuthentication("/login", { email, password }, "post")
+      const res = await authentication.HandleAuthentication("/login", { email, password }, "post")    
 
       dispatch(addAuth(res.data));
 
@@ -65,7 +65,7 @@ const SignIn = ({ navigation }) => {
     } catch (error) {
       setLoading(false);
       console.log(error);
-      alert(error)
+      Alert.alert("Lỗi", "Đăng nhập thất bại");
     }
 
   }

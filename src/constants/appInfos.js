@@ -6,7 +6,8 @@ export const appInfo = {
     height: Dimensions.get("window").height,
   },
 
-  BASE_URL: "http://localhost:3000",
+  BASE_URL: "https://enggo-server.onrender.com",
+  // BASE_URL: "http://localhost:3000",
 
   Host_URL: "https://enggo-server.onrender.com",
 };

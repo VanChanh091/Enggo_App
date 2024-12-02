@@ -19,7 +19,13 @@ import aiAnimation from "../../loadingModal/ai.json";
 import ChatBubble from "./components/ChatBubble";
 
 const ChatBotAI = () => {
-  const [chat, setChat] = useState([]);
+  const [chat, setChat] = useState([
+    {
+      role: "model",
+      parts: [{ text: "Chào bạn, tôi có thể giúp gì cho bạn?" }],
+    },
+  ]);
+  
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);

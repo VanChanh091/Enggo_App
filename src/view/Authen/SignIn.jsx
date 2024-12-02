@@ -15,6 +15,8 @@ import authentication from "../../apis/authApi";
 import { useDispatch } from "react-redux";
 import { addAuth } from "../../redux/reducers/authReducer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { appInfo } from "../../constants/appInfos";
+import LoadingModal from "../../loadingModal/LoadingModal";
 
 const SignIn = ({ navigation }) => {
   // Switch
@@ -35,9 +37,10 @@ const SignIn = ({ navigation }) => {
 
 
   const handleLogin = async () => {
+    // Validate email and password
     const emailValidate = Validate.email(email);
     const passwordValidate = Validate.Password(password);
-
+  
     if (!emailValidate) {
       Alert.alert("Lỗi", "Email không hợp lệ");
       return;
@@ -46,29 +49,43 @@ const SignIn = ({ navigation }) => {
       Alert.alert("Lỗi", "Mật khẩu không hợp lệ");
       return;
     }
-
-    // Call API login
-
+  
+    const data = { email, password };
     try {
       setLoading(true);
-      const res = await authentication.HandleAuthentication("/login", { email, password }, "post")    
-
-      dispatch(addAuth(res.data));
-
-      await AsyncStorage.setItem(
-        'auth',
-        // isRemember ? JSON.stringify(res.data) : email,
-        JSON.stringify(res.data)
-
-      );
+  
+      const res = await fetch(`${appInfo.Host_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+  
+      const resData = await res.json();
+      console.log("res data:", resData);
+  
+      if (res.status === 400) {
+        setLoading(false);
+        Alert.alert("Lỗi đăng nhập", "Email không tồn tại");
+        return;
+      }
+      if (res.status === 401) {
+        setLoading(false);
+        Alert.alert("Lỗi đăng nhập", "Mật khẩu không chính xác");
+        return;
+      }
+  
+      dispatch(addAuth(resData.data));
+      await AsyncStorage.setItem('auth', JSON.stringify(resData.data));
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log(error);
       Alert.alert("Lỗi", "Đăng nhập thất bại");
     }
-
-  }
+  };
+  
 
   return (
     <View style={styles.container}>
@@ -347,6 +364,7 @@ const SignIn = ({ navigation }) => {
           </Text>
         </View>
       </View>
+      <LoadingModal visible={loading} />
     </View>
   );
 };

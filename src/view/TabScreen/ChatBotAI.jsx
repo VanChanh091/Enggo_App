@@ -4,6 +4,9 @@ import { isSpeakingAsync, speak, stop } from "expo-speech";
 import LottieView from "lottie-react-native";
 import {
   FlatList,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -29,6 +32,10 @@ const ChatBotAI = () => {
 
   const handleUserInput = async () => {
     if (!userInput.trim()) return;
+
+    // đóng bàn phím
+    Keyboard.dismiss();
+
     // add user input to chat
     const updateChat = [
       ...chat,
@@ -37,6 +44,13 @@ const ChatBotAI = () => {
         parts: [{ text: userInput }],
       },
     ];
+
+    setChat(updateChat); // Update the chat state immediately
+    setUserInput("");
+
+    setTimeout(() => {
+      flatListRef.current?.scrollToEnd({ animated: true });
+    }, 100);
 
     setLoading(true);
 
@@ -68,6 +82,10 @@ const ChatBotAI = () => {
         ];
         setChat(updateChatWithModel);
         setUserInput(""); // Clear the input
+
+        setTimeout(() => {
+          flatListRef.current?.scrollToEnd({ animated: true });
+        }, 100);
       }
     } catch (error) {
       console.error("Error in Gemini Pro Api :", error);
@@ -113,16 +131,18 @@ const ChatBotAI = () => {
         flex: 1,
       }}
     >
-      <View style={{alignItems:'center'}}>
+      <View style={{ alignItems: "center" }}>
         <LottieView
           source={aiAnimation}
           autoPlay
           loop
           style={styles.aiAnimation}
         />
-        <Text style={{textAlign:'center', fontSize:20, fontWeight:'bold'}}>Gemini Pro</Text>
+        <Text style={{ textAlign: "center", fontSize: 20, fontWeight: "bold" }}>
+          Gemini Pro
+        </Text>
       </View>
-      
+
       <FlatList
         ref={flatListRef} // Set ref here
         data={chat}
@@ -142,7 +162,11 @@ const ChatBotAI = () => {
 
       {error && <Text style={styles.error}>{error}</Text>}
 
-      <View style={styles.inputContainer}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"} // Adjust for iOS and Android
+        style={styles.inputContainer}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 10 : 0} // Adjust vertical offset for iOS
+      >
         <TextInput
           style={styles.input}
           placeholder="nhập nội dung ..."
@@ -156,7 +180,7 @@ const ChatBotAI = () => {
         <TouchableOpacity style={styles.sendButton} onPress={handleUserInput}>
           <Text style={styles.buttonText}>Gửi</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
@@ -208,6 +232,5 @@ const styles = StyleSheet.create({
     height: 100,
     justifyContent: "center",
     alignItems: "center",
-    
   },
 });

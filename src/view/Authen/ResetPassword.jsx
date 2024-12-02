@@ -24,6 +24,17 @@ const ResetPassword = ({ navigation, route }) => {
   console.log(user);
 
   const handleChangePassword = async () => {
+
+    if (password.length < 6) {
+      Alert.alert("Thất bại!", "Mật khẩu phải có ít nhất 6 ký tự");
+      return;
+    }
+
+    if (confirmPassword.length < 6) {
+      Alert.alert("Thất bại!", "Mật khẩu phải có ít nhất 6 ký tự");
+      return;
+    }
+
     if (password !== confirmPassword) {
       Alert.alert("Thất bại!", "Mật khẩu không khớp");
       return;

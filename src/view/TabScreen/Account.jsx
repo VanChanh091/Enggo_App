@@ -19,7 +19,7 @@ import { EventRegister } from "react-native-event-listeners";
 import themeContext from "../../context/themeContext";
 import * as Notifications from "expo-notifications";
 
-const Account = () => {
+const Account = ({navigation}) => {
   const [isEnabledClock, setIsEnabledClock] = useState(false);
   const [time, setTime] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
@@ -55,6 +55,8 @@ const Account = () => {
     try {
       const user = await AsyncStorage.getItem("auth");
       const parsedUser = JSON.parse(user); // Parse string to object
+
+      setUser(parsedUser);
 
       if (parsedUser) {
         setUser(parsedUser);
@@ -385,12 +387,13 @@ const Account = () => {
             </View>
 
             {/* change password */}
-            <View
+            <TouchableOpacity
               style={{
                 width: "100%",
                 height: 55,
                 flexDirection: "row",
               }}
+              onPress={() => navigation.navigate("ChangePassword", { user: user })}
             >
               <View
                 style={{
@@ -434,7 +437,7 @@ const Account = () => {
                   color={theme.color}
                 />
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
 

@@ -5,13 +5,65 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import authentication from "../../apis/authApi";
+import LoadingModal from "../../loadingModal/LoadingModal";
+import { appInfo } from "../../constants/appInfos";
 
-const ResetPassword = ({ navigation }) => {
+const ResetPassword = ({ navigation, route }) => {
   const [isPasswordVisible, setPasswordVisible] = useState(false); //password co the nhin thay duoc mac dinh la false
   const [isConfirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setloading] = useState(false);
+  const user = route.params;
+
+  console.log(user);
+
+  const handleChangePassword = async () => {
+    if (password !== confirmPassword) {
+      Alert.alert("Thất bại!", "Mật khẩu không khớp");
+      return;
+    }
+
+    // const api = "changePassword";
+    const data = { email: user.user.email, password: password };
+    setloading(true);
+
+    try {
+      const res = await fetch(`${appInfo.Host_URL}/auth/changePassword`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      console.log("res", res);
+      if(res.status === 200){        
+        Alert.alert("Thành công", "Đổi mật khẩu thành công", [
+          {
+            text: "OK",
+            onPress: () => {
+              navigation.goBack();
+            },
+          },
+        ]);
+        
+
+      }else{
+        Alert.alert("Thất bại", "Đã có lỗi xảy ra, vui lòng thử lại sau");
+      }
+      
+      setloading(false);
+    } catch (error) {
+      setloading(false);
+      console.log(error);
+      Alert.alert("Lỗi", "Đã có lỗi xảy ra, vui lòng thử lại sau");
+    }
+  };
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!isPasswordVisible);
@@ -75,10 +127,10 @@ const ResetPassword = ({ navigation }) => {
             </View>
             <View style={{ flex: 7, justifyContent: "center" }}>
               <TextInput
-                // value={password}
-                // onChangeText={setPassword}
-                // secureTextEntry={!isPasswordVisible}
-                placeholder="Your password"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={!isPasswordVisible}
+                placeholder="Mật khẩu mới"
                 style={{
                   color: "gray",
                   fontSize: 18,
@@ -125,10 +177,10 @@ const ResetPassword = ({ navigation }) => {
             </View>
             <View style={{ flex: 7, justifyContent: "center" }}>
               <TextInput
-                // value={password}
-                // onChangeText={setPassword}
-                // secureTextEntry={!isPasswordVisible}
-                placeholder="Confirm password"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                secureTextEntry={!isConfirmPasswordVisible}
+                placeholder="Nhập lại mật khẩu mới"
                 style={{
                   color: "gray",
                   fontSize: 18,
@@ -182,12 +234,13 @@ const ResetPassword = ({ navigation }) => {
               alignItems: "center",
               marginTop: 12,
             }}
-            onPress={() => navigation.navigate("SignIn")}
+            onPress={handleChangePassword}
           >
-            <Text style={{ color: "white", fontSize: 20 }}>Reset Password</Text>
+            <Text style={{ color: "white", fontSize: 20 }}>Xác nhận</Text>
           </TouchableOpacity>
         </View>
       </View>
+      <LoadingModal visible={loading} />
     </View>
   );
 };

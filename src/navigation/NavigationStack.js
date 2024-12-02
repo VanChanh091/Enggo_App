@@ -126,7 +126,7 @@ const TabNavigationContainer = () => {
       />
       <Tab.Screen
         name="Account"
-        component={Account}
+        component={AccountNavigation}
         options={{
           tabBarLabel: "Tài khoản",
           tabBarIcon: ({ color, size }) => {
@@ -136,6 +136,23 @@ const TabNavigationContainer = () => {
         }}
       />
     </Tab.Navigator>
+  );
+};
+
+const AccountNavigation = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="AccountDetail"
+        component={Account}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ChangePassword"
+        component={ResetPassword}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 };
 

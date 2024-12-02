@@ -44,9 +44,9 @@ const Bubble = () => {
       ]}
       {...panResponder.panHandlers}
     >
-      <TouchableOpacity style={styles.bubble} onPress={handlePress}>
+      {/* <TouchableOpacity style={styles.bubble} onPress={handlePress}>
         <Text style={styles.bubbleText}>Aa</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </Animated.View>
   );
 };

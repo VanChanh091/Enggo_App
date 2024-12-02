@@ -57,6 +57,7 @@ import {
 } from "../view/baiTap";
 import Bubble from "../view/Bubble/Bubble";
 import ChatBot from "../components/chat/ChatBot";
+import ChatBotAI from "../view/TabScreen/ChatBotAI";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -97,6 +98,8 @@ const AuthenNavigation = () => {
   );
 };
 
+
+
 const TabNavigationContainer = () => {
   return (
     <Tab.Navigator>
@@ -124,6 +127,18 @@ const TabNavigationContainer = () => {
           headerShown: false,
         }}
       />
+      {/* chatbot */}
+      <Tab.Screen
+        name="ChatBot"
+        component={ChatBotAI}
+        options={{
+          tabBarLabel: "ChatBot",
+          tabBarIcon: ({ color, size }) => {
+            return <Ionicons name="chatbubbles-outline" size={size} color={color} />;
+          },
+          headerShown: false,
+        }}
+      />
       <Tab.Screen
         name="Account"
         component={AccountNavigation}
@@ -138,6 +153,7 @@ const TabNavigationContainer = () => {
     </Tab.Navigator>
   );
 };
+
 
 const AccountNavigation = () => {
   return (

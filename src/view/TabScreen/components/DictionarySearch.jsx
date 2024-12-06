@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -15,17 +15,36 @@ import { useTranslate } from "../../../components/translate/TranslateLanguage";
 import ActionSheet from "react-native-actions-sheet";
 import { playVoiceText } from "../../../components/translate/PLayTranslateVoice";
 import { favoriteContext } from "../../../context/favoriteContext";
+import themeContext from "../../../context/themeContext";
+import { theme } from "../../../context/theme";
+import { SegmentedButtons } from "react-native-paper";
+import { debounce } from "lodash";
 
 const DictionarySearch = () => {
   const [searchText, setSearchText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedWord, setSelectedWord] = useState(null);
+  const [selectedSegment, setSelectedSegment] = useState("synonyms");
 
   const actionSheetRef = useRef(null); // Reference to ActionSheet
 
   const { translateEnToVn } = useTranslate();
   const { favorites, setFavorites } = useContext(favoriteContext);
+
+  useEffect(() => {
+    return () => {
+      debouncedFetchSuggestions.cancel();
+    };
+  }, []);
+
+  const debouncedFetchSuggestions = useRef(
+    debounce(async (text, fetchFunction) => {
+      if (text.trim()) {
+        await fetchFunction(text);
+      }
+    }, 150)
+  ).current;
 
   const toggleFavorite = (word) => {
     if (favorites.some((fav) => fav._id === word._id)) {
@@ -48,18 +67,30 @@ const DictionarySearch = () => {
 
       if (Array.isArray(data)) {
         const formattedData = data.flatMap((item) =>
-          item.meanings.map((meaning) => ({
-            word: item.word,
-            phonetic: item.phonetic,
-            meaning:
-              translateEnToVn(meaning.definitions[0]?.definition) || "N/A",
-            partOfSpeech: meaning.partOfSpeech || "N/A",
-            synonyms: meaning.synonyms || [], // Lấy synonyms từ nghĩa
-            antonyms: meaning.antonyms || [],
-            wordVn: translateEnToVn(capitalizeFirstLetter(item.word)), // Gọi hàm dịch
-          }))
+          item.meanings.map((meaning) => {
+            // Lấy tất cả các định nghĩa và ví dụ từ `definitions`
+            const allDefinitions = meaning.definitions.map(
+              (def) => def.definition
+            );
+            const allExamples = meaning.definitions
+              .map((def) => def.example)
+              .filter((ex) => ex); // Lọc bỏ những `example` bị undefined
+
+            return {
+              word: item.word,
+              phonetic: item.phonetic || "N/A",
+              meaning:
+                translateEnToVn(meaning.definitions[0]?.definition) || "N/A",
+              partOfSpeech: meaning.partOfSpeech || "N/A",
+              synonyms: meaning.synonyms || [],
+              antonyms: meaning.antonyms || [],
+              wordVn: translateEnToVn(capitalizeFirstLetter(item.word)),
+              example: meaning.definitions[0]?.example || "N/A",
+              allMeaning: allDefinitions,
+              allExample: allExamples,
+            };
+          })
         );
-        console.log(formattedData);
 
         setSuggestions(formattedData);
       } else {
@@ -77,7 +108,7 @@ const DictionarySearch = () => {
     if (text.trim() === "") {
       setSuggestions([]);
     } else {
-      fetchSuggestions(text);
+      debouncedFetchSuggestions(text, fetchSuggestions);
     }
   };
 
@@ -145,9 +176,23 @@ const DictionarySearch = () => {
           {/* Header */}
           <View style={styles.headerContainer}>
             <View style={{ flexDirection: "row" }}>
-              <Text style={styles.wordTitle}>
-                {capitalizeFirstLetter(selectedWord?.word)}
-              </Text>
+              <View>
+                <Text style={styles.wordTitle}>
+                  {capitalizeFirstLetter(selectedWord?.word)} -{" "}
+                  {translateEnToVn(capitalizeFirstLetter(selectedWord?.word))}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: "gray",
+                    paddingHorizontal: 5,
+                    paddingVertical: 4,
+                  }}
+                >
+                  {capitalizeFirstLetter(selectedWord?.phonetic)} -{" "}
+                  {capitalizeFirstLetter(selectedWord?.partOfSpeech)}
+                </Text>
+              </View>
               <TouchableOpacity
                 style={styles.audioButton}
                 onPress={() => playVoiceText(selectedWord?.word, "en")}
@@ -160,95 +205,201 @@ const DictionarySearch = () => {
             </TouchableOpacity>
           </View>
 
-          {/* Synonyms */}
-          <View style={styles.synonymsContainer}>
-            {selectedWord?.synonyms?.length > 0 ? (
-              <ScrollView style={styles.scrollView}>
-                <Text style={styles.sectionTitle}>Synonyms</Text>
-                <View style={styles.listContainer}>
-                  {selectedWord.synonyms.map((synonym, index) => (
-                    <View
-                      key={index}
-                      style={{ flexDirection: "row", paddingVertical: 3 }}
-                    >
-                      <View style={{ flex: 8.5 }}>
-                        <Text style={styles.listItem}>
-                          {index + 1}. {capitalizeFirstLetter(synonym)} -{" "}
-                          {translateEnToVn(capitalizeFirstLetter(synonym))}
-                        </Text>
-                      </View>
-                      <View style={{ flex: 1.5 }}>
-                        <TouchableOpacity
-                          onPress={() =>
-                            toggleFavorite({
-                              _id: `${selectedWord.word}-${synonym}`,
-                              en: capitalizeFirstLetter(synonym),
-                              vn: translateEnToVn(
-                                capitalizeFirstLetter(synonym)
-                              ),
-                            })
-                          }
-                        >
-                          <Text style={{ fontSize: 22 }}>
-                            {favorites.some(
-                              (fav) =>
-                                fav._id === `${selectedWord.word}-${synonym}`
-                            )
-                              ? "❤️"
-                              : "🤍"}
-                          </Text>
-                        </TouchableOpacity>
-                      </View>
-                      <View></View>
-                    </View>
-                  ))}
-                </View>
-              </ScrollView>
-            ) : (
-              <Text style={styles.noData}>No synonyms available</Text>
-            )}
-          </View>
+          {/* Segmented Buttons */}
+          <SegmentedButtons
+            value={selectedSegment}
+            onValueChange={setSelectedSegment}
+            buttons={[
+              { value: "synonyms", label: "Synonyms & Antonyms" },
+              { value: "definition", label: "Definition" },
+            ]}
+            style={styles.segmentedButtons}
+          />
 
-          {/* Antonyms */}
-          <Text style={styles.sectionTitle}>Antonyms</Text>
-          {selectedWord?.antonyms?.length > 0 ? (
-            <View style={styles.listContainer}>
-              {selectedWord.antonyms.map((antonym, index) => (
-                <View
-                  key={index}
-                  style={{ flexDirection: "row", paddingVertical: 3 }}
-                >
-                  <View style={{ flex: 8.5 }}>
-                    <Text style={styles.listItem}>
-                      {index + 1}. {capitalizeFirstLetter(antonym)} -{" "}
-                      {translateEnToVn(capitalizeFirstLetter(antonym))}
-                    </Text>
-                  </View>
-                  <View style={{ flex: 1.5 }}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        toggleFavorite({
-                          _id: `${selectedWord.word}-${antonym}`,
-                          en: capitalizeFirstLetter(antonym),
-                          vn: translateEnToVn(capitalizeFirstLetter(antonym)),
-                        })
-                      }
-                    >
-                      <Text style={{ fontSize: 22 }}>
-                        {favorites.some(
-                          (fav) => fav._id === `${selectedWord.word}-${antonym}`
-                        )
-                          ? "❤️"
-                          : "🤍"}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                  <View></View>
-                </View>
-              ))}
+          {/* Render Synonyms & Antonyms */}
+          {selectedSegment === "synonyms" ? (
+            <View style={{ flex: 1 }}>
+              {/* Synonyms */}
+              <View style={styles.synonymsContainer}>
+                <Text style={styles.sectionTitle}>Synonyms</Text>
+                {selectedWord?.synonyms?.length > 0 ? (
+                  <ScrollView style={styles.scrollView}>
+                    <View style={styles.listContainer}>
+                      {selectedWord.synonyms.map((synonym, index) => (
+                        <View
+                          key={index}
+                          style={{ flexDirection: "row", paddingVertical: 3 }}
+                        >
+                          <View style={{ flex: 8.5 }}>
+                            <Text style={styles.listItem}>
+                              {index + 1}. {capitalizeFirstLetter(synonym)} -{" "}
+                              {translateEnToVn(capitalizeFirstLetter(synonym))}
+                            </Text>
+                          </View>
+                          <View style={{ flex: 1.5 }}>
+                            <TouchableOpacity
+                              onPress={() =>
+                                toggleFavorite({
+                                  _id: `${selectedWord.word}-${synonym}`,
+                                  en: capitalizeFirstLetter(synonym),
+                                  vn: translateEnToVn(
+                                    capitalizeFirstLetter(synonym)
+                                  ),
+                                })
+                              }
+                            >
+                              <Text style={{ fontSize: 22 }}>
+                                {favorites.some(
+                                  (fav) =>
+                                    fav._id ===
+                                    `${selectedWord.word}-${synonym}`
+                                )
+                                  ? "❤️"
+                                  : "🤍"}
+                              </Text>
+                            </TouchableOpacity>
+                          </View>
+                          <View></View>
+                        </View>
+                      ))}
+                    </View>
+                  </ScrollView>
+                ) : (
+                  <Text style={styles.noData}>No synonyms available</Text>
+                )}
+              </View>
+
+              {/* Antonyms Section */}
+              <View style={styles.antonymsContainer}>
+                <Text style={styles.sectionTitle}>Antonyms</Text>
+                {selectedWord?.antonyms?.length > 0 ? (
+                  <ScrollView style={styles.scrollView}>
+                    <View style={styles.listContainer}>
+                      {selectedWord.antonyms.map((antonyms, index) => (
+                        <View
+                          key={index}
+                          style={{ flexDirection: "row", paddingVertical: 3 }}
+                        >
+                          <View style={{ flex: 8.5 }}>
+                            <Text style={styles.listItem}>
+                              {index + 1}. {capitalizeFirstLetter(antonyms)} -{" "}
+                              {translateEnToVn(capitalizeFirstLetter(antonyms))}
+                            </Text>
+                          </View>
+                          <View style={{ flex: 1.5 }}>
+                            <TouchableOpacity
+                              onPress={() =>
+                                toggleFavorite({
+                                  _id: `${selectedWord.word}-${antonyms}`,
+                                  en: capitalizeFirstLetter(antonyms),
+                                  vn: translateEnToVn(
+                                    capitalizeFirstLetter(antonyms)
+                                  ),
+                                })
+                              }
+                            >
+                              <Text style={{ fontSize: 22 }}>
+                                {favorites.some(
+                                  (fav) =>
+                                    fav._id ===
+                                    `${selectedWord.word}-${antonyms}`
+                                )
+                                  ? "❤️"
+                                  : "🤍"}
+                              </Text>
+                            </TouchableOpacity>
+                          </View>
+                          <View></View>
+                        </View>
+                      ))}
+                    </View>
+                  </ScrollView>
+                ) : (
+                  <Text style={styles.noData}>No synonyms available</Text>
+                )}
+              </View>
             </View>
           ) : (
-            <Text style={styles.noData}>No antonyms available</Text>
+            <View style={{ flex: 1 }}>
+              <View
+                style={{
+                  flex: 1,
+                  borderBottomWidth: 1,
+                  borderColor: "#d0d0d0",
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 18,
+                    paddingVertical: 3,
+                  }}
+                >
+                  Definition
+                </Text>
+                <ScrollView>
+                  {selectedWord?.allMeaning?.length > 0 ? (
+                    selectedWord.allMeaning
+                      .slice(0, 10)
+                      .map((meaning, mIdx) => (
+                        <View
+                          key={mIdx}
+                          style={{
+                            paddingVertical: 3,
+                            marginLeft: 10,
+                          }}
+                        >
+                          <Text key={mIdx} style={styles.listItem}>
+                            {mIdx + 1}. {meaning}
+                          </Text>
+                          <Text style={styles.listItem}>
+                            - {translateEnToVn(meaning)}
+                          </Text>
+                        </View>
+                      ))
+                  ) : (
+                    <Text>No meanings available</Text>
+                  )}
+                </ScrollView>
+              </View>
+
+              <View style={{ flex: 1 }}>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 18,
+                    paddingVertical: 10,
+                  }}
+                >
+                  Examples
+                </Text>
+                <ScrollView>
+                  {selectedWord?.allExample?.length > 0 ? (
+                    selectedWord.allExample
+                      .slice(0, 10)
+                      .map((example, mIdx) => (
+                        <View
+                          key={mIdx}
+                          style={{
+                            paddingVertical: 3,
+                            marginLeft: 10,
+                          }}
+                        >
+                          <Text key={mIdx} style={styles.listItem}>
+                            {mIdx + 1}. {example}
+                          </Text>
+                          <Text style={styles.listItem}>
+                            - {translateEnToVn(example)}
+                          </Text>
+                        </View>
+                      ))
+                  ) : (
+                    <Text>No meanings available</Text>
+                  )}
+                  <View style={{ marginVertical: 10 }} />
+                </ScrollView>
+              </View>
+            </View>
           )}
         </View>
       </ActionSheet>
@@ -261,7 +412,7 @@ export default DictionarySearch;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: theme.backgroundColor,
   },
   searchContainer: {
     paddingHorizontal: 10,
@@ -296,9 +447,10 @@ const styles = StyleSheet.create({
   },
   actionSheetContent: {
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: theme.backgroundColor,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    height: 550,
   },
   headerContainer: {
     flexDirection: "row",
@@ -345,7 +497,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "600",
     marginVertical: 20,
     color: "gray",
@@ -374,10 +526,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#888",
     fontStyle: "italic",
+    paddingVertical: 10,
   },
   synonymsContainer: {
     marginVertical: 10,
     borderBottomWidth: 1,
+    borderColor: "#d0d0d0",
+  },
+  antonymsContainer: {
+    marginVertical: 10,
     borderColor: "#d0d0d0",
   },
   sectionTitle: {
@@ -391,5 +548,8 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     paddingLeft: 10,
+  },
+  segmentedButtons: {
+    marginVertical: 10,
   },
 });

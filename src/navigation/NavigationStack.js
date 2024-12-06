@@ -98,8 +98,6 @@ const AuthenNavigation = () => {
   );
 };
 
-
-
 const TabNavigationContainer = () => {
   return (
     <Tab.Navigator>
@@ -134,7 +132,9 @@ const TabNavigationContainer = () => {
         options={{
           tabBarLabel: "ChatBot",
           tabBarIcon: ({ color, size }) => {
-            return <Ionicons name="chatbubbles-outline" size={size} color={color} />;
+            return (
+              <Ionicons name="chatbubbles-outline" size={size} color={color} />
+            );
           },
           headerShown: false,
         }}
@@ -153,7 +153,6 @@ const TabNavigationContainer = () => {
     </Tab.Navigator>
   );
 };
-
 
 const AccountNavigation = () => {
   return (
@@ -603,15 +602,15 @@ const NavigationStack = () => {
 
   return (
     <>
-      {isShowSplash ? (
+      {/* {isShowSplash ? (
         <SplashScreen />
       ) : auth.accesstoken ? (
         <MainNavigator />
       ) : (
         <AuthenNavigation />
-      )}
+      )} */}
 
-      {/* <MainNavigator /> */}
+      <MainNavigator />
     </>
   );
 };

@@ -25,7 +25,7 @@ const ChatBotAI = () => {
       parts: [{ text: "Chào bạn, tôi có thể giúp gì cho bạn?" }],
     },
   ]);
-  
+
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -68,15 +68,15 @@ const ChatBotAI = () => {
         }
       );
 
-      console.log("Gemini Pro Api res :", res.data);
+      // console.log("Gemini Pro Api res :", res.data);
 
       const modelResponse =
         res.data?.candidates?.[0]?.content?.parts[0]?.text || "";
 
-      console.log(
-        "Content of the first candidate:",
-        res.data?.candidates?.[0]?.content
-      );
+      // console.log(
+      //   "Content of the first candidate:",
+      //   res.data?.candidates?.[0]?.content
+      // );
 
       if (modelResponse) {
         const updateChatWithModel = [
@@ -210,6 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 10,
     marginRight: 10,
+    marginVertical: 10,
   },
   sendButton: {
     backgroundColor: "#0077cc",

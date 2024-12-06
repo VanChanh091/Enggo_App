@@ -16,21 +16,6 @@ import DictionarySearch from "./components/DictionarySearch";
 const Home = () => {
   const theme = useContext(themeContext);
 
-  const fetchTranslationFromGlosbe = async (word) => {
-    const url = `https://glosbe.com/gapi/translate?from=eng&dest=vie&format=json&phrase=${word}`;
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      if (data && data.tuc && data.tuc.length > 0) {
-        return data.tuc[0].meanings[0].text; // Lấy nghĩa đầu tiên
-      }
-      return "Không tìm thấy kết quả.";
-    } catch (error) {
-      console.error("Lỗi gọi Glosbe API:", error);
-      return "Có lỗi xảy ra.";
-    }
-  };
-
   return (
     <PaperProvider style={{ flex: 1 }}>
       <Appbar.Header
@@ -54,11 +39,8 @@ const Home = () => {
           <Appbar.Action icon="bell" size={30} color={theme.color} />
         </TouchableOpacity>
       </Appbar.Header>
-      <View
-        style={{
-          flex: 1.2,
-        }}
-      >
+
+      <View style={{ flex: 1.2, backgroundColor: theme.background }}>
         {/* search bar */}
         <DictionarySearch />
       </View>
@@ -70,8 +52,10 @@ const Home = () => {
         >
           {/* Subject */}
           <Subject />
+
           {/* bubble */}
           <Bubble />
+
           {/* suggested */}
           <Suggested />
         </ScrollView>

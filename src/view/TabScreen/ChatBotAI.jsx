@@ -31,7 +31,8 @@ const ChatBotAI = () => {
   const [error, setError] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  const API_KEY = "AIzaSyDVpx_ebQvomImwSANuEnEoG3hLs_-LzEE";
+  // const API_KEY = "AIzaSyDVpx_ebQvomImwSANuEnEoG3hLs_-LzEE";
+  const API_KEY = "AIzaSyCZvCudxqBsVwSuEwfi2-6VXTr3wq-ewyo";
 
   // Add a ref for FlatList
   const flatListRef = useRef();

@@ -87,7 +87,7 @@ const TinTuc_S1 = ({ navigation }) => {
   );
 
   const groupedNewsByCategory = news.reduce((acc, newsItem) => {
-    const categoryId = newsItem.category;
+    const categoryId = newsItem.typeofnews;
     if (!acc[categoryId]) {
       acc[categoryId] = []; // Tạo mảng cho category mới
     }
@@ -98,7 +98,7 @@ const TinTuc_S1 = ({ navigation }) => {
   // console.log("Grouped by Category: ", groupedNewsByCategory);
 
   const uniqueTitlesByCategory = news.reduce((acc, item) => {
-    const categoryId = item.category;
+    const categoryId = item.typeofnews;
 
     // Nếu categoryId chưa tồn tại trong acc, thêm nó cùng với title
     if (!acc[categoryId]) {

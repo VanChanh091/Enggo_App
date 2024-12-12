@@ -13,6 +13,7 @@ import PlayVoice from "../../../components/playVoice/PlayVoice";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useTranslate } from "../../../components/translate/TranslateLanguage";
 import themeContext from "../../../context/themeContext";
+import { playVoiceText } from "../../../components/translate/PLayTranslateVoice";
 
 const ListenAndRead = ({ route }) => {
   const { data } = route.params;
@@ -102,14 +103,11 @@ const ListenAndRead = ({ route }) => {
                       color={theme.color}
                     />
                   </TouchableOpacity>
-                  <TouchableOpacity style={{ paddingHorizontal: 15 }}>
-                    <Ionicons
-                      name="repeat-outline"
-                      color={theme.color}
-                      size={30}
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={{ paddingHorizontal: 15 }}
+                    onPress={() => playVoiceText(item.text, "en")}
+                  >
                     <Ionicons
                       name="volume-medium-sharp"
                       color={theme.color}

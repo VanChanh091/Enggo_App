@@ -23,11 +23,10 @@ const SignIn = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(true);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setPasswordVisible] = useState(false); //password co the nhin thay duoc mac dinh la false
   const [loading, setLoading] = useState(false);
-
 
   const dispatch = useDispatch();
 
@@ -35,12 +34,11 @@ const SignIn = ({ navigation }) => {
     setPasswordVisible(!isPasswordVisible);
   };
 
-
   const handleLogin = async () => {
     // Validate email and password
     const emailValidate = Validate.email(email);
     const passwordValidate = Validate.Password(password);
-  
+
     if (!emailValidate) {
       Alert.alert("Lỗi", "Email không hợp lệ");
       return;
@@ -49,11 +47,11 @@ const SignIn = ({ navigation }) => {
       Alert.alert("Lỗi", "Mật khẩu không hợp lệ");
       return;
     }
-  
+
     const data = { email, password };
     try {
       setLoading(true);
-  
+
       const res = await fetch(`${appInfo.Host_URL}/auth/login`, {
         method: "POST",
         headers: {
@@ -61,10 +59,10 @@ const SignIn = ({ navigation }) => {
         },
         body: JSON.stringify(data),
       });
-  
+
       const resData = await res.json();
       console.log("res data:", resData);
-  
+
       if (res.status === 400) {
         setLoading(false);
         Alert.alert("Lỗi đăng nhập", "Email không tồn tại");
@@ -75,9 +73,9 @@ const SignIn = ({ navigation }) => {
         Alert.alert("Lỗi đăng nhập", "Mật khẩu không chính xác");
         return;
       }
-  
+
       dispatch(addAuth(resData.data));
-      await AsyncStorage.setItem('auth', JSON.stringify(resData.data));
+      await AsyncStorage.setItem("auth", JSON.stringify(resData.data));
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -85,7 +83,6 @@ const SignIn = ({ navigation }) => {
       Alert.alert("Lỗi", "Đăng nhập thất bại");
     }
   };
-  
 
   return (
     <View style={styles.container}>
@@ -288,80 +285,21 @@ const SignIn = ({ navigation }) => {
           >
             <Text style={{ color: "white", fontSize: 18 }}>Đăng nhập</Text>
           </TouchableOpacity>
-          <Text
-            style={{
-              color: "gray",
-              fontWeight: "bold",
-              fontSize: 18,
-              marginTop: 35,
-            }}
-          >
-            Hoặc
-          </Text>
-          <TouchableOpacity
-            style={{
-              width: "100%",
-              height: 50,
-              borderRadius: 10,
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 12,
-              flexDirection: "row",
-              borderWidth: 1,
-              borderColor: "gray",
-            }}
-          >
-            <View
-              style={{
-                flex: 3,
-                alignItems: "center",
-              }}
-            >
-              <Image
-                source={require("../../img/imgAuth/google.png")}
-                style={{ width: 32, height: 32, resizeMode: "contain" }}
-              />
-            </View>
-            <View style={{ flex: 7 }}>
-              <Text style={{ fontSize: 18 }}>Đăng nhập với Google</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              width: "100%",
-              height: 50,
-              borderRadius: 10,
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 12,
-              flexDirection: "row",
-              borderWidth: 1,
-              borderColor: "gray",
-            }}
-          >
-            <View
-              style={{
-                flex: 3,
-                alignItems: "center",
-              }}
-            >
-              <Image
-                source={require("../../img/imgAuth/fb.png")}
-                style={{ width: 32, height: 32, resizeMode: "contain" }}
-              />
-            </View>
-            <View style={{ flex: 7 }}>
-              <Text style={{ fontSize: 18 }}>Đăng nhập với Facebook</Text>
-            </View>
-          </TouchableOpacity>
-          <Text style={{ fontSize: 16, marginTop: 8 }}>
-            Bạn chưa có tài khoản?
+
+          <View style={{ flexDirection: "row", marginVertical: 12 }}>
+            <Text style={{ fontSize: 16 }}>Bạn chưa có tài khoản?</Text>
             <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-              <Text style={{ color: "#5669fe", fontSize: 16, marginLeft: 5 }}>
+              <Text
+                style={{
+                  color: "#5669fe",
+                  fontSize: 16,
+                  marginLeft: 5,
+                }}
+              >
                 Đăng ký
               </Text>
             </TouchableOpacity>
-          </Text>
+          </View>
         </View>
       </View>
       <LoadingModal visible={loading} />

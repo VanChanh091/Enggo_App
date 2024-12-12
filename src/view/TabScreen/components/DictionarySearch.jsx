@@ -15,7 +15,6 @@ import { useTranslate } from "../../../components/translate/TranslateLanguage";
 import ActionSheet from "react-native-actions-sheet";
 import { playVoiceText } from "../../../components/translate/PLayTranslateVoice";
 import { favoriteContext } from "../../../context/favoriteContext";
-import themeContext from "../../../context/themeContext";
 import { theme } from "../../../context/theme";
 import { SegmentedButtons } from "react-native-paper";
 import { debounce } from "lodash";
@@ -450,7 +449,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.backgroundColor,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    height: 550,
+    height: 700,
   },
   headerContainer: {
     flexDirection: "row",

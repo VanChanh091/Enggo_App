@@ -23,12 +23,8 @@ import { BoTuVung_S1, BoTuVung_S2 } from "../view/boTuVung";
 import { MauCauGiaoTiep_S1, MauCauGiaoTiep_S2 } from "../view/MauCauGiaoTiep";
 import {
   ListVideoOfTopic,
-  TopTabVideo,
-  VideoSettingChannel,
-  VideoSettingTopic,
-  WatchVideoChooseWord,
+  TopicScreen,
   WatchVideoWithCaptions,
-  WatchVideoWriteWord,
 } from "../view/video";
 import DanhNgon from "../view/danhNgon/DanhNgon";
 import {
@@ -363,8 +359,8 @@ const VideoNavigation = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="TopTabVideo"
-        component={TopTabVideo}
+        name="TopicScreen"
+        component={TopicScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -372,32 +368,10 @@ const VideoNavigation = () => {
         component={ListVideoOfTopic}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name="VideoSettingTopic"
-        component={VideoSettingTopic}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="VideoSettingChannel"
-        component={VideoSettingChannel}
-        options={{ headerShown: false }}
-      />
 
       <Stack.Screen
         name="WatchVideoWithCaptions"
         component={WatchVideoWithCaptions}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="WatchVideoChooseWord"
-        component={WatchVideoChooseWord}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="WatchVideoWriteWord"
-        component={WatchVideoWriteWord}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
@@ -602,15 +576,15 @@ const NavigationStack = () => {
 
   return (
     <>
-      {/* {isShowSplash ? (
+      {isShowSplash ? (
         <SplashScreen />
       ) : auth.accesstoken ? (
         <MainNavigator />
       ) : (
         <AuthenNavigation />
-      )} */}
+      )}
 
-      <MainNavigator />
+      {/* <MainNavigator /> */}
     </>
   );
 };

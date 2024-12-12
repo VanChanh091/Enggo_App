@@ -120,7 +120,7 @@ const SignUp = ({ navigation }) => {
           style={{ marginLeft: 15 }}
           onPress={() => navigation.goBack()}
         >
-          {/* <Ionicons name="arrow-back-outline" size={30} color="black" /> */}
+          <Ionicons name="arrow-back-outline" size={30} color="black" />
         </TouchableOpacity>
       </View>
 
@@ -351,80 +351,21 @@ const SignUp = ({ navigation }) => {
           >
             <Text style={{ color: "white", fontSize: 20 }}>Đăng ký</Text>
           </TouchableOpacity>
-          <Text
-            style={{
-              color: "gray",
-              fontWeight: "bold",
-              fontSize: 18,
-              marginTop: 30,
-            }}
-          >
-            Hoặc
-          </Text>
-          <TouchableOpacity
-            style={{
-              width: "100%",
-              height: 50,
-              borderRadius: 10,
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 25,
-              flexDirection: "row",
-              borderWidth: 1,
-              borderColor: "gray",
-            }}
-          >
-            <View
-              style={{
-                flex: 3,
-                alignItems: "center",
-              }}
-            >
-              <Image
-                source={require("../../img/imgAuth/google.png")}
-                style={{ width: 32, height: 32, resizeMode: "contain" }}
-              />
-            </View>
-            <View style={{ flex: 7 }}>
-              <Text style={{ fontSize: 18 }}>Đăng ký với Google</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              width: "100%",
-              height: 50,
-              borderRadius: 10,
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 15,
-              flexDirection: "row",
-              borderWidth: 1,
-              borderColor: "gray",
-            }}
-          >
-            <View
-              style={{
-                flex: 3,
-                alignItems: "center",
-              }}
-            >
-              <Image
-                source={require("../../img/imgAuth/fb.png")}
-                style={{ width: 32, height: 32, resizeMode: "contain" }}
-              />
-            </View>
-            <View style={{ flex: 7 }}>
-              <Text style={{ fontSize: 18 }}>Đăng ký với Facebook</Text>
-            </View>
-          </TouchableOpacity>
-          <Text style={{ fontSize: 16, marginTop: 8 }}>
-            Ban đã có tài khoản?
+
+          <View style={{ flexDirection: "row", marginVertical: 12 }}>
+            <Text style={{ fontSize: 16 }}>Ban đã có tài khoản?</Text>
             <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Text style={{ color: "#5669fe", fontSize: 16, marginLeft: 5 }}>
+              <Text
+                style={{
+                  color: "#5669fe",
+                  fontSize: 16,
+                  marginLeft: 5,
+                }}
+              >
                 Đăng nhập
               </Text>
             </TouchableOpacity>
-          </Text>
+          </View>
         </View>
       </View>
       <LoadingModal visible={isLoading} />

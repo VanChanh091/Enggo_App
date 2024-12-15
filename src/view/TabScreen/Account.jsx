@@ -320,7 +320,7 @@ const Account = ({navigation}) => {
             </View>
 
             {/* thoi gian */}
-            <View
+            {/* <View
               style={{
                 width: "100%",
                 height: 35,
@@ -384,7 +384,7 @@ const Account = ({navigation}) => {
                   </TouchableOpacity>
                 </View>
               </View>
-            </View>
+            </View> */}
 
             {/* change password */}
             <TouchableOpacity

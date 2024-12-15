@@ -11,11 +11,11 @@ const TopTab = createMaterialTopTabNavigator();
 
 const TopTabNavigator = () => (
   <TopTab.Navigator>
-    <TopTab.Screen
+    {/* <TopTab.Screen
       name="Kênh"
       component={ChannelScreen}
       options={{ headerShown: false }}
-    />
+    /> */}
     <TopTab.Screen
       name="Chủ đề"
       component={TopicScreen}
@@ -31,7 +31,8 @@ const TopTabVideo = () => {
     <PaperProvider>
       <HeaderScreen title="Video" />
       <View style={{ flex: 1 }}>
-        <TopTabNavigator />
+        {/* <TopTabNavigator /> */}
+        <TopicScreen />
       </View>
     </PaperProvider>
   );

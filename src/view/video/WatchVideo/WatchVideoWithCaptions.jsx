@@ -113,7 +113,7 @@ const WatchVideoWithCaptions = ({ navigation, route }) => {
 
       {/* caption */}
       <View style={{ flex: 6, borderBottomWidth: 1 }}>
-        {loading ? (
+        {/* {loading ? (
           <ActivityIndicator size="large" color="#fff" />
         ) : (
           <ScrollView>
@@ -138,7 +138,7 @@ const WatchVideoWithCaptions = ({ navigation, route }) => {
               )}
             </View>
           </ScrollView>
-        )}
+        )} */}
       </View>
 
       {/* bottom bar */}

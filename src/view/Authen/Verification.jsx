@@ -126,15 +126,23 @@ const Verification = ({ navigation, route }) => {
     const api = '/register';
     const data = { fullname: username, email, password };
     // setIsVisable(true);
-    Alert.alert("Thành công!","Bạn đăng ký tài khoản thành công.")
+   
     try {
       const res = await authentication.HandleAuthentication(api, data, 'post');
       console.log(res);
 
       // dispatch action
-      dispatch(addAuth(res.data));
-      await AsyncStorage.setItem('auth', JSON.stringify(res.data));
+      // dispatch(addAuth(res.data));
+      // await AsyncStorage.setItem('auth', JSON.stringify(res.data));
 
+      // thông báo, bấm ok để chuyển về trang đăng nhập
+
+      Alert.alert('Thông báo', 'Đăng ký thành công!', [
+        {
+          text: 'OK',
+          onPress: () => navigation.navigate('SignIn'),
+        },
+      ]);      
     } catch (error) {
       console.log(`Email already exists! ${error}`);
       Alert.alert('Lỗi', 'Email đã tồn tại!');
